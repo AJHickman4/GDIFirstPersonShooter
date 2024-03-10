@@ -817,11 +817,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba86a519ea33c754fab86a742dd0c0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShooting: 0
+  readyToShoot: 0
+  shootingDelay: 2
+  bulletsPerBurst: 3
+  spreadIntensity: 0.1
   bulletPrefab: {fileID: 4614532236543184117, guid: 30d7ec4eada6cb342a1042566d230abb, type: 3}
   bulletSpawn: {fileID: 466671745}
   bulletVelocity: 30
   bulletPrefabLife: 3
   playerCamera: {fileID: 1183358074}
+  mode: 2
 --- !u!4 &1183358072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 907861306115648903, guid: 295279d6361a09e4f9d578374c15892f, type: 3}
