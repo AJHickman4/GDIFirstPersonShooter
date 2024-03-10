@@ -16,10 +16,10 @@ public class playerController : MonoBehaviour
     [Range(5, 25)][SerializeField] int jumpSpeed;
     [Range(-15, -35)][SerializeField] int gravity;
 
-    [Header("----- Gun Stats -----")]
-    [SerializeField] int shootDamage;
-    [SerializeField] int shootDist;
-    [SerializeField] float shootRate;
+    //[Header("----- Gun Stats -----")]
+    //[SerializeField] int shootDamage;
+    //[SerializeField] int shootDist;
+    //[SerializeField] float shootRate;
 
     private float originalHeight; //standard startingg height of our character controller
     private float crouchHeight = 1f; //adjustment to the height when crouching
@@ -37,15 +37,15 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red); //draws the raycast in the Scene. 
+        /*Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);*/ //draws the raycast in the Scene. 
 
         movement();
 
         //getButton is a hold, getButtonDown instant (once)
-        if (Input.GetButton("Shoot") && !isShooting)  //if is shooting is false then 
-        {
-            StartCoroutine(shoot()); //start IEnum true. 
-        }
+        //if (Input.GetButton("Shoot") && !isShooting)  //if is shooting is false then 
+        //{
+        //    StartCoroutine(shoot()); //start IEnum true. 
+        //}
 
         //begin the crouch 
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -101,27 +101,27 @@ public class playerController : MonoBehaviour
         controller.Move(playerVel * Time.deltaTime);
     }
 
-    IEnumerator shoot()
-    {
-        isShooting = true;
+    //IEnumerator shoot()
+    //{
+    //    isShooting = true;
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        {
-            Debug.Log(hit.collider.name);//spits out information debug.log then what you want info in.
-                                         // Instantiate(cube, hit.point, transform.rotation);
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+    //    {
+    //        Debug.Log(hit.collider.name);//spits out information debug.log then what you want info in.
+    //                                     // Instantiate(cube, hit.point, transform.rotation);
 
-            IDamage dmg = hit.collider.GetComponent<IDamage>(); //look at the thing we hit, if it has IDamage on it, save it
+    //        IDamage dmg = hit.collider.GetComponent<IDamage>(); //look at the thing we hit, if it has IDamage on it, save it
 
-            if (dmg != null)
-            {
-                dmg.takeDamage(shootDamage);
-            }
-        }
+    //        if (dmg != null)
+    //        {
+    //            dmg.takeDamage(shootDamage);
+    //        }
+    //    }
 
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
-    }
+    //    yield return new WaitForSeconds(shootRate);
+    //    isShooting = false;
+    //}
 
     void Crouch()
     {
