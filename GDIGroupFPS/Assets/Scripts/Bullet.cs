@@ -13,15 +13,5 @@ public class Bullet : MonoBehaviour
             
             Destroy(gameObject);
         }
-    
-        if (collision.gameObject.tag == "Wall")
-        {
-            print("Hit" + collision.gameObject.name + "!");
-            
-            Destroy(gameObject);
-        }
-    
-    
-    
     }
 }

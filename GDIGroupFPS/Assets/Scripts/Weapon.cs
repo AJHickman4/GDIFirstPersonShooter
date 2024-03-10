@@ -4,94 +4,32 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    // Shooting parameters
-    public bool isShooting;
-    public bool readyToShoot;
-    private bool allowReset = true;
-    public float shootingDelay = 2f;
-
-    // Time tracking for auto firing delay
-    private float timeSinceLastShot = 0f;
-
-    // Burst fire parameters
-    public int bulletsPerBurst = 3;
-    private int currentBurst;
-
-    // Spread parameters
-    public float spreadIntensity = 0.1f;
-
-    // Bullet parameters
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public float bulletVelocity = 30;
     public float bulletPrefabLife = 3f;
     public Camera playerCamera;
 
-    public enum ShootingMode
-    {
-        Single,
-        Burst,
-        Auto
-    }
-
-    public ShootingMode mode;
-
-    void Awake()
-    {
-        readyToShoot = true;
-        currentBurst = bulletsPerBurst;
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        timeSinceLastShot += Time.deltaTime; // Increment the time since the last shot
-
-        switch (mode)
+        if (Input.GetButtonDown("Shoot"))
         {
-            case ShootingMode.Single:
-                if (Input.GetButtonDown("Shoot") && readyToShoot)
-                {
-                    FireWeapon();
-                }
-                break;
-            case ShootingMode.Burst:
-                if (Input.GetButtonDown("Shoot") && readyToShoot)
-                {
-                    StartCoroutine(FireBurst());
-                }
-                break;
-            case ShootingMode.Auto:
-                if (Input.GetButton("Shoot") && readyToShoot && timeSinceLastShot >= shootingDelay)
-                {
-                    FireWeapon();
-                }
-                break;
+            FireWeapon();
         }
     }
 
     private void FireWeapon()
     {
-        if (!readyToShoot) return;
+        // Align bullet spawn with the camera's forward direction
+        bulletSpawn.forward = playerCamera.transform.forward;
 
-        readyToShoot = false;
-        ShootBullet();
+        //Debug.Log($"Applying force: {bulletSpawn.forward.normalized}");
+        //Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward.normalized * 10, Color.red, 2.0f);
 
-        if (mode == ShootingMode.Auto)
-        {
-            timeSinceLastShot = 0f; // Reset the timer for auto mode
-        }
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+        bullet.GetComponent<Rigidbody>().AddForce(bulletSpawn.forward.normalized * bulletVelocity, ForceMode.Impulse);
 
-        if (mode != ShootingMode.Burst)
-        {
-            StartCoroutine(ResetShot());
-        }
-    }
-
-    void ShootBullet()
-    {
-        Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLife));
     }
 
@@ -100,44 +38,4 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Destroy(bullet);
     }
-
-    IEnumerator FireBurst()
-    {
-        allowReset = false;
-        for (int i = 0; i < bulletsPerBurst; i++)
-        {
-            if (readyToShoot)
-            {
-                ShootBullet();
-                yield return new WaitForSeconds(shootingDelay / bulletsPerBurst);
-            }
-        }
-        StartCoroutine(ResetShot());
-    }
-
-    IEnumerator ResetShot()
-    {
-        yield return new WaitForSeconds(shootingDelay);
-        readyToShoot = true;
-        allowReset = true;
-        currentBurst = bulletsPerBurst; // Reset burst count after a delay
-    }
-
-    public Vector3 CalculateDirectionAndSpread()
-    {
-        Vector3 spread = new Vector3(Random.Range(-spreadIntensity, spreadIntensity), Random.Range(-spreadIntensity, spreadIntensity), 0);
-        Vector3 shootingDirection = playerCamera.transform.forward + spread; // Add spread to the forward direction
-        return shootingDirection;
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
