@@ -9,6 +9,9 @@ public class playerController : MonoBehaviour
 
     [Header("----- Player Stats -----")]
     [Range(1, 5)][SerializeField] float speed;
+    [Range(1, 10)][SerializeField] float sprintSpeed; //NEW 
+    [Range(0.5f, 2f)][SerializeField] float crouchSpeed; //NEW 
+
     [Range(1, 3)][SerializeField] int jump;
     [Range(5, 25)][SerializeField] int jumpSpeed;
     [Range(-15, -35)][SerializeField] int gravity;
@@ -18,6 +21,8 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
 
+    private float originalHeight; //standard startingg height of our character controller
+    private float crouchHeight = 1f; //adjustment to the height when crouching
     int jumpCount;
     Vector3 moveDir;
     Vector3 playerVel;
@@ -26,7 +31,7 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        originalHeight = controller.height; //stores original height at the start of play. 
     }
 
     // Update is called once per frame
@@ -41,6 +46,18 @@ public class playerController : MonoBehaviour
         {
             StartCoroutine(shoot()); //start IEnum true. 
         }
+
+        //begin the crouch 
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+           Crouch();
+        }
+
+        //end crouch
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            StandUp();
+        }
     }
 
     void movement()
@@ -51,6 +68,20 @@ public class playerController : MonoBehaviour
             playerVel = Vector3.zero;//resets vector to 0, stops gravity build up. 
         }
 
+
+
+        float currentSpeed = speed;
+        //run speed setter
+        if (controller.height < originalHeight) // when crouching, you are slower
+        {
+            currentSpeed = crouchSpeed;
+        }
+        else if (Input.GetKey(KeyCode.LeftShift)) // can only sprint when not crouching^^^
+        {
+            currentSpeed = sprintSpeed;
+        }
+
+
         //1st person camera controls //depends on camera angle. 
         moveDir = Input.GetAxis("Horizontal") * transform.right
                 + Input.GetAxis("Vertical") * transform.forward;
@@ -58,7 +89,7 @@ public class playerController : MonoBehaviour
         //topdown camera controls //depends on camera positon/angle.
         //moveDir = new Vector3(Input.GetAxis("Horizantal"), 0, Input.GetAxis("Vertical"));
 
-        controller.Move(moveDir * speed * Time.deltaTime);
+        controller.Move(moveDir * currentSpeed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && jumpCount < jump) //if jump is less than jump count limit
         {
@@ -91,4 +122,20 @@ public class playerController : MonoBehaviour
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
+
+    void Crouch()
+    {
+        controller.height = crouchHeight;
+    }
+
+    void StandUp()
+    {
+        controller.height = originalHeight;
+    }
+
+
+
+
+
+
 }
