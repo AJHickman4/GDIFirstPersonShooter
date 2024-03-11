@@ -9,6 +9,7 @@ TagManager:
   - Destroyable
   - DestroySupporter
   - Breaker
+  - Gun
   layers:
   - Default
   - TransparentFX

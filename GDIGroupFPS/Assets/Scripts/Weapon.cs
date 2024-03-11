@@ -27,6 +27,9 @@ public class Weapon : MonoBehaviour
     public float bulletPrefabLife = 3f;
     public Camera playerCamera;
 
+    
+    
+    
     public enum ShootingMode
     {
         Single,
