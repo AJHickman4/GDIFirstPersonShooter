@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
-    [SerializeField] int HP = 100;
+    [Header("----- Stats -----")]
+    [Range (5, 50)] [SerializeField] int HP;
     [SerializeField] Renderer model;
+    [SerializeField] NavMeshAgent agent;
+
+    [Header("----- Gun Stats -----")]
+    [SerializeField] GameObject bullet;
+    [SerializeField] float shootRate;
 
 
-    // Start is called before the first frame update
+
     void Start()
     {
 
     }
 
-    // Update is called once per frame
+
+
     void Update()
     {
 
