@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62414509cd0b763478bf5964746a3d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBounces: 2
+  maxBounces: 4
 --- !u!33 &7687718007179895308
 MeshFilter:
   m_ObjectHideFlags: 0

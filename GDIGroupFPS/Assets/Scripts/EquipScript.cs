@@ -6,18 +6,19 @@ public class EquipScript : MonoBehaviour
 {
     public Transform PlayerTransform;
     public GameObject Gun;
-    private bool isEquipped = false; 
-
-  
-
+    public bool isEquipped = false;
+    public Camera playerCamera;
+    public float equipRange = 5f;
+    
+    
     void Start()
     {
-        Gun.GetComponent<Rigidbody>().isKinematic = true; 
+        Gun.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     void Update()
     {
-        
+
         if (Input.GetKeyDown("f"))
         {
             if (isEquipped)
@@ -26,34 +27,51 @@ public class EquipScript : MonoBehaviour
             }
             else
             {
+                TryEquipObjectWithRaycast();
+            }
+        }
+    }
+
+    void TryEquipObjectWithRaycast()
+    {
+        float sphereRadius = 0.5f;
+        RaycastHit hit;
+        if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, equipRange))
+        {
+            if (hit.collider.gameObject.CompareTag("Gun"))
+            {
+                Gun = hit.collider.gameObject;
                 EquipObject();
             }
         }
     }
 
+
     void EquipObject()
     {
-        if (!isEquipped) 
+        if (!isEquipped && Gun != null)
         {
             Gun.GetComponent<Rigidbody>().isKinematic = true;
-            Gun.transform.position = PlayerTransform.position; 
+            Gun.transform.position = PlayerTransform.position;
             Gun.transform.rotation = PlayerTransform.rotation;
             Gun.transform.SetParent(PlayerTransform);
             isEquipped = true;
+            Gun.GetComponent<Weapon>().SetEquipped(true);
         }
     }
 
     void UnequipObject()
     {
-        if (isEquipped) 
+        if (isEquipped)
         {
-            PlayerTransform.DetachChildren();
+            Gun.transform.SetParent(null);
             Gun.GetComponent<Rigidbody>().isKinematic = false;
 
-            
-            Gun.transform.eulerAngles = new Vector3(Gun.transform.eulerAngles.x, Gun.transform.eulerAngles.y, Gun.transform.eulerAngles.z - 45);
+
+            Gun.GetComponent<Rigidbody>().AddForce(PlayerTransform.forward * -0.5f + Vector3.down * 0.5f, ForceMode.VelocityChange);
 
             isEquipped = false;
+            Gun.GetComponent<Weapon>().SetEquipped(false);
         }
     }
 }

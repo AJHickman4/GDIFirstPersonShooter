@@ -26,15 +26,23 @@ public class Weapon : MonoBehaviour
     public float bulletVelocity = 30;
     public float bulletPrefabLife = 3f;
     public Camera playerCamera;
+    
+    //Shotgun parameters
+    public float pellets = 5;
+    
+    
+    
+    
+    public int bulletDamage = 10;
 
-    
-    
-    
+    public bool isEquipped = false;
+   
     public enum ShootingMode
     {
         Single,
         Burst,
-        Auto
+        Auto,
+        shotgun
     }
 
     public ShootingMode mode;
@@ -48,27 +56,36 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         timeSinceLastShot += Time.deltaTime; // Increment the time since the last shot
-
-        switch (mode)
+        if (isEquipped)
         {
-            case ShootingMode.Single:
-                if (Input.GetButtonDown("Shoot") && readyToShoot)
-                {
-                    FireWeapon();
-                }
-                break;
-            case ShootingMode.Burst:
-                if (Input.GetButtonDown("Shoot") && readyToShoot)
-                {
-                    StartCoroutine(FireBurst());
-                }
-                break;
-            case ShootingMode.Auto:
-                if (Input.GetButton("Shoot") && readyToShoot && timeSinceLastShot >= shootingDelay)
-                {
-                    FireWeapon();
-                }
-                break;
+            switch (mode)
+            {
+                case ShootingMode.Single:
+                    if (Input.GetButtonDown("Shoot") && readyToShoot)
+                    {
+                        FireWeapon();
+                    }
+                    break;
+                case ShootingMode.Burst:
+                    if (Input.GetButtonDown("Shoot") && readyToShoot)
+                    {
+                        StartCoroutine(FireBurst());
+                    }
+                    break;
+                case ShootingMode.Auto:
+                    if (Input.GetButton("Shoot") && readyToShoot && timeSinceLastShot >= shootingDelay)
+                    {
+                        FireWeapon();
+                    }
+                    break;
+                    case ShootingMode.shotgun:
+                    if (Input.GetButtonDown("Shoot") && readyToShoot)
+                    {
+                        StartCoroutine(FireShotgun());
+                    }
+                    break;
+            
+            }
         }
     }
 
@@ -93,8 +110,9 @@ public class Weapon : MonoBehaviour
     void ShootBullet()
     {
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));      
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
+        bullet.GetComponent<Bullet>().SetDamage(bulletDamage);
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLife));
     }
 
@@ -131,5 +149,27 @@ public class Weapon : MonoBehaviour
         Vector3 spread = new Vector3(Random.Range(-spreadIntensity, spreadIntensity), Random.Range(-spreadIntensity, spreadIntensity), 0);
         Vector3 shootingDirection = playerCamera.transform.forward + spread; // Add spread to the forward direction
         return shootingDirection;
+    }
+
+    public void SetEquipped(bool equipped)
+    {
+        isEquipped = equipped;
+    }
+
+    IEnumerator FireShotgun()
+    {
+        
+        allowReset = false;
+        int pellets = 5;
+        for (int i = 0; i < pellets; i++)
+        {
+            if (readyToShoot)
+            {
+                ShootBullet();
+                yield return new WaitForSeconds(shootingDelay / pellets);
+            }
+        }
+        
+        StartCoroutine(ResetShot());
     }
 }

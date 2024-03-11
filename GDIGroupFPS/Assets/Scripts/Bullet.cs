@@ -7,39 +7,45 @@ public class Bullet : MonoBehaviour
     
     public int maxBounces = 2; // Set the maximum number of bounces
     private int bounceCount = 0; // Counter for the number of bounces
+    private int damage;
+
+    public void SetDamage(int dmg)
+    {
+        damage = dmg;
+    }
+
 
 
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        
         if (collision.gameObject.tag == "Wall")
         {
-            print("Hit" + collision.gameObject.name + "!");
-            
-            Destroy(gameObject);
-        }   
-        
-        
-        
-        
-        if (collision.gameObject.tag == "Target")
+            print("Hit " + collision.gameObject.name + "!");
+            bounceCount++;
+            if (bounceCount >= maxBounces)
+            {
+                Destroy(gameObject);
+            }
+        }
+        else if (collision.gameObject.tag == "Enemy")
         {
-            print("Hit" + collision.gameObject.name + "!");
-            
+            IDamage damageable = collision.gameObject.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                damageable.takeDamage(damage);
+            }
             Destroy(gameObject);
         }
-
-        bounceCount++;
-
-        
-        if (bounceCount >= maxBounces)
+        else
         {
-            
-            Destroy(gameObject);
+            bounceCount++;
+            if (bounceCount >= maxBounces)
+            {
+                Destroy(gameObject);
+            }
         }
-        
     }
 
 

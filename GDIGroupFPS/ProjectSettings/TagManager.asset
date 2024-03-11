@@ -10,6 +10,8 @@ TagManager:
   - DestroySupporter
   - Breaker
   - Gun
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
