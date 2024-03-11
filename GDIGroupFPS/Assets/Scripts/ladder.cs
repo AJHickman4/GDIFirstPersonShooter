@@ -6,7 +6,7 @@ public class ladder : MonoBehaviour
 {
     public Transform player;
     bool inside = false;
-    public float speed = 3f;
+    public float speed = 100f;
     public playerController input;
     // Start is called before the first frame update
     void Start()
