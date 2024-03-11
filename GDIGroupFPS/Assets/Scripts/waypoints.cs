@@ -29,4 +29,5 @@ public class waypoints : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, waypointArray[currWaypoint].transform.position, speed * Time.deltaTime);
     }
+
 }
