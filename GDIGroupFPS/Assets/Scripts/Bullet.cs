@@ -5,7 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     
-   private void OnCollisionEnter(Collision collision)
+    public int maxBounces = 2; // Set the maximum number of bounces
+    private int bounceCount = 0; // Counter for the number of bounces
+
+
+
+
+    private void OnCollisionEnter(Collision collision)
     {
         
         if (collision.gameObject.tag == "Wall")
@@ -24,5 +30,20 @@ public class Bullet : MonoBehaviour
             
             Destroy(gameObject);
         }
+
+        bounceCount++;
+
+        
+        if (bounceCount >= maxBounces)
+        {
+            
+            Destroy(gameObject);
+        }
+        
     }
+
+
+
+
 }
+
