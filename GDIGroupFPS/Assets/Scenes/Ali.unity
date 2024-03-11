@@ -821,16 +821,43 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player outdated 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8010088855544262757, guid: d39eccd9687168a468a04f58c6f5d37c, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8010088855544262757, guid: d39eccd9687168a468a04f58c6f5d37c, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1576788902}
   m_SourcePrefab: {fileID: 100100000, guid: d39eccd9687168a468a04f58c6f5d37c, type: 3}
 --- !u!1 &1576788894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8010088855544262757, guid: d39eccd9687168a468a04f58c6f5d37c, type: 3}
   m_PrefabInstance: {fileID: 1576788893}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1576788901 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 738371790440389542, guid: d39eccd9687168a468a04f58c6f5d37c, type: 3}
+  m_PrefabInstance: {fileID: 1576788893}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1576788902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576788894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95a67d7a02692741b27c08e812d970d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1576788901}
+  speed: 100
+  input: {fileID: 0}
 --- !u!1 &1853771175
 GameObject:
   m_ObjectHideFlags: 0
