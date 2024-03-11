@@ -14,7 +14,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
 
-
+    private Animator animator;
 
     void Start()
     {

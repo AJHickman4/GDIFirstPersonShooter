@@ -1482,6 +1482,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy test
       objectReference: {fileID: 0}
+    - target: {fileID: 2296946308500972019, guid: 5c39053b2b67dd24ca7588bdb4ce0f65, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5006380638574250511, guid: 5c39053b2b67dd24ca7588bdb4ce0f65, type: 3}
       propertyPath: agent
       value: 
