@@ -19,8 +19,9 @@ public class cameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;  //cannot leave screen space while hidden.
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked; //cannot leave screen space while hidden.
+       
         transform.forward = transform.parent.forward;//get camera to face forward right out of the gate at start. 
 
 

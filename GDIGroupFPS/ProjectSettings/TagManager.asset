@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Target
+  - Destroyable
+  - DestroySupporter
+  - Breaker
   layers:
   - Default
   - TransparentFX
