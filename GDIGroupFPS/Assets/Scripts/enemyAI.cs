@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Stats -----")]
-    [Range (5, 50)] [SerializeField] int HP;
+    [Range(5, 50)][SerializeField] int HP;
     [SerializeField] Renderer model;
 
     [Header("----- Gun Stats -----")]
@@ -21,7 +21,7 @@ public class enemyAI : MonoBehaviour, IDamage
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
 
-    
+
 
     //Patroling
     public Vector3 walkPoint;
@@ -66,7 +66,7 @@ public class enemyAI : MonoBehaviour, IDamage
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
         //Walkpoint reached
-        if(distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 1f)
         {
             walkPointSet = false;
         }
@@ -107,7 +107,7 @@ public class enemyAI : MonoBehaviour, IDamage
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
 
-            
+
         }
     }
     private void ResetAttack()
@@ -140,5 +140,4 @@ public class enemyAI : MonoBehaviour, IDamage
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
-   
 }
