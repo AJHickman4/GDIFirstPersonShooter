@@ -61,4 +61,10 @@ public class gameManager : MonoBehaviour
         menuActive = menuWin;
         menuActive.SetActive(true);
     }
+    public void youHaveLost()
+    {
+        statePaused(); // on trigger enter in player script, if player touches tagged win collider then gameManager.instance.youHaveWon
+        menuActive = menuLose;
+        menuActive.SetActive(true);
+    }
 }
