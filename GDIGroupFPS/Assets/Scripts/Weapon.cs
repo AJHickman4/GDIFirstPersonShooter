@@ -95,6 +95,7 @@ public class Weapon : MonoBehaviour
 
         readyToShoot = false;
         ShootBullet();
+        allowReset = false;
 
         if (mode == ShootingMode.Auto)
         {
@@ -138,6 +139,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator ResetShot()
     {
+        
         yield return new WaitForSeconds(shootingDelay);
         readyToShoot = true;
         allowReset = true;
