@@ -118,13 +118,14 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         if (!isAlive) return;
-
+        StartCoroutine(damageIndictator());
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         if (currentHealth <= 0)
         {
             Die();
+            gameManager.instance.youHaveLost();
         }
 
     }
@@ -132,5 +133,11 @@ public class playerController : MonoBehaviour, IDamage
     {
         isAlive = false;
        
+    }
+    IEnumerator damageIndictator()
+    {
+        gameManager.instance.damageIndicator.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.damageIndicator.SetActive(false);
     }
 }
