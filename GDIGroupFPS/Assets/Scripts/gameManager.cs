@@ -55,15 +55,10 @@ public class gameManager : MonoBehaviour
         menuActive.SetActive(isPaused);
         menuActive = null;
     }
-    public void updateGameGoal(int amount)
+    public void youHaveWon()
     {
-        enemyCount += amount;
-
-        if (enemyCount <= 0)
-        {
-            statePaused();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-        }
+        statePaused(); // on trigger enter in player script, if player touches tagged win collider then gameManager.instance.youHaveWon
+        menuActive = menuWin;
+        menuActive.SetActive(true);
     }
 }
