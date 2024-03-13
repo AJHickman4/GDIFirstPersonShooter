@@ -395,6 +395,8 @@ MonoBehaviour:
   menuPause: {fileID: 7269508900567055223}
   menuWin: {fileID: 4337786251202590229}
   menuLose: {fileID: 9046988526147534315}
+  damageIndicator: {fileID: 7724179362141798510}
+  healthBar: {fileID: 8486115078898510546}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0
