@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxBounces: 4
+  damage: 5
+  source: 0
 --- !u!33 &7687718007179895308
 MeshFilter:
   m_ObjectHideFlags: 0
