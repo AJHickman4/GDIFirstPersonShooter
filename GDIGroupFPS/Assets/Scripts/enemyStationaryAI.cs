@@ -15,6 +15,7 @@ public class enemyStationaryAI : MonoBehaviour, IDamage
 
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
+    public Transform target;
 
     bool isShooting;
     bool playerInRange;
@@ -28,7 +29,7 @@ public class enemyStationaryAI : MonoBehaviour, IDamage
     {
         if (playerInRange)
         {
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            transform.LookAt(target);
 
             if (!isShooting)
             {
