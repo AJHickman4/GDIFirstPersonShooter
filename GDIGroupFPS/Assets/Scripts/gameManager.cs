@@ -13,6 +13,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuKey;
     [SerializeField] TMP_Text enemyCountText;
     public GameObject damageIndicator;
     public Image healthBar;
@@ -75,12 +76,14 @@ public class gameManager : MonoBehaviour
 
     public void updateGameGoal(int amount)
     {
-        enemyCount += amount;
-        enemyCountText.text = enemyCount.ToString("F0");
-
         if (enemyCount <= 0)
         {
             youHaveWon();
         }
+    }
+
+    public void updateKeyUI()
+    {
+            menuKey.SetActive(true);
     }
 }

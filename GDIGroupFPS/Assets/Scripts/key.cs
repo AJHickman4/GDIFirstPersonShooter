@@ -21,7 +21,10 @@ public class key : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            gameManager.instance.playerScript.hasKey = true;
+            gameManager.instance.updateKeyUI();
             gameObject.SetActive(false);
+           
         }
     }
 }
