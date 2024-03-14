@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class gameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] TMP_Text enemyCountText;
     public GameObject damageIndicator;
     public Image healthBar;
 
@@ -69,5 +71,16 @@ public class gameManager : MonoBehaviour
         statePaused(); // on trigger enter in player script, if player touches tagged win collider then gameManager.instance.youHaveWon
         menuActive = menuLose;
         menuActive.SetActive(true);
+    }
+
+    public void updateGameGoal(int amount)
+    {
+        enemyCount += amount;
+        enemyCountText.text = enemyCount.ToString("F0");
+
+        if (enemyCount <= 0)
+        {
+            youHaveWon();
+        }
     }
 }

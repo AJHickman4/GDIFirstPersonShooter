@@ -29,12 +29,14 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
     bool isShooting;
+    public bool hasKey;
 
     // Start is called before the first frame update
     void Start()
     {
         originalHeight = controller.height; //stores original height at the start of play. 
         currentHealth = maxHealth;
+        updatePlayerUI();
     }
 
     // Update is called once per frame
@@ -121,6 +123,8 @@ public class playerController : MonoBehaviour, IDamage
         StartCoroutine(damageIndictator());
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        updatePlayerUI();
+
 
         if (currentHealth <= 0)
         {
@@ -139,5 +143,10 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.damageIndicator.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gameManager.instance.damageIndicator.SetActive(false);
+    }
+
+    void updatePlayerUI()
+    {
+        gameManager.instance.healthBar.fillAmount = (float)maxHealth / currentHealth;
     }
 }
