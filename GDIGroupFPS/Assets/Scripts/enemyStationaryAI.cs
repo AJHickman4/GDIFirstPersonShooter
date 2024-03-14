@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,7 @@ public class enemyStationaryAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     public Transform target;
+    // public Transform target;
     /// public Transform lookAtTarget;
 
     bool isShooting;
@@ -23,7 +25,7 @@ public class enemyStationaryAI : MonoBehaviour, IDamage
 
     void Start()
     {
-        ///lookAtTarget.position = new Vector3;
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     void Update()

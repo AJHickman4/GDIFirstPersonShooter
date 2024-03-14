@@ -875,7 +875,6 @@ GameObject:
   - component: {fileID: 4730869180682332652}
   - component: {fileID: 980551692196214766}
   - component: {fileID: 6628572419595820900}
-  - component: {fileID: 2651415515721717549}
   - component: {fileID: 3322364708179057985}
   - component: {fileID: 918394463103930464}
   m_Layer: 0
@@ -965,28 +964,6 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2651415515721717549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6806196438564871119}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 098a195d513f6ab4eb194c3a43514e1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 7
-  angle: 100
-  playerRef: {fileID: 0}
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 64
-  obstructMask:
-    serializedVersion: 2
-    m_Bits: 128
-  canSeePlayer: 0
 --- !u!195 &3322364708179057985
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1028,7 +1005,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 20
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7747890707727425350
 GameObject:
