@@ -18,6 +18,9 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       
+       if (gameManager.instance.playerScript.hasKey)
+        {
+           gameObject.SetActive(false);
+        }
     }
 }

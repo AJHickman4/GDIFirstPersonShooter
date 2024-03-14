@@ -5062,7 +5062,7 @@ Transform:
   m_GameObject: {fileID: 2794345743085354363}
   serializedVersion: 2
   m_LocalRotation: {x: 0.48005936, y: -0.5191753, z: 0.48005936, w: 0.5191753}
-  m_LocalPosition: {x: 0.036998928, y: 0.11750001, z: 0.379}
+  m_LocalPosition: {x: -0.185, y: 0.201, z: 0.379}
   m_LocalScale: {x: 0.045, y: 0.13122492, z: 0.045000028}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5129,6 +5129,7 @@ MonoBehaviour:
   bulletVelocity: 8
   bulletPrefabLife: 3
   playerCamera: {fileID: 8891784069570316253}
+  pellets: 5
   bulletDamage: 1
   isEquipped: 1
   mode: 2
@@ -10280,6 +10281,8 @@ MonoBehaviour:
   jump: 2
   jumpSpeed: 12
   gravity: -24
+  maxHealth: 0
+  hasKey: 0
 --- !u!114 &4014078122804588762
 MonoBehaviour:
   m_ObjectHideFlags: 0
