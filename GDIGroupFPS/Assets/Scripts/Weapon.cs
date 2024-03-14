@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
     // Shooting parameters
     public bool isShooting;
     public bool readyToShoot;
-    private bool allowReset = true;
+    //private bool allowReset = true;
     public float shootingDelay = 2f;
 
     // Time tracking for auto firing delay
@@ -95,7 +95,7 @@ public class Weapon : MonoBehaviour
 
         readyToShoot = false;
         ShootBullet();
-        allowReset = false;
+        //allowReset = false;
 
         if (mode == ShootingMode.Auto)
         {
@@ -125,7 +125,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator FireBurst()
     {
-        allowReset = false;
+       // allowReset = false;
         for (int i = 0; i < bulletsPerBurst; i++)
         {
             if (readyToShoot)
@@ -142,7 +142,7 @@ public class Weapon : MonoBehaviour
         
         yield return new WaitForSeconds(shootingDelay);
         readyToShoot = true;
-        allowReset = true;
+        //allowReset = true;
         currentBurst = bulletsPerBurst; // Reset burst count after a delay
     }
 
@@ -161,7 +161,7 @@ public class Weapon : MonoBehaviour
     IEnumerator FireShotgun()
     {
         
-        allowReset = false;
+        //allowReset = false;
         int pellets = 5;
         for (int i = 0; i < pellets; i++)
         {

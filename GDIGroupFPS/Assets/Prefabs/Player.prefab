@@ -5353,7 +5353,7 @@ MonoBehaviour:
   jump: 2
   jumpSpeed: 12
   gravity: -24
-  maxHealth: 50
+  maxHealth: 35
   hasKey: 0
 --- !u!114 &4037377866302538984
 MonoBehaviour:

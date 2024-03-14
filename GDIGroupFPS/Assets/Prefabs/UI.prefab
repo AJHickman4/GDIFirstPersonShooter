@@ -2512,7 +2512,6 @@ MonoBehaviour:
   player: {fileID: 0}
   playerScript: {fileID: 0}
   isPaused: 0
-  hasKey: 0
 --- !u!114 &6202357771736308776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,7 +3271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13944925, g: 0.42857128, b: 0.13111272, a: 1}
+  m_Color: {r: 0.9083557, g: 0.023259714, b: 0.31037256, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
