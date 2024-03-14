@@ -1,118 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
-    [Header("----- Stats -----")]
-    [Range(5, 50)][SerializeField] int HP;
     [SerializeField] Renderer model;
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] Transform shootPos;
 
-    [Header("----- Gun Stats -----")]
+    [SerializeField] int HP;
+    [SerializeField] int speed;
+
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
-    [SerializeField] Transform BulletSpawn;
 
-    private Animator animator;
+    bool isShooting;
+    bool playerInRange;
 
-    [Header("----- Pathing -----")]
-    public NavMeshAgent agent;
-    public Transform player;
-    public LayerMask whatIsGround, whatIsPlayer;
-
-
-
-    //Patroling
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
-
-    //Chasing
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
-
-    //States
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
-
-    private void Awake()
+    void Start()
     {
-        player = GameObject.Find("Player").transform;
-        agent = GetComponent<NavMeshAgent>();
+        ///gameManager.instance.updateGameGoal(1);
     }
 
-    private void Update()
+    void Update()
     {
-        //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
-    }
-
-
-    private void Patroling()
-    {
-        if (!walkPointSet) SearchWalkPoint();
-
-        if (walkPointSet)
+        if (playerInRange)
         {
-            agent.SetDestination(walkPoint);
+            agent.SetDestination(gameManager.instance.player.transform.position);
+
+            if (!isShooting)
+            {
+                StartCoroutine(shoot());
+            }
         }
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
-        {
-            walkPointSet = false;
-        }
     }
-    private void SearchWalkPoint()
+
+    IEnumerator shoot()
     {
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        isShooting = true;
+        Instantiate(bullet, shootPos.position, transform.rotation);
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
-        {
-            walkPointSet = true;
-        }
-    }
-    private void ChasePlayer()
-    {
-        agent.SetDestination(player.position);
-    }
-    private void AttackPlayer()
-    {
-        //Stop enemy movement
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(player);
-
-        if (!alreadyAttacked)
-        {
-            ///Add Attack Code Here
-            Rigidbody rb = Instantiate(bullet, BulletSpawn.position, transform.rotation).GetComponent<Rigidbody>();
-
-            rb.AddForce(transform.forward * 15f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 2f, ForceMode.Impulse);
-            ///
-
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-
-
-        }
-    }
-    private void ResetAttack()
-    {
-        alreadyAttacked = false;
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
 
     public void takeDamage(int amount)
@@ -120,10 +53,11 @@ public class enemyAI : MonoBehaviour, IDamage
         HP -= amount;
         StartCoroutine(flashRed());
 
-        if (HP <= 0)
-        {
-            Destroy(gameObject);
-        }
+        ///if (HP <= 0)
+        ///{
+         ///   gameManager.instance.updateGameGoal(-1);
+        ///    Destroy(gameObject);
+        ///}
     }
 
     IEnumerator flashRed()
@@ -133,11 +67,19 @@ public class enemyAI : MonoBehaviour, IDamage
         model.material.color = Color.white;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerEnter(Collider other)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
+        }
     }
 }

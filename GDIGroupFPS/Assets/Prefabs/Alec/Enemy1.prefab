@@ -338,8 +338,6 @@ GameObject:
   - component: {fileID: 4231615779719676469}
   - component: {fileID: 3075378727232899652}
   - component: {fileID: 3765651916456041060}
-  - component: {fileID: 5948156264916237305}
-  - component: {fileID: 1224799491173713508}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -376,26 +374,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f3e620c446f94e9c75872d2d34ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 10
   model: {fileID: 3529893795444118377}
+  agent: {fileID: 3765651916456041060}
+  shootPos: {fileID: 0}
+  HP: 10
+  speed: 0
   bullet: {fileID: 3804443700838176787, guid: 9e5c92442035991438e19573e2fea9a4, type: 3}
   shootRate: 0
-  BulletSpawn: {fileID: 5405311337083828007}
-  agent: {fileID: 3765651916456041060}
-  player: {fileID: 0}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 128
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 8
-  walkPoint: {x: 1, y: 0, z: 1}
-  walkPointRange: 1
-  timeBetweenAttacks: 0.5
-  sightRange: 10
-  attackRange: 10
-  playerInSightRange: 0
-  playerInAttackRange: 0
 --- !u!95 &3529893795439881641
 Animator:
   serializedVersion: 5
@@ -484,48 +469,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5948156264916237305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3529893795449396757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a364bfd77eff73f4fa8ae907cd69a8fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypointArray: []
-  currWaypoint: 0
-  speed: 1
---- !u!54 &1224799491173713508
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3529893795449396757}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &3529893795449396759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,23 +1255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16f3e620c446f94e9c75872d2d34ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
   model: {fileID: 0}
+  agent: {fileID: 0}
+  shootPos: {fileID: 0}
+  HP: 0
+  speed: 0
   bullet: {fileID: 4614532236543184117, guid: 30d7ec4eada6cb342a1042566d230abb, type: 3}
   shootRate: 2
-  BulletSpawn: {fileID: 0}
-  agent: {fileID: 0}
-  player: {fileID: 0}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 0
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 0
-  timeBetweenAttacks: 0
-  sightRange: 0
-  attackRange: 0
-  playerInSightRange: 0
-  playerInAttackRange: 0
