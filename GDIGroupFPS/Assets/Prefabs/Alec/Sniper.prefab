@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 274695976410806093}
   - component: {fileID: 828530374623963267}
   m_Layer: 0
-  m_Name: Enemy2
+  m_Name: Sniper
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -444,12 +444,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ca057d3b1851f42ae7ab08583da6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 6726490516542867472}
   agent: {fileID: 274695976410806093}
   shootPos: {fileID: 6994243171469465648}
   HP: 15
   speed: 0
-  bullet: {fileID: 3804443700838176787, guid: 9e5c92442035991438e19573e2fea9a4, type: 3}
+  bullet: {fileID: 7560485639221787466, guid: 3a07788c563cf254fb846f381e4551fd, type: 3}
   shootRate: 1
   target: {fileID: 0}
 --- !u!95 &1707700044297927145
@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 3570778000442364554}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7901, y: -0.4094, z: 0.1246}
+  m_LocalPosition: {x: -0.638, y: -0.7, z: 0.2494}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

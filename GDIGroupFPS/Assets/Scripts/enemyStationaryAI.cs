@@ -16,20 +16,21 @@ public class enemyStationaryAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     public Transform target;
+    /// public Transform lookAtTarget;
 
     bool isShooting;
     bool playerInRange;
 
     void Start()
     {
-
+        ///lookAtTarget.position = new Vector3;
     }
 
     void Update()
     {
         if (playerInRange)
         {
-            transform.LookAt(target);
+            transform.LookAt(target.position - new Vector3 (0, 1.3f, -0.2f));
 
             if (!isShooting)
             {
