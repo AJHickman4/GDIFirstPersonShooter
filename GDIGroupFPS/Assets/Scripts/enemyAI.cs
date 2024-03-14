@@ -21,7 +21,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
     void Start()
     {
-        ///gameManager.instance.updateGameGoal(1);
+        gameManager.instance.updateGameGoal(1);
     }
 
     void Update()
@@ -53,11 +53,11 @@ public class enemyAI : MonoBehaviour, IDamage
         HP -= amount;
         StartCoroutine(flashRed());
 
-        ///if (HP <= 0)
-        ///{
-         ///   gameManager.instance.updateGameGoal(-1);
-        ///    Destroy(gameObject);
-        ///}
+        if (HP <= 0)
+        {
+            gameManager.instance.updateGameGoal(-1);
+           Destroy(gameObject);
+        }
     }
 
     IEnumerator flashRed()

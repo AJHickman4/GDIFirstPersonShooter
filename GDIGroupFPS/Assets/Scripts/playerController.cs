@@ -17,7 +17,7 @@ public class playerController : MonoBehaviour, IDamage
     [Range(-15, -35)][SerializeField] int gravity;
 
     [Header("----- Health -----")]
-    [SerializeField] int maxHealth = 100;
+    [Range (1, 100)] [SerializeField] int maxHealth;
     private int currentHealth;
     private bool isAlive = true;
 
@@ -147,6 +147,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void updatePlayerUI()
     {
-        gameManager.instance.healthBar.fillAmount = (float)maxHealth / currentHealth;
+        gameManager.instance.healthBar.fillAmount = (float)currentHealth / maxHealth;
     }
 }
