@@ -22,7 +22,7 @@ public class enemyStationaryAI : MonoBehaviour, IDamage
 
     void Start()
     {
-        gameManager.instance.updateGameGoal(1);
+
     }
 
     void Update()
@@ -56,7 +56,7 @@ public class enemyStationaryAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            gameManager.instance.updateGameGoal(-1);
+            
             Destroy(gameObject);
         }
     }

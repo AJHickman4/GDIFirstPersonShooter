@@ -73,15 +73,6 @@ public class gameManager : MonoBehaviour
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
-
-    public void updateGameGoal(int amount)
-    {
-        if (enemyCount <= 0)
-        {
-            youHaveWon();
-        }
-    }
-
     public void updateKeyUI()
     {
             menuKey.SetActive(true);
