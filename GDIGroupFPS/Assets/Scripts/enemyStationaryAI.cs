@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour, IDamage
+public class enemyStationaryAI : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
@@ -35,6 +35,8 @@ public class enemyAI : MonoBehaviour, IDamage
                 StartCoroutine(shoot());
             }
         }
+
+
     }
 
     IEnumerator shoot()
@@ -54,7 +56,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             gameManager.instance.updateGameGoal(-1);
-           Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 

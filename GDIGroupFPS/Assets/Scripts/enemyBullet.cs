@@ -6,7 +6,7 @@ public class bullet : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
 
-    [Range (1, 5)] [SerializeField] int damage;
+    [SerializeField] int damage;
     [SerializeField] int speed;
     [SerializeField] float destroyTime;
 
