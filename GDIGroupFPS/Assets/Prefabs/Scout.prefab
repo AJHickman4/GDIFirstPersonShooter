@@ -185,7 +185,7 @@ MonoBehaviour:
   HP: 10
   speed: 0
   bullet: {fileID: 3804443700838176787, guid: 9e5c92442035991438e19573e2fea9a4, type: 3}
-  shootRate: 0.5
+  shootRate: 1
 --- !u!95 &3261339390459698161
 Animator:
   serializedVersion: 5

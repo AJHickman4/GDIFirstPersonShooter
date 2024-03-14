@@ -834,10 +834,10 @@ MonoBehaviour:
   model: {fileID: 2671131210779798180}
   agent: {fileID: 2787630584449341290}
   shootPos: {fileID: 7708455822985832836}
-  HP: 15
+  HP: 5
   speed: 0
   bullet: {fileID: 7560485639221787466, guid: 3a07788c563cf254fb846f381e4551fd, type: 3}
-  shootRate: 1
+  shootRate: 6
   target: {fileID: 0}
 --- !u!95 &1740366207923149784
 Animator:
@@ -946,7 +946,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 20
+  m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6589632471493531440
 GameObject:
