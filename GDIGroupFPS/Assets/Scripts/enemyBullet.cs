@@ -29,6 +29,7 @@ public class bullet : MonoBehaviour
 
         if (dmg != null)
         {
+            damage = damage / 2;
             dmg.takeDamage(damage);
         }
 
