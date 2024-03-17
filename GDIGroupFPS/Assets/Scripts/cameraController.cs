@@ -11,7 +11,8 @@ public class cameraController : MonoBehaviour
     [SerializeField] Camera mainCamera; //references main camera
     [SerializeField] float normalFOV = 60f;
     [SerializeField] float sprintingFOV = 75f;
-    [SerializeField] float FOVTransition = 10f; //need this transition time for the lerp function below. 
+    [SerializeField] float FOVTransition = 10f; //need this transition time for the lerp function below. //required 3 fields
+
 
 
     float rotX; //how we get the rotation on the x axis. 
@@ -55,7 +56,7 @@ public class cameraController : MonoBehaviour
     //adjust FOV while sprinting..
     if (Input.GetKey(KeyCode.LeftShift))
         {
-            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, sprintingFOV, FOVTransition * Time.deltaTime); //if shift is pressed make FOV become number
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, sprintingFOV, FOVTransition * Time.deltaTime); //if shift is pressed make FOV become number //needs 3 fields
         }
         else
         {
