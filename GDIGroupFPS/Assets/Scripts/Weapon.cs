@@ -39,6 +39,9 @@ public class Weapon : MonoBehaviour
     [Header("Equipment Status")]
     public bool isEquipped = false;
 
+    
+    AudioSource gunShot;
+
     public enum ShootingMode
     {
         Single,
@@ -51,6 +54,7 @@ public class Weapon : MonoBehaviour
 
     void Awake()
     {
+        gunShot = GetComponent<AudioSource>();
         readyToShoot = true;
         currentAmmo = ammoPerMag; // Initialize ammo count
         currentMags = totalMags; // Initialize magazine count
@@ -102,11 +106,11 @@ public class Weapon : MonoBehaviour
     {
         ShootBullet();
         currentAmmo--;
-        timeSinceLastShot = 0f; // Reset timer for auto and single shot mode
-        if (mode != ShootingMode.Auto) // For single shot, reset immediately
+        timeSinceLastShot = 0f; 
+        if (mode != ShootingMode.Auto) 
         {
             readyToShoot = false;
-            StartCoroutine(ResetShot(shootingDelay)); // Add delay after firing
+            StartCoroutine(ResetShot(shootingDelay));
         }
     }
 
@@ -147,6 +151,7 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
         Destroy(bullet, bulletPrefabLife);
+        gunShot.Play();
     }
 
     IEnumerator ResetShot(float delay)
