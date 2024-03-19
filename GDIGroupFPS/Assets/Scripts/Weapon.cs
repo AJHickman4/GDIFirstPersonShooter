@@ -39,6 +39,16 @@ public class Weapon : MonoBehaviour
     [Header("Equipment Status")]
     public bool isEquipped = false;
 
+    [Header("Recoil Parameters")]
+    public float recoilAmount = 2f; 
+    public float recoilTime = 0.1f; 
+    public float recoveryTime = 0.2f; 
+
+    private Quaternion originalRotation; 
+    private bool isRecoiling = false; 
+
+
+
     AudioSource gunShot;
 
     public enum ShootingMode
@@ -53,6 +63,7 @@ public class Weapon : MonoBehaviour
 
     void Awake()
     {
+        originalRotation = transform.localRotation;
         gunShot = GetComponent<AudioSource>();
         readyToShoot = true;
         currentAmmo = ammoPerMag; // Initialize ammo count
@@ -105,8 +116,19 @@ public class Weapon : MonoBehaviour
     {
         ShootBullet();
         currentAmmo--;
-        timeSinceLastShot = 0f; 
-        if (mode != ShootingMode.Auto) 
+        timeSinceLastShot = 0f;
+
+        
+        if (mode == ShootingMode.Auto && !isRecoiling)
+        {
+            StartCoroutine(RecoilCoroutine(true));
+        }
+        else if (!isRecoiling)
+        {
+            StartCoroutine(RecoilCoroutine(false));
+        }
+
+        if (mode != ShootingMode.Auto)
         {
             readyToShoot = false;
             StartCoroutine(ResetShot(shootingDelay));
@@ -116,6 +138,10 @@ public class Weapon : MonoBehaviour
     IEnumerator FireBurst()
     {
         readyToShoot = false;
+        if (!isRecoiling) // Check to prevent restarting the recoil
+        {
+            StartCoroutine(RecoilCoroutine(false));
+        }
         for (int i = 0; i < bulletsPerBurst && currentAmmo > 0; i++)
         {
             ShootBullet();
@@ -128,6 +154,10 @@ public class Weapon : MonoBehaviour
     IEnumerator FireShotgun()
     {
         readyToShoot = false;
+        if (!isRecoiling) 
+        {
+            StartCoroutine(RecoilCoroutine(false));
+        }
         for (int i = 0; i < pellets && currentAmmo > 0; i++)
         {
             ShootBullet();
@@ -169,4 +199,54 @@ public class Weapon : MonoBehaviour
     {
         isEquipped = equipped;
     }
+
+    IEnumerator RecoilCoroutine(bool continuous)
+    {
+        isRecoiling = true;
+        Quaternion startRotation = transform.localRotation;
+        Quaternion recoilRotation = startRotation * Quaternion.Euler(-recoilAmount, 0, 0);
+        if (continuous)
+        {
+            while (Input.GetButton("Shoot") && currentAmmo > 0)
+            {
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, recoilRotation, recoilTime * Time.deltaTime);
+                yield return null;
+            }
+        }
+        else
+        {
+            float immediateRecoilTime = 0;
+            while (immediateRecoilTime < recoilTime)
+            {
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, recoilRotation, immediateRecoilTime / recoilTime);
+                immediateRecoilTime += Time.deltaTime;
+                yield return null;
+            }
+        }
+        float timeElapsed = 0;
+        Quaternion currentRotation = transform.localRotation;
+        while (timeElapsed < recoveryTime)
+        {
+            timeElapsed += Time.deltaTime;
+            float fraction = timeElapsed / recoveryTime;
+            transform.localRotation = Quaternion.Slerp(currentRotation, startRotation, fraction);
+            yield return null;
+        }
+        transform.localRotation = startRotation;
+        isRecoiling = false;
+    }
+    public void AddOneMagIfNeeded()
+    {
+        if (currentMags == 0 && currentAmmo == 0)
+        {
+            currentAmmo = ammoPerMag; 
+            Debug.Log("Ammo added to the inventory.");
+        }
+        else
+        {
+            currentMags += 1;
+            Debug.Log("One magazine added to the inventory.");
+        }
+    }
+
 }
