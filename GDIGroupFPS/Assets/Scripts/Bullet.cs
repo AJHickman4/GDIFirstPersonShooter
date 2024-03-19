@@ -27,9 +27,18 @@ public class Bullet : MonoBehaviour
             {
                 damageable.takeDamage(damage);
             }
-        }       
+        }
+        else if (collision.gameObject.tag == "Breakable")
+        {
+            IDamage damageable = collision.gameObject.GetComponent<IDamage>();
+            if (damageable != null)
+            {
+                damageable.takeDamage(damage);
+            }
+        }
         Destroy(gameObject);
     }
+
 }
 
 
