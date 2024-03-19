@@ -39,7 +39,6 @@ public class Weapon : MonoBehaviour
     [Header("Equipment Status")]
     public bool isEquipped = false;
 
-    
     AudioSource gunShot;
 
     public enum ShootingMode
