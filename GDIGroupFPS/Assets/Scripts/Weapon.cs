@@ -159,9 +159,13 @@ public class Weapon : MonoBehaviour
         {
             StartCoroutine(RecoilCoroutine(false));
         }
+        
+        gunShot.Play();
+        muzzleFlash.Play();
+        
         for (int i = 0; i < pellets && currentAmmo > 0; i++)
         {
-            ShootBullet();
+            ShootBullet(omitSound: true);
             currentAmmo--;
             yield return new WaitForSeconds(shootingDelay / pellets);
         }
@@ -175,14 +179,20 @@ public class Weapon : MonoBehaviour
         currentAmmo = ammoPerMag;
     }
 
-    void ShootBullet()
+    void ShootBullet(bool omitSound = false)
     {
-        muzzleFlash.Play();
+
+        if (!omitSound)
+        {
+            muzzleFlash.Play();
+            gunShot.Play();
+        }
+
         Vector3 shootingDirection = CalculateDirectionAndSpread();
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
         Destroy(bullet, bulletPrefabLife);
-        gunShot.Play();
+
     }
 
     IEnumerator ResetShot(float delay)
