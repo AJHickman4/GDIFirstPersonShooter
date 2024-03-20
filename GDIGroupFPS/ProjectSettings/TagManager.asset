@@ -15,6 +15,7 @@ TagManager:
   - Pickup
   - Breaker
   - MysteryBox
+  - Ladder
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - UI
   - Wall
   - Ground
-  - 
+  - weapons
   - 
   - 
   - 

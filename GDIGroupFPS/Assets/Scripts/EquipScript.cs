@@ -9,8 +9,9 @@ public class EquipScript : MonoBehaviour
     public bool isEquipped = false;
     public Camera playerCamera;
     public float equipRange = 5f;
-    
-    
+    private string weaponLayer = "weapons";
+    private string defaultLayer = "Default";
+
     void Start()
     {
         Gun.GetComponent<Rigidbody>().isKinematic = true;
@@ -57,6 +58,7 @@ public class EquipScript : MonoBehaviour
             Gun.transform.SetParent(PlayerTransform);
             isEquipped = true;
             Gun.GetComponent<Weapon>().SetEquipped(true);
+             Gun.layer = LayerMask.NameToLayer(weaponLayer);
         }
     }
 
@@ -70,8 +72,9 @@ public class EquipScript : MonoBehaviour
 
             Gun.GetComponent<Rigidbody>().AddForce(PlayerTransform.forward * -0.5f + Vector3.down * 0.5f, ForceMode.VelocityChange);
 
-            isEquipped = false;
+            isEquipped = false;           
             Gun.GetComponent<Weapon>().SetEquipped(false);
+            Gun.layer = LayerMask.NameToLayer(defaultLayer);
         }
     }
 }
