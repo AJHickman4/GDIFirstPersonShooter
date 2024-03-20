@@ -46,6 +46,7 @@ public class Weapon : MonoBehaviour
 
     private Quaternion originalRotation; 
     private bool isRecoiling = false; 
+    public ParticleSystem muzzleFlash;
 
 
 
@@ -176,6 +177,7 @@ public class Weapon : MonoBehaviour
 
     void ShootBullet()
     {
+        muzzleFlash.Play();
         Vector3 shootingDirection = CalculateDirectionAndSpread();
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
