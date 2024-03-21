@@ -176,7 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b169033d15f2084588bb6b3e1e48a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magazinesToAdd: 1
 --- !u!4 &82759806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2f5b35019b2edb34abf829f5a0fc21c7, type: 3}
@@ -1005,7 +1004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b169033d15f2084588bb6b3e1e48a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magazinesToAdd: 1
 --- !u!4 &417857104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2f5b35019b2edb34abf829f5a0fc21c7, type: 3}
@@ -2521,7 +2519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b169033d15f2084588bb6b3e1e48a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magazinesToAdd: 1
 --- !u!4 &1160302072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2f5b35019b2edb34abf829f5a0fc21c7, type: 3}
@@ -4683,7 +4680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b169033d15f2084588bb6b3e1e48a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magazinesToAdd: 1
 --- !u!4 &1780000578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2f5b35019b2edb34abf829f5a0fc21c7, type: 3}
@@ -5754,6 +5750,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8283641987232546529, guid: 83a6d20c02393284fa4b2bfa302d2e18, type: 3}
+      propertyPath: bulletSpawn
+      value: 
+      objectReference: {fileID: 485753204}
+    - target: {fileID: 8283641987232546529, guid: 83a6d20c02393284fa4b2bfa302d2e18, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 549517348}
     - target: {fileID: 8724030852738675131, guid: 83a6d20c02393284fa4b2bfa302d2e18, type: 3}
       propertyPath: m_Name
       value: assault2

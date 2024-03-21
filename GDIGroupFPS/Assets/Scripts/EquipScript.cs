@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class EquipScript : MonoBehaviour
 {
+    [Header("Drag in")]
     public Transform PlayerTransform;
     public GameObject Gun;
-    public bool isEquipped = false;
     public Camera playerCamera;
-    public float equipRange = 5f;
+
+    [Header("Range")]
+    [Range(1, 5)]  public float equipRange = 5f;
+    
+    public bool isEquipped = false;
     private string weaponLayer = "weapons";
     private string defaultLayer = "Default";
 

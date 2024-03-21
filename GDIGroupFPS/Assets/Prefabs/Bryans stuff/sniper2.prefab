@@ -173,9 +173,6 @@ PrefabInstance:
       addedObject: {fileID: 2449253828545766834}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8573db8e30e916479a705831bd5040c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1039042489728275803}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8573db8e30e916479a705831bd5040c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8745181126935458888}
   m_SourcePrefab: {fileID: 100100000, guid: c8573db8e30e916479a705831bd5040c, type: 3}
 --- !u!4 &7461418301174218424 stripped
@@ -259,29 +256,16 @@ MonoBehaviour:
   bulletPrefabLife: 3
   playerCamera: {fileID: 0}
   pellets: 5
-  ammoPerMag: 30
+  ammoPerMag: 10
   currentAmmo: 0
-  totalMags: 3
-  bulletDamage: 1
+  totalMags: 2
+  bulletDamage: 10
   isEquipped: 0
   recoilAmount: 2
   recoilTime: 0.1
   recoveryTime: 0.2
   muzzleFlash: {fileID: 6162227059360992756}
   mode: 0
---- !u!114 &1039042489728275803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7838401649288029186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fccb13581855b4aa0cb12354475960, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drop: 2
 --- !u!82 &8745181126935458888
 AudioSource:
   m_ObjectHideFlags: 0

@@ -158,9 +158,6 @@ PrefabInstance:
       addedObject: {fileID: 2782892314863834471}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2cf10fa706c7a4d42b5927d8e730f4e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2749560699939673718}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2cf10fa706c7a4d42b5927d8e730f4e2, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6343046295802643509}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2cf10fa706c7a4d42b5927d8e730f4e2, type: 3}
       insertIndex: -1
@@ -224,19 +221,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3345179, y: 1.4343929, z: 2.8454792}
   m_Center: {x: 0, y: 0.120087415, z: 0.21871851}
---- !u!114 &2749560699939673718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3357315449059395270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fccb13581855b4aa0cb12354475960, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drop: 2
 --- !u!114 &6343046295802643509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +247,7 @@ MonoBehaviour:
   ammoPerMag: 30
   currentAmmo: 0
   totalMags: 3
-  bulletDamage: 1
+  bulletDamage: 5
   isEquipped: 0
   recoilAmount: 30
   recoilTime: 0.1

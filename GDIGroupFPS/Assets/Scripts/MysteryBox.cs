@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MysteryBox : MonoBehaviour
 {
-    public GameObject[] weaponPrefabs; 
-    public float spawnOffset = 1.0f;
+    public GameObject[] weaponPrefabs;
+    [Range(1, 3)] public float spawnOffset = 1.0f;
 
     private void Update()
     {

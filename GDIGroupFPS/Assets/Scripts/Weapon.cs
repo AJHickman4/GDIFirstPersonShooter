@@ -6,49 +6,47 @@ public class Weapon : MonoBehaviour
     [Header("Shooting Parameters")]
     public bool isShooting;
     public bool readyToShoot = true;
-    public float shootingDelay = 2f;
+    [Range(0, 3)] public float shootingDelay = 2f;
     private float timeSinceLastShot = 0f;
 
     [Header("Burst Fire Parameters")]
-    public int bulletsPerBurst = 3;
+    [Range(1, 5)] public int bulletsPerBurst = 3;
 
     [Header("Spread Parameters")]
-    public float spreadIntensity = 0.1f;
+    [Range(0, 1)] public float spreadIntensity = 0.1f;
 
     [Header("Bullet Parameters")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-    public float bulletVelocity = 30;
-    public float bulletPrefabLife = 3f;
+    [Range(1, 70)] public float bulletVelocity = 30;
+    [Range(1, 5)] public float bulletPrefabLife = 3f;
 
     [Header("Camera")]
     public Camera playerCamera;
 
     [Header("Shotgun Parameters")]
-    public int pellets = 5;
+    [Range(1, 5)] public int pellets = 5;
 
     [Header("Ammo Parameters")]
-    public int ammoPerMag = 30; // Ammo in each magazine
+    [Range(1, 30)] public int ammoPerMag = 30; // Ammo in each magazine
     public int currentAmmo;
-    public int totalMags = 3; // Total number of magazines you can carry
+    [Range(1, 5)] public int totalMags = 3; // Total number of magazines you can carry
     private int currentMags;
 
     [Header("Damage")]
-    public int bulletDamage = 10;
+    [Range(1, 30)] public int bulletDamage = 10;
 
     [Header("Equipment Status")]
     public bool isEquipped = false;
 
     [Header("Recoil Parameters")]
-    public float recoilAmount = 2f; 
-    public float recoilTime = 0.1f; 
-    public float recoveryTime = 0.2f; 
+    [Range(1, 90)] public float recoilAmount = 2f;
+    [Range(0, 10)] public float recoilTime = 0.1f;
+    [Range(0, 10)] public float recoveryTime = 0.2f; 
 
     private Quaternion originalRotation; 
     private bool isRecoiling = false; 
     public ParticleSystem muzzleFlash;
-
-
 
     AudioSource gunShot;
 
@@ -181,18 +179,18 @@ public class Weapon : MonoBehaviour
 
     void ShootBullet(bool omitSound = false)
     {
-
+        
         if (!omitSound)
         {
             muzzleFlash.Play();
             gunShot.Play();
         }
-
+        
         Vector3 shootingDirection = CalculateDirectionAndSpread();
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
         Destroy(bullet, bulletPrefabLife);
-
+    
     }
 
     IEnumerator ResetShot(float delay)
