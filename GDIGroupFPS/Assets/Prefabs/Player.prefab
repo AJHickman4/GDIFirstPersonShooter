@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 945825479679458477}
   - component: {fileID: 7886236959129924415}
   - component: {fileID: 4550896447138160808}
+  - component: {fileID: 6928196396766779983}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -247,8 +248,8 @@ MonoBehaviour:
   jump: 2
   jumpSpeed: 12
   gravity: -24
-  maxHealth: 35
-  hasKey: 0
+  HP: 35
+  keys: 
 --- !u!114 &4037377866302538984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +266,8 @@ MonoBehaviour:
   Gun: {fileID: 4483866052262400358}
   playerCamera: {fileID: 2007798959736790778}
   equipRange: 5
+  audioSource: {fileID: 6928196396766779983}
+  pickupSound: {fileID: 8300000, guid: 71c5faebf08f63f429d76a924ddc9b89, type: 3}
   isEquipped: 1
 --- !u!143 &1495661457111557772
 CharacterController:
@@ -380,6 +383,102 @@ MonoBehaviour:
   player: {fileID: 7085847241182801234}
   speed: 100
   input: {fileID: 0}
+--- !u!82 &6928196396766779983
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4257262753859177860}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 71c5faebf08f63f429d76a924ddc9b89, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4284093274809415220
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +850,7 @@ MonoBehaviour:
   bulletPrefabLife: 3
   playerCamera: {fileID: 2007798959736790778}
   pellets: 5
-  ammoPerMag: 10
+  ammoPerMag: 6
   currentAmmo: 0
   totalMags: 1
   currentMags: 0
