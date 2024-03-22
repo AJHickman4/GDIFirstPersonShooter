@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class key : MonoBehaviour
 {
+    [SerializeField] int keyValue;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class key : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameManager.instance.playerScript.hasKey = true;
+            gameManager.instance.playerScript.keys.Add(keyValue);
             gameManager.instance.updateKeyUI();
             gameObject.SetActive(false);
            

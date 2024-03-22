@@ -30,6 +30,7 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 playerVel;
     bool isShooting;
     public bool hasKey;
+    public List<int> keys; // Inventory of keys
 
     // Start is called before the first frame update
     void Start()
