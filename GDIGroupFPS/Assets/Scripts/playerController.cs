@@ -17,8 +17,8 @@ public class playerController : MonoBehaviour, IDamage
     [Range(-15, -35)][SerializeField] int gravity;
 
     [Header("----- Health -----")]
-    [Range (1, 100)] [SerializeField] int maxHealth;
-    private int currentHealth;
+    [Range (1, 100)] [SerializeField] int HP;
+    private int HPOrig;
     private bool isAlive = true;
 
 
@@ -29,15 +29,24 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
     bool isShooting;
-    public bool hasKey;
     public List<int> keys; // Inventory of keys
 
     // Start is called before the first frame update
     void Start()
     {
         originalHeight = controller.height; //stores original height at the start of play. 
-        currentHealth = maxHealth;
+        HPOrig = HP;
+        spawnPlayer();
+    }
+
+    public void spawnPlayer()
+    {
+        isAlive = true;
+        HP = HPOrig;
         updatePlayerUI();
+        controller.enabled = false;
+        transform.position = gameManager.instance.startingSpawn.transform.position;
+        controller.enabled = true;
     }
 
     // Update is called once per frame
@@ -122,12 +131,12 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (!isAlive) return;
         StartCoroutine(damageIndictator());
-        currentHealth -= amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        HP -= amount;
+        HP = Mathf.Clamp(HPOrig, 0, HP);
         updatePlayerUI();
 
 
-        if (currentHealth <= 0)
+        if (HP <= 0)
         {
             Die();
             gameManager.instance.youHaveLost();
@@ -148,6 +157,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void updatePlayerUI()
     {
-        gameManager.instance.healthBar.fillAmount = (float)currentHealth / maxHealth;
+        gameManager.instance.healthBar.fillAmount = (float)HP / HPOrig;
     }
 }

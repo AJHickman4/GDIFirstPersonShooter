@@ -25,6 +25,7 @@ public class gameManager : MonoBehaviour
 
     public Weapon currentWeapon;
 
+    public GameObject startingSpawn;
     public bool isPaused;
     float timeScaleOrig;
     int enemyCount;
@@ -36,6 +37,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         timeScaleOrig = Time.timeScale;
+        startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
     }
 
     // Update is called once per frame

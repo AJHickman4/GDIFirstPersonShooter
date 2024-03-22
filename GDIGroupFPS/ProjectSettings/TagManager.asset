@@ -16,6 +16,7 @@ TagManager:
   - Breaker
   - MysteryBox
   - Ladder
+  - Starting Spawnpoint
   layers:
   - Default
   - TransparentFX
