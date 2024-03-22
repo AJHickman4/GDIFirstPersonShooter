@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public int damage;
     public BulletSource source;
+    public ParticleSystem hitEffect;
 
     public void SetDamage(int dmg)
     {
@@ -20,6 +21,10 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (hitEffect != null)
+        {
+            Instantiate(hitEffect, transform.position, transform.rotation).Play();
+        }
         if (collision.gameObject.tag == "Enemy")
         {
             IDamage damageable = collision.gameObject.GetComponent<IDamage>();

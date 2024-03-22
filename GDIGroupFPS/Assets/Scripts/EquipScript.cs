@@ -68,6 +68,13 @@ public class EquipScript : MonoBehaviour
 
     void UnequipObject()
     {
+        Weapon weaponScript = Gun.GetComponent<Weapon>();
+        if (weaponScript.isReloading)
+        {
+            
+            return;
+        }
+
         if (isEquipped)
         {
             Gun.transform.SetParent(null);

@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
     public bool readyToShoot = true;
     [Range(0, 3)] public float shootingDelay = 2f;
     private float timeSinceLastShot = 0f;
+    public float reloadTime = 1f;
+    public bool isReloading = false;
 
     [Header("Burst Fire Parameters")]
     [Range(1, 5)] public int bulletsPerBurst = 3;
@@ -42,14 +44,15 @@ public class Weapon : MonoBehaviour
     [Header("Recoil Parameters")]
     [Range(1, 90)] public float recoilAmount = 2f;
     [Range(0, 10)] public float recoilTime = 0.1f;
-    [Range(0, 10)] public float recoveryTime = 0.2f; 
+    [Range(0, 10)] public float recoveryTime = 0.2f;
 
-    private Quaternion originalRotation; 
-    private bool isRecoiling = false; 
+    private Quaternion originalRotation;
+    private bool isRecoiling = false;
     public ParticleSystem muzzleFlash;
 
-    AudioSource gunShot;
-
+    public AudioSource gunShot;
+    public AudioSource reload;
+    
     public enum ShootingMode
     {
         Single,
@@ -72,7 +75,7 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         timeSinceLastShot += Time.deltaTime;
-        if (isEquipped)
+        if (isEquipped && !isReloading)
         {
             if (Input.GetKeyDown(KeyCode.R) && currentMags > 0 && currentAmmo < ammoPerMag)
             {
@@ -113,11 +116,14 @@ public class Weapon : MonoBehaviour
 
     private void FireWeapon()
     {
+        
+        if (isReloading) return;
+
         ShootBullet();
         currentAmmo--;
         timeSinceLastShot = 0f;
 
-        
+
         if (mode == ShootingMode.Auto && !isRecoiling)
         {
             StartCoroutine(RecoilCoroutine(true));
@@ -136,6 +142,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator FireBurst()
     {
+        
         readyToShoot = false;
         if (!isRecoiling) // Check to prevent restarting the recoil
         {
@@ -143,6 +150,7 @@ public class Weapon : MonoBehaviour
         }
         for (int i = 0; i < bulletsPerBurst && currentAmmo > 0; i++)
         {
+            if (isReloading) yield break;
             ShootBullet();
             currentAmmo--;
             yield return new WaitForSeconds(shootingDelay / bulletsPerBurst);
@@ -153,16 +161,17 @@ public class Weapon : MonoBehaviour
     IEnumerator FireShotgun()
     {
         readyToShoot = false;
-        if (!isRecoiling) 
+        if (!isRecoiling)
         {
             StartCoroutine(RecoilCoroutine(false));
         }
-        
+
         gunShot.Play();
         muzzleFlash.Play();
-        
+
         for (int i = 0; i < pellets && currentAmmo > 0; i++)
         {
+            if (isReloading) yield break;
             ShootBullet(omitSound: true);
             currentAmmo--;
             yield return new WaitForSeconds(shootingDelay / pellets);
@@ -172,25 +181,32 @@ public class Weapon : MonoBehaviour
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(1f); // Reload time
-        currentMags--;
+        if (isReloading) yield break;
+            isReloading = true;
+        
+        reload.Play();
+        
+        yield return new WaitForSeconds(reloadTime); 
         currentAmmo = ammoPerMag;
+        if (currentMags > 0) currentMags--;
+        isReloading = false;
     }
 
     void ShootBullet(bool omitSound = false)
     {
-        
+
         if (!omitSound)
         {
             muzzleFlash.Play();
+            gunShot.pitch = Random.Range(0.95f, 1.05f);
             gunShot.Play();
         }
-        
+
         Vector3 shootingDirection = CalculateDirectionAndSpread();
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
         Destroy(bullet, bulletPrefabLife);
-    
+
     }
 
     IEnumerator ResetShot(float delay)
@@ -249,7 +265,7 @@ public class Weapon : MonoBehaviour
     {
         if (currentMags == 0 && currentAmmo == 0)
         {
-            currentAmmo = ammoPerMag; 
+            currentAmmo = ammoPerMag;
             Debug.Log("Ammo added to the inventory.");
         }
         else
