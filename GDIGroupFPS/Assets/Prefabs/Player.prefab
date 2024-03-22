@@ -742,6 +742,7 @@ MonoBehaviour:
   readyToShoot: 1
   shootingDelay: 0.5
   reloadTime: 5.5
+  isReloading: 0
   bulletsPerBurst: 1
   spreadIntensity: 0
   bulletPrefab: {fileID: 4614532236543184117, guid: 30d7ec4eada6cb342a1042566d230abb, type: 3}
@@ -753,6 +754,7 @@ MonoBehaviour:
   ammoPerMag: 10
   currentAmmo: 0
   totalMags: 1
+  currentMags: 0
   bulletDamage: 10
   isEquipped: 1
   recoilAmount: 50
