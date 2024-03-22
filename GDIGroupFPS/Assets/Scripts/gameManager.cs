@@ -20,6 +20,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text magCountText;
     public GameObject damageIndicator;
     public Image healthBar;
+    public Image boardFixing;
 
     public GameObject player;
     public playerController playerScript;
