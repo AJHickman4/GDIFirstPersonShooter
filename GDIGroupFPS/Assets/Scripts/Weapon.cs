@@ -33,7 +33,7 @@ public class Weapon : MonoBehaviour
     [Range(1, 30)] public int ammoPerMag = 30; // Ammo in each magazine
     public int currentAmmo;
     [Range(1, 5)] public int totalMags = 3; // Total number of magazines you can carry
-    private int currentMags;
+    public int currentMags;
 
     [Header("Damage")]
     [Range(1, 30)] public int bulletDamage = 10;
@@ -122,7 +122,7 @@ public class Weapon : MonoBehaviour
         ShootBullet();
         currentAmmo--;
         timeSinceLastShot = 0f;
-
+        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
 
         if (mode == ShootingMode.Auto && !isRecoiling)
         {
@@ -156,6 +156,7 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(shootingDelay / bulletsPerBurst);
         }
         StartCoroutine(ResetShot(shootingDelay));
+        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
     }
 
     IEnumerator FireShotgun()
@@ -177,6 +178,7 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(shootingDelay / pellets);
         }
         StartCoroutine(ResetShot(shootingDelay));
+        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
     }
 
     IEnumerator Reload()
@@ -190,6 +192,7 @@ public class Weapon : MonoBehaviour
         currentAmmo = ammoPerMag;
         if (currentMags > 0) currentMags--;
         isReloading = false;
+        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
     }
 
     void ShootBullet(bool omitSound = false)
@@ -267,11 +270,13 @@ public class Weapon : MonoBehaviour
         {
             currentAmmo = ammoPerMag;
             Debug.Log("Ammo added to the inventory.");
+            gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
         }
         else
         {
             currentMags += 1;
             Debug.Log("One magazine added to the inventory.");
+            gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
         }
     }
 }

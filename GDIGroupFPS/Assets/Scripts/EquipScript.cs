@@ -61,8 +61,13 @@ public class EquipScript : MonoBehaviour
             Gun.transform.rotation = PlayerTransform.rotation;
             Gun.transform.SetParent(PlayerTransform);
             isEquipped = true;
+
+            Weapon weaponScript = Gun.GetComponent<Weapon>();
+            
             Gun.GetComponent<Weapon>().SetEquipped(true);
-             Gun.layer = LayerMask.NameToLayer(weaponLayer);
+            Gun.layer = LayerMask.NameToLayer(weaponLayer);
+
+            gameManager.instance.UpdateAmmoUI(weaponScript.currentAmmo,weaponScript.currentMags,weaponScript.ammoPerMag,weaponScript.totalMags);
         }
     }
 

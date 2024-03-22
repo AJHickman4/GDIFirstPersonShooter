@@ -15,11 +15,15 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuKey;
     [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text bulletCountText;
+    [SerializeField] TMP_Text magCountText;
     public GameObject damageIndicator;
     public Image healthBar;
 
     public GameObject player;
     public playerController playerScript;
+
+    public Weapon currentWeapon;
 
     public bool isPaused;
     float timeScaleOrig;
@@ -37,6 +41,12 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if (currentWeapon != null)
+        {
+            UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.currentMags,currentWeapon.ammoPerMag,currentWeapon.totalMags);
+        }
+
         if (Input.GetButtonDown("Cancel") && menuActive == null)
         {
             statePaused();
@@ -77,4 +87,10 @@ public class gameManager : MonoBehaviour
     {
             menuKey.SetActive(true);
     }
+
+    public void UpdateAmmoUI(int currentBullets, int currentMags, int maxBulletsPerMag, int maxMags)
+{
+    bulletCountText.text = $"{currentBullets} / {maxBulletsPerMag}";
+    magCountText.text = $"{currentMags} / {maxMags}";
+}
 }
