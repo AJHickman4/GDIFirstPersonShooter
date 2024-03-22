@@ -11,7 +11,11 @@ public class EquipScript : MonoBehaviour
 
     [Header("Range")]
     [Range(1, 5)]  public float equipRange = 5f;
-    
+
+    [Header("Audio")]
+    public AudioSource audioSource; 
+    public AudioClip pickupSound; 
+
     public bool isEquipped = false;
     private string weaponLayer = "weapons";
     private string defaultLayer = "Default";
@@ -67,7 +71,8 @@ public class EquipScript : MonoBehaviour
             Gun.GetComponent<Weapon>().SetEquipped(true);
             Gun.layer = LayerMask.NameToLayer(weaponLayer);
 
-            gameManager.instance.UpdateAmmoUI(weaponScript.currentAmmo,weaponScript.currentMags,weaponScript.ammoPerMag,weaponScript.totalMags);
+            gameManager.instance.UpdateAmmoUI(weaponScript.currentAmmo,weaponScript.currentMags,weaponScript.ammoPerMag,weaponScript.totalMags);           
+            audioSource.PlayOneShot(pickupSound);
         }
     }
 
