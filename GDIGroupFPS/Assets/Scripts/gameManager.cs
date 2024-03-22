@@ -14,6 +14,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuKey;
+    public GameObject menuCheckpoint;
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] TMP_Text magCountText;
