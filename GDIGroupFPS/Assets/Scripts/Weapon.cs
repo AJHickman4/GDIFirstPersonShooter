@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     private float timeSinceLastShot = 0f;
     public float reloadTime = 1f;
     public bool isReloading = false;
-
+    
     [Header("Burst Fire Parameters")]
     [Range(1, 5)] public int bulletsPerBurst = 3;
 
@@ -74,7 +74,7 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        timeSinceLastShot += Time.deltaTime;
+        timeSinceLastShot += Time.deltaTime;      
         if (isEquipped && !isReloading)
         {
             if (Input.GetKeyDown(KeyCode.R) && currentMags > 0 && currentAmmo < ammoPerMag)
@@ -274,5 +274,4 @@ public class Weapon : MonoBehaviour
             Debug.Log("One magazine added to the inventory.");
         }
     }
-
 }
