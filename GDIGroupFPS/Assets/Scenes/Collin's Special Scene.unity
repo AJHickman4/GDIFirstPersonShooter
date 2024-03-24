@@ -2556,6 +2556,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1089059759
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 120890, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_Name
+      value: ToonSoldiers_sniper
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -29.95702
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 37.940105
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000016292068
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483564, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4b32d243d6c977349b6e937575d52bb7, type: 3}
 --- !u!1001 &1110405063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3086,6 +3143,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fa36a342974aec41a84efc22e6ad783, type: 3}
+--- !u!1001 &1326186821
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 184090, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_Name
+      value: ToonSoldiers_scout
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -33.91366
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 42.26002
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000016292068
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 436692, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8df00e537d06c7a49b1696af4f1835e4, type: 3}
 --- !u!1001 &1342169607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3287,6 +3401,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fa36a342974aec41a84efc22e6ad783, type: 3}
+--- !u!1001 &1395443158
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 103052, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_Name
+      value: ToonSoldiers_engineer
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -23.707788
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 40.69268
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000016292068
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 491734, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0da9de283a7ba434d96430736add1c30, type: 3}
 --- !u!4 &1406149851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2910952353368588459, guid: 8fa36a342974aec41a84efc22e6ad783, type: 3}
@@ -3538,6 +3709,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fa36a342974aec41a84efc22e6ad783, type: 3}
+--- !u!1001 &1604883729
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 142016, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_Name
+      value: ToonSoldiers_officer
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -33.156918
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38.26227
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000016292068
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496506, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7b7766a3fcf5264dbe662007a3d95bc, type: 3}
 --- !u!1001 &1607690067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4524,6 +4752,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2910952353368588459, guid: 8fa36a342974aec41a84efc22e6ad783, type: 3}
   m_PrefabInstance: {fileID: 1302742610}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1908153457
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 182702, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_Name
+      value: ToonSoldiers_infantry
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -30.633236
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 39.966248
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000016292068
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 411534, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b66b9bdf70fc964fa924cea4e45c3d8, type: 3}
 --- !u!4 &1961765285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2910952353368588459, guid: 8fa36a342974aec41a84efc22e6ad783, type: 3}
@@ -4782,6 +5067,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2910952353368588459, guid: 8fa36a342974aec41a84efc22e6ad783, type: 3}
   m_PrefabInstance: {fileID: 1680257461}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2089153834
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 125906, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_Name
+      value: ToonSoldiers_flammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -27.032066
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 39.8348
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.00000016292068
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 469494, guid: 409998455554f684b88485049a3eae77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 409998455554f684b88485049a3eae77, type: 3}
 --- !u!1 &2108102556 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4936387352986130781, guid: 7be8fdf2c88a4904f98d6dc74d3e3e01, type: 3}
@@ -5142,3 +5484,9 @@ SceneRoots:
   - {fileID: 142704763259300356}
   - {fileID: 6980821576010961372}
   - {fileID: 7849537811315041137}
+  - {fileID: 1395443158}
+  - {fileID: 2089153834}
+  - {fileID: 1908153457}
+  - {fileID: 1604883729}
+  - {fileID: 1326186821}
+  - {fileID: 1089059759}
