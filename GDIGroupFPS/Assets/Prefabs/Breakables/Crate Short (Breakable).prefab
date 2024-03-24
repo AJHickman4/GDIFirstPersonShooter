@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2634636937822704186}
   - component: {fileID: 4288434222519176190}
   - component: {fileID: 3520133180808611852}
+  - component: {fileID: -1549387031790746373}
   m_Layer: 0
   m_Name: Crate Short (Breakable)
   m_TagString: Breakable
@@ -52,11 +53,16 @@ MonoBehaviour:
   boxRenderer: {fileID: 2634636937822704186}
   health: 10
   explosion: {fileID: 6936889862584339277, guid: 0f9d19e5292a5f44d9fe7f1c28109d59, type: 3}
+  meshRenderer: {fileID: 0}
+  meshCollider: {fileID: 0}
+  boxCollider: {fileID: 0}
   audExplosion:
   - {fileID: 8300000, guid: 8b3f676fe7b41044495a2964396b8ba3, type: 3}
   - {fileID: 8300000, guid: f01c623f724825e44a923d1ae50256f2, type: 3}
   - {fileID: 8300000, guid: fd706038486fee041947a774223dc22e, type: 3}
   audExplosionVol: 1
+  dropObject: {fileID: 0}
+  dropChancePercentage: 25
 --- !u!33 &3090272937096135139
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -224,3 +230,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &-1549387031790746373
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780324224322049394}
+  serializedVersion: 4
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

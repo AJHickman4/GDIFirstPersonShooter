@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public BulletSource source;
     public ParticleSystem hitEffect;
 
+
     public void SetDamage(int dmg)
     {
         damage = dmg;
