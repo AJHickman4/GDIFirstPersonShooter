@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4518316945868419715}
   - component: {fileID: 5987896705384001345}
   m_Layer: 0
-  m_Name: Ladder
+  m_Name: Ladder (OldWall)
   m_TagString: Ladder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
