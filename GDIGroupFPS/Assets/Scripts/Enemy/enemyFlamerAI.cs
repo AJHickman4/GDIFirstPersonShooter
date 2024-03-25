@@ -24,6 +24,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [Header("---- Bullet Assets ----")]
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
+    [SerializeField] GameObject AttackRadius;
 
     //[Header("---- Waypoints ----")]
     //[SerializeField] GameObject[] waypointArray;
@@ -128,10 +129,13 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         isShooting = true;
-        anim.SetTrigger("Shoot");
+        if (isShooting)
+            AttackRadius.SetActive(true);
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+        if (!isShooting)
+            AttackRadius.SetActive(false);
     }
 
     public void createBullet()

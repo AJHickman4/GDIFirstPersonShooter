@@ -662,7 +662,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.39, y: 0, z: -29.23}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6166055406177791185}
@@ -698,6 +698,9 @@ MonoBehaviour:
   roamPauseTime: 2
   bullet: {fileID: 3804443700838176787, guid: 9e5c92442035991438e19573e2fea9a4, type: 3}
   shootRate: 0.5
+  waypointArray: []
+  currWaypoint: 0
+  waypointSpeed: 1
 --- !u!95 &7620685401018120440
 Animator:
   serializedVersion: 5
@@ -1166,7 +1169,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6ea5e410f03a4bf408df1fdaf4d87cd9, type: 2}
+  - {fileID: 2100000, guid: c2c258a5c8a13e240a1f598657d70330, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

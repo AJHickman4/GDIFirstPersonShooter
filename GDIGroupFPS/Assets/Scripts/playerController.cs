@@ -6,6 +6,7 @@ public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Compenents -----")]
     [SerializeField] CharacterController controller;
+    [SerializeField] Animator anim;
 
     [Header("----- Player Stats -----")]
     [Range(1, 5)][SerializeField] float speed;

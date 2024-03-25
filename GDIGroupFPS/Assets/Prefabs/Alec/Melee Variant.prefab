@@ -12,6 +12,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3171148532977818991, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
+      propertyPath: m_Height
+      value: 1.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3171148532977818991, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
+      propertyPath: m_Center.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673035478218196767, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673035478218196767, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673035478218196767, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.71
+      objectReference: {fileID: 0}
     - target: {fileID: 5673035478218196767, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.59

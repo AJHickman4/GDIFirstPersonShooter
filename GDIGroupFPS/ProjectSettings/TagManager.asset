@@ -12,6 +12,7 @@ TagManager:
   - Starting Spawnpoint
   - MysteryBox
   - Breakable
+  - Waypoint
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - weapons
   - Water
   - UI
-  - 
+  - Attack Radius
   - 
   - 
   - 
