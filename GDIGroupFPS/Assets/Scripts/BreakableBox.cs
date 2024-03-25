@@ -22,6 +22,13 @@ public class BreakableBox : MonoBehaviour, IDamage
     [SerializeField] GameObject dropObject;
     [Range(0, 100)][SerializeField] int dropChancePercentage = 25;  // 25% chance to drop
 
+    [SerializeField] GameObject dropObject2;
+    [Range(0, 100)][SerializeField] int dropChancePercentage2 = 25;
+
+    [SerializeField] GameObject dropObject3;
+    [Range(0, 100)][SerializeField] int dropChancePercentage3 = 25;
+
+
     private void Awake()
     {
         
@@ -79,13 +86,24 @@ public class BreakableBox : MonoBehaviour, IDamage
         {
             boxCollider.enabled = false;
         }
-        yield return new WaitForSeconds(1f); // Wait for 1 second before destroying the object
+         // Wait for 1 second before destroying the object
 
-        if (dropObject != null && Random.Range(0, 100) < dropChancePercentage)
-        {
-            Instantiate(dropObject, transform.position, Quaternion.identity);
-        }
+        TryDropItem(dropObject, dropChancePercentage);
+        TryDropItem(dropObject2, dropChancePercentage2);
+        TryDropItem(dropObject3, dropChancePercentage3);
+
+        yield return new WaitForSeconds(2f);
+
         Destroy(gameObject);
+    }
+
+    private void TryDropItem(GameObject item, int chance)
+    {
+        if (item != null && Random.Range(0, 100) < chance)
+        {
+            GameObject droppedItem = Instantiate(item, transform.position, Quaternion.identity);
+           
+        }
     }
 
 }
