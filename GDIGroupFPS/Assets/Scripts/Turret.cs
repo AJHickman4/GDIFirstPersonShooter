@@ -6,6 +6,7 @@ public class TurretController : MonoBehaviour, IDamage
     public GameObject projectile;
     public Transform shootingPoint;
     public Transform partToRotate;
+    public Transform raycastOrigin; 
     public float range = 10f;
     public float shootingInterval = 2f;
     public float rotationSpeed = 5f;
@@ -72,13 +73,13 @@ public class TurretController : MonoBehaviour, IDamage
         {
             if (hitCollider.CompareTag("Player"))
             {
-                Vector3 directionToPlayer = hitCollider.transform.position - transform.position;
+                Vector3 directionToPlayer = hitCollider.transform.position - raycastOrigin.position; // Use raycastOrigin
                 float angle = Vector3.Angle(partToRotate.forward, directionToPlayer);
                 if (angle < visionConeAngle)
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, range))
-                        Debug.DrawRay(transform.position, directionToPlayer.normalized * range, Color.red);
+                    if (Physics.Raycast(raycastOrigin.position, directionToPlayer.normalized, out hit, range))
+                        Debug.DrawRay(raycastOrigin.position, directionToPlayer.normalized * range, Color.red);
                     {
                         if (hit.collider.CompareTag("Player"))
                         {
@@ -100,18 +101,18 @@ public class TurretController : MonoBehaviour, IDamage
             ResetToInitialRotation();
             if (isResetting)
             {
-            PerformSearchBehavior();
+                PerformSearchBehavior();
             }
         }
     }
-    
+
     IEnumerator flashRed()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = Color.white;
     }
-    
+
     void Shoot(Vector3 targetPosition)
     {
         if (isDying) return;
@@ -137,16 +138,16 @@ public class TurretController : MonoBehaviour, IDamage
     }
 
     void ResetToInitialRotation()
-    {       
+    {
         if (Quaternion.Angle(partToRotate.localRotation, initialRotation) > 0.1f)
         {
             partToRotate.localRotation = Quaternion.Slerp(partToRotate.localRotation, initialRotation, Time.deltaTime * rotationSpeed);
         }
         else if (!isResetting)
-        {           
+        {
             partToRotate.localRotation = initialRotation;
             isResetting = true;
-            currentSearchAngle = 0f; 
+            currentSearchAngle = 0f;
         }
     }
 }

@@ -560,7 +560,7 @@ Transform:
   m_GameObject: {fileID: 6517568343578882949}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000001545431, y: 0.7071068, z: 0.00000001545431, w: 0.7071068}
-  m_LocalPosition: {x: 8.61, y: 0.91, z: -0.59}
+  m_LocalPosition: {x: 6.9, y: -0.16, z: -0.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -597,7 +597,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7311365, y: 0.01301743, z: -0.6819576, w: -0.01427832}
   m_LocalPosition: {x: -8.25, y: 5.23, z: -19.75}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.19999999, y: 0.20000002, z: 0.19999997}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1145469238808041121}
@@ -619,10 +619,11 @@ MonoBehaviour:
   projectile: {fileID: 4306222704265001011, guid: 3894376057c4669469e271d3f3d14c7b, type: 3}
   shootingPoint: {fileID: 4268500619328407017}
   partToRotate: {fileID: 4303924321718528852}
+  raycastOrigin: {fileID: 4268500619328407017}
   range: 40
-  shootingInterval: 3
+  shootingInterval: 1
   rotationSpeed: 5
-  visionConeAngle: 90
+  visionConeAngle: 180
   health: 100
   model: {fileID: 268848726451560921}
   flashDuration: 0.5
