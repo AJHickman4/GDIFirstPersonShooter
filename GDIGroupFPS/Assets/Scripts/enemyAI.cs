@@ -6,12 +6,14 @@ using UnityEngine.AI;
 
 public class enemyAI : MonoBehaviour, IDamage
 {
+    [Header ("---- Assets ----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
 
+    [Header("---- Stats ----")]
     [SerializeField] int HP;
     [SerializeField] int speed;
     [SerializeField] int viewCone;
@@ -20,8 +22,16 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
 
+    [Header("---- Bullet Assets ----")]
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
+
+    [Header("---- Waypoints ----")]
+    [SerializeField] GameObject[] waypointArray;
+    [SerializeField] int currWaypoint = 0;
+    [SerializeField] float waypointSpeed = 1.0f;
+
+    [Header("---- Audio ----")]
 
     bool isShooting;
     bool playerInRange;
@@ -63,11 +73,14 @@ public class enemyAI : MonoBehaviour, IDamage
             agent.stoppingDistance = 0;
             yield return new WaitForSeconds(roamPauseTime);
 
-            Vector3 randomPos = Random.insideUnitSphere * roamDist;
-            randomPos += startingPos;
+            Vector3 waypoint = waypointArray[currWaypoint].transform.position;
+            currWaypoint++;
+            if (currWaypoint >= waypointArray.Length)
+                currWaypoint = 0;
+            transform.position = Vector3.MoveTowards(transform.position, waypointArray[currWaypoint].transform.position, speed * Time.deltaTime);
 
             NavMeshHit hit;
-            NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+            NavMesh.SamplePosition(waypoint, out hit, roamDist, 1);
             agent.SetDestination(hit.position);
 
             destinationChosen = false;
