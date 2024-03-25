@@ -3,31 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ground
-  - Target
-  - Destroyable
-  - DestroySupporter
-  - Breakable
-  - Gun
-  - Wall
-  - Enemy
-  - Pickup
-  - Breaker
-  - MysteryBox
-  - Ladder
-  - Starting Spawnpoint
-  - LadderBottom
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Wall
-  - Ground
-  - weapons
+  - 
+  - 
+  - 
   - 
   - 
   - 
