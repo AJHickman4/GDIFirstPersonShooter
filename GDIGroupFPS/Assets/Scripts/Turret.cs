@@ -78,6 +78,7 @@ public class TurretController : MonoBehaviour, IDamage
                 {
                     RaycastHit hit;
                     if (Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, range))
+                        Debug.DrawRay(transform.position, directionToPlayer.normalized * range, Color.red);
                     {
                         if (hit.collider.CompareTag("Player"))
                         {
