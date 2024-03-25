@@ -13,7 +13,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
-    [SerializeField] GameObject menuKey;
+    [SerializeField] GameObject menuKey1;
+    [SerializeField] GameObject menuKey2;
+    [SerializeField] GameObject menuKey3;
     public GameObject menuCheckpoint;
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text bulletCountText;
@@ -89,7 +91,15 @@ public class gameManager : MonoBehaviour
     }
     public void updateKeyUI()
     {
-            menuKey.SetActive(true);
+        for (int i = 0; i < playerScript.keys.Count; i++)
+        {
+            if (playerScript.keys[i] == 1)
+                menuKey1.SetActive(true);
+            if (playerScript.keys[i] == 2)
+                menuKey2.SetActive(true);
+            if (playerScript.keys[i] == 3)
+                menuKey3.SetActive(true);
+        }
     }
 
     public void UpdateAmmoUI(int currentBullets, int currentMags, int maxBulletsPerMag, int maxMags)
