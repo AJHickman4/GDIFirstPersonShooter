@@ -17,6 +17,7 @@ TagManager:
   - MysteryBox
   - Ladder
   - Starting Spawnpoint
+  - Waypoint
   layers:
   - Default
   - TransparentFX
