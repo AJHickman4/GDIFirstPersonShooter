@@ -4,12 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - Breakable
-  - Pickup
-  - Starting Spawnpoint
-  - Gun
-  - Breaker
   - Ground
   - Target
   - Destroyable
@@ -23,37 +17,17 @@ TagManager:
   - MysteryBox
   - Ladder
   - Starting Spawnpoint
-  - LadderBottom
-  tags: []
+  - Waypoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - weapons
   - Player
   - Water
   - UI
   - Wall
   - Ground
-  - Player
   - weapons
-  - 
-  - 
-  - Water
-  - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 
