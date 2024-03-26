@@ -17,7 +17,13 @@ public class EnemyDetectionCamera : MonoBehaviour, IDamage
     public Transform raycastOrigin;
     public AudioClip detectionSound; 
     public AudioClip searchSound; 
-    private AudioSource audioSource; 
+    private AudioSource audioSource;
+
+
+    [Header("Spawning Parameters")]
+    public GameObject[] objectsToSpawn;
+    public Transform spawnPoint;
+    public bool spawnOnDetection = true;
 
     private bool isPlayerDetected = false;
 
@@ -61,8 +67,11 @@ public class EnemyDetectionCamera : MonoBehaviour, IDamage
                     Debug.Log("Player detected: " + hit.collider.name);
                     // add logic here to handle player detection here
                     
-                    
-                    
+                    if (spawnOnDetection)
+                    {
+                        SpawnObjects();
+                    }
+
                     Debug.DrawRay(raycastOrigin.position, direction * hit.distance, Color.red);
                     break;
                 }
@@ -70,7 +79,15 @@ public class EnemyDetectionCamera : MonoBehaviour, IDamage
         }
         HandleParticleEffects(playerDetected);
     }
-
+    
+    void SpawnObjects()
+    {
+        if (objectsToSpawn.Length == 0) return;
+        int index = Random.Range(0, objectsToSpawn.Length);
+        Instantiate(objectsToSpawn[index], spawnPoint.position, Quaternion.identity);
+        //spawnOnDetection = false;
+    }
+    
     void HandleParticleEffects(bool playerDetected)
     {
         if (playerDetected)
