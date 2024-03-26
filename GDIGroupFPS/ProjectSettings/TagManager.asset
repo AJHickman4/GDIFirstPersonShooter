@@ -4,14 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
   - Enemy
   - Breakable
   - Pickup
   - Starting Spawnpoint
   - Gun
   - Breaker
-=======
   - Ground
   - Target
   - Destroyable
@@ -26,27 +24,20 @@ TagManager:
   - Ladder
   - Starting Spawnpoint
   - LadderBottom
->>>>>>> parent of 072a4b72 (added bunch of scripts regarding shop)
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-<<<<<<< HEAD
   - weapons
-=======
   - Player
->>>>>>> parent of 072a4b72 (added bunch of scripts regarding shop)
   - Water
   - UI
   - Wall
   - Ground
-<<<<<<< HEAD
   - Player
   - weapons
-=======
-  - weapons
+
   - 
->>>>>>> parent of 072a4b72 (added bunch of scripts regarding shop)
   - 
   - 
   - 
