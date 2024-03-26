@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
     [Range(1, 5)] public int pellets = 5;
 
     [Header("Ammo Parameters")]
-    [Range(1, 30)] public int ammoPerMag = 30; // Ammo in each magazine
+    [Range(1, 300)] public int ammoPerMag = 30; // Ammo in each magazine
     public int currentAmmo;
     [Range(1, 5)] public int totalMags = 3; // Total number of magazines you can carry
     public int currentMags;
@@ -233,7 +233,7 @@ public class Weapon : MonoBehaviour
     {
         isRecoiling = true;
         Quaternion startRotation = transform.localRotation;
-        Quaternion recoilRotation = startRotation * Quaternion.Euler(-recoilAmount, 0, 0);
+        Quaternion recoilRotation = startRotation * Quaternion.Euler(0, 0, recoilAmount); 
         if (continuous)
         {
             while (Input.GetButton("Shoot") && currentAmmo > 0)

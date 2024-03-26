@@ -597,7 +597,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7311365, y: 0.01301743, z: -0.6819576, w: -0.01427832}
   m_LocalPosition: {x: -8.25, y: 5.23, z: -19.75}
-  m_LocalScale: {x: 0.19999999, y: 0.20000002, z: 0.19999997}
+  m_LocalScale: {x: 0.19999997, y: 0.20000005, z: 0.19999997}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1145469238808041121}
@@ -631,6 +631,7 @@ MonoBehaviour:
   die: {fileID: 4221610202238475857}
   searchSpeed: 10
   searchAngle: 90
+  lostTargetDelay: 3
 --- !u!54 &3467950457601662734
 Rigidbody:
   m_ObjectHideFlags: 0
