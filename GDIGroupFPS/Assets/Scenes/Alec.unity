@@ -3755,7 +3755,7 @@ MonoBehaviour:
   jump: 2
   jumpSpeed: 12
   gravity: -24
-  HP: 35
+  HP: 100
   keys: 
 --- !u!4 &202740903879184763
 Transform:
