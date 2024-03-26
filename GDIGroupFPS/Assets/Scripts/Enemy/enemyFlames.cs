@@ -6,7 +6,6 @@ using UnityEngine.Pool;
 
 public class enemyFlames : MonoBehaviour
 {
-    [SerializeField] Rigidbody rb;
 
     [SerializeField] float damage;
 
