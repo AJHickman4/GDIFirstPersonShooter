@@ -4,52 +4,23 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
-  - Wall
+  - Enemy
+  - Breakable
+  - Pickup
+  - Starting Spawnpoint
   - Gun
   - Breaker
-  - Pickup
-  - Enemy
-  - Starting Spawnpoint
-  - MysteryBox
-  - Breakable
-  - Waypoint
-=======
-  - Ground
-  - Target
-  - Destroyable
-  - DestroySupporter
-  - Breakable
-  - Gun
-  - Wall
-  - Enemy
-  - Pickup
-  - Breaker
-  - MysteryBox
-  - Ladder
-  - Starting Spawnpoint
-  - LadderBottom
->>>>>>> parent of 072a4b72 (added bunch of scripts regarding shop)
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-<<<<<<< HEAD
   - weapons
-  - Water
-  - UI
-  - Attack Radius
-  - 
-  - 
-=======
-  - Player
   - Water
   - UI
   - Wall
   - Ground
+  - Player
   - weapons
->>>>>>> parent of 072a4b72 (added bunch of scripts regarding shop)
-  - 
   - 
   - 
   - 
