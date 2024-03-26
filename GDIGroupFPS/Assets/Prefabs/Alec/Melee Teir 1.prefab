@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1257624522704542064, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
       propertyPath: m_Name
-      value: Melee Variant
+      value: Melee Teir 1
       objectReference: {fileID: 0}
     - target: {fileID: 3171148532977818991, guid: e6fa9cab5daab6c4386c504256fe5e49, type: 3}
       propertyPath: m_Height

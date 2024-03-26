@@ -12,6 +12,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] Transform headPos;
     [SerializeField] Collider meleeCol;
+    [SerializeField] AudioSource aud;
 
     [Header ("----- Enemy Stats -----")]
     [SerializeField] int HP;
@@ -22,8 +23,13 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
     [Range (0, 5)] [SerializeField] int meleeDmg;
-
     [SerializeField] float slashRate;
+
+    [Header("---- Audio ----")]
+    [SerializeField] AudioClip[] audRun;
+    [Range(0, 1)][SerializeField] float audRunVol;
+    [SerializeField] AudioClip[] audSlashHit;
+    [Range(0, 1)][SerializeField] float audSlashHitVol;
 
     bool isSlashing;
     bool playerInRange;
@@ -122,7 +128,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     {
         isSlashing = true;
         anim.SetTrigger("Slash");
-
+        
         yield return new WaitForSeconds(slashRate);
         isSlashing = false;
     }
@@ -168,6 +174,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     public void meleeColOn()
     {
         meleeCol.enabled = true;
+        aud.PlayOneShot(audSlashHit[Random.Range(0, audSlashHit.Length)], audSlashHitVol);
     }
 
     public void meleeColOff()

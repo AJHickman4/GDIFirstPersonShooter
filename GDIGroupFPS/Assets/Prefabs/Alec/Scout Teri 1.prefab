@@ -646,7 +646,7 @@ GameObject:
   - component: {fileID: 6566919793613501990}
   - component: {fileID: 4445877100496764813}
   m_Layer: 0
-  m_Name: Scout New
+  m_Name: Scout Teri 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,6 +689,7 @@ MonoBehaviour:
   anim: {fileID: 7620685401018120440}
   shootPos: {fileID: 132834162747846419}
   headPos: {fileID: 8441652402842693254}
+  aud: {fileID: 0}
   HP: 50
   speed: 2
   viewCone: 90
@@ -701,6 +702,10 @@ MonoBehaviour:
   waypointArray: []
   currWaypoint: 0
   waypointSpeed: 1
+  audRun: []
+  audRunVol: 0
+  audShooting: []
+  audShootingVol: 0
 --- !u!95 &7620685401018120440
 Animator:
   serializedVersion: 5

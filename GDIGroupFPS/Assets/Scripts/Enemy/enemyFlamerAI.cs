@@ -11,6 +11,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
+    [SerializeField] AudioSource aud;
 
     [Header("---- Stats ----")]
     [SerializeField] int HP;
@@ -32,6 +33,10 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     //[SerializeField] float waypointSpeed = 1.0f;
 
     [Header("---- Audio ----")]
+    [SerializeField] AudioClip[] audRun;
+    [Range(0, 1)][SerializeField] float audRunVol;
+    [SerializeField] AudioClip[] audShooting;
+    [Range(0, 1)][SerializeField] float audShootingVol;
 
     bool isShooting;
     bool playerInRange;
@@ -132,7 +137,10 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         if (isShooting)
             AttackRadius.SetActive(true);
 
+        //aud.PlayOneShot(audShooting[Random.Range(0, audShooting.Length)], audShootingVol);
+
         yield return new WaitForSeconds(shootRate);
+
         isShooting = false;
         if (!isShooting)
             AttackRadius.SetActive(false);

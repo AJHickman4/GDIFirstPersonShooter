@@ -12,6 +12,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
+    [SerializeField] AudioSource aud;
 
     [Header("---- Stats ----")]
     [SerializeField] int HP;
@@ -32,6 +33,10 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] float waypointSpeed = 1.0f;
 
     [Header("---- Audio ----")]
+    [SerializeField] AudioClip[] audRun;
+    [Range(0, 1)][SerializeField] float audRunVol;
+    [SerializeField] AudioClip[] audShooting;
+    [Range(0, 1)][SerializeField] float audShootingVol;
 
     bool isShooting;
     bool playerInRange;
@@ -70,6 +75,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (agent.remainingDistance < 0.05f && !destinationChosen)
         {
             destinationChosen = true;
+
             agent.stoppingDistance = 0;
             yield return new WaitForSeconds(roamPauseTime);
 
@@ -133,7 +139,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         isShooting = true;
         anim.SetTrigger("Shoot");
-
+        aud.PlayOneShot(audShooting[Random.Range(0, audShooting.Length)], audShootingVol);
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
