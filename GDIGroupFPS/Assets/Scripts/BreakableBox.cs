@@ -103,6 +103,7 @@ public class BreakableBox : MonoBehaviour, IDamage
         if (item != null && Random.Range(0, 100) < chance)
         {
             GameObject droppedItem = Instantiate(item, transform.position, Quaternion.identity);
+            
            
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyFlamerAI : MonoBehaviour, IDamage
+public class enemyRocketeerAI : MonoBehaviour
 {
     [Header("---- Assets ----")]
     [SerializeField] Renderer model;
@@ -25,7 +25,6 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [Header("---- Bullet Assets ----")]
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
-    [SerializeField] GameObject AttackRadius;
 
     //[Header("---- Waypoints ----")]
     //[SerializeField] GameObject[] waypointArray;
@@ -134,16 +133,10 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         isShooting = true;
-        if (isShooting)
-            AttackRadius.SetActive(true);
-
-        //aud.PlayOneShot(audShooting[Random.Range(0, audShooting.Length)], audShootingVol);
-
+        anim.SetTrigger("Shoot");
+        aud.PlayOneShot(audShooting[Random.Range(0, audShooting.Length)], audShootingVol);
         yield return new WaitForSeconds(shootRate);
-
         isShooting = false;
-        if (!isShooting)
-            AttackRadius.SetActive(false);
     }
 
     public void createBullet()
@@ -163,19 +156,19 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         }
     }
 
+    IEnumerator flashRed()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = Color.white;
+    }
+
     IEnumerator onDeath()
     {
         playerInRange = false;
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
-    }
-
-    IEnumerator flashRed()
-    {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = Color.white;
     }
 
     private void OnTriggerEnter(Collider other)

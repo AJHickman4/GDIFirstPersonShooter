@@ -66,7 +66,7 @@ MonoBehaviour:
   dropChancePercentage: 40
   dropObject2: {fileID: 2141468282462125550, guid: 5d442bd97cc8bbc4c97fdbb0a77dd245, type: 3}
   dropChancePercentage2: 5
-  dropObject3: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
+  dropObject3: {fileID: 4883991968509214950, guid: d3611dc82deb88c4c9bb77cc4a987645, type: 3}
   dropChancePercentage3: 1
 --- !u!23 &2964213637685927673
 MeshRenderer:
