@@ -22,7 +22,9 @@ public class playerController : MonoBehaviour, IDamage
     private int HPOrig;
     private bool isAlive = true;
 
-
+    [Header("----- Inventory -----")]
+    public List<int> keys; // Inventory of keys
+    public int credits; // Currency Balance of the Player
 
     private float originalHeight; //standard startingg height of our character controller
     private float crouchHeight = 1f; //adjustment to the height when crouching
@@ -30,11 +32,11 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
     bool isShooting;
-    public List<int> keys; // Inventory of keys
 
     // Start is called before the first frame update
     void Start()
     {
+        credits = 0;
         originalHeight = controller.height; //stores original height at the start of play. 
         HPOrig = HP;
         spawnPlayer();
