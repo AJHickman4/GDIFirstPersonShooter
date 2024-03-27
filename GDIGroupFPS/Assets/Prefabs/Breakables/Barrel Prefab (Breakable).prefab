@@ -62,10 +62,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fd706038486fee041947a774223dc22e, type: 3}
   audExplosionVol: 1
   dropObject: {fileID: 5665514921677992063, guid: 77aba071ec2665a4288a063423740d8c, type: 3}
-  dropChancePercentage: 30
+  dropChancePercentage: 25
   dropObject2: {fileID: 2141468282462125550, guid: 5d442bd97cc8bbc4c97fdbb0a77dd245, type: 3}
   dropChancePercentage2: 5
-  dropObject3: {fileID: 374289202576707483, guid: 78df1db2fbc8ec64f949fac0c05bf693, type: 3}
+  dropObject3: {fileID: 4883991968509214950, guid: d3611dc82deb88c4c9bb77cc4a987645, type: 3}
   dropChancePercentage3: 1
 --- !u!23 &5565746001252764917
 MeshRenderer:

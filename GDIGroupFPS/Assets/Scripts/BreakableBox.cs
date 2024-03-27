@@ -57,8 +57,9 @@ public class BreakableBox : MonoBehaviour, IDamage
         {
             if (explosion != null)
             {
-                Instantiate(explosion, transform.position, transform.rotation);
+                GameObject explosionInstance = Instantiate(explosion, transform.position, transform.rotation);
                 aud.PlayOneShot(audExplosion[Random.Range(0, audExplosion.Length)], audExplosionVol);
+                Destroy(explosionInstance, 2f);
             }
 
 
@@ -102,6 +103,7 @@ public class BreakableBox : MonoBehaviour, IDamage
         if (item != null && Random.Range(0, 100) < chance)
         {
             GameObject droppedItem = Instantiate(item, transform.position, Quaternion.identity);
+            
            
         }
     }
