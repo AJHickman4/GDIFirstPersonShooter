@@ -174,6 +174,8 @@ public class enemyAI : MonoBehaviour, IDamage
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
+        gameManager.instance.playerScript.credits += 2;
+        gameManager.instance.updateCreditsUI();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -153,6 +153,8 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
+        gameManager.instance.playerScript.credits += 1;
+        gameManager.instance.updateCreditsUI();
     }
 
     IEnumerator flashRed()

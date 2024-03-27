@@ -169,6 +169,8 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
+        gameManager.instance.playerScript.credits += 5;
+        gameManager.instance.updateCreditsUI();
     }
 
     IEnumerator flashRed()
