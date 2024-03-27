@@ -3293,6 +3293,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 8597018578708554392}
   gunShot: {fileID: 4967529638308152512}
   reload: {fileID: 3348753712922406492}
+  unlimitedAmmo: 0
   mode: 0
 --- !u!1001 &691495392621328126
 PrefabInstance:
@@ -4365,7 +4366,7 @@ MonoBehaviour:
   animSpeedTrans: 20
   roamDist: 10
   roamPauseTime: 2
-  bullet: {fileID: 3804443700838176787, guid: 0543f4142f642994f94c7d8437aaddb8, type: 3}
+  bullet: {fileID: 7052938874041917244, guid: f2115b0ae989f284895fd007c7faf980, type: 3}
   shootRate: 3
   audRun: []
   audRunVol: 0
@@ -4757,7 +4758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2383870907971991796, guid: 58a20b220402a1740bb22540c8105804, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.57
+      value: -37.3
       objectReference: {fileID: 0}
     - target: {fileID: 2383870907971991796, guid: 58a20b220402a1740bb22540c8105804, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6275,7 +6276,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 506788085934564271, guid: 84e82834029180b4090dabf2a3ee14b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.39
+      value: -33.8
       objectReference: {fileID: 0}
     - target: {fileID: 506788085934564271, guid: 84e82834029180b4090dabf2a3ee14b3, type: 3}
       propertyPath: m_LocalPosition.y
