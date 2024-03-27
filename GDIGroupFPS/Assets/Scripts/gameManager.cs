@@ -20,6 +20,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text CreditsText;
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] TMP_Text magCountText;
+    [SerializeField] GameObject startingDialog;
     public GameObject damageIndicator;
     public Image healthBar;
     public Image boardFixing;
@@ -43,6 +44,8 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
+        startingDialog.SetActive(true);
+        StartCoroutine(HideStartingDialogAfterTime(6f));
     }
 
     // Update is called once per frame
@@ -113,4 +116,11 @@ public class gameManager : MonoBehaviour
     {
         CreditsText.text = playerScript.credits.ToString("F0");
     }
+
+    IEnumerator HideStartingDialogAfterTime(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        startingDialog.SetActive(false);
+    }
+
 }

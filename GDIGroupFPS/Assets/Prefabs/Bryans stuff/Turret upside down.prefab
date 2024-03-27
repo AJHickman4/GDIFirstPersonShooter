@@ -621,7 +621,7 @@ MonoBehaviour:
   partToRotate: {fileID: 4303924321718528852}
   raycastOrigin: {fileID: 4268500619328407017}
   range: 40
-  shootingInterval: 1
+  shootingInterval: 0.1
   rotationSpeed: 5
   visionConeAngle: 180
   health: 100
@@ -678,8 +678,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 11.55949, y: 8.7325735, z: 10.844004}
-  m_Center: {x: -0.11600763, y: 3.8662834, z: 0.019497871}
+  m_Size: {x: 6.561222, y: 8.176092, z: 6.5370064}
+  m_Center: {x: 0.22127755, y: 3.588067, z: -0.07092544}
 --- !u!82 &4532942089908878843
 AudioSource:
   m_ObjectHideFlags: 0
