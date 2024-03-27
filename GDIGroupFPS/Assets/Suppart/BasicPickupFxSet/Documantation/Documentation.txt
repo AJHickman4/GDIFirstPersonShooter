@@ -1,0 +1,17 @@
+Basic Pickups Vfx Set Documentation
+
+1- Color Editing
+
+You can change color on material with the same name as prefab. Materials are in the “Materials” folder.
+
+2- Lifetime-Duration Editing
+
+You can change duration via prefab attached particle system. You must change Duration and Start Lifetime values.
+
+3- Looping
+
+You can change looping option via prefab attached particle system. You must change Looping value.
+
+4- Spawning
+
+You can spawn this prefabs as all other prefabs. You should follow this document  https://docs.unity3d.com/ScriptReference/Object.Instantiate.html

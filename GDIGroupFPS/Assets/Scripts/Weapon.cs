@@ -52,7 +52,10 @@ public class Weapon : MonoBehaviour
 
     public AudioSource gunShot;
     public AudioSource reload;
-    
+    private int originalBulletDamage;
+    private bool isDamageBoosted = false;
+    public bool unlimitedAmmo = false;
+
     public enum ShootingMode
     {
         Single,
@@ -65,6 +68,7 @@ public class Weapon : MonoBehaviour
 
     void Awake()
     {
+        originalBulletDamage = bulletDamage; 
         originalRotation = transform.localRotation;
         gunShot = GetComponent<AudioSource>();
         readyToShoot = true;
@@ -117,10 +121,15 @@ public class Weapon : MonoBehaviour
     private void FireWeapon()
     {
         
-        if (isReloading) return;
-
+        if (isReloading) return;                    
         ShootBullet();
-        currentAmmo--;
+        
+        if (!unlimitedAmmo)
+        {
+            currentAmmo--;
+        }
+        
+
         timeSinceLastShot = 0f;
         gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
 
@@ -152,7 +161,10 @@ public class Weapon : MonoBehaviour
         {
             if (isReloading) yield break;
             ShootBullet();
-            currentAmmo--;
+            if (!unlimitedAmmo) 
+            {
+                currentAmmo--;
+            }
             yield return new WaitForSeconds(shootingDelay / bulletsPerBurst);
         }
         StartCoroutine(ResetShot(shootingDelay));
@@ -174,7 +186,10 @@ public class Weapon : MonoBehaviour
         {
             if (isReloading) yield break;
             ShootBullet(omitSound: true);
-            currentAmmo--;
+            if (!unlimitedAmmo)
+            {
+                currentAmmo--;
+            }
             yield return new WaitForSeconds(shootingDelay / pellets);
         }
         StartCoroutine(ResetShot(shootingDelay));
@@ -208,6 +223,13 @@ public class Weapon : MonoBehaviour
         Vector3 shootingDirection = CalculateDirectionAndSpread();
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.LookRotation(shootingDirection));
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
+        
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            bulletScript.SetDamage(bulletDamage);
+        }
+        
         Destroy(bullet, bulletPrefabLife);
 
     }
@@ -264,19 +286,63 @@ public class Weapon : MonoBehaviour
         transform.localRotation = startRotation;
         isRecoiling = false;
     }
-    public void AddOneMagIfNeeded()
+    public bool AddOneMagIfNeeded()
     {
+        bool magAdded = false;
         if (currentMags == 0 && currentAmmo == 0)
         {
-            currentAmmo = ammoPerMag;
-            Debug.Log("Ammo added to the inventory.");
-            gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
+            currentAmmo = ammoPerMag;          
+            magAdded = true;
+        }
+        else if (currentMags < totalMags)
+        {
+            currentMags += 1;
+            magAdded = true;
         }
         else
         {
-            currentMags += 1;
-            Debug.Log("One magazine added to the inventory.");
-            gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
+            //debug.log("You have reached the maximum number of magazines");
+        }
+
+        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
+        return magAdded;
+    }
+
+    public void ChangeDamage(int newDamage)
+    {
+        bulletDamage = newDamage;
+    }
+
+    public void ResetDamage()
+    {
+        bulletDamage = originalBulletDamage;
+    }
+
+    public void ApplyDamageBoost(int boostMultiplier, float duration)
+    {
+        if (!isDamageBoosted)
+        {
+            bulletDamage *= boostMultiplier;
+            isDamageBoosted = true;
+            StartCoroutine(ResetDamageAfterDelay(duration));
         }
     }
+
+    private IEnumerator ResetDamageAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        bulletDamage = originalBulletDamage;
+        isDamageBoosted = false;
+    }
+    public void EnableUnlimitedAmmo(float duration)
+    {
+        unlimitedAmmo = true;
+        StartCoroutine(DisableUnlimitedAmmoAfterDelay(duration));
+    }
+    private IEnumerator DisableUnlimitedAmmoAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        unlimitedAmmo = false;
+    }
 }
+

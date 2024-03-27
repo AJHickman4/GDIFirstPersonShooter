@@ -9,7 +9,7 @@ public class AmmoBox : MonoBehaviour
     private AudioSource audioSource;
 
     void Start()
-    {       
+    {
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -21,9 +21,12 @@ public class AmmoBox : MonoBehaviour
             Weapon weaponScript = other.gameObject.GetComponentInChildren<Weapon>();
             if (weaponScript != null)
             {
-                weaponScript.AddOneMagIfNeeded();
-                audioSource.PlayOneShot(pickupSound);
-                Destroy(gameObject, pickupSound.length);
+                bool magAdded = weaponScript.AddOneMagIfNeeded();
+                if (magAdded)
+                {
+                    Destroy(gameObject, pickupSound.length);
+                    audioSource.PlayOneShot(pickupSound);
+                }
             }
         }
     }

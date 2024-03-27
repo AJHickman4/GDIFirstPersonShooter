@@ -79,6 +79,12 @@ public class EquipScript : MonoBehaviour
     void UnequipObject()
     {
         Weapon weaponScript = Gun.GetComponent<Weapon>();
+
+        if (weaponScript.unlimitedAmmo)
+        {
+            return; 
+        }
+
         if (weaponScript.isReloading)
         {
             

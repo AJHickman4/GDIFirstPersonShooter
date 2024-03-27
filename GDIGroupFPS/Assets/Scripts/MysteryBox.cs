@@ -1,11 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MysteryBox : MonoBehaviour
 {
     public GameObject[] weaponPrefabs;
     [Range(1, 3)] public float spawnOffset = 1.0f;
+    public int cost = 50; 
+
+    private playerController playerController; 
+
+    private void Start()
+    {
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<playerController>();
+    }
 
     private void Update()
     {
@@ -25,10 +31,21 @@ public class MysteryBox : MonoBehaviour
 
     private void Interact()
     {
-        Debug.Log("Spawning weapon above Mystery Box");
-        int randomIndex = Random.Range(0, weaponPrefabs.Length);
-        GameObject weaponToSpawn = weaponPrefabs[randomIndex];
-        Vector3 spawnPosition = transform.position + Vector3.up * spawnOffset;
-        GameObject spawnedWeapon = Instantiate(weaponToSpawn, spawnPosition, Quaternion.Euler(0, 90, 0));
+        if (playerController == null)
+        {
+            return;
+        }
+        if (playerController.credits >= cost)
+        {
+            playerController.credits -= cost; 
+            int randomIndex = Random.Range(0, weaponPrefabs.Length);
+            GameObject weaponToSpawn = weaponPrefabs[randomIndex];
+            Vector3 spawnPosition = transform.position + Vector3.up * spawnOffset;
+            GameObject spawnedWeapon = Instantiate(weaponToSpawn, spawnPosition, Quaternion.Euler(0, 180, 180));
+        }
+        else
+        {
+            Debug.Log("Not enough credits to interact with the Mystery Box");
+        }
     }
 }

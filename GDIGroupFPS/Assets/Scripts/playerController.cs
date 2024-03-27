@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour, IDamage
     [Range(-15, -35)][SerializeField] int gravity;
 
     [Header("----- Health -----")]
-    [Range (1, 100)] [SerializeField] int HP;
+    [Range (1, 100)] public int HP;
     private int HPOrig;
     private bool isAlive = true;
 
@@ -32,6 +32,8 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
     bool isShooting;
+    private bool isInvincible = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -133,6 +135,11 @@ public class playerController : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
+
+        if (isInvincible)
+        {
+            return; 
+        }
         if (!isAlive) return;
         StartCoroutine(damageIndictator());
         HP -= amount;
@@ -162,5 +169,10 @@ public class playerController : MonoBehaviour, IDamage
     void updatePlayerUI()
     {
         gameManager.instance.healthBar.fillAmount = (float)HP / HPOrig;
+    }
+
+    public void SetInvincibility(bool invincible)
+    {
+        isInvincible = invincible;
     }
 }
