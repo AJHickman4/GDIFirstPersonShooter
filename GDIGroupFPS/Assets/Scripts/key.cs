@@ -25,7 +25,6 @@ public class key : MonoBehaviour
             gameManager.instance.playerScript.keys.Add(keyValue);
             gameManager.instance.updateKeyUI();
             gameObject.SetActive(false);
-           
         }
     }
 }
