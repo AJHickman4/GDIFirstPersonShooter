@@ -26050,6 +26050,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 493863814}
     m_Modifications:
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Size.x
+      value: 8.970661
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Size.z
+      value: 10.0781145
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Center.x
+      value: -0.075488
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Center.y
+      value: 3.8662841
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Center.z
+      value: 0.4024495
+      objectReference: {fileID: 0}
     - target: {fileID: 6317277244093677316, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.19999999
@@ -26112,7 +26132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6408056363730519343, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
       propertyPath: shootingInterval
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8230722110075401217, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
       propertyPath: m_Name
@@ -63587,6 +63607,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -177.248
       objectReference: {fileID: 0}
+    - target: {fileID: 6408056363730519343, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: shootingInterval
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8230722110075401217, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
       propertyPath: m_Name
       value: Turret upside down
@@ -86688,6 +86712,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2147483071}
     m_Modifications:
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Size.x
+      value: 10.385028
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Size.z
+      value: 10.5577545
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Center.x
+      value: 0.47122538
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Center.y
+      value: 3.8662844
+      objectReference: {fileID: 0}
+    - target: {fileID: 265883096677992864, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: m_Center.z
+      value: 0.16262433
+      objectReference: {fileID: 0}
     - target: {fileID: 6317277244093677316, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9
@@ -86731,6 +86775,10 @@ PrefabInstance:
     - target: {fileID: 6408056363730519343, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
       propertyPath: lostTargetDelay
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6408056363730519343, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
+      propertyPath: shootingInterval
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8230722110075401217, guid: b62499e060ff8184fba5b2706f9282a5, type: 3}
       propertyPath: m_Name
