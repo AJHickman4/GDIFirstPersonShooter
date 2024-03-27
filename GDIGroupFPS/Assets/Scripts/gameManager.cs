@@ -23,6 +23,7 @@ public class gameManager : MonoBehaviour
     public GameObject damageIndicator;
     public Image healthBar;
     public Image boardFixing;
+    public GameObject boardActive;
 
     public GameObject player;
     public playerController playerScript;

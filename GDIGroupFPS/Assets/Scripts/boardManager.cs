@@ -13,10 +13,15 @@ public class boardManager : MonoBehaviour
     public bool decay;
     public bool isEmpty;
 
+    int boardOG;
+    float board;
+    bool boardsDone;
+
     // Start is called before the first frame update
     void Start()
     {
-        isEmpty = true;
+        boardOG = 0;
+        gameManager.instance.boardFixing.fillAmount = boardOG;
         player = GameObject.FindWithTag("Player");
     }
 
@@ -24,24 +29,25 @@ public class boardManager : MonoBehaviour
     void Update()
     {
         if (isEmpty)
-        StartCoroutine(decayBoards());
+            StartCoroutine(decayBoards());
     }
     private void OnTriggerStay(Collider other)
     {
         isEmpty = false;
+        gameManager.instance.boardActive.SetActive(true);
+
         if (Input.GetKey(KeyCode.E))
-        {
             fixing = true;
-        }
         else
             fixing = false;
-            if (fixing)
-                StartCoroutine(fixBoards());
-        
+        if (fixing)
+            StartCoroutine(fixBoards());
+
     }
     void OnTriggerExit(Collider other)
     {
         isEmpty = true;
+        gameManager.instance.boardActive.SetActive(false);
     }
 
     IEnumerator fixBoards()
@@ -58,6 +64,7 @@ public class boardManager : MonoBehaviour
                 {
                     yield return new WaitForSeconds(boardFixSpeed);
                     boards[i].SetActive(true);
+                    updateFixingUI(true);
                 }
             }
             else yield return null;
@@ -78,11 +85,23 @@ public class boardManager : MonoBehaviour
                 {
                     yield return new WaitForSeconds(boardDecaySpeed);
                     boards[i].SetActive(false);
+                    updateFixingUI(false);
                 }
             }
             else yield return null;
         }
 
     }
-    
+
+    void updateFixingUI(bool boardIsFixed)
+    {
+        if (boardIsFixed && gameManager.instance.boardFixing.fillAmount != 1)
+        { 
+            gameManager.instance.boardFixing.fillAmount += 0.25f;
+        }
+        else if (!boardIsFixed && gameManager.instance.boardFixing.fillAmount != 0)
+        {
+            gameManager.instance.boardFixing.fillAmount -= 0.25f;
+        }
+    }
 }
