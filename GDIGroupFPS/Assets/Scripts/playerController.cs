@@ -37,6 +37,7 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         credits = 0;
+        gameManager.instance.updateCreditsUI();
         originalHeight = controller.height; //stores original height at the start of play. 
         HPOrig = HP;
         spawnPlayer();
