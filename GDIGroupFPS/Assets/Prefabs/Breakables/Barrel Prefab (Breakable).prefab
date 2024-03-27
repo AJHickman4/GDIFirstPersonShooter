@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1188788210441180426}
   - component: {fileID: 3904464672485370815}
   - component: {fileID: -5988685844304808813}
+  - component: {fileID: -3370120080166396888}
   m_Layer: 0
   m_Name: Barrel Prefab (Breakable)
   m_TagString: Breakable
@@ -262,3 +263,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &-3370120080166396888
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7452340883788711214}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.44000003, y: 0.61300004, z: 0.44000003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.61300004, z: -0.015000001}
+  m_TimeToStationary: 0.5

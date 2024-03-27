@@ -143,8 +143,16 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(onDeath());
         }
+    }
+
+    IEnumerator onDeath()
+    {
+        playerInRange = false;
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 
     IEnumerator flashRed()

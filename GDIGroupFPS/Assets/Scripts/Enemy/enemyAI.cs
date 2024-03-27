@@ -157,7 +157,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(onDeath());
         }
     }
 
@@ -166,6 +166,14 @@ public class enemyAI : MonoBehaviour, IDamage
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = Color.white;
+    }
+
+    IEnumerator onDeath()
+    {
+        playerInRange = false;
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -16,7 +16,6 @@ public class boardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isEmpty = true;
         player = GameObject.FindWithTag("Player");
     }
 
@@ -24,24 +23,27 @@ public class boardManager : MonoBehaviour
     void Update()
     {
         if (isEmpty)
-        StartCoroutine(decayBoards());
+            StartCoroutine(decayBoards());
     }
     private void OnTriggerStay(Collider other)
     {
         isEmpty = false;
+        gameManager.instance.boardActive.SetActive(true);
+
         if (Input.GetKey(KeyCode.E))
-        {
             fixing = true;
-        }
         else
             fixing = false;
-            if (fixing)
-                StartCoroutine(fixBoards());
-        
+        if (fixing)
+        {
+            StartCoroutine(fixBoards());
+        }
+
     }
     void OnTriggerExit(Collider other)
     {
         isEmpty = true;
+        gameManager.instance.boardActive.SetActive(false);
     }
 
     IEnumerator fixBoards()
@@ -82,7 +84,5 @@ public class boardManager : MonoBehaviour
             }
             else yield return null;
         }
-
     }
-    
 }

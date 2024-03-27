@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7297457379945945109}
   - component: {fileID: 8549352676820985053}
   - component: {fileID: -1980841494751753986}
+  - component: {fileID: 1622391747912785720}
   m_Layer: 0
   m_Name: Crate Long (Breakable)
   m_TagString: Breakable
@@ -261,3 +262,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &1622391747912785720
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9130539717891757862}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.32000002, y: 0.3, z: 0.637}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.32000002, y: 0.3, z: 0.637}
+  m_TimeToStationary: 0.5
