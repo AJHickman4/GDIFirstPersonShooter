@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyRocketeerAI : MonoBehaviour
+public class enemyRocketeerAI : MonoBehaviour, IDamage
 {
     [Header("---- Assets ----")]
     [SerializeField] Renderer model;
@@ -44,7 +44,6 @@ public class enemyRocketeerAI : MonoBehaviour
     float stoppingDistOrg;
     Vector3 startingPos;
     bool destinationChosen;
-
 
     void Start()
     {
@@ -141,8 +140,9 @@ public class enemyRocketeerAI : MonoBehaviour
 
     public void createBullet()
     {
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        Instantiate(bullet, shootPos.position, Quaternion.LookRotation(new Vector3(playerDirection.x,0,playerDirection.z)));
     }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
