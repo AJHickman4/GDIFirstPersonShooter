@@ -1113,7 +1113,9 @@ MonoBehaviour:
   slashRate: 1
   audRun: []
   audRunVol: 0
-  audSlashHit: []
+  audSlashHit:
+  - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
+  - {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
   audSlashHitVol: 0.2
 --- !u!95 &4876843920646692208
 Animator:

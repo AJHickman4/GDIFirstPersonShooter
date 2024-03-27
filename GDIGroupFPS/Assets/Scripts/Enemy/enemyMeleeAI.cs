@@ -22,7 +22,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     [SerializeField] float animSpeedTrans;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
-    [Range (0, 5)] [SerializeField] int meleeDmg;
+    [Range (0, 15)] [SerializeField] int meleeDmg;
     [SerializeField] float slashRate;
 
     [Header("---- Audio ----")]

@@ -30,7 +30,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [Header("---- Waypoints ----")]
     [SerializeField] GameObject[] waypointArray;
     [SerializeField] int currWaypoint = 0;
-    [SerializeField] float waypointSpeed = 1.0f;
+    //[SerializeField] float waypointSpeed = 1.0f;
 
     [Header("---- Audio ----")]
     [SerializeField] AudioClip[] audRun;

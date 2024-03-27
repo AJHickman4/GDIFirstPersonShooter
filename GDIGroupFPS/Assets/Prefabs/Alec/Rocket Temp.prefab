@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8194151769405543416}
   - component: {fileID: 7878877033753434171}
   m_Layer: 0
-  m_Name: Scout Bullet
+  m_Name: Rocket Temp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,8 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8194151769405543416}
-  damage: 2
-  speed: 20
+  damage: 5
+  speed: 10
   destroyTime: 2
 --- !u!54 &8194151769405543416
 Rigidbody:

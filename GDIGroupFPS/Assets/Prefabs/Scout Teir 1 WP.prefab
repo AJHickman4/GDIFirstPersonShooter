@@ -623,12 +623,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currWaypoint: 0
-  waypointSpeed: 1
   audRun: []
   audRunVol: 0
   audShooting:
-  - {fileID: 8300000, guid: 1b145bcffd767854fb0c71c37678ebaa, type: 3}
-  - {fileID: 8300000, guid: f19e3fdb9c8082647a2c32beca28ba84, type: 3}
+  - {fileID: 8300000, guid: d69eb890685b8e84d8baef28044a4562, type: 3}
   audShootingVol: 0.2
 --- !u!95 &8518399128373178733
 Animator:
