@@ -36,6 +36,8 @@ public class gameManager : MonoBehaviour
     float timeScaleOrig;
     int enemyCount;
 
+    bool temp;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -44,19 +46,25 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
-        startingDialog.SetActive(true);
-        StartCoroutine(HideStartingDialogAfterTime(6f));
+        //startingDialog.SetActive(true);
+
+        statePaused();
+        Debug.Log("paused");
+        menuActive = startingDialog;
+        menuActive.SetActive(isPaused);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if (currentWeapon != null)
         {
-            UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.currentMags,currentWeapon.ammoPerMag,currentWeapon.totalMags);
+            UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.currentMags, currentWeapon.ammoPerMag, currentWeapon.totalMags);
         }
-
+        if (menuActive == startingDialog && Input.anyKey)
+        {
+            stateUnPaused();
+        }
         if (Input.GetButtonDown("Cancel") && menuActive == null)
         {
             statePaused();
@@ -117,10 +125,14 @@ public class gameManager : MonoBehaviour
         CreditsText.text = playerScript.credits.ToString("F0");
     }
 
-    IEnumerator HideStartingDialogAfterTime(float delay)
+    IEnumerator HideStartingDialogAfterTime()
     {
-        yield return new WaitForSeconds(delay);
-        startingDialog.SetActive(false);
+        
+        while (menuActive != null)
+            yield return new WaitForSeconds(3.0f);
+        Debug.Log("unpaused");
+        stateUnPaused();
+
     }
 
 }
