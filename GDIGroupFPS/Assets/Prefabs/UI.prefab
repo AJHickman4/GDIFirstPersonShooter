@@ -1761,7 +1761,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 531, y: 41}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1105497515467559067
 CanvasRenderer:
@@ -1791,7 +1791,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: da066def5261bea4e8b435b68983919e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e8dc85e2d1b7bc44aa8611bab164b8e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2364,10 +2364,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 758043221104577792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2522336271441614286
 CanvasRenderer:
@@ -2397,7 +2397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dd8ae1bb333b39c46a8005e77bdb3fc5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3224e0948d616b14ba186cd71614fcd3, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4073,7 +4073,6 @@ MonoBehaviour:
   startingDialog: {fileID: 2471587889121871440}
   damageIndicator: {fileID: 4978047108160656800}
   healthBar: {fileID: 8893485494654220651}
-  boardFixing: {fileID: 0}
   boardActive: {fileID: 4563832342198051334}
   player: {fileID: 0}
   playerScript: {fileID: 0}

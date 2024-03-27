@@ -16,6 +16,7 @@ public class boardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //isEmpty = true; turn this code on if the player is starting inside of a trigger
         player = GameObject.FindWithTag("Player");
     }
 

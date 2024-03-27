@@ -23,7 +23,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject startingDialog;
     public GameObject damageIndicator;
     public Image healthBar;
-    public Image boardFixing;
     public GameObject boardActive;
 
     public GameObject player;
@@ -46,10 +45,10 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
-        //startingDialog.SetActive(true);
 
+
+        // This code pauses the game and starts the beginning dialogue screen
         statePaused();
-        Debug.Log("paused");
         menuActive = startingDialog;
         menuActive.SetActive(isPaused);
     }
@@ -124,15 +123,4 @@ public class gameManager : MonoBehaviour
     {
         CreditsText.text = playerScript.credits.ToString("F0");
     }
-
-    IEnumerator HideStartingDialogAfterTime()
-    {
-        
-        while (menuActive != null)
-            yield return new WaitForSeconds(3.0f);
-        Debug.Log("unpaused");
-        stateUnPaused();
-
-    }
-
 }
