@@ -17,7 +17,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuKey2;
     [SerializeField] GameObject menuKey3;
     public GameObject menuCheckpoint;
-    [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text CreditsText;
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] TMP_Text magCountText;
     public GameObject damageIndicator;
@@ -104,8 +104,13 @@ public class gameManager : MonoBehaviour
     }
 
     public void UpdateAmmoUI(int currentBullets, int currentMags, int maxBulletsPerMag, int maxMags)
-{
-    bulletCountText.text = $"{currentBullets} / {maxBulletsPerMag}";
-    magCountText.text = $"{currentMags} / {maxMags}";
-}
+    {
+        bulletCountText.text = $"{currentBullets} / {maxBulletsPerMag}";
+        magCountText.text = $"{currentMags} / {maxMags}";
+    }
+
+    public void updateCreditsUI()
+    {
+        CreditsText.text = playerScript.credits.ToString("F0");
+    }
 }
