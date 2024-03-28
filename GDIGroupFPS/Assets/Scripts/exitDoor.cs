@@ -22,22 +22,28 @@ public class exitDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        keysPlayerHas = gameManager.instance.playerScript.keys.Count;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            keysPlayerHas = gameManager.instance.playerScript.keys.Count;
 
-        if (keysNeeded == keysPlayerHas) // If player has the amount of keys needed
-        {
-            gameObject.SetActive(false);
-        }
-        else if (keysPlayerHas < keysNeeded) // Else if they don't, display how many they need via gameManager
-        {
-            gameManager.instance.exitDoorPrompt.SetActive(true);
-            keysPlayerNeeds = keysNeeded - keysPlayerHas;
-            gameManager.instance.updateKeysNeededUI(keysPlayerNeeds);
+            if (keysNeeded == keysPlayerHas) // If player has the amount of keys needed
+            {
+                gameObject.SetActive(false);
+                gameManager.instance.youHaveWon();
+            }
+            else if (keysPlayerHas < keysNeeded) // Else if they don't, display how many they need via gameManager
+            {
+                gameManager.instance.exitDoorPrompt.SetActive(true);
+                keysPlayerNeeds = keysNeeded - keysPlayerHas;
+                gameManager.instance.updateKeysNeededUI(keysPlayerNeeds);
+            }
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (gameManager.instance.exitDoorPrompt.activeInHierarchy)
+        if (gameManager.instance.exitDoorPrompt.activeInHierarchy && other.gameObject.CompareTag("Player"))
+        {
             gameManager.instance.exitDoorPrompt.SetActive(false);
+        }
     }
 }
