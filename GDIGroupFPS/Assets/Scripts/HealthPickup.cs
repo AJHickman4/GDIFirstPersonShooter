@@ -6,7 +6,7 @@ public class HealthPickup : MonoBehaviour
 {
     public AudioClip pickupSound;
     private AudioSource audioSource;
-    public int healAmount = 25;  // Amount of health to restore
+    public int healAmount = 25; 
 
     void Start()
     {
@@ -18,9 +18,9 @@ public class HealthPickup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerController playerScript = other.gameObject.GetComponent<playerController>();
-            if (playerScript != null)
+            if (playerScript != null && playerScript.HP < playerScript.HPOrig)
             {
-               // playerScript.Heal(healAmount);
+                playerScript.Heal(healAmount);
                 audioSource.PlayOneShot(pickupSound);
                 Destroy(gameObject, pickupSound.length);
             }
