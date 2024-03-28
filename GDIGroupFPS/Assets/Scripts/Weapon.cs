@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using System;
 public class Weapon : MonoBehaviour
 {
     [Header("Shooting Parameters")]
@@ -55,6 +55,13 @@ public class Weapon : MonoBehaviour
     private int originalBulletDamage;
     private bool isDamageBoosted = false;
     public bool unlimitedAmmo = false;
+    
+    public static event Action OnDoubleDamageActivated;
+    public static event Action OnDoubleDamageDeactivated;
+    public static event Action OnShieldActivated;
+    public static event Action OnShieldDeactivated;
+    public static event Action OnUnlimitedAmmoActivated;
+    public static event Action OnUnlimitedAmmoDeactivated;
 
     public enum ShootingMode
     {
@@ -216,7 +223,7 @@ public class Weapon : MonoBehaviour
         if (!omitSound)
         {
             muzzleFlash.Play();
-            gunShot.pitch = Random.Range(0.95f, 1.05f);
+            gunShot.pitch = UnityEngine.Random.Range(0.95f, 1.05f);
             gunShot.Play();
         }
 
@@ -242,7 +249,7 @@ public class Weapon : MonoBehaviour
 
     public Vector3 CalculateDirectionAndSpread()
     {
-        Vector3 spread = new Vector3(Random.Range(-spreadIntensity, spreadIntensity), Random.Range(-spreadIntensity, spreadIntensity), 0);
+        Vector3 spread = new Vector3(UnityEngine.Random.Range(-spreadIntensity, spreadIntensity), UnityEngine.Random.Range(-spreadIntensity, spreadIntensity), 0);
         return playerCamera.transform.forward + spread;
     }
 
@@ -324,6 +331,7 @@ public class Weapon : MonoBehaviour
         {
             bulletDamage *= boostMultiplier;
             isDamageBoosted = true;
+            OnDoubleDamageActivated?.Invoke();
             StartCoroutine(ResetDamageAfterDelay(duration));
         }
     }
@@ -333,16 +341,19 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(delay);
         bulletDamage = originalBulletDamage;
         isDamageBoosted = false;
+        OnDoubleDamageDeactivated?.Invoke();
     }
     public void EnableUnlimitedAmmo(float duration)
     {
         unlimitedAmmo = true;
+        OnUnlimitedAmmoActivated?.Invoke();
         StartCoroutine(DisableUnlimitedAmmoAfterDelay(duration));
     }
     private IEnumerator DisableUnlimitedAmmoAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         unlimitedAmmo = false;
+        OnUnlimitedAmmoDeactivated?.Invoke();
     }
 }
 
