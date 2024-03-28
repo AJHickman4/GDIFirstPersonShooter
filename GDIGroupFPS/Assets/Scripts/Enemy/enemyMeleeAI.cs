@@ -14,7 +14,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     [SerializeField] Collider meleeCol;
     [SerializeField] AudioSource aud;
 
-    [Header ("----- Enemy Stats -----")]
+    [Header("----- Enemy Stats -----")]
     [SerializeField] int HP;
     [SerializeField] int speed;
     [SerializeField] int viewCone;
@@ -22,7 +22,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     [SerializeField] float animSpeedTrans;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
-    [Range (0, 15)] [SerializeField] int meleeDmg;
+    [Range(0, 15)][SerializeField] int meleeDmg;
     [SerializeField] float slashRate;
 
     //[Header("---- Waypoints ----")]
@@ -145,12 +145,12 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     {
         isSlashing = true;
         anim.SetTrigger("Slash");
-        
+
         yield return new WaitForSeconds(slashRate);
         isSlashing = false;
     }
 
-    
+
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -161,7 +161,8 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             StartCoroutine(onDeath());
-            whereISpawned.firstDeath = false;
+            if (whereISpawned)
+                whereISpawned.firstDeath = false;
         }
     }
 
@@ -182,7 +183,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);
         TryDropItem(dropObject3, dropChancePercentage3);
-        
+
     }
 
     IEnumerator flashRed()

@@ -9,7 +9,7 @@ public class ladder : MonoBehaviour
     public float speed = 100f;
     public float descentSpeed = 200f;
     public playerController input;
-    private bool atBottom = false;
+    // private bool atBottom = false;
 
 
     // Start is called before the first frame update

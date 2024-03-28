@@ -171,7 +171,8 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             StartCoroutine(onDeath());
-            whereISpawned.firstDeath = false;
+            if (whereISpawned)
+                whereISpawned.firstDeath = false;
         }
     }
 
