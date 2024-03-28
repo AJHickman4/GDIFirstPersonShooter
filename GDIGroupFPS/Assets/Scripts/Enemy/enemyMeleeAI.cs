@@ -54,6 +54,8 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     bool destinationChosen;
 
+    public waveSpawner whereISpawned;
+
 
     void Start()
     {
@@ -159,6 +161,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             StartCoroutine(onDeath());
+            whereISpawned.firstDeath = false;
         }
     }
 
@@ -167,12 +170,19 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
         playerInRange = false;
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
+
+        if (whereISpawned)
+        {
+            whereISpawned.updateEnemyNumber();
+        }
+
         Destroy(gameObject);
         gameManager.instance.playerScript.credits += 1;
         gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);
         TryDropItem(dropObject3, dropChancePercentage3);
+        
     }
 
     IEnumerator flashRed()

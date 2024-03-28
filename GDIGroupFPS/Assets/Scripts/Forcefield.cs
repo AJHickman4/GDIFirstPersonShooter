@@ -15,6 +15,7 @@ public class PowerUpPickup : MonoBehaviour
             {
                 ActivateForceField();
                 playerHealth.SetInvincibility(true);
+                gameManager.instance.ShowShieldIcon();
                 gameObject.SetActive(false);
             }
         }
@@ -39,6 +40,7 @@ public class PowerUpPickup : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.SetInvincibility(false);
+            gameManager.instance.HideShieldIcon();
             Destroy(gameObject);
         }
     }

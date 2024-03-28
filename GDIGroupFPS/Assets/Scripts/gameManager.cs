@@ -21,6 +21,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text bulletCountText;
     [SerializeField] TMP_Text magCountText;
     [SerializeField] GameObject startingDialog;
+    [SerializeField] GameObject iconDoubleDamage;
+    [SerializeField] GameObject iconShield;
+    [SerializeField] GameObject iconUnlimtedAmmo;
     public GameObject damageIndicator;
     public Image healthBar;
     public GameObject boardActive;
@@ -46,6 +49,12 @@ public class gameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
 
+        Weapon.OnDoubleDamageActivated += ShowDoubleDamageIcon;
+        Weapon.OnDoubleDamageDeactivated += HideDoubleDamageIcon;
+        Weapon.OnUnlimitedAmmoActivated += ShowUnlimitedAmmoIcon;
+        Weapon.OnUnlimitedAmmoDeactivated += HideUnlimitedAmmoIcon;
+        Weapon.OnShieldActivated += ShowShieldIcon;
+        Weapon.OnShieldDeactivated += HideShieldIcon;
 
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
@@ -71,6 +80,24 @@ public class gameManager : MonoBehaviour
             menuActive.SetActive(isPaused);
         }
     }
+    void OnDestroy()
+    {
+        // Unsubscribe to avoid memory leaks
+        Weapon.OnDoubleDamageActivated -= ShowDoubleDamageIcon;
+        Weapon.OnDoubleDamageDeactivated -= HideDoubleDamageIcon;
+        Weapon.OnUnlimitedAmmoActivated -= ShowUnlimitedAmmoIcon;
+        Weapon.OnUnlimitedAmmoDeactivated -= HideUnlimitedAmmoIcon;
+        Weapon.OnShieldActivated -= ShowShieldIcon;
+        Weapon.OnShieldDeactivated -= HideShieldIcon;
+    }
+
+    void ShowDoubleDamageIcon() => iconDoubleDamage.SetActive(true);
+    void HideDoubleDamageIcon() => iconDoubleDamage.SetActive(false);
+    void ShowUnlimitedAmmoIcon() => iconUnlimtedAmmo.SetActive(true);
+    void HideUnlimitedAmmoIcon() => iconUnlimtedAmmo.SetActive(false);
+    public void ShowShieldIcon() => iconShield.SetActive(true);
+    public void HideShieldIcon() => iconShield.SetActive(false);
+
 
     public void statePaused()
     {
@@ -123,4 +150,13 @@ public class gameManager : MonoBehaviour
     {
         CreditsText.text = playerScript.credits.ToString("F0");
     }
+
+
+
+
+
+
+
+
+
 }
