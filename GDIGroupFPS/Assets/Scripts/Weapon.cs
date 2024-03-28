@@ -32,7 +32,7 @@ public class Weapon : MonoBehaviour
     [Header("Ammo Parameters")]
     [Range(1, 300)] public int ammoPerMag = 30; // Ammo in each magazine
     public int currentAmmo;
-    [Range(1, 5)] public int totalMags = 3; // Total number of magazines you can carry
+    [Range(1, 50)] public int totalMags = 3; // Total number of magazines you can carry
     public int currentMags;
 
     [Header("Damage")]

@@ -4,7 +4,7 @@ public class MysteryBox : MonoBehaviour
 {
     public GameObject[] weaponPrefabs;
     [Range(1, 3)] public float spawnOffset = 1.0f;
-    public int cost = 50; 
+    public int cost = 25; 
 
     private playerController playerController; 
 
