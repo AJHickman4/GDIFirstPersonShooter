@@ -37,7 +37,8 @@ public class MysteryBox : MonoBehaviour
         }
         if (playerController.credits >= cost)
         {
-            playerController.credits -= cost; 
+            playerController.credits -= cost;
+            gameManager.instance.updateCreditsUI();
             int randomIndex = Random.Range(0, weaponPrefabs.Length);
             GameObject weaponToSpawn = weaponPrefabs[randomIndex];
             Vector3 spawnPosition = transform.position + Vector3.up * spawnOffset;
