@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyFlamerAI : MonoBehaviour, IDamage
+public class enemyScoutAI : MonoBehaviour, IDamage
 {
     [Header("---- Assets ----")]
     [SerializeField] Renderer model;
@@ -25,12 +25,11 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [Header("---- Bullet Assets ----")]
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
-    [SerializeField] GameObject AttackRadius;
 
     //[Header("---- Waypoints ----")]
     //[SerializeField] GameObject[] waypointArray;
     //[SerializeField] int currWaypoint = 0;
-    //[SerializeField] float waypointSpeed = 1.0f;
+    ////[SerializeField] float waypointSpeed = 1.0f;
 
     [Header("----- Drop Settings -----")]
     [SerializeField] GameObject dropObject;
@@ -144,16 +143,10 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     IEnumerator shoot()
     {
         isShooting = true;
-        if (isShooting)
-            AttackRadius.SetActive(true);
-
-        //aud.PlayOneShot(audShooting[Random.Range(0, audShooting.Length)], audShootingVol);
-
+        anim.SetTrigger("Shoot");
+        aud.PlayOneShot(audShooting[Random.Range(0, audShooting.Length)], audShootingVol);
         yield return new WaitForSeconds(shootRate);
-
         isShooting = false;
-        if (!isShooting)
-            AttackRadius.SetActive(false);
     }
 
     public void createBullet()
@@ -173,24 +166,24 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         }
     }
 
+    IEnumerator flashRed()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = Color.white;
+    }
+
     IEnumerator onDeath()
     {
         playerInRange = false;
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
-        gameManager.instance.playerScript.credits += 5;
+        gameManager.instance.playerScript.credits += 2;
         gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);
         TryDropItem(dropObject3, dropChancePercentage3);
-    }
-
-    IEnumerator flashRed()
-    {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = Color.white;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -209,7 +202,6 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
             agent.stoppingDistance = 0;
         }
     }
-
     private void TryDropItem(GameObject item, int chance)
     {
         if (item != null && Random.Range(0, 100) < chance)

@@ -32,6 +32,16 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] int currWaypoint = 0;
     //[SerializeField] float waypointSpeed = 1.0f;
 
+    [Header("----- Drop Settings -----")]
+    [SerializeField] GameObject dropObject;
+    [Range(0, 100)][SerializeField] int dropChancePercentage = 25;  // 25% chance to drop
+
+    [SerializeField] GameObject dropObject2;
+    [Range(0, 100)][SerializeField] int dropChancePercentage2 = 25;
+
+    [SerializeField] GameObject dropObject3;
+    [Range(0, 100)][SerializeField] int dropChancePercentage3 = 25;
+
     [Header("---- Audio ----")]
     [SerializeField] AudioClip[] audRun;
     [Range(0, 1)][SerializeField] float audRunVol;
@@ -176,6 +186,9 @@ public class enemyAI : MonoBehaviour, IDamage
         Destroy(gameObject);
         gameManager.instance.playerScript.credits += 2;
         gameManager.instance.updateCreditsUI();
+        TryDropItem(dropObject, dropChancePercentage);
+        TryDropItem(dropObject2, dropChancePercentage2);
+        TryDropItem(dropObject3, dropChancePercentage3);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -192,6 +205,14 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             playerInRange = false;
             agent.stoppingDistance = 0;
+        }
+    }
+
+    private void TryDropItem(GameObject item, int chance)
+    {
+        if (item != null && Random.Range(0, 100) < chance)
+        {
+            GameObject droppedItem = Instantiate(item, transform.position, Quaternion.identity);
         }
     }
 }

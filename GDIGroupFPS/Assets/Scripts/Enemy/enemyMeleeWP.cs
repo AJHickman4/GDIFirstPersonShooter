@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyFlamerAI : MonoBehaviour, IDamage
+public class enemyMeleeWP : MonoBehaviour, IDamage
 {
-    [Header("---- Assets ----")]
+    [Header("----- Enemy Items -----")]
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
-    [SerializeField] Transform shootPos;
     [SerializeField] Transform headPos;
+    [SerializeField] Collider meleeCol;
     [SerializeField] AudioSource aud;
 
-    [Header("---- Stats ----")]
+    [Header("----- Enemy Stats -----")]
     [SerializeField] int HP;
     [SerializeField] int speed;
     [SerializeField] int viewCone;
@@ -21,16 +21,13 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [SerializeField] float animSpeedTrans;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
+    [Range(0, 15)][SerializeField] int meleeDmg;
+    [SerializeField] float slashRate;
 
-    [Header("---- Bullet Assets ----")]
-    [SerializeField] GameObject bullet;
-    [SerializeField] float shootRate;
-    [SerializeField] GameObject AttackRadius;
-
-    //[Header("---- Waypoints ----")]
-    //[SerializeField] GameObject[] waypointArray;
-    //[SerializeField] int currWaypoint = 0;
-    //[SerializeField] float waypointSpeed = 1.0f;
+    [Header("---- Waypoints ----")]
+    [SerializeField] GameObject[] waypointArray;
+    [SerializeField] int currWaypoint = 0;
+    ////[SerializeField] float waypointSpeed = 1.0f;
 
     [Header("----- Drop Settings -----")]
     [SerializeField] GameObject dropObject;
@@ -45,10 +42,10 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [Header("---- Audio ----")]
     [SerializeField] AudioClip[] audRun;
     [Range(0, 1)][SerializeField] float audRunVol;
-    [SerializeField] AudioClip[] audShooting;
-    [Range(0, 1)][SerializeField] float audShootingVol;
+    [SerializeField] AudioClip[] audSlashHit;
+    [Range(0, 1)][SerializeField] float audSlashHitVol;
 
-    bool isShooting;
+    bool isSlashing;
     bool playerInRange;
     float angleToPlayer;
     Vector3 playerDirection;
@@ -85,14 +82,18 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         if (agent.remainingDistance < 0.05f && !destinationChosen)
         {
             destinationChosen = true;
+
             agent.stoppingDistance = 0;
             yield return new WaitForSeconds(roamPauseTime);
 
-            Vector3 randomPos = Random.insideUnitSphere * roamDist;
-            randomPos += startingPos;
+            Vector3 waypoint = waypointArray[currWaypoint].transform.position;
+            currWaypoint++;
+            if (currWaypoint >= waypointArray.Length)
+                currWaypoint = 0;
+            transform.position = Vector3.MoveTowards(transform.position, waypointArray[currWaypoint].transform.position, speed * Time.deltaTime);
 
             NavMeshHit hit;
-            NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+            NavMesh.SamplePosition(waypoint, out hit, roamDist, 1);
             agent.SetDestination(hit.position);
 
             destinationChosen = false;
@@ -115,9 +116,9 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
                 agent.stoppingDistance = stoppingDistOrg;
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
-                if (!isShooting)
+                if (!isSlashing)
                 {
-                    StartCoroutine(shoot());
+                    StartCoroutine(slash());
                 }
 
                 if (agent.remainingDistance <= agent.stoppingDistance)
@@ -141,25 +142,16 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
 
     }
 
-    IEnumerator shoot()
+    IEnumerator slash()
     {
-        isShooting = true;
-        if (isShooting)
-            AttackRadius.SetActive(true);
+        isSlashing = true;
+        anim.SetTrigger("Slash");
 
-        //aud.PlayOneShot(audShooting[Random.Range(0, audShooting.Length)], audShootingVol);
-
-        yield return new WaitForSeconds(shootRate);
-
-        isShooting = false;
-        if (!isShooting)
-            AttackRadius.SetActive(false);
+        yield return new WaitForSeconds(slashRate);
+        isSlashing = false;
     }
 
-    public void createBullet()
-    {
-        Instantiate(bullet, shootPos.position, transform.rotation);
-    }
+
     public void takeDamage(int amount)
     {
         HP -= amount;
@@ -179,7 +171,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
-        gameManager.instance.playerScript.credits += 5;
+        gameManager.instance.playerScript.credits += 1;
         gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);
@@ -208,6 +200,17 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
             playerInRange = false;
             agent.stoppingDistance = 0;
         }
+    }
+
+    public void meleeColOn()
+    {
+        meleeCol.enabled = true;
+        aud.PlayOneShot(audSlashHit[Random.Range(0, audSlashHit.Length)], audSlashHitVol);
+    }
+
+    public void meleeColOff()
+    {
+        meleeCol.enabled = false;
     }
 
     private void TryDropItem(GameObject item, int chance)
