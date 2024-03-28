@@ -1085,9 +1085,9 @@ MonoBehaviour:
   pellets: 5
   ammoPerMag: 10
   currentAmmo: 0
-  totalMags: 3
+  totalMags: 10
   currentMags: 0
-  bulletDamage: 10
+  bulletDamage: 4
   isEquipped: 1
   recoilAmount: 40.7
   recoilTime: 0.1

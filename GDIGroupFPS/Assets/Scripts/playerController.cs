@@ -33,7 +33,8 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 playerVel;
     bool isShooting;
     private bool isInvincible = false;
-    
+    public GameObject forceFieldEffect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -183,4 +184,22 @@ public class playerController : MonoBehaviour, IDamage
         HP = Mathf.Clamp(HP, 0, HPOrig);
         updatePlayerUI();
     }
+
+    public void ActivateForceField(float duration)
+    {
+        forceFieldEffect.SetActive(true);
+        StartCoroutine(DeactivateForceFieldAfterDelay(duration));
+    }
+
+    private IEnumerator DeactivateForceFieldAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameManager.instance.HideShieldIcon();
+        forceFieldEffect.SetActive(false);
+        isInvincible = false;
+
+    }
+
+
+
 }
