@@ -24,9 +24,13 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject iconDoubleDamage;
     [SerializeField] GameObject iconShield;
     [SerializeField] GameObject iconUnlimtedAmmo;
+
     public GameObject damageIndicator;
     public Image healthBar;
     public GameObject boardActive;
+
+    public GameObject exitDoorPrompt;
+    [SerializeField] TMP_Text keysNeededText;
 
     public GameObject player;
     public playerController playerScript;
@@ -151,6 +155,10 @@ public class gameManager : MonoBehaviour
         CreditsText.text = playerScript.credits.ToString("F0");
     }
 
+    public void updateKeysNeededUI(int keysPlayerNeeds)
+    {
+        keysNeededText.text = keysPlayerNeeds.ToString("F0");
+    }
 
 
 
