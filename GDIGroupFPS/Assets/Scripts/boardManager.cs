@@ -28,18 +28,20 @@ public class boardManager : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        isEmpty = false;
-        gameManager.instance.boardActive.SetActive(true);
-
-        if (Input.GetKey(KeyCode.E))
-            fixing = true;
-        else
-            fixing = false;
-        if (fixing)
+        if (other.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(fixBoards());
-        }
+            isEmpty = false;
+            gameManager.instance.boardActive.SetActive(true);
 
+            if (Input.GetKey(KeyCode.E))
+                fixing = true;
+            else
+                fixing = false;
+            if (fixing)
+            {
+                StartCoroutine(fixBoards());
+            }
+        }
     }
     void OnTriggerExit(Collider other)
     {
