@@ -19,7 +19,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Health -----")]
     [Range (1, 100)] public int HP;
-    private int HPOrig;
+    public int HPOrig;
     private bool isAlive = true;
 
     [Header("----- Inventory -----")]
@@ -174,5 +174,12 @@ public class playerController : MonoBehaviour, IDamage
     public void SetInvincibility(bool invincible)
     {
         isInvincible = invincible;
+    }
+
+    public void Heal(int amount)
+    {
+        HP += amount;
+        HP = Mathf.Clamp(HP, 0, HPOrig);
+        updatePlayerUI();
     }
 }

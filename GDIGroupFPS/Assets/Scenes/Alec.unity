@@ -3236,6 +3236,7 @@ MonoBehaviour:
   jumpSpeed: 12
   gravity: -24
   HP: 100
+  HPOrig: 0
   keys: 
   credits: 0
 --- !u!4 &202740903879184763
