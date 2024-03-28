@@ -56,6 +56,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     bool destinationChosen;
 
+    public waveSpawner whereISpawned;
 
     void Start()
     {
@@ -170,6 +171,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             StartCoroutine(onDeath());
+            whereISpawned.firstDeath = false;
         }
     }
 
@@ -178,6 +180,12 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         playerInRange = false;
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
+
+        if (whereISpawned)
+        {
+            whereISpawned.updateEnemyNumber();
+        }
+
         Destroy(gameObject);
         gameManager.instance.playerScript.credits += 5;
         gameManager.instance.updateCreditsUI();
