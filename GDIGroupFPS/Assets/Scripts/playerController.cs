@@ -174,6 +174,7 @@ public class playerController : MonoBehaviour, IDamage
     public void SetInvincibility(bool invincible)
     {
         isInvincible = invincible;
+
     }
 
     public void Heal(int amount)
