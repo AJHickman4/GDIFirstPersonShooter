@@ -4919,14 +4919,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6977648103289997396}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 8.060922e-15, z: -0.00000010677016, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 7.124345, y: 0.728, z: -15.124243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2420090361618194336}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &8036413398565319460
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5052,7 +5052,7 @@ MonoBehaviour:
   pellets: 5
   ammoPerMag: 10
   currentAmmo: 0
-  totalMags: 4
+  totalMags: 5
   currentMags: 0
   bulletDamage: 15
   isEquipped: 0
@@ -5062,6 +5062,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 6037080328660876662}
   gunShot: {fileID: 520294700681536824}
   reload: {fileID: 6465491174745376083}
+  unlimitedAmmo: 0
   mode: 0
 --- !u!82 &520294700681536824
 AudioSource:

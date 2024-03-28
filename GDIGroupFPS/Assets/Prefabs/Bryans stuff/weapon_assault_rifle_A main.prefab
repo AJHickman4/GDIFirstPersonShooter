@@ -116,7 +116,7 @@ MonoBehaviour:
   pellets: 5
   ammoPerMag: 30
   currentAmmo: 0
-  totalMags: 3
+  totalMags: 5
   currentMags: 0
   bulletDamage: 10
   isEquipped: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 2333426166248846106}
   gunShot: {fileID: 9221089518133350576}
   reload: {fileID: 5069100049076665813}
+  unlimitedAmmo: 0
   mode: 2
 --- !u!82 &9221089518133350576
 AudioSource:
@@ -139,7 +140,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7b6740ee86cb042b489ce4abcec89fd1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.382
+  m_Volume: 0.213
   m_Pitch: 1
   Loop: 0
   Mute: 0
