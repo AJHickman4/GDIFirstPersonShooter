@@ -61,6 +61,7 @@ public class EnemyDetectionCamera : MonoBehaviour, IDamage
             RaycastHit hit;
             if (Physics.SphereCast(raycastOrigin.position, sphereRadius, direction, out hit, detectionRange))
             {
+                Debug.DrawRay(raycastOrigin.position, direction * detectionRange, Color.yellow);
                 if (hit.collider.CompareTag("Player"))
                 {
                     playerDetected = true;
