@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyFlamerAI : MonoBehaviour, IDamage
+public class enemyFlamerWP : MonoBehaviour, IDamage
 {
     [Header("---- Assets ----")]
     [SerializeField] Renderer model;
@@ -27,9 +27,9 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
     [SerializeField] GameObject AttackRadius;
 
-    //[Header("---- Waypoints ----")]
-    //[SerializeField] GameObject[] waypointArray;
-    //[SerializeField] int currWaypoint = 0;
+    [Header("---- Waypoints ----")]
+    [SerializeField] GameObject[] waypointArray;
+    [SerializeField] int currWaypoint = 0;
     //[SerializeField] float waypointSpeed = 1.0f;
 
     [Header("----- Drop Settings -----")]
@@ -85,14 +85,18 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         if (agent.remainingDistance < 0.05f && !destinationChosen)
         {
             destinationChosen = true;
+
             agent.stoppingDistance = 0;
             yield return new WaitForSeconds(roamPauseTime);
 
-            Vector3 randomPos = Random.insideUnitSphere * roamDist;
-            randomPos += startingPos;
+            Vector3 waypoint = waypointArray[currWaypoint].transform.position;
+            currWaypoint++;
+            if (currWaypoint >= waypointArray.Length)
+                currWaypoint = 0;
+            transform.position = Vector3.MoveTowards(transform.position, waypointArray[currWaypoint].transform.position, speed * Time.deltaTime);
 
             NavMeshHit hit;
-            NavMesh.SamplePosition(randomPos, out hit, roamDist, 1);
+            NavMesh.SamplePosition(waypoint, out hit, roamDist, 1);
             agent.SetDestination(hit.position);
 
             destinationChosen = false;

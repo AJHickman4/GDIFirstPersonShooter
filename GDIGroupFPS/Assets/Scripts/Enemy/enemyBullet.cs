@@ -20,14 +20,15 @@ public class bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.isTrigger)
+        if (other.isTrigger && !other.CompareTag("Player"))
         {
             return;
         }
 
         IDamage dmg = other.GetComponent<IDamage>();
 
-        if (dmg != null)
+        
+        if (dmg != null && other.CompareTag("Player"))
         {
             dmg.takeDamage(damage);
         }

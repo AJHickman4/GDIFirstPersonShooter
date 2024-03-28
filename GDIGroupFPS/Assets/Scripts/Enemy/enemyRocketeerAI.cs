@@ -31,6 +31,16 @@ public class enemyRocketeerAI : MonoBehaviour, IDamage
     //[SerializeField] int currWaypoint = 0;
     //[SerializeField] float waypointSpeed = 1.0f;
 
+    [Header("----- Drop Settings -----")]
+    [SerializeField] GameObject dropObject;
+    [Range(0, 100)][SerializeField] int dropChancePercentage = 25;  // 25% chance to drop
+
+    [SerializeField] GameObject dropObject2;
+    [Range(0, 100)][SerializeField] int dropChancePercentage2 = 25;
+
+    [SerializeField] GameObject dropObject3;
+    [Range(0, 100)][SerializeField] int dropChancePercentage3 = 25;
+
     [Header("---- Audio ----")]
     [SerializeField] AudioClip[] audRun;
     [Range(0, 1)][SerializeField] float audRunVol;
@@ -156,13 +166,6 @@ public class enemyRocketeerAI : MonoBehaviour, IDamage
         }
     }
 
-    IEnumerator flashRed()
-    {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = Color.white;
-    }
-
     IEnumerator onDeath()
     {
         playerInRange = false;
@@ -171,6 +174,16 @@ public class enemyRocketeerAI : MonoBehaviour, IDamage
         Destroy(gameObject);
         gameManager.instance.playerScript.credits += 3;
         gameManager.instance.updateCreditsUI();
+        TryDropItem(dropObject, dropChancePercentage);
+        TryDropItem(dropObject2, dropChancePercentage2);
+        TryDropItem(dropObject3, dropChancePercentage3);
+    }
+
+    IEnumerator flashRed()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = Color.white;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -187,6 +200,14 @@ public class enemyRocketeerAI : MonoBehaviour, IDamage
         {
             playerInRange = false;
             agent.stoppingDistance = 0;
+        }
+    }
+
+    private void TryDropItem(GameObject item, int chance)
+    {
+        if (item != null && Random.Range(0, 100) < chance)
+        {
+            GameObject droppedItem = Instantiate(item, transform.position, Quaternion.identity);
         }
     }
 }
