@@ -1111,12 +1111,19 @@ MonoBehaviour:
   roamPauseTime: 2
   meleeDmg: 5
   slashRate: 1
+  dropObject: {fileID: 3953671451310025340, guid: f31f4556ad160de42ab5ec86c0281ba8, type: 3}
+  dropChancePercentage: 4
+  dropObject2: {fileID: 1870012495010853752, guid: fad1fa5ec9606794a8f8a7478034cd19, type: 3}
+  dropChancePercentage2: 2
+  dropObject3: {fileID: 4805377207207939563, guid: 170ce21b5cf133340b5b1870a5c27bd3, type: 3}
+  dropChancePercentage3: 4
   audRun: []
   audRunVol: 0
   audSlashHit:
   - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
   - {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
   audSlashHitVol: 0.2
+  whereISpawned: {fileID: 0}
 --- !u!95 &4876843920646692208
 Animator:
   serializedVersion: 5
