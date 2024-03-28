@@ -93,15 +93,11 @@ public class gameManager : MonoBehaviour
 
     void ShowDoubleDamageIcon() => iconDoubleDamage.SetActive(true);
     void HideDoubleDamageIcon() => iconDoubleDamage.SetActive(false);
-   
+    void ShowUnlimitedAmmoIcon() => iconUnlimtedAmmo.SetActive(true);
     void HideUnlimitedAmmoIcon() => iconUnlimtedAmmo.SetActive(false);
-    void ShowShieldIcon() => iconShield.SetActive(true);
-    void HideShieldIcon() => iconShield.SetActive(false);
-    void ShowUnlimitedAmmoIcon()
-    {
-        Debug.Log("Attempting to show unlimited ammo icon.");
-        iconUnlimtedAmmo.SetActive(true);
-    }
+    public void ShowShieldIcon() => iconShield.SetActive(true);
+    public void HideShieldIcon() => iconShield.SetActive(false);
+
 
     public void statePaused()
     {
