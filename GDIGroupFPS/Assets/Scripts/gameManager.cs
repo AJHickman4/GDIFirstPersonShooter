@@ -26,6 +26,8 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject iconShield;
     [SerializeField] GameObject iconUnlimtedAmmo;
     [SerializeField] TMP_Text timerText;
+    [SerializeField] private float flashThreshold = 10f;
+    [SerializeField] private float flashDuration = 0.5f;
 
     public GameObject damageIndicator;
     public Image healthBar;
@@ -33,6 +35,7 @@ public class gameManager : MonoBehaviour
 
     public float resetTimer = 30f;
     private float currentTime;
+    public bool isResetting = false;
 
     public GameObject exitDoorPrompt;
     [SerializeField] TMP_Text keysNeededText;
@@ -47,7 +50,7 @@ public class gameManager : MonoBehaviour
     float timeScaleOrig;
     int enemyCount;
     private bool timerIsActive = false;
-
+    private bool isFlashing = false;
     bool temp;
 
     // Start is called before the first frame update
@@ -59,14 +62,16 @@ public class gameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
         currentTime = resetTimer;
-        currentTime = 0;
         Weapon.OnDoubleDamageActivated += ShowDoubleDamageIcon;
         Weapon.OnDoubleDamageDeactivated += HideDoubleDamageIcon;
         Weapon.OnUnlimitedAmmoActivated += ShowUnlimitedAmmoIcon;
         Weapon.OnUnlimitedAmmoDeactivated += HideUnlimitedAmmoIcon;
         Weapon.OnShieldActivated += ShowShieldIcon;
         Weapon.OnShieldDeactivated += HideShieldIcon;
-
+        if (timerText != null)
+        {
+            timerText.gameObject.SetActive(false);
+        }
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
         menuActive = startingDialog;
@@ -99,10 +104,10 @@ public class gameManager : MonoBehaviour
             }
             else
             {
+                StartCoroutine(TeleportPlayerToSpawn());
                 currentTime = 0;
                 UpdateTimerUI(currentTime);
                 timerIsActive = false;
-                TeleportPlayerToSpawn();
             }
         }
     }
@@ -184,26 +189,40 @@ public class gameManager : MonoBehaviour
     IEnumerator ResetTimerCoroutine()
     {
         yield return new WaitForSeconds(resetTimer);
-        TeleportPlayerToSpawn();
-        timerIsActive = false; 
-        currentTime = 0; 
+        StartCoroutine(TeleportPlayerToSpawn());
     }
-    
-    public void TeleportPlayerToSpawn()
+
+    IEnumerator TeleportPlayerToSpawn()
     {
-        if (player != null && startingSpawn != null)
+        if (!isResetting)
         {
+            isResetting = true;
+            playerScript.controller.enabled = false;
             player.transform.position = startingSpawn.transform.position;
+            playerScript.controller.enabled = true;
             playerScript.HP = playerScript.HPOrig;
             playerScript.updatePlayerUI();
+            if (timerText != null)
+            {
+                timerText.gameObject.SetActive(false);
+            }
+            timerIsActive = false;
+            currentTime = 0;
+            isResetting = false;
         }
+        yield return null; 
     }
+   
     public void StartResetTimer()
     {
-        if (!timerIsActive) 
+        if (!timerIsActive)
         {
-            currentTime = resetTimer; 
-            timerIsActive = true; 
+            currentTime = resetTimer;
+            timerIsActive = true;
+            if (timerText != null)
+            {
+                timerText.gameObject.SetActive(true); 
+            }
             StartCoroutine(ResetTimerCoroutine());
         }
     }
@@ -220,7 +239,33 @@ public class gameManager : MonoBehaviour
         if (timerText != null)
         {
             timerText.text = "Reset in: " + time.ToString("F2") + "s";
+            if (time <= flashThreshold && !isFlashing)
+            {
+                StartCoroutine(FlashTimerUI());
+            }
+            else if (time > flashThreshold && isFlashing)
+            {
+                StopCoroutine(FlashTimerUI());
+                isFlashing = false;
+                timerText.color = Color.white;
+            }
         }
     }
+
+    IEnumerator FlashTimerUI()
+    {
+        isFlashing = true;
+        bool isRed = false;
+        while (isFlashing)
+        {
+            timerText.color = isRed ? Color.white : Color.red;
+            isRed = !isRed;
+            yield return new WaitForSeconds(flashDuration);
+        }
+        timerText.color = Color.white;
+    }
+
+
+
 }
 
