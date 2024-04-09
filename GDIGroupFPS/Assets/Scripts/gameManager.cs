@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -24,10 +25,14 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject iconDoubleDamage;
     [SerializeField] GameObject iconShield;
     [SerializeField] GameObject iconUnlimtedAmmo;
+    [SerializeField] TMP_Text timerText;
 
     public GameObject damageIndicator;
     public Image healthBar;
     public GameObject boardActive;
+
+    public float resetTimer = 30f;
+    private float currentTime;
 
     public GameObject exitDoorPrompt;
     [SerializeField] TMP_Text keysNeededText;
@@ -41,6 +46,7 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     int enemyCount;
+    private bool timerIsActive = false;
 
     bool temp;
 
@@ -52,7 +58,8 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
-
+        currentTime = resetTimer;
+        currentTime = 0;
         Weapon.OnDoubleDamageActivated += ShowDoubleDamageIcon;
         Weapon.OnDoubleDamageDeactivated += HideDoubleDamageIcon;
         Weapon.OnUnlimitedAmmoActivated += ShowUnlimitedAmmoIcon;
@@ -83,10 +90,24 @@ public class gameManager : MonoBehaviour
             menuActive = menuPause;
             menuActive.SetActive(isPaused);
         }
+        if (timerIsActive)
+        {
+            if (currentTime > 0)
+            {
+                currentTime -= Time.deltaTime;
+                UpdateTimerUI(currentTime);
+            }
+            else
+            {
+                currentTime = 0;
+                UpdateTimerUI(currentTime);
+                timerIsActive = false;
+                TeleportPlayerToSpawn();
+            }
+        }
     }
     void OnDestroy()
     {
-        // Unsubscribe to avoid memory leaks
         Weapon.OnDoubleDamageActivated -= ShowDoubleDamageIcon;
         Weapon.OnDoubleDamageDeactivated -= HideDoubleDamageIcon;
         Weapon.OnUnlimitedAmmoActivated -= ShowUnlimitedAmmoIcon;
@@ -160,11 +181,46 @@ public class gameManager : MonoBehaviour
         keysNeededText.text = keysPlayerNeeds.ToString("F0");
     }
 
+    IEnumerator ResetTimerCoroutine()
+    {
+        yield return new WaitForSeconds(resetTimer);
+        TeleportPlayerToSpawn();
+        timerIsActive = false; 
+        currentTime = 0; 
+    }
+    
+    public void TeleportPlayerToSpawn()
+    {
+        if (player != null && startingSpawn != null)
+        {
+            player.transform.position = startingSpawn.transform.position;
+            playerScript.HP = playerScript.HPOrig;
+            playerScript.updatePlayerUI();
+        }
+    }
+    public void StartResetTimer()
+    {
+        if (!timerIsActive) 
+        {
+            currentTime = resetTimer; 
+            timerIsActive = true; 
+            StartCoroutine(ResetTimerCoroutine());
+        }
+    }
 
-
-
-
-
-
-
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == player) 
+        {
+            StartResetTimer();
+        }
+    }
+    private void UpdateTimerUI(float time)
+    {
+        if (timerText != null)
+        {
+            timerText.text = "Reset in: " + time.ToString("F2") + "s";
+        }
+    }
 }
+

@@ -167,7 +167,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.damageIndicator.SetActive(false);
     }
 
-    void updatePlayerUI()
+    public void updatePlayerUI()
     {
         gameManager.instance.healthBar.fillAmount = (float)HP / HPOrig;
     }
@@ -199,7 +199,4 @@ public class playerController : MonoBehaviour, IDamage
         isInvincible = false;
 
     }
-
-
-
 }
