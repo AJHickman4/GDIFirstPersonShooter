@@ -1803,6 +1803,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7081845373026422329, guid: 7be8fdf2c88a4904f98d6dc74d3e3e01, type: 3}
+      propertyPath: maxStamina
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 7085847241182801234, guid: 7be8fdf2c88a4904f98d6dc74d3e3e01, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.27
@@ -2796,6 +2800,10 @@ PrefabInstance:
     - target: {fileID: 4997472062627830450, guid: 83ca04d0d9c3f2145a0ee23747892999, type: 3}
       propertyPath: m_Name
       value: Start Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997472062627830450, guid: 83ca04d0d9c3f2145a0ee23747892999, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

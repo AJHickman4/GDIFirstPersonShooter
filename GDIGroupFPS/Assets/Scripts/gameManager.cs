@@ -31,6 +31,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject damageIndicator;
     public Image healthBar;
+    public Image staminaBar;
     public GameObject boardActive;
 
     public float resetTimer = 30f;
