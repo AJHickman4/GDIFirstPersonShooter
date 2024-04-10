@@ -5040,21 +5040,21 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 1
   shootingDelay: 0.05
-  reloadTime: 3
+  reloadTime: 2
   isReloading: 0
   bulletsPerBurst: 1
-  spreadIntensity: 0.1
+  spreadIntensity: 0.03
   bulletPrefab: {fileID: 4614532236543184117, guid: 30d7ec4eada6cb342a1042566d230abb, type: 3}
   bulletSpawn: {fileID: 0}
   bulletVelocity: 8
   bulletPrefabLife: 3
   playerCamera: {fileID: 0}
   pellets: 5
-  ammoPerMag: 200
+  Maxammo: 150
   currentAmmo: 0
-  totalMags: 4
-  currentMags: 0
-  bulletDamage: 2
+  totalAmmoReserve: 300
+  maxAmmoReserveLimit: 600
+  bulletDamage: 7
   isEquipped: 0
   recoilAmount: 60.3
   recoilTime: 0.1
@@ -5074,9 +5074,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9a911e1413fdfd94fb0a6e103efe5376, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.607
+  m_Volume: 0.34
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5170,9 +5170,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: cbda08e744ca4974095dbd37769dbe46, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.168
   m_Pitch: 1
   Loop: 0
   Mute: 0

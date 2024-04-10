@@ -6,102 +6,169 @@ public class EquipScript : MonoBehaviour
 {
     [Header("Drag in")]
     public Transform PlayerTransform;
-    public GameObject Gun;
     public Camera playerCamera;
 
+    [Header("Initial Gun")]
+    public GameObject initialGun; 
+
     [Header("Range")]
-    [Range(1, 5)]  public float equipRange = 5f;
+    [Range(1, 5)] public float equipRange = 5f;
 
     [Header("Audio")]
-    public AudioSource audioSource; 
-    public AudioClip pickupSound; 
+    public AudioSource audioSource;
+    public AudioClip pickupSound;
 
-    public bool isEquipped = false;
-    private string weaponLayer = "weapons";
-    private string defaultLayer = "Default";
+    [Header("Drop")]
+    public KeyCode dropKey = KeyCode.F; 
+
+    private List<GameObject> guns = new List<GameObject>();
+    private int equippedGunIndex = -1;
 
     void Start()
     {
-        Gun.GetComponent<Rigidbody>().isKinematic = true;
+        if (initialGun != null)
+        {
+            EquipInitialGun(initialGun);
+        }
     }
 
     void Update()
     {
-
         if (Input.GetKeyDown("f"))
         {
-            if (isEquipped)
+            TryEquipObjectWithRaycast();
+        }
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0f)
+        {
+            int newIndex = equippedGunIndex + (scroll > 0f ? 1 : -1);
+            if (newIndex < 0)
             {
-                UnequipObject();
+                newIndex = guns.Count - 1;
             }
-            else
+            else if (newIndex >= guns.Count)
             {
-                TryEquipObjectWithRaycast();
+                newIndex = 0;
             }
+            SwitchGun(newIndex);
         }
     }
 
     void TryEquipObjectWithRaycast()
     {
-        float sphereRadius = 0.5f;
+        float sphereRadius = 1f;
+        float maxDistance = equipRange;
         RaycastHit hit;
-        if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, equipRange))
+        if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, maxDistance))
         {
-            if (hit.collider.gameObject.CompareTag("Gun"))
+            if (hit.collider.CompareTag("Gun"))
             {
-                Gun = hit.collider.gameObject;
-                EquipObject();
+                GameObject gun = hit.collider.gameObject;
+                if (!guns.Contains(gun))
+                {
+                    if (guns.Count < 2)
+                    {
+                        EquipObject(gun);
+                    }
+                    else
+                    {
+                        DestroyCurrentGun();
+                        EquipObject(gun);
+                    }
+                }
             }
         }
     }
 
-
-    void EquipObject()
+    void EquipObject(GameObject gun)
     {
-        if (!isEquipped && Gun != null)
+        guns.Add(gun);
+        gun.GetComponent<Rigidbody>().isKinematic = true;
+        gun.transform.position = PlayerTransform.position;
+        gun.transform.rotation = PlayerTransform.rotation;
+        gun.transform.SetParent(PlayerTransform);
+        gun.layer = LayerMask.NameToLayer("weapons");
+
+        if (equippedGunIndex == -1)
         {
-            Gun.GetComponent<Rigidbody>().isKinematic = true;
-            Gun.transform.position = PlayerTransform.position;
-            Gun.transform.rotation = PlayerTransform.rotation;
-            Gun.transform.SetParent(PlayerTransform);
-            isEquipped = true;
+            equippedGunIndex = 0; 
+        }
 
-            Weapon weaponScript = Gun.GetComponent<Weapon>();
-            
-            Gun.GetComponent<Weapon>().SetEquipped(true);
-            Gun.layer = LayerMask.NameToLayer(weaponLayer);
+        SetActiveGun(gun, true);
 
-            gameManager.instance.UpdateAmmoUI(weaponScript.currentAmmo,weaponScript.currentMags,weaponScript.ammoPerMag,weaponScript.totalMags);           
+        Weapon weaponScript = gun.GetComponent<Weapon>();
+        if (weaponScript != null)
+        {
+            weaponScript.SetEquipped(true);
+            gameManager.instance.UpdateAmmoUI(weaponScript.currentAmmo, weaponScript.totalAmmoReserve);
+        }
+
+        if (pickupSound != null && audioSource != null)
+        {
             audioSource.PlayOneShot(pickupSound);
         }
     }
 
-    void UnequipObject()
+    void SwitchGun(int index)
     {
-        Weapon weaponScript = Gun.GetComponent<Weapon>();
-
-        if (weaponScript.unlimitedAmmo)
+        if (index >= 0 && index < guns.Count && index != equippedGunIndex)
         {
-            return; 
+            Weapon weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
+            if (!weaponScript.isReloading) 
+            {
+                SetActiveGun(guns[equippedGunIndex], false);
+                equippedGunIndex = index;
+                weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
+                SetActiveGun(guns[equippedGunIndex], true);
+                if (weaponScript != null)
+                {
+                    gameManager.instance.UpdateAmmoUI(weaponScript.currentAmmo, weaponScript.totalAmmoReserve);
+                }
+                for (int i = 0; i < guns.Count; i++)
+                {
+                    Weapon script = guns[i].GetComponent<Weapon>();
+                    if (script != null)
+                    {
+                        script.isEquipped = (i == equippedGunIndex);
+                    }
+                }
+            }
         }
+    }
+    
+    void EquipInitialGun(GameObject gun)
+    {
+        EquipObject(gun);
+    }
 
-        if (weaponScript.isReloading)
+    void SetActiveGun(GameObject gun, bool active)
+    {
+        if (gun != null)
         {
-            
-            return;
+            gun.SetActive(active);
+            foreach (var otherGun in guns)
+            {
+                if (otherGun != gun)
+                {
+                    otherGun.SetActive(!active);
+                    Weapon otherWeapon = otherGun.GetComponent<Weapon>();
+                    if (otherWeapon != null)
+                    {
+                        otherWeapon.isEquipped = active;
+                    }
+                }
+            }
         }
+    }
 
-        if (isEquipped)
+    void DestroyCurrentGun()
+    {
+        if (guns.Count > 0 && equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
         {
-            Gun.transform.SetParent(null);
-            Gun.GetComponent<Rigidbody>().isKinematic = false;
-
-
-            Gun.GetComponent<Rigidbody>().AddForce(PlayerTransform.forward * -0.5f + Vector3.down * 0.5f, ForceMode.VelocityChange);
-
-            isEquipped = false;           
-            Gun.GetComponent<Weapon>().SetEquipped(false);
-            Gun.layer = LayerMask.NameToLayer(defaultLayer);
+            GameObject gunToDestroy = guns[equippedGunIndex];
+            guns.RemoveAt(equippedGunIndex);
+            Destroy(gunToDestroy);
+            equippedGunIndex = -1; 
         }
     }
 }

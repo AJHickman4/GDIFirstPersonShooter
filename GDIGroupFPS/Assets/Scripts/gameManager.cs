@@ -20,7 +20,6 @@ public class gameManager : MonoBehaviour
     public GameObject menuCheckpoint;
     [SerializeField] TMP_Text CreditsText;
     [SerializeField] TMP_Text bulletCountText;
-    [SerializeField] TMP_Text magCountText;
     [SerializeField] GameObject startingDialog;
     [SerializeField] GameObject iconDoubleDamage;
     [SerializeField] GameObject iconShield;
@@ -84,7 +83,7 @@ public class gameManager : MonoBehaviour
     {
         if (currentWeapon != null)
         {
-            UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.currentMags, currentWeapon.ammoPerMag, currentWeapon.totalMags);
+            gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo,currentWeapon.totalAmmoReserve);
         }
         if (menuActive == startingDialog && Input.anyKey)
         {
@@ -171,13 +170,13 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    public void UpdateAmmoUI(int currentBullets, int currentMags, int maxBulletsPerMag, int maxMags)
+    public void UpdateAmmoUI(int currentAmmo, int totalAmmoReserve)
     {
-        bulletCountText.text = $"{currentBullets} / {maxBulletsPerMag}";
-        magCountText.text = $"{currentMags} / {maxMags}";
+        bulletCountText.text = $"{totalAmmoReserve} / {currentAmmo}";
     }
 
-    public void updateCreditsUI()
+
+public void updateCreditsUI()
     {
         CreditsText.text = playerScript.credits.ToString("F0");
     }

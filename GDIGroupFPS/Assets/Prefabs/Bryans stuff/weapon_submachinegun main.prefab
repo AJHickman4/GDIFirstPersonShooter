@@ -162,11 +162,11 @@ MonoBehaviour:
   bulletPrefabLife: 3
   playerCamera: {fileID: 0}
   pellets: 5
-  ammoPerMag: 30
+  Maxammo: 30
   currentAmmo: 0
-  totalMags: 5
-  currentMags: 0
-  bulletDamage: 4
+  totalAmmoReserve: 150
+  maxAmmoReserveLimit: 300
+  bulletDamage: 8
   isEquipped: 0
   recoilAmount: 50.3
   recoilTime: 0.1

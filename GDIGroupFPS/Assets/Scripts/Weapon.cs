@@ -30,10 +30,10 @@ public class Weapon : MonoBehaviour
     [Range(1, 5)] public int pellets = 5;
 
     [Header("Ammo Parameters")]
-    [Range(1, 300)] public int ammoPerMag = 30; // Ammo in each magazine
+    [Range(1, 300)] public int Maxammo = 30; 
     public int currentAmmo;
-    [Range(1, 50)] public int totalMags = 3; // Total number of magazines you can carry
-    public int currentMags;
+    public int totalAmmoReserve;
+    public int maxAmmoReserveLimit = 90;
 
     [Header("Damage")]
     [Range(1, 30)] public int bulletDamage = 10;
@@ -79,8 +79,8 @@ public class Weapon : MonoBehaviour
         originalRotation = transform.localRotation;
         gunShot = GetComponent<AudioSource>();
         readyToShoot = true;
-        currentAmmo = ammoPerMag; // Initialize ammo count
-        currentMags = totalMags; // Initialize magazine count
+        currentAmmo = Maxammo; // Initialize ammo count
+        totalAmmoReserve -= currentAmmo;
     }
 
     void Update()
@@ -88,7 +88,7 @@ public class Weapon : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;      
         if (isEquipped && !isReloading)
         {
-            if (Input.GetKeyDown(KeyCode.R) && currentMags > 0 && currentAmmo < ammoPerMag)
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 StartCoroutine(Reload());
             }
@@ -138,7 +138,7 @@ public class Weapon : MonoBehaviour
         
 
         timeSinceLastShot = 0f;
-        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
+        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
 
         if (mode == ShootingMode.Auto && !isRecoiling)
         {
@@ -175,7 +175,7 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(shootingDelay / bulletsPerBurst);
         }
         StartCoroutine(ResetShot(shootingDelay));
-        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
+        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
     }
 
     IEnumerator FireShotgun()
@@ -200,21 +200,26 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(shootingDelay / pellets);
         }
         StartCoroutine(ResetShot(shootingDelay));
-        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
+        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
     }
 
     IEnumerator Reload()
     {
         if (isReloading) yield break;
+        int ammoNeeded = Maxammo - currentAmmo;
+        if (totalAmmoReserve > 0 && ammoNeeded > 0)
+        {
             isReloading = true;
-        
-        reload.Play();
-        
-        yield return new WaitForSeconds(reloadTime); 
-        currentAmmo = ammoPerMag;
-        if (currentMags > 0) currentMags--;
-        isReloading = false;
-        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
+            reload.Play();
+            yield return new WaitForSeconds(reloadTime);
+            int ammoToLoad = Math.Min(ammoNeeded, totalAmmoReserve);
+            currentAmmo += ammoToLoad;
+            totalAmmoReserve -= ammoToLoad;
+
+            gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+
+            isReloading = false;
+        }
     }
 
     void ShootBullet(bool omitSound = false)
@@ -295,24 +300,25 @@ public class Weapon : MonoBehaviour
     }
     public bool AddOneMagIfNeeded()
     {
-        bool magAdded = false;
-        if (currentMags == 0 && currentAmmo == 0)
+        if (currentAmmo < Maxammo)
         {
-            currentAmmo = ammoPerMag;          
-            magAdded = true;
-        }
-        else if (currentMags < totalMags)
-        {
-            currentMags += 1;
-            magAdded = true;
+            currentAmmo = Maxammo;
         }
         else
         {
-            //debug.log("You have reached the maximum number of magazines");
+            int potentialNewTotal = totalAmmoReserve + Maxammo;
+            if (potentialNewTotal > maxAmmoReserveLimit)
+            {
+                totalAmmoReserve = maxAmmoReserveLimit;
+            }
+            else
+            {
+                totalAmmoReserve = potentialNewTotal;
+                Debug.Log("Additional magazine added to reserve.");
+            }
         }
-
-        gameManager.instance.UpdateAmmoUI(currentAmmo, currentMags, ammoPerMag, totalMags);
-        return magAdded;
+        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+        return true; 
     }
 
     public void ChangeDamage(int newDamage)

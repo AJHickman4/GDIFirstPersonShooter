@@ -5050,11 +5050,11 @@ MonoBehaviour:
   bulletPrefabLife: 3
   playerCamera: {fileID: 0}
   pellets: 5
-  ammoPerMag: 30
+  Maxammo: 10
   currentAmmo: 0
-  totalMags: 5
-  currentMags: 0
-  bulletDamage: 10
+  totalAmmoReserve: 30
+  maxAmmoReserveLimit: 60
+  bulletDamage: 15
   isEquipped: 0
   recoilAmount: 70
   recoilTime: 0.1
@@ -5084,7 +5084,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.0651855
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -5180,7 +5180,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.43481445
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

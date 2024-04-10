@@ -9,10 +9,10 @@ public class UnlimitedAmmoPowerUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Weapon playerWeapon = other.GetComponentInChildren<Weapon>();
-            if (playerWeapon != null)
+            Weapon[] weapons = FindObjectsOfType<Weapon>();
+            foreach (var weapon in weapons)
             {
-                playerWeapon.EnableUnlimitedAmmo(duration);
+                weapon.EnableUnlimitedAmmo(duration);
             }
             gameObject.SetActive(false);
             Destroy(gameObject, 1f);
