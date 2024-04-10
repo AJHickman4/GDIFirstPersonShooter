@@ -10,8 +10,8 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Player Stats -----")]
     [Range(1, 5)][SerializeField] float speed;
-    [Range(1, 10)][SerializeField] float sprintSpeed; //NEW 
-    [Range(0.5f, 2f)][SerializeField] float crouchSpeed; //NEW 
+    [Range(1, 10)][SerializeField] float sprintSpeed; 
+    [Range(0.5f, 2f)][SerializeField] float crouchSpeed; 
 
     [Range(1, 3)][SerializeField] int jump;
     [Range(5, 25)][SerializeField] int jumpSpeed;
@@ -21,6 +21,12 @@ public class playerController : MonoBehaviour, IDamage
     [Range (1, 100)] public int HP;
     public int HPOrig;
     private bool isAlive = true;
+    
+    [Header("----- Stamina -----")]
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float currentStamina;
+    [SerializeField] private float staminaDrain = 10f; // Stamina per second used
+    [SerializeField] private float staminaRechargeRate = 5f; // regen per second 
 
     [Header("----- Inventory -----")]
     public List<int> keys; // Inventory of keys
@@ -53,6 +59,8 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.updateCreditsUI();
         originalHeight = controller.height; //stores original height at the start of play. 
         HPOrig = HP;
+     
+        currentStamina = maxStamina;
         spawnPlayer();
     }
 
@@ -120,9 +128,10 @@ public class playerController : MonoBehaviour, IDamage
         {
             currentSpeed = crouchSpeed;
         }
-        else if (Input.GetKey(KeyCode.LeftShift)) // can only sprint when not crouching^^^
+        else if (Input.GetKey(KeyCode.LeftShift) && currentStamina > 0)
         {
             currentSpeed = sprintSpeed;
+            currentStamina -= staminaDrain * Time.deltaTime;
         }
 
 
@@ -143,6 +152,16 @@ public class playerController : MonoBehaviour, IDamage
 ;
         playerVel.y += gravity * Time.deltaTime;   //adds mechanics to gravity. makes negative number 
         controller.Move(playerVel * Time.deltaTime);
+
+        if (!Input.GetKey(KeyCode.LeftShift) || currentStamina <= 0)
+        {
+            currentStamina += staminaRechargeRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+        }
+
+        updatePlayerUI();
+
+
     }
 
 
