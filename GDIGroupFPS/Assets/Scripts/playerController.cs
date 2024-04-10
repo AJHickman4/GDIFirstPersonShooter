@@ -23,14 +23,17 @@ public class playerController : MonoBehaviour, IDamage
     private bool isAlive = true;
 
     [Header("----- Stamina -----")]
-    public float maxStamina;
-    [Range(1,100)] public float currentStamina;
+    [SerializeField] private float maxStamina;
+    [SerializeField] private float currentStamina; 
     [SerializeField] private float staminaDrain = 10f; // Stamina per second used
-    [SerializeField] private float staminaRechargeRate = 5f; // regen per second 
+    [SerializeField] private float staminaRechargeRate = 5f; // regen per second
+    [SerializeField] bool canSprint = true;
+
 
     [Header("----- Inventory -----")]
     public List<int> keys; // Inventory of keys
     public int credits; // Currency Balance of the Player
+
     [Header("----- Sliding -----")]
     [SerializeField] private float maxSlideTime = 2f; 
     [SerializeField] private float slideSpeed = 10f; 
@@ -38,7 +41,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] private KeyCode slideMouseButton = KeyCode.Mouse3;
     private float slideTimer;
     private bool isSliding = false;
-     [SerializeField] private float slideYScale = 0.5f;
+    [SerializeField] private float slideYScale = 0.5f;
+
+    [Header("----- Other -----")]
 
     private float originalHeight; //standard startingg height of our character controller
     private float crouchHeight = 1f; //adjustment to the height when crouching
@@ -92,6 +97,16 @@ public class playerController : MonoBehaviour, IDamage
         {
             StandUp();
         }
+        if (currentStamina <maxStamina)
+        {
+            currentStamina += staminaRechargeRate *Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+
+            if (currentStamina >= maxStamina) //can sprint only once stamina has fully recharged
+            {
+                canSprint = true;
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.T)) // Press T key to apply test damage
         {
@@ -124,7 +139,7 @@ public class playerController : MonoBehaviour, IDamage
 
         float currentSpeed = speed;
         //run speed setter
-        if (controller.height < originalHeight) // when crouching, you are slower
+        if (controller.height < originalHeight) // when crouching, you are slower, AND turn into a short king
         {
             currentSpeed = crouchSpeed;
         }
@@ -132,6 +147,13 @@ public class playerController : MonoBehaviour, IDamage
         {
             currentSpeed = sprintSpeed;
             currentStamina -= staminaDrain * Time.deltaTime;
+
+            if (currentStamina < 0)
+            {
+                currentSpeed = 0;
+                canSprint = false; //not allowed to sprint when stamina is depleated. 
+            }
+
         }
 
 
@@ -153,10 +175,11 @@ public class playerController : MonoBehaviour, IDamage
         playerVel.y += gravity * Time.deltaTime;   //adds mechanics to gravity. makes negative number 
         controller.Move(playerVel * Time.deltaTime);
 
-        if (!Input.GetKey(KeyCode.LeftShift) || currentStamina <= 0)
+        if (!Input.GetKey(KeyCode.LeftShift))
         {
             currentStamina += staminaRechargeRate * Time.deltaTime;
             currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+
         }
 
         updatePlayerUI();
