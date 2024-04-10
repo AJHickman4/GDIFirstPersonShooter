@@ -21,10 +21,10 @@ public class playerController : MonoBehaviour, IDamage
     [Range (1, 100)] public int HP;
     public int HPOrig;
     private bool isAlive = true;
-    
+
     [Header("----- Stamina -----")]
-    [SerializeField] private float maxStamina = 100f;
-    [SerializeField] private float currentStamina;
+    public float maxStamina;
+    [Range(1,100)] public float currentStamina;
     [SerializeField] private float staminaDrain = 10f; // Stamina per second used
     [SerializeField] private float staminaRechargeRate = 5f; // regen per second 
 
@@ -217,6 +217,7 @@ public class playerController : MonoBehaviour, IDamage
     public void updatePlayerUI()
     {
         gameManager.instance.healthBar.fillAmount = (float)HP / HPOrig;
+        gameManager.instance.staminaBar.fillAmount = (float)currentStamina / maxStamina;
     }
 
     public void SetInvincibility(bool invincible)
