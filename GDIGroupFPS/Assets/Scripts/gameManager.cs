@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -24,10 +25,17 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject iconDoubleDamage;
     [SerializeField] GameObject iconShield;
     [SerializeField] GameObject iconUnlimtedAmmo;
+    [SerializeField] TMP_Text timerText;
+    [SerializeField] private float flashThreshold = 10f;
+    [SerializeField] private float flashDuration = 0.5f;
 
     public GameObject damageIndicator;
     public Image healthBar;
     public GameObject boardActive;
+
+    public float resetTimer = 30f;
+    private float currentTime;
+    public bool isResetting = false;
 
     public GameObject exitDoorPrompt;
     [SerializeField] TMP_Text keysNeededText;
@@ -41,7 +49,8 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     int enemyCount;
-
+    private bool timerIsActive = false;
+    private bool isFlashing = false;
     bool temp;
 
     // Start is called before the first frame update
@@ -52,14 +61,17 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
-
+        currentTime = resetTimer;
         Weapon.OnDoubleDamageActivated += ShowDoubleDamageIcon;
         Weapon.OnDoubleDamageDeactivated += HideDoubleDamageIcon;
         Weapon.OnUnlimitedAmmoActivated += ShowUnlimitedAmmoIcon;
         Weapon.OnUnlimitedAmmoDeactivated += HideUnlimitedAmmoIcon;
         Weapon.OnShieldActivated += ShowShieldIcon;
         Weapon.OnShieldDeactivated += HideShieldIcon;
-
+        if (timerText != null)
+        {
+            timerText.gameObject.SetActive(false);
+        }
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
         menuActive = startingDialog;
@@ -83,10 +95,24 @@ public class gameManager : MonoBehaviour
             menuActive = menuPause;
             menuActive.SetActive(isPaused);
         }
+        if (timerIsActive)
+        {
+            if (currentTime > 0)
+            {
+                currentTime -= Time.deltaTime;
+                UpdateTimerUI(currentTime);
+            }
+            else
+            {
+                StartCoroutine(TeleportPlayerToSpawn());
+                currentTime = 0;
+                UpdateTimerUI(currentTime);
+                timerIsActive = false;
+            }
+        }
     }
     void OnDestroy()
     {
-        // Unsubscribe to avoid memory leaks
         Weapon.OnDoubleDamageActivated -= ShowDoubleDamageIcon;
         Weapon.OnDoubleDamageDeactivated -= HideDoubleDamageIcon;
         Weapon.OnUnlimitedAmmoActivated -= ShowUnlimitedAmmoIcon;
@@ -160,11 +186,86 @@ public class gameManager : MonoBehaviour
         keysNeededText.text = keysPlayerNeeds.ToString("F0");
     }
 
+    IEnumerator ResetTimerCoroutine()
+    {
+        yield return new WaitForSeconds(resetTimer);
+        StartCoroutine(TeleportPlayerToSpawn());
+    }
 
+    IEnumerator TeleportPlayerToSpawn()
+    {
+        if (!isResetting)
+        {
+            isResetting = true;
+            playerScript.controller.enabled = false;
+            player.transform.position = startingSpawn.transform.position;
+            playerScript.controller.enabled = true;
+            playerScript.HP = playerScript.HPOrig;
+            playerScript.updatePlayerUI();
+            if (timerText != null)
+            {
+                timerText.gameObject.SetActive(false);
+            }
+            timerIsActive = false;
+            currentTime = 0;
+            isResetting = false;
+        }
+        yield return null; 
+    }
+   
+    public void StartResetTimer()
+    {
+        if (!timerIsActive)
+        {
+            currentTime = resetTimer;
+            timerIsActive = true;
+            if (timerText != null)
+            {
+                timerText.gameObject.SetActive(true); 
+            }
+            StartCoroutine(ResetTimerCoroutine());
+        }
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == player) 
+        {
+            StartResetTimer();
+        }
+    }
+    private void UpdateTimerUI(float time)
+    {
+        if (timerText != null)
+        {
+            timerText.text = "Reset in: " + time.ToString("F2") + "s";
+            if (time <= flashThreshold && !isFlashing)
+            {
+                StartCoroutine(FlashTimerUI());
+            }
+            else if (time > flashThreshold && isFlashing)
+            {
+                StopCoroutine(FlashTimerUI());
+                isFlashing = false;
+                timerText.color = Color.white;
+            }
+        }
+    }
 
-
+    IEnumerator FlashTimerUI()
+    {
+        isFlashing = true;
+        bool isRed = false;
+        while (isFlashing)
+        {
+            timerText.color = isRed ? Color.white : Color.red;
+            isRed = !isRed;
+            yield return new WaitForSeconds(flashDuration);
+        }
+        timerText.color = Color.white;
+    }
 
 
 
 }
+

@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerController : MonoBehaviour, IDamage 
 {
     [Header("----- Compenents -----")]
-    [SerializeField] CharacterController controller;
+    public  CharacterController controller;
     [SerializeField] Animator anim;
 
     [Header("----- Player Stats -----")]
@@ -31,6 +31,14 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Inventory -----")]
     public List<int> keys; // Inventory of keys
     public int credits; // Currency Balance of the Player
+    [Header("----- Sliding -----")]
+    [SerializeField] private float maxSlideTime = 2f; 
+    [SerializeField] private float slideSpeed = 10f; 
+    [SerializeField] private KeyCode slideKey = KeyCode.LeftAlt; 
+    [SerializeField] private KeyCode slideMouseButton = KeyCode.Mouse3;
+    private float slideTimer;
+    private bool isSliding = false;
+     [SerializeField] private float slideYScale = 0.5f;
 
     private float originalHeight; //standard startingg height of our character controller
     private float crouchHeight = 1f; //adjustment to the height when crouching
@@ -38,8 +46,10 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
     bool isShooting;
-    private bool isInvincible = false;
+    public bool isInvincible = false;
     public GameObject forceFieldEffect;
+    public bool isTakingDamage;
+    public float lastDamageTime = -1f;
 
 
     // Start is called before the first frame update
@@ -72,22 +82,34 @@ public class playerController : MonoBehaviour, IDamage
         movement();
 
         //begin the crouch 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.C))
         {
            Crouch();
         }
 
         //end crouch
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.C))
         {
             StandUp();
         }
 
         if (Input.GetKeyDown(KeyCode.T)) // Press T key to apply test damage
         {
-            takeDamage(10); // Apply 10 damage for testing
+            takeDamage(1); // Apply 10 damage for testing
+        }
+        if ((Input.GetKeyDown(slideKey) ||  Input.GetKeyDown(slideMouseButton)) && !isSliding && controller.isGrounded)
+        {
+            StartSlide();
+        }
+        else if ((Input.GetKeyUp(slideKey) || Input.GetKeyUp(slideMouseButton)) && isSliding)
+        {
+            StopSlide();
         }
 
+        if (isSliding)
+        {
+            SlideMovement();
+        }
     }
 
     void movement()
@@ -156,12 +178,13 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
 
-        if (isInvincible)
+        if (isInvincible || gameManager.instance.isResetting)
         {
             return; 
         }
         if (!isAlive) return;
-        StartCoroutine(damageIndictator());
+        isTakingDamage = true;
+        StartCoroutine(ShowDamageIndicator());
         HP -= amount;
         HP = Mathf.Clamp(HPOrig, 0, HP);
         updatePlayerUI();
@@ -176,17 +199,22 @@ public class playerController : MonoBehaviour, IDamage
     }
     void Die()
     {
+        if (gameManager.instance.isResetting)
+        {
+            return;
+        }
+        
         isAlive = false;
        
     }
-    IEnumerator damageIndictator()
+    public IEnumerator ShowDamageIndicator()
     {
         gameManager.instance.damageIndicator.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gameManager.instance.damageIndicator.SetActive(false);
+        isTakingDamage = false;
     }
-
-    void updatePlayerUI()
+    public void updatePlayerUI()
     {
         gameManager.instance.healthBar.fillAmount = (float)HP / HPOrig;
     }
@@ -219,6 +247,30 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
+    private void StartSlide()
+    {
+        isSliding = true;
+        slideTimer = maxSlideTime;
+        controller.height = slideYScale; 
+    }
 
+    private void SlideMovement()
+    {
+        if (slideTimer > 0)
+        {
+            Vector3 slideDirection = moveDir.normalized * slideSpeed;
+            controller.Move(slideDirection * Time.deltaTime);
+            slideTimer -= Time.deltaTime;
+        }
+        else
+        {
+            StopSlide();
+        }
+    }
 
+    private void StopSlide()
+    {
+        isSliding = false;
+        controller.height = originalHeight; 
+    }
 }

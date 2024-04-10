@@ -255,6 +255,15 @@ MonoBehaviour:
   HPOrig: 0
   keys: 
   credits: 500
+  maxSlideTime: 5
+  slideSpeed: 26.4
+  slideKey: 306
+  slideMouseButton: 326
+  slideYScale: 1.08
+  isInvincible: 0
+  forceFieldEffect: {fileID: 52021428075692649}
+  isTakingDamage: 0
+  lastDamageTime: -1
 --- !u!114 &4037377866302538984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,7 +741,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f196415d559aa1b4da98700425c655cd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.073
+  m_Volume: 0.131
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -948,6 +957,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f370b941c9505364dab686683cbc0f8c, type: 3}
+--- !u!1 &52021428075692649 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8489281264120157114, guid: f370b941c9505364dab686683cbc0f8c, type: 3}
+  m_PrefabInstance: {fileID: 8464283925599736275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1517308000494815573 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6951766669067933830, guid: f370b941c9505364dab686683cbc0f8c, type: 3}
