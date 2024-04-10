@@ -49,7 +49,7 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     float timeScaleOrig;
     int enemyCount;
-    private bool timerIsActive = false;
+    public bool timerIsActive = false;
     private bool isFlashing = false;
     bool temp;
 
