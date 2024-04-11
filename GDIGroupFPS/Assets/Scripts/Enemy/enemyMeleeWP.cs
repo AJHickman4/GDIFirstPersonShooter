@@ -29,6 +29,9 @@ public class enemyMeleeWP : MonoBehaviour, IDamage
     [SerializeField] int currWaypoint = 0;
     ////[SerializeField] float waypointSpeed = 1.0f;
 
+    [Header("---- Credits Settings ----")]
+    [SerializeField] private int creditGainOnDeath = 5;
+
     [Header("----- Drop Settings -----")]
     [SerializeField] GameObject dropObject;
     [Range(0, 100)][SerializeField] int dropChancePercentage = 25;  // 25% chance to drop
@@ -171,7 +174,7 @@ public class enemyMeleeWP : MonoBehaviour, IDamage
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
-        gameManager.instance.playerScript.credits += 1;
+        gameManager.instance.playerScript.credits += creditGainOnDeath;
         gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);

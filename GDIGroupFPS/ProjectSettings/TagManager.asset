@@ -18,6 +18,8 @@ TagManager:
   - Ladder
   - Starting Spawnpoint
   - Waypoint
+  - LadderBottom
+  - door
   layers:
   - Default
   - TransparentFX
@@ -28,6 +30,16 @@ TagManager:
   - Wall
   - Ground
   - weapons
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
