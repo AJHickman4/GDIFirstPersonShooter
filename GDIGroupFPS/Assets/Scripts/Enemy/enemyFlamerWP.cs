@@ -32,6 +32,9 @@ public class enemyFlamerWP : MonoBehaviour, IDamage
     [SerializeField] int currWaypoint = 0;
     //[SerializeField] float waypointSpeed = 1.0f;
 
+    [Header("---- Credits Settings ----")]
+    [SerializeField] private int creditGainOnDeath = 5;
+
     [Header("----- Drop Settings -----")]
     [SerializeField] GameObject dropObject;
     [Range(0, 100)][SerializeField] int dropChancePercentage = 25;  // 25% chance to drop

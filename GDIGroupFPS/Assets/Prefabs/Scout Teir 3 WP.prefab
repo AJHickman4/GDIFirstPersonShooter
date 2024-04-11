@@ -1267,6 +1267,7 @@ MonoBehaviour:
   dropChancePercentage2: 5
   dropObject3: {fileID: 1870012495010853752, guid: fad1fa5ec9606794a8f8a7478034cd19, type: 3}
   dropChancePercentage3: 6
+  creditGainOnDeath: 15
   audRun: []
   audRunVol: 0
   audShooting:

@@ -245,18 +245,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1495661457111557772}
   anim: {fileID: 0}
-  speed: 5
-  sprintSpeed: 10
+  speed: 4
+  sprintSpeed: 6
   crouchSpeed: 2
-  jump: 2
+  jump: 1
   jumpSpeed: 12
   gravity: -24
-  HP: 35
+  HP: 100
   HPOrig: 0
+  maxStamina: 100
+  currentStamina: 98.6
+  staminaDrain: 15
+  staminaRechargeRate: 5
+  canSprint: 1
   keys: 
   credits: 500
-  maxSlideTime: 5
-  slideSpeed: 26.4
+  maxSlideTime: 1
+  slideSpeed: 10
   slideKey: 306
   slideMouseButton: 326
   slideYScale: 1.08
@@ -277,12 +282,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerTransform: {fileID: 2872039370434928530}
-  Gun: {fileID: 8575514103310546676}
   playerCamera: {fileID: 2007798959736790778}
+  initialGun: {fileID: 8575514103310546676}
   equipRange: 5
   audioSource: {fileID: 6928196396766779983}
   pickupSound: {fileID: 8300000, guid: 71c5faebf08f63f429d76a924ddc9b89, type: 3}
-  isEquipped: 1
+  dropKey: 102
 --- !u!143 &1495661457111557772
 CharacterController:
   m_ObjectHideFlags: 0
@@ -713,7 +718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1780466957792182496
 Transform:
   m_ObjectHideFlags: 0
@@ -1097,10 +1102,10 @@ MonoBehaviour:
   bulletPrefabLife: 3
   playerCamera: {fileID: 2007798959736790778}
   pellets: 5
-  ammoPerMag: 10
+  Maxammo: 15
   currentAmmo: 0
-  totalMags: 10
-  currentMags: 0
+  totalAmmoReserve: 60
+  maxAmmoReserveLimit: 100
   bulletDamage: 4
   isEquipped: 1
   recoilAmount: 40.7
