@@ -42,6 +42,9 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] GameObject dropObject3;
     [Range(0, 100)][SerializeField] int dropChancePercentage3 = 25;
 
+    [Header("---- Credits Settings ----")]
+    [SerializeField] private int creditGainOnDeath = 5;
+
     [Header("---- Audio ----")]
     [SerializeField] AudioClip[] audRun;
     [Range(0, 1)][SerializeField] float audRunVol;
@@ -184,7 +187,7 @@ public class enemyAI : MonoBehaviour, IDamage
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
-        gameManager.instance.playerScript.credits += 2;
+        gameManager.instance.playerScript.credits += creditGainOnDeath;
         gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);

@@ -1051,6 +1051,13 @@ MonoBehaviour:
   slashRate: 1
   waypointArray: []
   currWaypoint: 0
+  creditGainOnDeath: 15
+  dropObject: {fileID: 0}
+  dropChancePercentage: 25
+  dropObject2: {fileID: 0}
+  dropChancePercentage2: 25
+  dropObject3: {fileID: 0}
+  dropChancePercentage3: 25
   audRun: []
   audRunVol: 0
   audSlashHit:

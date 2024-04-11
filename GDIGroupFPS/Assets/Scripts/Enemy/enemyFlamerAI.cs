@@ -31,6 +31,8 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     //[SerializeField] GameObject[] waypointArray;
     //[SerializeField] int currWaypoint = 0;
     //[SerializeField] float waypointSpeed = 1.0f;
+    [Header("---- Credits Settings ----")]
+    [SerializeField] private int creditGainOnDeath = 5;
 
     [Header("----- Drop Settings -----")]
     [SerializeField] GameObject dropObject;
@@ -188,7 +190,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         }
 
         Destroy(gameObject);
-        gameManager.instance.playerScript.credits += 5;
+        gameManager.instance.playerScript.credits += creditGainOnDeath;
         gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);
