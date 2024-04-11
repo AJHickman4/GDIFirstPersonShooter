@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,24 @@ using UnityEngine;
 public class closedoor : MonoBehaviour
 {
     public Animator anim;
+    public DoorOpenClose doorScript;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player" && !gameManager.instance.timerIsActive)
         {
-            anim.SetTrigger("close");
+            if (doorScript != null)
+            {
+                anim.SetTrigger("close");
+                doorScript.isOpen = false;
+                doorScript.isPlayerAimingAtDoor = false;
+            }
+            else
+            {
+                //debug
+            }
         }
     }
 }
+
+

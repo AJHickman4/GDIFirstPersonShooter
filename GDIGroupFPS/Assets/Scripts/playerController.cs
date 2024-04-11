@@ -2,29 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerController : MonoBehaviour, IDamage 
+public class playerController : MonoBehaviour, IDamage
 {
     [Header("----- Compenents -----")]
-    public  CharacterController controller;
+    public CharacterController controller;
     [SerializeField] Animator anim;
 
     [Header("----- Player Stats -----")]
     [Range(1, 5)][SerializeField] float speed;
-    [Range(1, 10)][SerializeField] float sprintSpeed; 
-    [Range(0.5f, 2f)][SerializeField] float crouchSpeed; 
+    [Range(1, 10)][SerializeField] float sprintSpeed;
+    [Range(0.5f, 2f)][SerializeField] float crouchSpeed;
 
     [Range(1, 3)][SerializeField] int jump;
     [Range(5, 25)][SerializeField] int jumpSpeed;
     [Range(-15, -35)][SerializeField] int gravity;
 
     [Header("----- Health -----")]
-    [Range (1, 100)] public int HP;
+    [Range(1, 100)] public int HP;
     public int HPOrig;
     private bool isAlive = true;
 
     [Header("----- Stamina -----")]
     [SerializeField] private float maxStamina;
-    [SerializeField] private float currentStamina; 
+    [SerializeField] private float currentStamina;
     [SerializeField] private float staminaDrain = 10f; // Stamina per second used
     [SerializeField] private float staminaRechargeRate = 5f; // regen per second
     [SerializeField] bool canSprint = true;
@@ -35,9 +35,9 @@ public class playerController : MonoBehaviour, IDamage
     public int credits; // Currency Balance of the Player
 
     [Header("----- Sliding -----")]
-    [SerializeField] private float maxSlideTime = 2f; 
-    [SerializeField] private float slideSpeed = 10f; 
-    [SerializeField] private KeyCode slideKey = KeyCode.LeftAlt; 
+    [SerializeField] private float maxSlideTime = 2f;
+    [SerializeField] private float slideSpeed = 10f;
+    [SerializeField] private KeyCode slideKey = KeyCode.LeftAlt;
     [SerializeField] private KeyCode slideMouseButton = KeyCode.Mouse3;
     private float slideTimer;
     private bool isSliding = false;
@@ -55,6 +55,9 @@ public class playerController : MonoBehaviour, IDamage
     public GameObject forceFieldEffect;
     public bool isTakingDamage;
     public float lastDamageTime = -1f;
+    public float interactionRange = 5f;
+    public Camera playerCamera;
+    private DoorOpenClose currentlyAimedDoor = null;
 
 
     // Start is called before the first frame update
@@ -64,7 +67,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.updateCreditsUI();
         originalHeight = controller.height; //stores original height at the start of play. 
         HPOrig = HP;
-     
+
         currentStamina = maxStamina;
         spawnPlayer();
     }
@@ -85,11 +88,13 @@ public class playerController : MonoBehaviour, IDamage
         /*Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);*/ //draws the raycast in the Scene. 
 
         movement();
+        CheckForDoorAiming();
+
 
         //begin the crouch 
         if (Input.GetKeyDown(KeyCode.C))
         {
-           Crouch();
+            Crouch();
         }
 
         //end crouch
@@ -97,9 +102,9 @@ public class playerController : MonoBehaviour, IDamage
         {
             StandUp();
         }
-        if (currentStamina <maxStamina)
+        if (currentStamina < maxStamina)
         {
-            currentStamina += staminaRechargeRate *Time.deltaTime;
+            currentStamina += staminaRechargeRate * Time.deltaTime;
             currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
             if (currentStamina >= maxStamina) //can sprint only once stamina has fully recharged
@@ -112,7 +117,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             takeDamage(1); // Apply 10 damage for testing
         }
-        if ((Input.GetKeyDown(slideKey) ||  Input.GetKeyDown(slideMouseButton)) && !isSliding && controller.isGrounded)
+        if ((Input.GetKeyDown(slideKey) || Input.GetKeyDown(slideMouseButton)) && !isSliding && controller.isGrounded)
         {
             StartSlide();
         }
@@ -203,7 +208,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (isInvincible || gameManager.instance.isResetting)
         {
-            return; 
+            return;
         }
         if (!isAlive) return;
         isTakingDamage = true;
@@ -226,9 +231,9 @@ public class playerController : MonoBehaviour, IDamage
         {
             return;
         }
-        
+
         isAlive = false;
-       
+
     }
     public IEnumerator ShowDamageIndicator()
     {
@@ -275,7 +280,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         isSliding = true;
         slideTimer = maxSlideTime;
-        controller.height = slideYScale; 
+        controller.height = slideYScale;
     }
 
     private void SlideMovement()
@@ -295,6 +300,35 @@ public class playerController : MonoBehaviour, IDamage
     private void StopSlide()
     {
         isSliding = false;
-        controller.height = originalHeight; 
+        controller.height = originalHeight;
+    }
+
+    void CheckForDoorAiming()
+    {
+        RaycastHit hit;
+        float sphereRadius = 0.5f;
+        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
+        if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, interactionRange))
+        {
+            DoorOpenClose door = hit.collider.GetComponent<DoorOpenClose>();
+            if (door != null && currentlyAimedDoor != door)
+            {
+                if (currentlyAimedDoor != null)
+                {
+                    currentlyAimedDoor.SetPlayerAimingAtDoor(false);
+                }
+                currentlyAimedDoor = door;
+                currentlyAimedDoor.SetPlayerAimingAtDoor(true);
+            }
+        }
+        else if (currentlyAimedDoor != null)
+        {
+            currentlyAimedDoor.SetPlayerAimingAtDoor(false);
+            currentlyAimedDoor = null;
+        }
     }
 }
+
+
+
+
