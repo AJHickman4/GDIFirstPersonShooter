@@ -63,9 +63,6 @@ public class gameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
         currentTime = resetTimer;
-
-        OnShieldActivated += ShowShieldIcon;
-        OnShieldDeactivated += HideShieldIcon;
         if (timerText != null)
         {
             timerText.gameObject.SetActive(false);
@@ -109,16 +106,6 @@ public class gameManager : MonoBehaviour
             }
         }
     }
-
-    public static event Action OnShieldActivated;
-    public static event Action OnShieldDeactivated;
-
-    void OnDestroy()
-    { 
-        OnShieldActivated -= ShowShieldIcon;
-        OnShieldDeactivated -= HideShieldIcon;
-    }
-
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
 
