@@ -109,17 +109,18 @@ public class EquipScript : MonoBehaviour
         }
     }
 
-    void SwitchGun(int index)
+    IEnumerator SwitchGunWithDelay(int index)
     {
+        yield return new WaitForSeconds(0f); 
         if (index >= 0 && index < guns.Count && index != equippedGunIndex)
         {
             Weapon weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
-            if (!weaponScript.isReloading) 
+            if (weaponScript != null && !weaponScript.isReloading && weaponScript.readyToShoot)
             {
                 SetActiveGun(guns[equippedGunIndex], false);
                 equippedGunIndex = index;
-                weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
                 SetActiveGun(guns[equippedGunIndex], true);
+                weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
                 if (weaponScript != null)
                 {
                     gameManager.instance.UpdateAmmoUI(weaponScript.currentAmmo, weaponScript.totalAmmoReserve);
@@ -135,7 +136,7 @@ public class EquipScript : MonoBehaviour
             }
         }
     }
-    
+
     void EquipInitialGun(GameObject gun)
     {
         EquipObject(gun);
@@ -170,5 +171,10 @@ public class EquipScript : MonoBehaviour
             Destroy(gunToDestroy);
             equippedGunIndex = -1; 
         }
+    }
+
+    void SwitchGun(int index)
+    {
+        StartCoroutine(SwitchGunWithDelay(index));
     }
 }

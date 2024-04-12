@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class gameManager : MonoBehaviour
 {
@@ -62,12 +63,9 @@ public class gameManager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
         currentTime = resetTimer;
-        Weapon.OnDoubleDamageActivated += ShowDoubleDamageIcon;
-        Weapon.OnDoubleDamageDeactivated += HideDoubleDamageIcon;
-        Weapon.OnUnlimitedAmmoActivated += ShowUnlimitedAmmoIcon;
-        Weapon.OnUnlimitedAmmoDeactivated += HideUnlimitedAmmoIcon;
-        Weapon.OnShieldActivated += ShowShieldIcon;
-        Weapon.OnShieldDeactivated += HideShieldIcon;
+
+        OnShieldActivated += ShowShieldIcon;
+        OnShieldDeactivated += HideShieldIcon;
         if (timerText != null)
         {
             timerText.gameObject.SetActive(false);
@@ -111,20 +109,16 @@ public class gameManager : MonoBehaviour
             }
         }
     }
+
+    public static event Action OnShieldActivated;
+    public static event Action OnShieldDeactivated;
+
     void OnDestroy()
-    {
-        Weapon.OnDoubleDamageActivated -= ShowDoubleDamageIcon;
-        Weapon.OnDoubleDamageDeactivated -= HideDoubleDamageIcon;
-        Weapon.OnUnlimitedAmmoActivated -= ShowUnlimitedAmmoIcon;
-        Weapon.OnUnlimitedAmmoDeactivated -= HideUnlimitedAmmoIcon;
-        Weapon.OnShieldActivated -= ShowShieldIcon;
-        Weapon.OnShieldDeactivated -= HideShieldIcon;
+    { 
+        OnShieldActivated -= ShowShieldIcon;
+        OnShieldDeactivated -= HideShieldIcon;
     }
 
-    void ShowDoubleDamageIcon() => iconDoubleDamage.SetActive(true);
-    void HideDoubleDamageIcon() => iconDoubleDamage.SetActive(false);
-    void ShowUnlimitedAmmoIcon() => iconUnlimtedAmmo.SetActive(true);
-    void HideUnlimitedAmmoIcon() => iconUnlimtedAmmo.SetActive(false);
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
 

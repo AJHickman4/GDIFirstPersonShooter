@@ -52,17 +52,8 @@ public class Weapon : MonoBehaviour
 
     public AudioSource gunShot;
     public AudioSource reload;
-    private int originalBulletDamage;
-    private bool isDamageBoosted = false;
     public bool unlimitedAmmo = false;
     
-    public static event Action OnDoubleDamageActivated;
-    public static event Action OnDoubleDamageDeactivated;
-    public static event Action OnShieldActivated;
-    public static event Action OnShieldDeactivated;
-    public static event Action OnUnlimitedAmmoActivated;
-    public static event Action OnUnlimitedAmmoDeactivated;
-
     public enum ShootingMode
     {
         Single,
@@ -75,7 +66,6 @@ public class Weapon : MonoBehaviour
 
     void Awake()
     {
-        originalBulletDamage = bulletDamage; 
         originalRotation = transform.localRotation;
         gunShot = GetComponent<AudioSource>();
         readyToShoot = true;
@@ -130,8 +120,8 @@ public class Weapon : MonoBehaviour
         
         if (isReloading) return;                    
         ShootBullet();
-        
-        if (!unlimitedAmmo)
+
+        if (!PowerUpManager.Instance.HasUnlimitedAmmo)
         {
             currentAmmo--;
         }
@@ -164,11 +154,11 @@ public class Weapon : MonoBehaviour
         {
             StartCoroutine(RecoilCoroutine(false));
         }
-        for (int i = 0; i < bulletsPerBurst && currentAmmo > 0; i++)
+        for (int i = 0; i < bulletsPerBurst && (PowerUpManager.Instance.HasUnlimitedAmmo || currentAmmo > 0); i++)
         {
             if (isReloading) yield break;
             ShootBullet();
-            if (!unlimitedAmmo) 
+            if (!PowerUpManager.Instance.HasUnlimitedAmmo)
             {
                 currentAmmo--;
             }
@@ -189,11 +179,11 @@ public class Weapon : MonoBehaviour
         gunShot.Play();
         muzzleFlash.Play();
 
-        for (int i = 0; i < pellets && currentAmmo > 0; i++)
+        for (int i = 0; i < pellets && (PowerUpManager.Instance.HasUnlimitedAmmo || currentAmmo > 0); i++)
         {
             if (isReloading) yield break;
             ShootBullet(omitSound: true);
-            if (!unlimitedAmmo)
+            if (!PowerUpManager.Instance.HasUnlimitedAmmo)
             {
                 currentAmmo--;
             }
@@ -239,11 +229,15 @@ public class Weapon : MonoBehaviour
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         if (bulletScript != null)
         {
-            bulletScript.SetDamage(bulletDamage);
+            int finalDamage = bulletDamage;
+            if (PowerUpManager.Instance.HasDoubleDamage)
+            {
+                finalDamage *= 2;
+            }
+            bulletScript.SetDamage(finalDamage);
         }
-        
-        Destroy(bullet, bulletPrefabLife);
 
+        Destroy(bullet, bulletPrefabLife);
     }
 
     IEnumerator ResetShot(float delay)
@@ -319,47 +313,6 @@ public class Weapon : MonoBehaviour
         }
         gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
         return true; 
-    }
-
-    public void ChangeDamage(int newDamage)
-    {
-        bulletDamage = newDamage;
-    }
-
-    public void ResetDamage()
-    {
-        bulletDamage = originalBulletDamage;
-    }
-
-    public void ApplyDamageBoost(int boostMultiplier, float duration)
-    {
-        if (!isDamageBoosted)
-        {
-            bulletDamage *= boostMultiplier;
-            isDamageBoosted = true;
-            OnDoubleDamageActivated?.Invoke();
-            StartCoroutine(ResetDamageAfterDelay(duration));
-        }
-    }
-
-    private IEnumerator ResetDamageAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        bulletDamage = originalBulletDamage;
-        isDamageBoosted = false;
-        OnDoubleDamageDeactivated?.Invoke();
-    }
-    public void EnableUnlimitedAmmo(float duration)
-    {
-        unlimitedAmmo = true;
-        OnUnlimitedAmmoActivated?.Invoke();
-        StartCoroutine(DisableUnlimitedAmmoAfterDelay(duration));
-    }
-    private IEnumerator DisableUnlimitedAmmoAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        unlimitedAmmo = false;
-        OnUnlimitedAmmoDeactivated?.Invoke();
     }
 }
 
