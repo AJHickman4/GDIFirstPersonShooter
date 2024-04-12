@@ -18,12 +18,15 @@ public class Rocket : MonoBehaviour
         }
     }
 
+
+
     void LaunchRocket()
     {
         Vector3 directionToCamera = (Camera.main.transform.position - transform.position).normalized;
         Quaternion desiredRotation = Quaternion.LookRotation(directionToCamera);
         transform.rotation = desiredRotation;
         rocketRigidbody.AddForce(transform.forward * launchForce);
+
     }
 
     private void OnCollisionEnter(Collision collision)

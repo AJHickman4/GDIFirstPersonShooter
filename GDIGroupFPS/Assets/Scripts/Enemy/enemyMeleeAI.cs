@@ -118,7 +118,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
                 agent.stoppingDistance = stoppingDistOrg;
                 agent.SetDestination(gameManager.instance.player.transform.position);
 
-                if (!isSlashing)
+                if (playerInRange && !isSlashing)
                 {
                     StartCoroutine(slash());
                 }
