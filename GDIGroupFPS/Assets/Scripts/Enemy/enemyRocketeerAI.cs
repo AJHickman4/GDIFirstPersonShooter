@@ -166,6 +166,8 @@ public class enemyRocketeerAI : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             StartCoroutine(onDeath());
+            //if (whereISpawned)
+            //    whereISpawned.firstDeath = false;
         }
     }
 
