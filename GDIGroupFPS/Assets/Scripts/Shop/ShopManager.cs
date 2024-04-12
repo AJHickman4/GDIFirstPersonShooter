@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
+    public int coins;
+    public int coinUI;
+
+
+
     public List<ShopItem> itemsForSale = new List<ShopItem>();
     public playerController player;
 
@@ -29,7 +35,7 @@ public class ShopManager : MonoBehaviour
 
     private void ApplyItemEffect(ShopItem item)
     {
-
+        //
     }
 
 
