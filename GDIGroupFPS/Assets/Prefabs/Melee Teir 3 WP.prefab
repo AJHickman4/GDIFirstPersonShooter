@@ -1064,6 +1064,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
   - {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
   audSlashHitVol: 0
+  damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
 --- !u!95 &3387724699346139985
 Animator:
   serializedVersion: 5

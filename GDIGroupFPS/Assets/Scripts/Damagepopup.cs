@@ -3,54 +3,124 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Damagepopup : MonoBehaviour
+public class DamagePopup : MonoBehaviour
 {
     private TextMeshPro textMesh;
     private float disappearTimer;
-    private Color textColor;
-    private static float heightOffset = 1f;
+    private Transform enemyTransform; 
+    private int totalDamage; 
+
+    private Color startColor = Color.red; 
+    private Color endColor = Color.yellow; 
+    private float colorTransitionTime = 0.5f; 
+    private float riseSpeed = 0.1f; 
+    private float initialScale = 1.0f; 
+    private float endScale = 0.5f; 
+
+    private Vector3 originalPosition;
+    private float maxRiseHeight = 0.3f; 
+    private float maxHorizontalMovement = 0.3f; 
+    private float riseAmount = 0.1f;
+
+    private static Dictionary<Transform, DamagePopup> popups = new Dictionary<Transform, DamagePopup>();
 
     private void Awake()
     {
-        textMesh = transform.GetComponent<TextMeshPro>();
+        textMesh = GetComponent<TextMeshPro>();
     }
+
+    private void Start()
+    {
+        transform.localScale = new Vector3(initialScale, initialScale, initialScale);
+        textMesh.color = startColor;
+        originalPosition = transform.localPosition;
+    }
+
     private void Update()
     {
-        float moveYSpeed = .5f;
-        transform.position += new Vector3(0, moveYSpeed) * Time.deltaTime;
-
-        // Make the popup always face the main camera
-        transform.LookAt(Camera.main.transform);
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + 180, 0); // Adjust for correct orientation
-
         disappearTimer -= Time.deltaTime;
+
         if (disappearTimer < 0)
         {
-            float disappearSpeed = 1f;
-            textColor.a -= disappearSpeed * Time.deltaTime;
-            textMesh.color = textColor;
-            if (textColor.a < 0)
+            if (enemyTransform != null && popups.ContainsKey(enemyTransform))
             {
-                Destroy(gameObject);
+                popups.Remove(enemyTransform);
             }
+            Destroy(gameObject);
+        }
+        else
+        {
+            float t = Mathf.Clamp01(disappearTimer / colorTransitionTime);
+            textMesh.color = Color.Lerp(endColor, startColor, t);
+            transform.localScale = Vector3.Lerp(new Vector3(endScale, endScale, endScale), new Vector3(initialScale, initialScale, initialScale), t);
+            AdjustRotation();
         }
     }
 
-    public void Setup(int damageAmount)
+    private void AdjustRotation()
     {
-        textMesh.SetText(damageAmount.ToString());
-        textColor = textMesh.color;
-        disappearTimer = 1f;
+        Vector3 cameraPosition = Camera.main.transform.position;
+        cameraPosition.y = transform.position.y;
+        transform.LookAt(cameraPosition);
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
     }
 
-    public static Damagepopup Create(Transform prefab, Vector3 position, int damageAmount)
+    public void Setup(int damageAmount, Transform enemy)
     {
-        Debug.Log("Creating damage popup at position: " + position);
-        Vector3 adjustedPosition = position + Vector3.up * heightOffset;
-        Transform damagePopupTransform = Instantiate(prefab, adjustedPosition, Quaternion.Euler(0, 180, 0));
-        Damagepopup damagePopup = damagePopupTransform.GetComponent<Damagepopup>();
-        damagePopup.Setup(damageAmount);
+        if (popups.TryGetValue(enemy, out DamagePopup existingPopup))
+        {
+            existingPopup.AddDamage(damageAmount);
+        }
+        else
+        {
+            InitDamagePopup(damageAmount, enemy);
+            popups[enemy] = this;
+        }
+    }
 
-        return damagePopup;
+    private void InitDamagePopup(int damageAmount, Transform enemy)
+    {
+        textMesh.SetText(damageAmount.ToString());
+        totalDamage = damageAmount;
+        disappearTimer = 0.5f;
+        enemyTransform = enemy;
+
+        transform.SetParent(enemy);
+        transform.localPosition = new Vector3(0, 2.5f, 0);
+        originalPosition = transform.localPosition;
+    }
+
+    public void AddDamage(int additionalDamage)
+    {
+        totalDamage += additionalDamage;
+        textMesh.SetText(totalDamage.ToString());
+        disappearTimer = 0.5f; 
+        BounceToNewPosition();
+    }
+
+    private void BounceToNewPosition()
+    {
+        float offsetX = Random.Range(-maxHorizontalMovement, maxHorizontalMovement);
+        float offsetY = Mathf.Min(maxRiseHeight, riseAmount);
+        Vector3 newPosition = new Vector3(originalPosition.x + offsetX, originalPosition.y + offsetY, originalPosition.z);
+        transform.localPosition = newPosition;
+        riseAmount *= 0.9f; 
+    }
+
+    public static DamagePopup Create(Transform prefab, Transform enemy, int damageAmount)
+    {
+        if (popups.TryGetValue(enemy, out DamagePopup existingPopup))
+        {
+            existingPopup.AddDamage(damageAmount);
+            return existingPopup;
+        }
+        else
+        {
+            Transform damagePopupTransform = Instantiate(prefab, enemy.position, Quaternion.identity, enemy);
+            DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
+            damagePopup.Setup(damageAmount, enemy);
+            popups[enemy] = damagePopup;
+            return damagePopup;
+        }
     }
 }

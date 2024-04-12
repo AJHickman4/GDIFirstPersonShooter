@@ -211,6 +211,7 @@ MonoBehaviour:
   audShooting:
   - {fileID: 8300000, guid: d69eb890685b8e84d8baef28044a4562, type: 3}
   audShootingVol: 0.2
+  damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
 --- !u!95 &5586704965422814874
 Animator:
   serializedVersion: 5

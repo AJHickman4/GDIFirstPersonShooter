@@ -50,6 +50,8 @@ public class enemyRocketeerWP : MonoBehaviour, IDamage
     [SerializeField] AudioClip[] audShooting;
     [Range(0, 1)][SerializeField] float audShootingVol;
 
+    public Transform damagePopupPrefab;
+
     bool isShooting;
     bool playerInRange;
     float angleToPlayer;
@@ -164,6 +166,7 @@ public class enemyRocketeerWP : MonoBehaviour, IDamage
     {
         HP -= amount;
         anim.SetTrigger("Damage");
+        DamagePopup.Create(damagePopupPrefab, transform, amount);
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashRed());
 

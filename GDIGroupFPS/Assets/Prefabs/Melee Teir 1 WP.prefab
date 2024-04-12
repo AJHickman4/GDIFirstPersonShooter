@@ -1145,6 +1145,7 @@ MonoBehaviour:
   slashRate: 1
   waypointArray: []
   currWaypoint: 0
+  creditGainOnDeath: 5
   dropObject: {fileID: 3045271454566021025, guid: 0a0c37031fdf0a84a9ac81c6ba451f2b, type: 3}
   dropChancePercentage: 3
   dropObject2: {fileID: 3953671451310025340, guid: f31f4556ad160de42ab5ec86c0281ba8, type: 3}
@@ -1157,6 +1158,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
   - {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
   audSlashHitVol: 0
+  damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
 --- !u!95 &285983734930120591
 Animator:
   serializedVersion: 5
