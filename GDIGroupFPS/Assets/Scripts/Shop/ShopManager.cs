@@ -5,8 +5,8 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public int coins;
-    public int coinUI;
+    public int credits;
+    public TMP_Text creditsUI;
 
 
 
@@ -15,6 +15,8 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+        creditsUI.text = "Credits: " + credits.ToString();
+
         //list of items using their ShopItems script values. :) Add more items here as they exist. 
         itemsForSale.Add(new ShopItem("Health Increase", 50, null, "Increase yer health by 20 permanently"));
 
@@ -38,5 +40,11 @@ public class ShopManager : MonoBehaviour
         //
     }
 
+
+    public void AddCoins()
+    {
+        credits++;
+        creditsUI.text = "Credits: " + credits.ToString();
+    }
 
 }
