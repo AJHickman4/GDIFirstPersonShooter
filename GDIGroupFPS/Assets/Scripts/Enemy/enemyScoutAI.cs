@@ -57,6 +57,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     float stoppingDistOrg;
     Vector3 startingPos;
     bool destinationChosen;
+    public Transform damagePopupPrefab;
 
 
     void Start()
@@ -160,6 +161,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     {
         HP -= amount;
         anim.SetTrigger("Damage");
+        Damagepopup.Create(damagePopupPrefab, transform.position, amount);
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashRed());
 

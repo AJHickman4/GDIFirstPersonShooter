@@ -244,9 +244,6 @@ public void updateCreditsUI()
             yield return new WaitForSeconds(flashDuration);
         }
         timerText.color = Color.white;
-    }
-
-
-
+    }  
 }
 
