@@ -43,6 +43,15 @@ public class playerController : MonoBehaviour, IDamage
     private bool isSliding = false;
     [SerializeField] private float slideYScale = 0.5f;
 
+    [Header("----- Melee Attack Parameters -----")]
+    public GameObject meleeWeapon; 
+    public Animator meleeAnimator;
+    public float meleeRange = 2.0f;
+    public float meleeDamage = 25.0f; 
+    public float meleeCooldown = 1.0f; 
+    public bool isMeleeReady = true;
+
+
     [Header("----- Other -----")]
 
     private float originalHeight; //standard startingg height of our character controller
@@ -58,6 +67,8 @@ public class playerController : MonoBehaviour, IDamage
     public float interactionRange = 5f;
     public Camera playerCamera;
     private DoorOpenClose currentlyAimedDoor = null;
+    public EquipScript equipScript;
+    private Weapon currentWeapon;
 
 
     // Start is called before the first frame update
@@ -89,7 +100,7 @@ public class playerController : MonoBehaviour, IDamage
 
         movement();
         CheckForDoorAiming();
-
+        currentWeapon = equipScript.GetCurrentWeapon();
 
         //begin the crouch 
         if (Input.GetKeyDown(KeyCode.C))
@@ -129,6 +140,11 @@ public class playerController : MonoBehaviour, IDamage
         if (isSliding)
         {
             SlideMovement();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.V) && isMeleeReady) 
+        {
+            StartCoroutine(PerformMeleeAttack()); 
         }
     }
 
@@ -325,6 +341,45 @@ public class playerController : MonoBehaviour, IDamage
         {
             currentlyAimedDoor.SetPlayerAimingAtDoor(false);
             currentlyAimedDoor = null;
+        }
+    }
+
+    IEnumerator PerformMeleeAttack()
+    {
+        if (!isMeleeReady || currentWeapon == null || currentWeapon.isReloading || currentWeapon.isRecoiling)
+        {
+            yield break;  
+        }
+        isMeleeReady = false;
+        currentWeapon.readyToShoot = false; 
+        equipScript.HideEquippedWeapons();
+        meleeWeapon.SetActive(true);
+        meleeAnimator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.2f);  
+        ApplyMeleeDamage();
+        yield return new WaitForSeconds(0.4f);
+        meleeWeapon.SetActive(false);
+        equipScript.ShowEquippedWeapon();
+        currentWeapon.readyToShoot = true;
+        isMeleeReady = true;
+    }
+    
+    private void ApplyMeleeDamage()
+    {
+        Vector3 attackPosition = transform.position + transform.forward * 1.0f;
+        float attackRange = meleeRange;
+        Collider[] hitColliders = Physics.OverlapSphere(attackPosition, attackRange);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Player"))
+            {
+                continue; 
+            }
+            IDamage target = hitCollider.GetComponent<IDamage>();
+            if (target != null)
+            {
+                target.takeDamage((int)meleeDamage); 
+            }
         }
     }
 }

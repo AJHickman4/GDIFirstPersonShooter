@@ -47,8 +47,9 @@ public class Weapon : MonoBehaviour
     [Range(0, 10)] public float recoveryTime = 0.2f;
 
     private Quaternion originalRotation;
-    private bool isRecoiling = false;
+    public bool isRecoiling = false;
     public ParticleSystem muzzleFlash;
+    public playerController PlayerController;
 
     public AudioSource gunShot;
     public AudioSource reload;
@@ -68,6 +69,7 @@ public class Weapon : MonoBehaviour
     {
         originalRotation = transform.localRotation;
         gunShot = GetComponent<AudioSource>();
+        PlayerController = FindObjectOfType<playerController>();
         readyToShoot = true;
         currentAmmo = Maxammo; // Initialize ammo count
         totalAmmoReserve -= currentAmmo;
@@ -261,10 +263,11 @@ public class Weapon : MonoBehaviour
     {
         isRecoiling = true;
         Quaternion startRotation = transform.localRotation;
-        Quaternion recoilRotation = startRotation * Quaternion.Euler(0, 0, recoilAmount); 
+        Quaternion recoilRotation = startRotation * Quaternion.Euler(0, 0, recoilAmount);
+
         if (continuous)
         {
-            while (Input.GetButton("Shoot") && currentAmmo > 0)
+            while (Input.GetButton("Shoot") && currentAmmo > 0 && PlayerController.isMeleeReady)
             {
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, recoilRotation, recoilTime * Time.deltaTime);
                 yield return null;
@@ -273,25 +276,30 @@ public class Weapon : MonoBehaviour
         else
         {
             float immediateRecoilTime = 0;
-            while (immediateRecoilTime < recoilTime)
+            while (immediateRecoilTime < recoilTime && PlayerController.isMeleeReady)
             {
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, recoilRotation, immediateRecoilTime / recoilTime);
                 immediateRecoilTime += Time.deltaTime;
                 yield return null;
             }
         }
-        float timeElapsed = 0;
-        Quaternion currentRotation = transform.localRotation;
-        while (timeElapsed < recoveryTime)
+
+        if (PlayerController.isMeleeReady)
         {
-            timeElapsed += Time.deltaTime;
-            float fraction = timeElapsed / recoveryTime;
-            transform.localRotation = Quaternion.Slerp(currentRotation, startRotation, fraction);
-            yield return null;
+            float timeElapsed = 0;
+            Quaternion currentRotation = transform.localRotation;
+            while (timeElapsed < recoveryTime)
+            {
+                timeElapsed += Time.deltaTime;
+                float fraction = timeElapsed / recoveryTime;
+                transform.localRotation = Quaternion.Slerp(currentRotation, startRotation, fraction);
+                yield return null;
+            }
         }
         transform.localRotation = startRotation;
         isRecoiling = false;
     }
+    
     public bool AddOneMagIfNeeded()
     {
         if (currentAmmo < Maxammo)

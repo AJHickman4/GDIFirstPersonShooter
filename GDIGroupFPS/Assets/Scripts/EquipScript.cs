@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class EquipScript : MonoBehaviour
@@ -7,9 +8,10 @@ public class EquipScript : MonoBehaviour
     [Header("Drag in")]
     public Transform PlayerTransform;
     public Camera playerCamera;
+    public playerController PlayerController;
 
     [Header("Initial Gun")]
-    public GameObject initialGun; 
+    public GameObject initialGun;
 
     [Header("Range")]
     [Range(1, 5)] public float equipRange = 5f;
@@ -19,7 +21,7 @@ public class EquipScript : MonoBehaviour
     public AudioClip pickupSound;
 
     [Header("Drop")]
-    public KeyCode dropKey = KeyCode.F; 
+    public KeyCode dropKey = KeyCode.F;
 
     private List<GameObject> guns = new List<GameObject>();
     private int equippedGunIndex = -1;
@@ -89,10 +91,7 @@ public class EquipScript : MonoBehaviour
         gun.transform.SetParent(PlayerTransform);
         gun.layer = LayerMask.NameToLayer("weapons");
 
-        if (equippedGunIndex == -1)
-        {
-            equippedGunIndex = 0; 
-        }
+        equippedGunIndex = guns.Count - 1;
 
         SetActiveGun(gun, true);
 
@@ -112,14 +111,14 @@ public class EquipScript : MonoBehaviour
     IEnumerator SwitchGunWithDelay(int index)
     {
         yield return new WaitForSeconds(0f); 
-        if (index >= 0 && index < guns.Count && index != equippedGunIndex)
+        if (index >= 0 && index < guns.Count && index != equippedGunIndex && PlayerController.isMeleeReady)
         {
             Weapon weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
-            if (weaponScript != null && !weaponScript.isReloading && weaponScript.readyToShoot)
+            if (weaponScript != null && !weaponScript.isReloading && weaponScript.readyToShoot && !weaponScript.isRecoiling)
             {
-                SetActiveGun(guns[equippedGunIndex], false);
-                equippedGunIndex = index;
-                SetActiveGun(guns[equippedGunIndex], true);
+                SetActiveGun(guns[equippedGunIndex], false);  
+                equippedGunIndex = index;  
+                SetActiveGun(guns[equippedGunIndex], true);  
                 weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
                 if (weaponScript != null)
                 {
@@ -169,7 +168,7 @@ public class EquipScript : MonoBehaviour
             GameObject gunToDestroy = guns[equippedGunIndex];
             guns.RemoveAt(equippedGunIndex);
             Destroy(gunToDestroy);
-            equippedGunIndex = -1; 
+            equippedGunIndex = -1;
         }
     }
 
@@ -177,4 +176,35 @@ public class EquipScript : MonoBehaviour
     {
         StartCoroutine(SwitchGunWithDelay(index));
     }
+
+    public void HideEquippedWeapons()
+    {
+        foreach (var gun in guns)
+        {
+            if (gun != null)
+            {
+                gun.SetActive(false);  
+            }
+        }
+    }
+
+    public void ShowEquippedWeapon()
+    {
+        if (equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
+        {
+            SetActiveGun(guns[equippedGunIndex], true);
+        }
+    }
+
+    public Weapon GetCurrentWeapon()
+    {
+        if (equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
+        {
+            return guns[equippedGunIndex].GetComponent<Weapon>();
+        }
+        return null;
+    }
+
+
 }
+
