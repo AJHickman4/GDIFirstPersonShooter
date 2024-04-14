@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef997de7d9ab4dc42879ebdd94fc1ed1, type: 3}
   m_Name: Health increase #1
   m_EditorClassIdentifier: 
-  itemName: Increased Health #1
+  itemName: 'Increased Health '
   cost: 50
   icon: {fileID: 0}
   description: Increase Maximum Health to survive more damage. Supports canine growth!

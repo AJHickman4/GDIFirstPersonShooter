@@ -14,11 +14,5 @@ public class ShopItem : ScriptableObject
     public Sprite icon;
     public string description;
 
-    public ShopItem(string name, int itemCost, Sprite itemIcon, string desc)
-    {
-        itemName = name;
-        cost = itemCost;
-        icon = itemIcon;
-        description = desc;
-    }
+  
 }

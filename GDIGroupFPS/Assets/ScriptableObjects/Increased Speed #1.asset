@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef997de7d9ab4dc42879ebdd94fc1ed1, type: 3}
   m_Name: Increased Speed #1
   m_EditorClassIdentifier: 
-  itemName: Increased Speed #1
+  itemName: Increased Speed
   cost: 150
   icon: {fileID: 0}
   description: Increase how fast you can run per second. Great for getting further
