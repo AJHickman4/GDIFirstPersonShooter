@@ -49,6 +49,8 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     [SerializeField] AudioClip[] audSlashHit;
     [Range(0, 1)][SerializeField] float audSlashHitVol;
 
+    public Transform damagePopupPrefab;
+
     bool isSlashing;
     bool playerInRange;
     float angleToPlayer;
@@ -158,6 +160,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     {
         HP -= amount;
         anim.SetTrigger("Damage");
+        DamagePopup.Create(damagePopupPrefab, transform, amount);
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashRed());
 

@@ -629,11 +629,13 @@ MonoBehaviour:
   dropChancePercentage2: 5
   dropObject3: {fileID: 3045271454566021025, guid: 0a0c37031fdf0a84a9ac81c6ba451f2b, type: 3}
   dropChancePercentage3: 5
+  creditGainOnDeath: 5
   audRun: []
   audRunVol: 0
   audShooting:
   - {fileID: 8300000, guid: d69eb890685b8e84d8baef28044a4562, type: 3}
   audShootingVol: 0.2
+  damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
 --- !u!95 &8518399128373178733
 Animator:
   serializedVersion: 5
