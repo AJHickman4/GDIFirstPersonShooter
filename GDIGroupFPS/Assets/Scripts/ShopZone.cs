@@ -2,19 +2,23 @@ using UnityEngine;
 
 public class ShopZone : MonoBehaviour
 {
-    public Camera mainCamera;
+    public Camera mainCamera; 
+    public Camera zoomCamera;
     public float zoomFOV = 10f;
-    public float zoomSpeed = 5f;
+    public float zoomSpeed = 5f; 
     private bool isPlayerNear = false;
     private bool isZoomed = false;
 
-    public EquipScript EquipScript; 
+    public EquipScript EquipScript;
     public cameraController cameraControl;
 
     void Start()
     {
         if (!mainCamera)
             mainCamera = Camera.main;
+
+        if (zoomCamera)
+            zoomCamera.enabled = false;
     }
 
     void Update()
@@ -23,33 +27,24 @@ public class ShopZone : MonoBehaviour
         {
             ToggleZoom();
         }
-
-        if (isZoomed)
-        {
-            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, zoomFOV, zoomSpeed * Time.deltaTime);
-        }
-        else
-        {
-            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, 60f, zoomSpeed * Time.deltaTime);
-        }
     }
 
     private void ToggleZoom()
     {
         isZoomed = !isZoomed;
-        cameraControl.LockCamera(isZoomed);
-
+        cameraControl.LockCamera(isZoomed); 
+        mainCamera.enabled = !isZoomed;
+        if (zoomCamera)
+            zoomCamera.enabled = isZoomed;
+        Cursor.lockState = isZoomed ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isZoomed;
         if (isZoomed)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            EquipScript.HideEquippedWeapons(); // Hide weapons
+            EquipScript.HideEquippedWeapons(); 
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            EquipScript.ShowEquippedWeapon(); // Show weapons
+            EquipScript.ShowEquippedWeapon(); 
         }
     }
 
@@ -66,7 +61,7 @@ public class ShopZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = false;
-            if (isZoomed) // Force zoom out when player leaves the shop zone
+            if (isZoomed) 
             {
                 ToggleZoom();
             }
