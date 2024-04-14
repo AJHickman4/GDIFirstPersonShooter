@@ -66,7 +66,8 @@ public class gameManager : MonoBehaviour
         currentTime = resetTimer;
         if (timerText != null)
         {
-            timerText.gameObject.SetActive(false);
+            timerText.gameObject.SetActive(true); 
+            UpdateTimerUI(currentTime); 
         }
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
@@ -269,7 +270,8 @@ public void updateCreditsUI()
     public void IncreaseResetTimer(float additionalTime)
     {
         resetTimer += additionalTime;
-        Debug.Log("New resetTimer: " + resetTimer); 
+        currentTime += additionalTime;
+        UpdateTimerUI(currentTime);
     }
 
     void PlayTeleportEffect()
