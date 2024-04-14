@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Enumeration;
 using UnityEngine;
+
+
+
+[CreateAssetMenu(fileName = "ShopMenu", menuName = "Sciptable Objects/NewShop Item", order = 1)]
 
 public class ShopItem : ScriptableObject
 {
@@ -9,11 +14,5 @@ public class ShopItem : ScriptableObject
     public Sprite icon;
     public string description;
 
-    public ShopItem(string name, int itemCost, Sprite itemIcon, string desc)
-    {
-        itemName = name;
-        cost = itemCost;
-        icon = itemIcon;
-        description = desc;
-    }
+  
 }
