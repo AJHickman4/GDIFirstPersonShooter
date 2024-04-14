@@ -12,6 +12,7 @@ public class cameraController : MonoBehaviour
     [SerializeField] float normalFOV = 60f;
     [SerializeField] float sprintingFOV = 75f;
     [SerializeField] float FOVTransition = 10f; //need this transition time for the lerp function below. //required 3 fields
+    private bool isCameraLocked = false;
 
 
 
@@ -22,7 +23,7 @@ public class cameraController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;  //cannot leave screen space while hidden.
         Cursor.visible = false;
-       
+
         transform.forward = transform.parent.forward;//get camera to face forward right out of the gate at start. 
 
 
@@ -33,35 +34,39 @@ public class cameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //get input
-        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
-        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
-
-        //invert look 
-        if (invertY)
-            rotX += mouseY;
-        else
-            rotX -= mouseY;
-
-        //clamping the rot ont he x-axis.
-        rotX = Mathf.Clamp(rotX, lockVertMin, LockVertMax);
-
-        //rotate the camera on the x-Axis. 
-        transform.localRotation = Quaternion.Euler(rotX, 0, 0);
-
-        //rotate the player on the y-axis
-        transform.parent.Rotate(Vector3.up * mouseX);
-
-
-    //adjust FOV while sprinting..
-    if (Input.GetKey(KeyCode.LeftShift))
+        if (!isCameraLocked)  
         {
-            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, sprintingFOV, FOVTransition * Time.deltaTime); //if shift is pressed make FOV become number //needs 3 fields
+            // Get input
+            float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
+            float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
+
+            // Invert look 
+            if (invertY)
+                rotX += mouseY;
+            else
+                rotX -= mouseY;
+
+            rotX = Mathf.Clamp(rotX, lockVertMin, LockVertMax);
+            transform.localRotation = Quaternion.Euler(rotX, 0, 0);
+            transform.parent.Rotate(Vector3.up * mouseX);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, sprintingFOV, FOVTransition * Time.deltaTime);
         }
         else
         {
-            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, normalFOV, FOVTransition * Time.deltaTime); //reverts FOV back after sprinting / sets norn speed 
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, normalFOV, FOVTransition * Time.deltaTime);
         }
-        
     }
+
+    public void LockCamera(bool shouldLock)
+    {
+        isCameraLocked = shouldLock;
+        Cursor.lockState = shouldLock ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = shouldLock;
+    }
+
+
 }

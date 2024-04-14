@@ -5364,10 +5364,18 @@ MonoBehaviour:
   AttackRadius: {fileID: 2570935240809453230}
   waypointArray: []
   currWaypoint: 0
+  creditGainOnDeath: 5
+  dropObject: {fileID: 0}
+  dropChancePercentage: 25
+  dropObject2: {fileID: 0}
+  dropChancePercentage2: 25
+  dropObject3: {fileID: 0}
+  dropChancePercentage3: 25
   audRun: []
   audRunVol: 0
   audShooting: []
   audShootingVol: 0
+  damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
 --- !u!114 &2132973190036167432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5396,10 +5404,19 @@ MonoBehaviour:
   bullet: {fileID: 2570935240809453230}
   shootRate: 10
   AttackRadius: {fileID: 2570935240809453230}
+  creditGainOnDeath: 5
+  dropObject: {fileID: 0}
+  dropChancePercentage: 25
+  dropObject2: {fileID: 0}
+  dropChancePercentage2: 25
+  dropObject3: {fileID: 0}
+  dropChancePercentage3: 25
   audRun: []
   audRunVol: 0
   audShooting: []
   audShootingVol: 0
+  damagePopupPrefab: {fileID: 0}
+  whereISpawned: {fileID: 0}
 --- !u!95 &7419928750693023800
 Animator:
   serializedVersion: 5

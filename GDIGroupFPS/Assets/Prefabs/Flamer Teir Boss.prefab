@@ -970,10 +970,19 @@ MonoBehaviour:
   bullet: {fileID: 4748951475740142826}
   shootRate: 10
   AttackRadius: {fileID: 4748951475740142826}
+  creditGainOnDeath: 5
+  dropObject: {fileID: 0}
+  dropChancePercentage: 25
+  dropObject2: {fileID: 0}
+  dropChancePercentage2: 25
+  dropObject3: {fileID: 0}
+  dropChancePercentage3: 25
   audRun: []
   audRunVol: 0
   audShooting: []
   audShootingVol: 0
+  damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
+  whereISpawned: {fileID: 0}
 --- !u!95 &195936640401306299
 Animator:
   serializedVersion: 5

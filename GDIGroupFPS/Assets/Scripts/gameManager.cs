@@ -53,6 +53,7 @@ public class gameManager : MonoBehaviour
     public bool timerIsActive = false;
     private bool isFlashing = false;
     bool temp;
+    public ParticleSystem teleportEffect;
 
     // Start is called before the first frame update
     void Awake()
@@ -75,37 +76,49 @@ public class gameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+{
+    if (currentWeapon != null)
     {
-        if (currentWeapon != null)
+        gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
+    }
+    if (menuActive == startingDialog && Input.anyKey)
+    {
+        stateUnPaused();
+    }
+    if (Input.GetButtonDown("Cancel") && menuActive == null)
+    {
+        statePaused();
+        menuActive = menuPause;
+        menuActive.SetActive(isPaused);
+    }
+    if (timerIsActive)
+    {
+        if (currentTime > 0)
         {
-            gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo,currentWeapon.totalAmmoReserve);
-        }
-        if (menuActive == startingDialog && Input.anyKey)
-        {
-            stateUnPaused();
-        }
-        if (Input.GetButtonDown("Cancel") && menuActive == null)
-        {
-            statePaused();
-            menuActive = menuPause;
-            menuActive.SetActive(isPaused);
-        }
-        if (timerIsActive)
-        {
-            if (currentTime > 0)
+            currentTime -= Time.deltaTime;
+            UpdateTimerUI(currentTime);
+            if (currentTime <= 4f && currentTime > 3f) 
             {
-                currentTime -= Time.deltaTime;
-                UpdateTimerUI(currentTime);
+                if (!isResetting) 
+                {
+                    PlayTeleportEffect();
+                    isResetting = true; 
+                }
             }
-            else
+        }
+        else
+        {
+            if (isResetting) 
             {
                 StartCoroutine(TeleportPlayerToSpawn());
                 currentTime = 0;
                 UpdateTimerUI(currentTime);
                 timerIsActive = false;
+                isResetting = false; 
             }
         }
     }
+}
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
 
@@ -177,23 +190,30 @@ public void updateCreditsUI()
     {
         if (!isResetting)
         {
+            yield return new WaitForSeconds(0.5f);
             isResetting = true;
             playerScript.controller.enabled = false;
             player.transform.position = startingSpawn.transform.position;
             playerScript.controller.enabled = true;
             playerScript.HP = playerScript.HPOrig;
             playerScript.updatePlayerUI();
+            currentTime = resetTimer;
+            UpdateTimerUI(currentTime);
+            timerIsActive = false;
+            yield return new WaitForSeconds(1.5f);
+            teleportEffect.Stop();
+            yield return new WaitForSeconds(.5f);
+            teleportEffect.Clear();
             if (timerText != null)
             {
-                timerText.gameObject.SetActive(false);
+                timerText.gameObject.SetActive(true); 
             }
-            timerIsActive = false;
-            currentTime = 0;
+
             isResetting = false;
         }
-        yield return null; 
+        yield return null;
     }
-   
+
     public void StartResetTimer()
     {
         if (!timerIsActive)
@@ -244,6 +264,21 @@ public void updateCreditsUI()
             yield return new WaitForSeconds(flashDuration);
         }
         timerText.color = Color.white;
-    }  
+    }
+
+    public void IncreaseResetTimer(float additionalTime)
+    {
+        resetTimer += additionalTime;
+        Debug.Log("New resetTimer: " + resetTimer); 
+    }
+
+    void PlayTeleportEffect()
+    {
+        if (teleportEffect != null)
+        {
+            teleportEffect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            teleportEffect.Play();
+        }
+    }
 }
 
