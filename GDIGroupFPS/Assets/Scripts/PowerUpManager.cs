@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PowerUpManager : MonoBehaviour
 {
     public static PowerUpManager Instance;
     public GameObject iconUnlimitedAmmo;
     public GameObject iconDoubleDamage;
+    private float originalSprintSpeed;
+    public playerController player;
+    public ParticleSystem ultimateModeParticles;
+    private Color originalParticleColor;
 
     public bool HasUnlimitedAmmo { get; private set; }
     public bool HasDoubleDamage { get; private set; }
-    
+    public bool HasForceField { get; private set; }
+
+    public float ultimateModeDuration = 5f;
+
     private void Awake()
     {
+        
         if (Instance == null)
         {
             Instance = this;
@@ -22,7 +31,73 @@ public class PowerUpManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        if (player == null)
+        {
+            player = FindObjectOfType<playerController>(); 
+        }
 
+        if (player != null)
+        {
+            originalSprintSpeed = player.sprintSpeed; 
+        }
+        else
+        {
+            //Debug
+        }
+        if (ultimateModeParticles != null)
+        {
+            var main = ultimateModeParticles.main;
+            originalParticleColor = main.startColor.color; 
+        }
+        else
+        {
+            Debug.LogError("Ultimate mode particle system not set.");
+        }
+    }
+    void Update()
+    {
+        if (HasUnlimitedAmmo && HasDoubleDamage && HasForceField)
+        {
+            ActivateUltimateMode();
+        }
+    }
+    private void ActivateUltimateMode()
+    {
+        Debug.Log("Ultimate Mode Activated!");
+        StartCoroutine(UltimateModeEffects());
+    }
+    private IEnumerator UltimateModeEffects()
+    {
+        float startTime = Time.realtimeSinceStartup;
+        ActivateBulletTime(true);
+        Color redWithOriginalAlpha = new Color(1, 0, 0, 0.25f);
+        ChangeParticleSystemColor(redWithOriginalAlpha);
+        IncreasePlayerSpeed(true);
+        while (Time.realtimeSinceStartup - startTime < ultimateModeDuration)
+        {
+            yield return null; 
+        }
+        IncreasePlayerSpeed(false);
+        ActivateBulletTime(false);
+        ChangeParticleSystemColor(originalParticleColor);
+        ResetAllPowerUps();
+    }
+    private void IncreasePlayerSpeed(bool isActive)
+    {
+        if (player != null)
+        {
+            if (isActive)
+            {
+                player.sprintSpeed = 10; 
+            }
+            else
+            {
+                player.sprintSpeed = originalSprintSpeed; 
+            }
+        }
+    }
     public void ActivateUnlimitedAmmo(float duration)
     {
         HasUnlimitedAmmo = true;
@@ -30,10 +105,26 @@ public class PowerUpManager : MonoBehaviour
         StartCoroutine(DeactivateUnlimitedAmmoAfterDuration(duration));
 
     }
-
+    private void ActivateBulletTime(bool isActive)
+    {
+        if (isActive)
+        {
+            Time.timeScale = 0.2f; 
+            player.AdjustSpeedMultiplier(1 / Time.timeScale); 
+        }
+        else
+        {
+            Time.timeScale = 1f; 
+            player.AdjustSpeedMultiplier(1); 
+        }
+    }
     private IEnumerator DeactivateUnlimitedAmmoAfterDuration(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < duration)
+        {
+            yield return null;
+        }
         HideUnlimitedAmmoIcon();
         HasUnlimitedAmmo = false;
     }
@@ -45,9 +136,37 @@ public class PowerUpManager : MonoBehaviour
     }
     private IEnumerator DeactivateDoubleDamageAfterDuration(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < duration)
+        {
+            yield return null;
+        }
         HasDoubleDamage = false;
         HideDoubleDamageIcon();
+    }
+    private void ResetAllPowerUps()
+    {
+        HasUnlimitedAmmo = false;
+        HasDoubleDamage = false;
+        HasForceField = false;
+    }
+    public void SetForceFieldActive(bool isActive)
+    {
+        HasForceField = isActive;
+    }
+    void ChangeParticleSystemColor(Color newColor)
+    {
+        if (ultimateModeParticles != null)
+        {
+            var main = ultimateModeParticles.main;
+            Color currentColor = main.startColor.color;
+            newColor.a = currentColor.a;
+            main.startColor = newColor;
+        }
+        else
+        {
+            //Debug
+        }
     }
     void ShowUnlimitedAmmoIcon()
     {

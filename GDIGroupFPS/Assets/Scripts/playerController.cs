@@ -9,8 +9,8 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
 
     [Header("----- Player Stats -----")]
-    [Range(1, 5)][SerializeField] float speed;
-    [Range(1, 10)][SerializeField] float sprintSpeed;
+    [Range(1, 20)] public float speed;
+    [Range(1, 12)] public float sprintSpeed;
     [Range(0.5f, 2f)][SerializeField] float crouchSpeed;
 
     [Range(1, 3)][SerializeField] int jump;
@@ -70,6 +70,7 @@ public class playerController : MonoBehaviour, IDamage
     public EquipScript equipScript;
     private Weapon currentWeapon;
 
+    private float speedMultiplier = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -97,7 +98,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         /*Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);*/ //draws the raycast in the Scene. 
-
+        float actualSpeed = speed * speedMultiplier;
         movement();
         CheckForDoorAiming();
         currentWeapon = equipScript.GetCurrentWeapon();
@@ -280,16 +281,22 @@ public class playerController : MonoBehaviour, IDamage
     public void ActivateForceField(float duration)
     {
         forceFieldEffect.SetActive(true);
+        isInvincible = true;
+        PowerUpManager.Instance.SetForceFieldActive(true);
         StartCoroutine(DeactivateForceFieldAfterDelay(duration));
     }
 
     private IEnumerator DeactivateForceFieldAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup - startTime < delay)
+        {
+            yield return null;
+        }
         gameManager.instance.HideShieldIcon();
         forceFieldEffect.SetActive(false);
         isInvincible = false;
-
+        PowerUpManager.Instance.SetForceFieldActive(false);
     }
 
     private void StartSlide()
@@ -382,6 +389,13 @@ public class playerController : MonoBehaviour, IDamage
             }
         }
     }
+
+    public void AdjustSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+    }
+
+
 }
 
 
