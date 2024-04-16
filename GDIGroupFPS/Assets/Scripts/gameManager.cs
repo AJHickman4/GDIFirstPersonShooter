@@ -43,6 +43,8 @@ public class gameManager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
+    
+    public ShopManager shopManager; //ref to new shop manager. needed for pause menu
 
     public Weapon currentWeapon;
 
@@ -119,6 +121,18 @@ public class gameManager : MonoBehaviour
             }
         }
     }
+    if (Input.GetKeyDown(KeyCode.P))
+        {
+            if(isPaused)
+            {
+                stateUnPaused(); //resume the game 
+            }
+            else
+            {
+                statePaused(); //pauses game if not paused
+                shopManager.gameObject.SetActive(true); //activate shop
+            }
+        }
 }
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
@@ -130,6 +144,13 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        if (menuActive != null)
+        { 
+            menuActive.SetActive(false); 
+        }
+
+
+
     }
     public void stateUnPaused()
     {
@@ -139,6 +160,10 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
         menuActive = null;
+        if (shopManager.gameObject.activeSelf)
+        {
+            shopManager.gameObject.SetActive(false); //hide shop if active.
+        }
     }
     public void youHaveWon()
     {
