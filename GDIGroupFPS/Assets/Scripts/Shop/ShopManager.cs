@@ -21,6 +21,16 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+
+
+        //list of items using their ShopItems script values. :) Add more items here as they exist. 
+        //itemsForSale.Add(new ShopItem("Health Increase", 50, null, "Increase yer health by 20 permanently"));
+        CloseShop();
+
+    }
+
+    private void Update()
+    {
         for (int i = 0; i < shopItem.Length; i++)
         {
             shopPanels[i].SetActive(true);
@@ -30,11 +40,7 @@ public class ShopManager : MonoBehaviour
         
         loadPanels();
         UpdateCreditsDisplay();
-
-
-        //list of items using their ShopItems script values. :) Add more items here as they exist. 
-        //itemsForSale.Add(new ShopItem("Health Increase", 50, null, "Increase yer health by 20 permanently"));
-
+        CheckPurchaseableItem();
 
     }
 
@@ -42,7 +48,7 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < shopItem.Length; i++)
         {
-            if (player.credits >= shopItem[i].cost)//if the player doesnt have enough money.
+            if (gameManager.instance.playerScript.credits >= shopItem[i].cost)//if the player doesnt have enough money.
             {
                 myPurchaseBtns[i].interactable = true;
             }
@@ -55,9 +61,9 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseItem(int btnNo)
     {
-        if (player.credits >= shopItem[btnNo].cost)
+        if (gameManager.instance.playerScript.credits >= shopItem[btnNo].cost)
         {
-            player.credits -= shopItem[btnNo].cost;
+            gameManager.instance.playerScript.credits -= shopItem[btnNo].cost;
             UpdateCreditsDisplay();
             
         }
@@ -72,8 +78,8 @@ public class ShopManager : MonoBehaviour
 
     public void AddCoins()
     {
-        int amountToAdd = 10;
-        player.credits += amountToAdd; //players actual credits
+        //int amountToAdd = 10;
+        gameManager.instance.playerScript.credits++; //players actual credits
                    //  credits += 5;//show of the shop credits //no
                    // creditsUI.text = "Credits: " + credits.ToString(); //no
         UpdateCreditsDisplay();
@@ -81,8 +87,25 @@ public class ShopManager : MonoBehaviour
     }
     public void UpdateCreditsDisplay()
     {
-        creditsUI.text = "Credits: " + player.credits.ToString();
+        creditsUI.text = "Credits: " + gameManager.instance.playerScript.credits.ToString();
         CheckPurchaseableItem();
+    }
+
+    public void OpenShop()
+    {
+        foreach (GameObject panel in shopPanels)
+        {
+            panel.SetActive(true);
+        }
+        loadPanels();
+    }
+
+    public void CloseShop()
+    {
+        foreach (GameObject panel in shopPanels)
+        {
+            panel.SetActive(false);
+        }
     }
 
     public void loadPanels()
