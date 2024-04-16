@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
@@ -17,22 +16,31 @@ public class ShopManager : MonoBehaviour
 
 
 
-  //  public List<ShopItem> itemsForSale = new List<ShopItem>();
+    //  public List<ShopItem> itemsForSale = new List<ShopItem>();
     public playerController player;
 
     void Start()
+    {
+
+
+        //list of items using their ShopItems script values. :) Add more items here as they exist. 
+        //itemsForSale.Add(new ShopItem("Health Increase", 50, null, "Increase yer health by 20 permanently"));
+        CloseShop();
+
+    }
+
+    private void Update()
     {
         for (int i = 0; i < shopItem.Length; i++)
         {
             shopPanels[i].SetActive(true);
         }
 
-        creditsUI.text = "Credits: " + player.credits;
+        creditsUI.text = "Credits: " + credits.ToString();
+        
         loadPanels();
+        UpdateCreditsDisplay();
         CheckPurchaseableItem();
-        //list of items using their ShopItems script values. :) Add more items here as they exist. 
-       //itemsForSale.Add(new ShopItem("Health Increase", 50, null, "Increase yer health by 20 permanently"));
-
 
     }
 
@@ -40,7 +48,7 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < shopItem.Length; i++)
         {
-            if (player.credits >= shopItem[i].cost)//if the player doesnt have enough money.
+            if (gameManager.instance.playerScript.credits >= shopItem[i].cost)//if the player doesnt have enough money.
             {
                 myPurchaseBtns[i].interactable = true;
             }
@@ -53,46 +61,60 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseItem(int btnNo)
     {
-        if (player.credits >= shopItem[btnNo].cost)
+        if (gameManager.instance.playerScript.credits >= shopItem[btnNo].cost)
         {
-            player.credits -= shopItem[btnNo].cost;
-
-
+            gameManager.instance.playerScript.credits -= shopItem[btnNo].cost;
             UpdateCreditsDisplay();
-            //Unlock Item insert here when ready :)
-        }
-        else
-        {
-            Debug.Log("Not Enough Creds");
+            
         }
     }
-    
+
 
     private void ApplyItemEffect()
     {
         //
     }
-    
+
 
     public void AddCoins()
     {
-        player.credits += 5; //players actual credits
-        //creditsUI.text = "Credits: " + credits.ToString();
+        //int amountToAdd = 10;
+        gameManager.instance.playerScript.credits++; //players actual credits
+                   //  credits += 5;//show of the shop credits //no
+                   // creditsUI.text = "Credits: " + credits.ToString(); //no
         UpdateCreditsDisplay();
+        
     }
     public void UpdateCreditsDisplay()
     {
-        creditsUI.text = "Credits: " + player.credits;
+        creditsUI.text = "Credits: " + gameManager.instance.playerScript.credits.ToString();
         CheckPurchaseableItem();
     }
 
-    public void loadPanels() 
-    { 
-        for (int i = 0 ; i < shopItem.Length; i++)
+    public void OpenShop()
+    {
+        foreach (GameObject panel in shopPanels)
+        {
+            panel.SetActive(true);
+        }
+        loadPanels();
+    }
+
+    public void CloseShop()
+    {
+        foreach (GameObject panel in shopPanels)
+        {
+            panel.SetActive(false);
+        }
+    }
+
+    public void loadPanels()
+    {
+        for (int i = 0; i < shopItem.Length; i++)
         {
             ShopPanels[i].titleTxt.text = shopItem[i].itemName;
             ShopPanels[i].description.text = shopItem[i].description;
-            ShopPanels[i].costTxt.text = shopItem[i].cost.ToString() + "Credits: ";
-        } 
+            ShopPanels[i].costTxt.text = shopItem[i].cost.ToString() + " Credits: ";
+        }
     }
 }
