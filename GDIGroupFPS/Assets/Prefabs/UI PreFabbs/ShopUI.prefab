@@ -688,7 +688,7 @@ MonoBehaviour:
   - {fileID: 2442762190548988788}
   - {fileID: 6279312115510148881}
   - {fileID: 120543541164538441}
-  shopUI: {fileID: 0}
+  shopUI: {fileID: 5453855181085950671}
   player: {fileID: 0}
 --- !u!1 &6136678949480889242
 GameObject:
