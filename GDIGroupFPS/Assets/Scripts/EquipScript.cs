@@ -176,6 +176,10 @@ public class EquipScript : MonoBehaviour
 
     void SwitchGun(int index)
     {
+        if (ShopManager.Instance != null && ShopManager.Instance.shopUI.activeSelf)
+        {
+            return; 
+        }
         StartCoroutine(SwitchGunWithDelay(index));
     }
 

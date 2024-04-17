@@ -79,7 +79,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.updateCreditsUI();
         originalHeight = controller.height; //stores original height at the start of play. 
         HPOrig = HP;
-
+        playerVel = Vector3.zero;
         currentStamina = maxStamina;
         spawnPlayer();
     }
@@ -127,7 +127,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (Input.GetKeyDown(KeyCode.T)) // Press T key to apply test damage
         {
-            takeDamage(1); // Apply 10 damage for testing
+            takeDamage(50); // Apply 10 damage for testing
         }
         if ((Input.GetKeyDown(slideKey) || Input.GetKeyDown(slideMouseButton)) && !isSliding && controller.isGrounded)
         {
@@ -238,19 +238,20 @@ public class playerController : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             Die();
-            gameManager.instance.youHaveLost();
+            
         }
 
     }
-    void Die()
-    {
-        if (gameManager.instance.isResetting)
-        {
+    public void Die()
+    {             
+            int creditsToDeduct = Mathf.Min(100, credits); 
+            credits -= creditsToDeduct; 
+            gameManager.instance.updateCreditsUI();
+            TeleportToSpawn();
+            updatePlayerUI();
+            HP = HPOrig;
+            // need to reset the the timer to prevent the player from being teleported again
             return;
-        }
-
-        isAlive = false;
-
     }
     public IEnumerator ShowDamageIndicator()
     {
@@ -396,7 +397,15 @@ public class playerController : MonoBehaviour, IDamage
         speedMultiplier = multiplier;
     }
 
-
+    private void TeleportToSpawn()
+    {
+        if (controller.enabled)
+        {
+            controller.enabled = false;
+            transform.position = gameManager.instance.startingSpawn.transform.position; 
+            controller.enabled = true;
+        }
+    }
 }
 
 

@@ -18,4 +18,4 @@ MonoBehaviour:
   description: 'Increase Maximum Ammo Capacity, Never run out in a fight again...
     hopefully. '
   itemType: 1
-  effectValue: 100
+  effectValue: 200

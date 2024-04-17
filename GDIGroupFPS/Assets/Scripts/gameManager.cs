@@ -74,7 +74,7 @@ public class gameManager : MonoBehaviour
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
         menuActive = startingDialog;
-        menuActive.SetActive(isPaused);
+        menuActive.SetActive(isPaused); 
     }
 
     // Update is called once per frame

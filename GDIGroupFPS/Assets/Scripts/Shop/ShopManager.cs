@@ -21,6 +21,20 @@ public class ShopManager : MonoBehaviour
     //  public List<ShopItem> itemsForSale = new List<ShopItem>();
     public playerController player;
 
+    public static ShopManager Instance { get; private set; }
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    
     void Start()
     {
 
@@ -69,7 +83,7 @@ public class ShopManager : MonoBehaviour
             gameManager.instance.playerScript.credits -= shopItem[btnNo].cost;
             ApplyItemEffect(shopItem[btnNo]);
             UpdateCreditsDisplay();
-
+            gameManager.instance.updateCreditsUI();
         }
     }
 
@@ -80,6 +94,7 @@ public class ShopManager : MonoBehaviour
         {
             case ItemType.AmmoCapacityUpgrade:
                 GlobalWeaponsStatsManager.Instance.AddAmmoToReserve((int)item.effectValue);
+                
                 break;
             case ItemType.JumpUpgrade:
                 if (player.jump < 2) 
@@ -126,6 +141,7 @@ public class ShopManager : MonoBehaviour
     public void OpenShop()
     {
         shopUI.SetActive(true);
+        UpdateCreditsDisplay();
         GlobalWeaponsStatsManager.Instance.SetShootingDisabled(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

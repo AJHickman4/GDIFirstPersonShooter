@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef997de7d9ab4dc42879ebdd94fc1ed1, type: 3}
   m_Name: increased sprint Speed
   m_EditorClassIdentifier: 
-  itemName: 'run barry run '
+  itemName: Increased Sprint speed
   cost: 40
   icon: {fileID: 0}
-  description: I am the flash
+  description: 'run barry run '
   itemType: 7
   effectValue: 1
