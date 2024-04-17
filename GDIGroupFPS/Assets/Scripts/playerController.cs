@@ -254,6 +254,7 @@ public class playerController : MonoBehaviour, IDamage
     }
     public IEnumerator ShowDamageIndicator()
     {
+
         gameManager.instance.damageIndicator.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gameManager.instance.damageIndicator.SetActive(false);
@@ -330,7 +331,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         RaycastHit hit;
         float sphereRadius = 0.5f;
-        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
+        //Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, interactionRange))
         {
             DoorOpenClose door = hit.collider.GetComponent<DoorOpenClose>();

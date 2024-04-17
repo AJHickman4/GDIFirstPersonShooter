@@ -49,6 +49,10 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     [Range(0, 1)][SerializeField] float audRunVol;
     [SerializeField] AudioClip[] audShooting;
     [Range(0, 1)][SerializeField] float audShootingVol;
+    [SerializeField] AudioClip[] audDamaged;
+    [Range(0, 1)][SerializeField] float audDamagedVol;
+    [SerializeField] AudioClip[] audDeath;
+    [Range(0, 1)][SerializeField] float audDeathVol;
 
     public Transform damagePopupPrefab;
 
@@ -59,6 +63,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     float stoppingDistOrg;
     Vector3 startingPos;
     bool destinationChosen;
+    public float scaleDuration = 1f;
 
     public waveSpawner whereISpawned;
 
@@ -169,6 +174,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     {
         HP -= amount;
         anim.SetTrigger("Damage");
+        aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
         DamagePopup.Create(damagePopupPrefab, transform, amount);
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashRed());
@@ -183,8 +189,15 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
 
     IEnumerator onDeath()
     {
+        agent.isStopped = true;
+        StopCoroutine(Roam());
         playerInRange = false;
         anim.SetTrigger("Death");
+        aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponent<SphereCollider>().enabled = false;
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(ScaleToZeroCoroutine());
         yield return new WaitForSeconds(2f);
 
         if (whereISpawned)
@@ -230,5 +243,22 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         {
             GameObject droppedItem = Instantiate(item, transform.position, Quaternion.identity);
         }
+    }
+
+    IEnumerator ScaleToZeroCoroutine()
+    {
+        float timer = 0f;
+        Vector3 initialScale = transform.localScale;
+        Vector3 targetScale = Vector3.zero;
+
+        while (timer < scaleDuration)
+        {
+            transform.localScale = Vector3.Lerp(initialScale, targetScale, timer / scaleDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure final scale is exactly zero
+        transform.localScale = targetScale;
     }
 }

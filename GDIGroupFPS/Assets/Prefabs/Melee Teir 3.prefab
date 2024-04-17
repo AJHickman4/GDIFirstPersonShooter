@@ -937,7 +937,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
   - {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
   audSlashHitVol: 0.2
+  audDamaged:
+  - {fileID: 8300000, guid: 54e1dd4136aa67a4aad24a7648d1f34a, type: 3}
+  - {fileID: 8300000, guid: 247b62b048749334fae013e3c1693800, type: 3}
+  audDamagedVol: 1
+  audDeath:
+  - {fileID: 8300000, guid: f0e4f911979c60e4c8929383d56d6763, type: 3}
+  audDeathVol: 0.5
   damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
+  scaleDuration: 1
   whereISpawned: {fileID: 0}
 --- !u!95 &7382057710005949721
 Animator:
