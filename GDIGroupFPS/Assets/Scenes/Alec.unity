@@ -1853,6 +1853,22 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 6222617642206847165, guid: 85aac28ff569cdb42bc7447204ba997c, type: 3}
+    - target: {fileID: 1911207607106522398, guid: 5730461b77dc109428460be6d44af56f, type: 3}
+      propertyPath: audDamagedVol
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1911207607106522398, guid: 5730461b77dc109428460be6d44af56f, type: 3}
+      propertyPath: audDamaged.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1911207607106522398, guid: 5730461b77dc109428460be6d44af56f, type: 3}
+      propertyPath: audDamaged.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 54e1dd4136aa67a4aad24a7648d1f34a, type: 3}
+    - target: {fileID: 1911207607106522398, guid: 5730461b77dc109428460be6d44af56f, type: 3}
+      propertyPath: audDamaged.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 247b62b048749334fae013e3c1693800, type: 3}
     - target: {fileID: 1951258954556995570, guid: 5730461b77dc109428460be6d44af56f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.17903933
@@ -4991,6 +5007,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8390276126509917496, guid: 52a527f0b5b28ee428ee4d055c650469, type: 3}
+      propertyPath: audDamagedVol
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390276126509917496, guid: 52a527f0b5b28ee428ee4d055c650469, type: 3}
+      propertyPath: audDamaged.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390276126509917496, guid: 52a527f0b5b28ee428ee4d055c650469, type: 3}
+      propertyPath: audDamaged.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 247b62b048749334fae013e3c1693800, type: 3}
+    - target: {fileID: 8390276126509917496, guid: 52a527f0b5b28ee428ee4d055c650469, type: 3}
+      propertyPath: audDamaged.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 54e1dd4136aa67a4aad24a7648d1f34a, type: 3}
     m_RemovedComponents:
     - {fileID: 6668690194545748059, guid: 52a527f0b5b28ee428ee4d055c650469, type: 3}
     m_RemovedGameObjects: []
@@ -5237,6 +5269,22 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.47022104
       objectReference: {fileID: 0}
+    - target: {fileID: 1396240518842020552, guid: 58a20b220402a1740bb22540c8105804, type: 3}
+      propertyPath: audDamagedVol
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396240518842020552, guid: 58a20b220402a1740bb22540c8105804, type: 3}
+      propertyPath: audDamaged.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1396240518842020552, guid: 58a20b220402a1740bb22540c8105804, type: 3}
+      propertyPath: audDamaged.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 247b62b048749334fae013e3c1693800, type: 3}
+    - target: {fileID: 1396240518842020552, guid: 58a20b220402a1740bb22540c8105804, type: 3}
+      propertyPath: audDamaged.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 54e1dd4136aa67a4aad24a7648d1f34a, type: 3}
     - target: {fileID: 1422175014122790331, guid: 58a20b220402a1740bb22540c8105804, type: 3}
       propertyPath: m_Name
       value: Flamer Teir 3

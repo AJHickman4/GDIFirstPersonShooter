@@ -50,6 +50,10 @@ public class enemyAI : MonoBehaviour, IDamage
     [Range(0, 1)][SerializeField] float audRunVol;
     [SerializeField] AudioClip[] audShooting;
     [Range(0, 1)][SerializeField] float audShootingVol;
+    [SerializeField] AudioClip[] audDamaged;
+    [Range(0, 1)][SerializeField] float audDamagedVol;
+    [SerializeField] AudioClip[] audDeath;
+    [Range(0, 1)][SerializeField] float audDeathVol;
 
     public Transform damagePopupPrefab;
 
@@ -167,6 +171,7 @@ public class enemyAI : MonoBehaviour, IDamage
     {
         HP -= amount;
         anim.SetTrigger("Damage");
+        aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
         DamagePopup.Create(damagePopupPrefab, transform, amount);
         agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashRed());
@@ -190,6 +195,7 @@ public class enemyAI : MonoBehaviour, IDamage
         StopCoroutine(Roam());
         playerInRange = false;
         anim.SetTrigger("Death");
+        aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(2f);

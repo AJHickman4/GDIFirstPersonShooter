@@ -254,6 +254,7 @@ public class playerController : MonoBehaviour, IDamage
     }
     public IEnumerator ShowDamageIndicator()
     {
+
         gameManager.instance.damageIndicator.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gameManager.instance.damageIndicator.SetActive(false);
