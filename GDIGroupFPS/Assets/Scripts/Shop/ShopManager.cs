@@ -35,7 +35,7 @@ public class ShopManager : MonoBehaviour
 
         //list of items using their ShopItems script values. :) Add more items here as they exist. 
         //itemsForSale.Add(new ShopItem("Health Increase", 50, null, "Increase yer health by 20 permanently"));
-        CloseShop();
+        
 
     }
 
