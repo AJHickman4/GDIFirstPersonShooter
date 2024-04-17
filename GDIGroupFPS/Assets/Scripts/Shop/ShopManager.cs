@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using static ShopItem;
 
 public class ShopManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class ShopManager : MonoBehaviour
     public Button[] myPurchaseBtns;
     public GameObject shopUI;
     public GlobalWeaponsStatsManager weaponsStatsManager;
+    public cameraController cameraController;
+    public GameObject portal;
 
     //  public List<ShopItem> itemsForSale = new List<ShopItem>();
     public playerController player;
@@ -64,15 +67,44 @@ public class ShopManager : MonoBehaviour
         if (gameManager.instance.playerScript.credits >= shopItem[btnNo].cost)
         {
             gameManager.instance.playerScript.credits -= shopItem[btnNo].cost;
+            ApplyItemEffect(shopItem[btnNo]);
             UpdateCreditsDisplay();
 
         }
     }
 
 
-    private void ApplyItemEffect()
+    private void ApplyItemEffect(ShopItem item)
     {
-        //
+        switch (item.itemType)
+        {
+            case ItemType.AmmoCapacityUpgrade:
+                GlobalWeaponsStatsManager.Instance.AddAmmoToReserve((int)item.effectValue);
+                break;
+            case ItemType.JumpUpgrade:
+                if (player.jump < 2) 
+                {
+                    player.jump += item.effectValue;
+                }
+                break;
+            case ItemType.SpeedUpgrade:
+                player.speed += item.effectValue;
+                break;
+            case ItemType.HealthUpgrade:
+                player.HPOrig += (int)item.effectValue;
+                player.HP = player.HPOrig;
+                break;
+            case ItemType.StaminaUpgrade:
+                player.maxStamina += item.effectValue;
+                player.currentStamina = player.maxStamina;
+                break;
+            case ItemType.PortalActivation:
+                ActivatePortal();
+                break;
+            case ItemType.sprintUpgrade:
+                player.sprintSpeed += item.effectValue;
+                break;
+        }
     }
 
 
@@ -95,12 +127,18 @@ public class ShopManager : MonoBehaviour
     {
         shopUI.SetActive(true);
         GlobalWeaponsStatsManager.Instance.SetShootingDisabled(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        cameraController.enabled = false;
     }
 
     public void CloseShop()
     {
         shopUI.SetActive(false);
         GlobalWeaponsStatsManager.Instance.SetShootingEnabled(true);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cameraController.enabled = true;
     }
 
     public void loadPanels()
@@ -111,5 +149,10 @@ public class ShopManager : MonoBehaviour
             ShopPanels[i].description.text = shopItem[i].description;
             ShopPanels[i].costTxt.text = shopItem[i].cost.ToString() + " Credits: ";
         }
+    }
+    
+    private void ActivatePortal()
+    {
+            portal.SetActive(true);  
     }
 }

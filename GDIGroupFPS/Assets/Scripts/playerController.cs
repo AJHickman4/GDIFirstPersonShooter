@@ -10,21 +10,21 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Player Stats -----")]
     [Range(1, 20)] public float speed;
-    [Range(1, 12)] public float sprintSpeed;
+    [Range(1, 25)] public float sprintSpeed;
     [Range(0.5f, 2f)][SerializeField] float crouchSpeed;
 
-    [Range(1, 3)][SerializeField] int jump;
+    [Range(1, 3)] public float jump;
     [Range(5, 25)][SerializeField] int jumpSpeed;
     [Range(-15, -35)][SerializeField] int gravity;
 
     [Header("----- Health -----")]
-    [Range(1, 100)] public int HP;
+    [Range(1, 300)] public int HP;
     public int HPOrig;
     private bool isAlive = true;
 
     [Header("----- Stamina -----")]
-    [SerializeField] private float maxStamina;
-    [SerializeField] private float currentStamina;
+    [SerializeField] public float maxStamina;
+    [SerializeField] public float currentStamina;
     [SerializeField] private float staminaDrain = 10f; // Stamina per second used
     [SerializeField] private float staminaRechargeRate = 5f; // regen per second
     [SerializeField] bool canSprint = true;

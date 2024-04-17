@@ -17,3 +17,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: Increase how fast you can run per second. Great for getting further
     in the run. "Gotta go fast!"
+  itemType: 4
+  effectValue: 0.5

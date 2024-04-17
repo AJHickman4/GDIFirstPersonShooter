@@ -16,3 +16,5 @@ MonoBehaviour:
   cost: 20
   icon: {fileID: 0}
   description: Increase Maximum Health to survive more damage. Supports canine growth!
+  itemType: 0
+  effectValue: 3

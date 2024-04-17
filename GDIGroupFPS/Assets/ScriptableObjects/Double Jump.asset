@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Double Jump
   m_EditorClassIdentifier: 
   itemName: Double Jump
-  cost: 1500
+  cost: 100
   icon: {fileID: 0}
   description: It's a bird, it's a plane!
+  itemType: 3
+  effectValue: 1

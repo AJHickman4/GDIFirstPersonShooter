@@ -13,6 +13,18 @@ public class ShopItem : ScriptableObject
     public int cost;
     public Sprite icon;
     public string description;
+    public ItemType itemType;  
+    public float effectValue;   
 
-  
+    public enum ItemType
+    {
+        HealthUpgrade,
+        AmmoCapacityUpgrade,
+        DamageUpgrade,
+        JumpUpgrade,
+        SpeedUpgrade,
+        StaminaUpgrade,
+        PortalActivation,
+        sprintUpgrade
+    }
 }

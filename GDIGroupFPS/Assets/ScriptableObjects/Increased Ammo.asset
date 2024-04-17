@@ -17,3 +17,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 480570f0731395340b59f931449bb71e, type: 3}
   description: 'Increase Maximum Ammo Capacity, Never run out in a fight again...
     hopefully. '
+  itemType: 1
+  effectValue: 100
