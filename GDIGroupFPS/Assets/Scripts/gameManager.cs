@@ -208,33 +208,31 @@ public void updateCreditsUI()
 
     IEnumerator TeleportPlayerToSpawn()
     {
-        if (!isResetting)
+        
         {
-            yield return new WaitForSeconds(0.5f);
             isResetting = true;
-            playerScript.controller.enabled = false;
-            yield return new WaitForSeconds(0.2f);
-            player.transform.position = startingSpawn.transform.position;           
+            playerScript.controller.enabled = false;           
+            yield return new WaitForSeconds(0.5f);
+            player.transform.position = startingSpawn.transform.position;
             playerScript.controller.enabled = true;
             playerScript.HP = playerScript.HPOrig;
             playerScript.updatePlayerUI();
+            
             currentTime = resetTimer;
             UpdateTimerUI(currentTime);
             timerIsActive = false;
-            yield return new WaitForSeconds(1.5f);
             teleportEffect.Stop();
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(2f); 
             teleportEffect.Clear();
+            
             if (timerText != null)
             {
-                timerText.gameObject.SetActive(true); 
+                timerText.gameObject.SetActive(true);
             }
-
             isResetting = false;
         }
         yield return null;
     }
-
     public void StartResetTimer()
     {
         if (!timerIsActive)

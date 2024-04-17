@@ -42,10 +42,10 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
         CanShoot = true;       
     }
     
-    public void AddAmmoToReserve(int ammoToAdd)
+    public void AddAmmoToReserve(int ammoToAdd) // adds to max ammount of ammo you can carry
     {
         additionalAmmoReserve += ammoToAdd;
-        OnAmmoAdded?.Invoke(additionalAmmoReserve);  
+        OnAmmoAdded?.Invoke(additionalAmmoReserve);
         additionalAmmoReserve = 0;
     }
 
@@ -53,7 +53,7 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            AddAmmoToReserve(10);  
+            AddAmmoToReserve(100);  
         }
         if (Input.GetKeyDown(KeyCode.K))
         {

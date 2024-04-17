@@ -19,7 +19,7 @@ public class AmmoBox : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Weapon weaponScript = other.gameObject.GetComponentInChildren<Weapon>();
-            if (weaponScript != null)
+            if (weaponScript != null && !weaponScript.isReloading)
             {
                 bool magAdded = weaponScript.AddOneMagIfNeeded();
                 if (magAdded)

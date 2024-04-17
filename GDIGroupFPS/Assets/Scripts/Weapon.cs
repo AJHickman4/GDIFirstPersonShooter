@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System;
+using System.Diagnostics;
 public class Weapon : MonoBehaviour
 {
     [Header("Shooting Parameters")]
@@ -55,10 +56,10 @@ public class Weapon : MonoBehaviour
     public AudioSource reload;
     public bool unlimitedAmmo = false;
     public bool canShoot = true;
+    public Weapon currentWeapon;
 
+    [SerializeField] private GlobalWeaponsStatsManager globalWeaponsStatsManager;
 
-
-    public static Weapon Instance { get; private set; }
 
     public enum ShootingMode
     {
@@ -82,6 +83,7 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
         currentAmmo = Maxammo; // Initialize ammo count
         totalAmmoReserve -= currentAmmo;
+        
     }
 
     void Update()
@@ -329,7 +331,6 @@ public class Weapon : MonoBehaviour
             else
             {
                 totalAmmoReserve = potentialNewTotal;
-                Debug.Log("Additional magazine added to reserve.");
             }
         }
         gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
@@ -341,7 +342,7 @@ public class Weapon : MonoBehaviour
         if (GlobalWeaponsStatsManager.Instance != null)
         {
             totalAmmoReserve += GlobalWeaponsStatsManager.Instance.additionalAmmoReserve;
-            gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+            
         }
         else
         {
@@ -350,19 +351,18 @@ public class Weapon : MonoBehaviour
     }
     void OnEnable()
     {
-        GlobalWeaponsStatsManager.Instance.OnAmmoAdded += UpdateAmmoReserve;
-        GlobalWeaponsStatsManager.Instance.OnShootingUpdated += UpdateCanShoot;
+        globalWeaponsStatsManager.OnAmmoAdded += UpdateAmmoReserve;
+        globalWeaponsStatsManager.OnShootingUpdated += UpdateCanShoot;
     }
 
     void OnDisable()
     {
-        GlobalWeaponsStatsManager.Instance.OnAmmoAdded -= UpdateAmmoReserve;
-        GlobalWeaponsStatsManager.Instance.OnShootingUpdated -= UpdateCanShoot;
+        globalWeaponsStatsManager.OnAmmoAdded -= UpdateAmmoReserve;
+        globalWeaponsStatsManager.OnShootingUpdated -= UpdateCanShoot;
     }
     private void UpdateAmmoReserve(int ammoToAdd)
     {
-        totalAmmoReserve += ammoToAdd;
-        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+        maxAmmoReserveLimit += ammoToAdd;  
     }
 
     private void UpdateCanShoot(bool canShoot)

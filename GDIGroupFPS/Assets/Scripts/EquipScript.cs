@@ -59,6 +59,7 @@ public class EquipScript : MonoBehaviour
     {
         float sphereRadius = 1f;
         float maxDistance = equipRange;
+        
         RaycastHit hit;
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, maxDistance))
         {
@@ -70,6 +71,7 @@ public class EquipScript : MonoBehaviour
                     if (guns.Count < 2)
                     {
                         EquipObject(gun);
+                        
                     }
                     else
                     {
@@ -93,6 +95,7 @@ public class EquipScript : MonoBehaviour
         equippedGunIndex = guns.Count - 1;
 
         SetActiveGun(gun, true);
+        
 
         Weapon weaponScript = gun.GetComponent<Weapon>();
         if (weaponScript != null)

@@ -113,13 +113,13 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     {
         playerDirection = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
-        Debug.Log(angleToPlayer);
+        
         Debug.DrawRay(headPos.position, playerDirection, Color.yellow);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            Debug.Log(hit.collider.name);
+            
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
                 agent.stoppingDistance = stoppingDistOrg;
