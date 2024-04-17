@@ -13,7 +13,7 @@ public class ShopManager : MonoBehaviour
     public ShopTemplate[] ShopPanels;
     public Button[] myPurchaseBtns;
 
-
+    public GameObject shopUI;
 
 
     //  public List<ShopItem> itemsForSale = new List<ShopItem>();
@@ -22,6 +22,16 @@ public class ShopManager : MonoBehaviour
     void Start()
     {
 
+        for (int i = 0; i < shopItem.Length; i++)
+        {
+            shopPanels[i].SetActive(true);
+        }
+
+        creditsUI.text = "Credits: " + credits.ToString();
+
+        loadPanels();
+        UpdateCreditsDisplay();
+        CheckPurchaseableItem();
 
         //list of items using their ShopItems script values. :) Add more items here as they exist. 
         //itemsForSale.Add(new ShopItem("Health Increase", 50, null, "Increase yer health by 20 permanently"));
@@ -31,16 +41,7 @@ public class ShopManager : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < shopItem.Length; i++)
-        {
-            shopPanels[i].SetActive(true);
-        }
-
-        creditsUI.text = "Credits: " + credits.ToString();
         
-        loadPanels();
-        UpdateCreditsDisplay();
-        CheckPurchaseableItem();
 
     }
 
@@ -93,19 +94,12 @@ public class ShopManager : MonoBehaviour
 
     public void OpenShop()
     {
-        foreach (GameObject panel in shopPanels)
-        {
-            panel.SetActive(true);
-        }
-        loadPanels();
+        shopUI.SetActive(true);
     }
 
     public void CloseShop()
     {
-        foreach (GameObject panel in shopPanels)
-        {
-            panel.SetActive(false);
-        }
+        shopUI.SetActive(false);
     }
 
     public void loadPanels()

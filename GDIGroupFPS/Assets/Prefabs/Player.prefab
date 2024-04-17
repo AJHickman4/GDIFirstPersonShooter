@@ -259,16 +259,25 @@ MonoBehaviour:
   staminaRechargeRate: 5
   canSprint: 1
   keys: 
-  credits: 500
+  credits: 0
   maxSlideTime: 1
   slideSpeed: 10
   slideKey: 306
   slideMouseButton: 326
   slideYScale: 1.08
+  meleeWeapon: {fileID: 0}
+  meleeAnimator: {fileID: 0}
+  meleeRange: 2
+  meleeDamage: 25
+  meleeCooldown: 1
+  isMeleeReady: 1
   isInvincible: 0
   forceFieldEffect: {fileID: 52021428075692649}
   isTakingDamage: 0
   lastDamageTime: -1
+  interactionRange: 5
+  playerCamera: {fileID: 0}
+  equipScript: {fileID: 0}
 --- !u!114 &4037377866302538984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTransform: {fileID: 2872039370434928530}
   playerCamera: {fileID: 2007798959736790778}
+  PlayerController: {fileID: 0}
   initialGun: {fileID: 8575514103310546676}
   equipRange: 5
   audioSource: {fileID: 6928196396766779983}
@@ -1111,7 +1121,9 @@ MonoBehaviour:
   recoilAmount: 40.7
   recoilTime: 0.1
   recoveryTime: 0.2
+  isRecoiling: 0
   muzzleFlash: {fileID: 7070388348003960757}
+  PlayerController: {fileID: 0}
   gunShot: {fileID: 8262639523986400959}
   reload: {fileID: 8617603915745981537}
   unlimitedAmmo: 0

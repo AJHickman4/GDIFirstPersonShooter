@@ -5,13 +5,13 @@ using UnityEngine;
 public class OpenShop : MonoBehaviour
 {
 
-    public ShopManager shopManager; // Reference to the ShopManager script
+    public ShopManager ShopManager; // Reference to the ShopManager script
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            shopManager.OpenShop();
+            ShopManager.OpenShop();
         }
     }
 
@@ -19,7 +19,7 @@ public class OpenShop : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            shopManager.CloseShop();
+            ShopManager.CloseShop();
         }
     }
 }
