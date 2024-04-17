@@ -180,15 +180,24 @@ public class enemyScoutAI : MonoBehaviour, IDamage
 
     IEnumerator onDeath()
     {
+        agent.isStopped = true;
+        StopCoroutine(Roam());
         playerInRange = false;
         anim.SetTrigger("Death");
         yield return new WaitForSeconds(2f);
+
+        //if (whereISpawned)
+        //{
+        //    whereISpawned.updateEnemyNumber();
+        //}
+
         Destroy(gameObject);
         gameManager.instance.playerScript.credits += creditGainOnDeath;
         gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);
         TryDropItem(dropObject3, dropChancePercentage3);
+
     }
 
     private void OnTriggerEnter(Collider other)

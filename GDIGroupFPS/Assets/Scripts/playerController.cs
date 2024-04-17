@@ -330,7 +330,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         RaycastHit hit;
         float sphereRadius = 0.5f;
-        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
+        //Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, interactionRange))
         {
             DoorOpenClose door = hit.collider.GetComponent<DoorOpenClose>();
