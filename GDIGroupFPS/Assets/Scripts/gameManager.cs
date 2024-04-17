@@ -213,7 +213,8 @@ public void updateCreditsUI()
             yield return new WaitForSeconds(0.5f);
             isResetting = true;
             playerScript.controller.enabled = false;
-            player.transform.position = startingSpawn.transform.position;
+            yield return new WaitForSeconds(0.2f);
+            player.transform.position = startingSpawn.transform.position;           
             playerScript.controller.enabled = true;
             playerScript.HP = playerScript.HPOrig;
             playerScript.updatePlayerUI();

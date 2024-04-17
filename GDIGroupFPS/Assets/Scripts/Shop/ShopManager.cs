@@ -12,9 +12,8 @@ public class ShopManager : MonoBehaviour
     public GameObject[] shopPanels; //referencing the gameObject directly doesnt make me have to do .gameobject
     public ShopTemplate[] ShopPanels;
     public Button[] myPurchaseBtns;
-
     public GameObject shopUI;
-
+    public GlobalWeaponsStatsManager weaponsStatsManager;
 
     //  public List<ShopItem> itemsForSale = new List<ShopItem>();
     public playerController player;
@@ -66,7 +65,7 @@ public class ShopManager : MonoBehaviour
         {
             gameManager.instance.playerScript.credits -= shopItem[btnNo].cost;
             UpdateCreditsDisplay();
-            
+
         }
     }
 
@@ -95,11 +94,13 @@ public class ShopManager : MonoBehaviour
     public void OpenShop()
     {
         shopUI.SetActive(true);
+        GlobalWeaponsStatsManager.Instance.SetShootingDisabled(true);
     }
 
     public void CloseShop()
     {
         shopUI.SetActive(false);
+        GlobalWeaponsStatsManager.Instance.SetShootingEnabled(true);
     }
 
     public void loadPanels()

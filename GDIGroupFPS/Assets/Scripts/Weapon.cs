@@ -54,7 +54,12 @@ public class Weapon : MonoBehaviour
     public AudioSource gunShot;
     public AudioSource reload;
     public bool unlimitedAmmo = false;
-    
+    public bool canShoot = true;
+
+
+
+    public static Weapon Instance { get; private set; }
+
     public enum ShootingMode
     {
         Single,
@@ -62,7 +67,11 @@ public class Weapon : MonoBehaviour
         Auto,
         Shotgun
     }
-
+    void Start()
+    {
+        ApplyGlobalAmmoReserve();
+    }
+    
     public ShootingMode mode;
 
     void Awake()
@@ -78,7 +87,7 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         timeSinceLastShot += Time.deltaTime;      
-        if (isEquipped && !isReloading)
+        if (isEquipped && !isReloading && canShoot)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -119,8 +128,8 @@ public class Weapon : MonoBehaviour
 
     private void FireWeapon()
     {
-        
-        if (isReloading) return;                    
+        if (isReloading || !canShoot) return;
+          
         ShootBullet();
 
         if (!PowerUpManager.Instance.HasUnlimitedAmmo)
@@ -150,7 +159,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator FireBurst()
     {
-        
+        if (!canShoot || isReloading) yield break;
         readyToShoot = false;
         if (!isRecoiling) // Check to prevent restarting the recoil
         {
@@ -172,6 +181,7 @@ public class Weapon : MonoBehaviour
 
     IEnumerator FireShotgun()
     {
+        if (!canShoot || isReloading) yield break;
         readyToShoot = false;
         if (!isRecoiling)
         {
@@ -217,6 +227,9 @@ public class Weapon : MonoBehaviour
     void ShootBullet(bool omitSound = false)
     {
 
+        
+        
+        
         if (!omitSound)
         {
             muzzleFlash.Play();
@@ -322,5 +335,40 @@ public class Weapon : MonoBehaviour
         gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
         return true; 
     }
+
+    void ApplyGlobalAmmoReserve()
+    {
+        if (GlobalWeaponsStatsManager.Instance != null)
+        {
+            totalAmmoReserve += GlobalWeaponsStatsManager.Instance.additionalAmmoReserve;
+            gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+        }
+        else
+        {
+            //Debug.LogError("GlobalWeaponsStatsManager instance not found.");
+        }
+    }
+    void OnEnable()
+    {
+        GlobalWeaponsStatsManager.Instance.OnAmmoAdded += UpdateAmmoReserve;
+        GlobalWeaponsStatsManager.Instance.OnShootingUpdated += UpdateCanShoot;
+    }
+
+    void OnDisable()
+    {
+        GlobalWeaponsStatsManager.Instance.OnAmmoAdded -= UpdateAmmoReserve;
+        GlobalWeaponsStatsManager.Instance.OnShootingUpdated -= UpdateCanShoot;
+    }
+    private void UpdateAmmoReserve(int ammoToAdd)
+    {
+        totalAmmoReserve += ammoToAdd;
+        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+    }
+
+    private void UpdateCanShoot(bool canShoot)
+    {
+        this.canShoot = canShoot;
+    }
+
 }
 
