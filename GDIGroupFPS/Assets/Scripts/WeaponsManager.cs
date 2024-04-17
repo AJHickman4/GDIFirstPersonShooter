@@ -6,6 +6,7 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
 
     
     public int additionalAmmoReserve = 0;
+    public int maxAmmoReserve = 1000;
 
     public bool _canShoot = true;
 
@@ -74,5 +75,14 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
     public void SetShootingDisabled(bool disabled)
     {
         CanShoot = !disabled;
+    }
+
+    public void RefillAllWeaponsAmmo()
+    {
+        Weapon[] allWeapons = FindObjectsOfType<Weapon>(); 
+        foreach (Weapon weapon in allWeapons)
+        {
+            weapon.RefillAllAmmo();
+        }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using System;
-using System.Diagnostics;
+//using System.Diagnostics;
 public class Weapon : MonoBehaviour
 {
     [Header("Shooting Parameters")]
@@ -35,6 +35,8 @@ public class Weapon : MonoBehaviour
     public int currentAmmo;
     public int totalAmmoReserve;
     public int maxAmmoReserveLimit = 90;
+    public int maxCurrentAmmo; // orginal max ammo
+    public int maxTotalAmmoReserve; // orginal max ammo reserve
 
     [Header("Damage")]
     [Range(1, 30)] public int bulletDamage = 10;
@@ -83,11 +85,11 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
         currentAmmo = Maxammo; // Initialize ammo count
         totalAmmoReserve -= currentAmmo;
-        
     }
 
     void Update()
     {
+        
         timeSinceLastShot += Time.deltaTime;      
         if (isEquipped && !isReloading && canShoot)
         {
@@ -272,6 +274,7 @@ public class Weapon : MonoBehaviour
     public void SetEquipped(bool equipped)
     {
         isEquipped = equipped;
+        currentWeapon = this;
     }
 
     IEnumerator RecoilCoroutine(bool continuous)
@@ -353,12 +356,15 @@ public class Weapon : MonoBehaviour
     {
         globalWeaponsStatsManager.OnAmmoAdded += UpdateAmmoReserve;
         globalWeaponsStatsManager.OnShootingUpdated += UpdateCanShoot;
+        globalWeaponsStatsManager.OnAmmoAdded += UpdateRefillAllAmmo;
+        
     }
 
     void OnDisable()
     {
         globalWeaponsStatsManager.OnAmmoAdded -= UpdateAmmoReserve;
         globalWeaponsStatsManager.OnShootingUpdated -= UpdateCanShoot;
+        globalWeaponsStatsManager.OnAmmoAdded -= UpdateRefillAllAmmo;
     }
     private void UpdateAmmoReserve(int ammoToAdd)
     {
@@ -369,6 +375,15 @@ public class Weapon : MonoBehaviour
     {
         this.canShoot = canShoot;
     }
-
+    private void UpdateRefillAllAmmo(int ammoToAdd)
+    {
+        RefillAllAmmo();
+    }
+    public void RefillAllAmmo()
+    {
+        currentAmmo = maxCurrentAmmo; 
+        totalAmmoReserve += maxTotalAmmoReserve;
+        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+    }
 }
 

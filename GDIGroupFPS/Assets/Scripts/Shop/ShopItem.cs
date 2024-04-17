@@ -25,6 +25,7 @@ public class ShopItem : ScriptableObject
         SpeedUpgrade,
         StaminaUpgrade,
         PortalActivation,
-        sprintUpgrade
+        sprintUpgrade,
+        RefillaAmmo
     }
 }

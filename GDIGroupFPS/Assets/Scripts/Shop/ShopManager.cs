@@ -119,6 +119,9 @@ public class ShopManager : MonoBehaviour
             case ItemType.sprintUpgrade:
                 player.sprintSpeed += item.effectValue;
                 break;
+            case ItemType.RefillaAmmo:
+                GlobalWeaponsStatsManager.Instance.RefillAllWeaponsAmmo();
+                break;
         }
     }
 
