@@ -7,6 +7,8 @@ public class Menu : MonoBehaviour
 {
 
     [SerializeField] AudioSource aud;
+    [SerializeField] GameObject menuOptions;
+    [SerializeField] GameObject menuMain;
     public void OnPlayClick()
     {
         aud.Play();
@@ -15,6 +17,8 @@ public class Menu : MonoBehaviour
     public void OnOptionsClick()
     {
         aud.Play();
+        menuOptions.SetActive(true);
+        menuMain.SetActive(false);
     }
 
     public void OnQuitClick()
@@ -25,5 +29,12 @@ public class Menu : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void OnBackClick()
+    {
+        aud.Play();
+        menuMain.SetActive(true);
+        menuOptions.SetActive(false);
     }
 }
