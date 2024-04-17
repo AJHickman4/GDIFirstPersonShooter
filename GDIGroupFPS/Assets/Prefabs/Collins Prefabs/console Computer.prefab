@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2501750080227361717}
   - component: {fileID: -3526370968045627080}
   - component: {fileID: 7621141566895386880}
+  - component: {fileID: 5688215004215305461}
   m_Layer: 0
   m_Name: console Computer
   m_TagString: Untagged
@@ -105,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.8914022, y: 2.1534793, z: 2.1845646}
-  m_Center: {x: 0.015873432, y: 1.0767397, z: 0.2784233}
+  m_Size: {x: 4.8914022, y: 2.1534793, z: 3.4388757}
+  m_Center: {x: 0.015873384, y: 1.0767397, z: 0.9055784}
 --- !u!114 &7621141566895386880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,3 +121,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopManager: {fileID: 0}
+--- !u!65 &5688215004215305461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649059010663316704}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2988694, y: 2.153479, z: 0.8912154}
+  m_Center: {x: -0.0036635993, y: 1.0767395, z: 0.10645538}

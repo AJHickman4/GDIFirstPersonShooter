@@ -144,10 +144,7 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        if (menuActive != null)
-        { 
-            menuActive.SetActive(false); 
-        }
+       
 
 
 
@@ -160,10 +157,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
         menuActive = null;
-        if (shopManager.gameObject.activeSelf)
-        {
-            shopManager.gameObject.SetActive(false); //hide shop if active.
-        }
+      
     }
     public void youHaveWon()
     {
