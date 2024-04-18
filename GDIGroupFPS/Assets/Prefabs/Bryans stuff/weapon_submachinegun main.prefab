@@ -166,15 +166,22 @@ MonoBehaviour:
   currentAmmo: 0
   totalAmmoReserve: 150
   maxAmmoReserveLimit: 300
+  maxCurrentAmmo: 30
+  maxTotalAmmoReserve: 150
   bulletDamage: 8
   isEquipped: 0
   recoilAmount: 50.3
   recoilTime: 0.1
   recoveryTime: 0.2
+  isRecoiling: 0
   muzzleFlash: {fileID: 5078433206836725069}
+  PlayerController: {fileID: 0}
   gunShot: {fileID: 7107663726798465505}
   reload: {fileID: 7486823418792384904}
   unlimitedAmmo: 0
+  canShoot: 1
+  currentWeapon: {fileID: 0}
+  globalWeaponsStatsManager: {fileID: 5971842219357832575, guid: 02573b4ec5a825942a2b90a6570a0c88, type: 3}
   mode: 2
 --- !u!82 &7107663726798465505
 AudioSource:

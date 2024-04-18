@@ -425,6 +425,13 @@ public class playerController : MonoBehaviour, IDamage
             controller.enabled = true;
         }
     }
+
+    public void AddCoins() // used beacuse im tired of having to add coins manually
+    {
+        credits += 100000;
+        gameManager.instance.updateCreditsUI();
+    }
+
 }
 
 

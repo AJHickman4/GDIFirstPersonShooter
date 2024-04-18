@@ -8,12 +8,14 @@ public class FloatEffect : MonoBehaviour
     private Vector3 startPos;
     public ParticleSystem floatEffect;
     private Quaternion fixedRotation;
+    private BoxCollider myCollider;
 
     void Start()
     {
         startPos = transform.position;
         fixedRotation = transform.rotation;
         floatEffect.Play();
+        myCollider = GetComponent<BoxCollider>();
     }
 
     void Update()
@@ -22,6 +24,10 @@ public class FloatEffect : MonoBehaviour
         tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
         transform.rotation = fixedRotation;
         transform.position = tempPos;
+        if (myCollider != null)
+        {
+            myCollider.transform.position = tempPos;
+        }
     }
     public void StopFloating()
     {

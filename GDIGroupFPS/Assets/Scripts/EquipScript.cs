@@ -10,7 +10,7 @@ public class EquipScript : MonoBehaviour
     public playerController PlayerController;
 
     [Header("Range")]
-    [Range(1, 5)] public float equipRange = 5f;
+    [Range(1, 10)] public float equipRange = 8f;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -51,13 +51,14 @@ public class EquipScript : MonoBehaviour
 
     void TryEquipObjectWithRaycast()
     {
-        float sphereRadius = .5f;
+        float sphereRadius = .2f;
         float maxDistance = equipRange;
         
         RaycastHit hit;
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, maxDistance))
         {
-            if (hit.collider.CompareTag("Gun"))
+            MysteryBox mysteryBox = FindObjectOfType<MysteryBox>();
+            if (hit.collider.CompareTag("Gun") && !mysteryBox.isDispensing)
             {
                 GameObject gun = hit.collider.gameObject;
                 if (!guns.Contains(gun))
