@@ -336,6 +336,7 @@ public class playerController : MonoBehaviour, IDamage
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, interactionRange))
         {
             DoorOpenClose door = hit.collider.GetComponent<DoorOpenClose>();
+            DoorOpenClosecost doorCost = hit.collider.GetComponent<DoorOpenClosecost>();
             if (door != null && currentlyAimedDoor != door)
             {
                 if (currentlyAimedDoor != null)
