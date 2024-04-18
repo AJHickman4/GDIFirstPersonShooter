@@ -68,6 +68,7 @@ public class playerController : MonoBehaviour, IDamage
     public Camera playerCamera;
     private DoorOpenClose currentlyAimedDoor = null;
     private DoorOpenClosewithcost currentlyAimedDoorWithCost = null;
+    private Openclosedoorwithcostnotimer currentlyAimedDoorWithCostNoTimer = null;
     public EquipScript equipScript;
     public Weapon currentWeapon;
 
@@ -333,11 +334,12 @@ public class playerController : MonoBehaviour, IDamage
     {
         RaycastHit hit;
         float sphereRadius = 0.5f;
-        // Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, interactionRange))
         {
             DoorOpenClose door = hit.collider.GetComponent<DoorOpenClose>();
             DoorOpenClosewithcost doorWithCost = hit.collider.GetComponent<DoorOpenClosewithcost>();
+            Openclosedoorwithcostnotimer doorWithCostNoTimer = hit.collider.GetComponent<Openclosedoorwithcostnotimer>();
+
             if (door != null && currentlyAimedDoor != door)
             {
                 if (currentlyAimedDoor != null)
@@ -356,6 +358,15 @@ public class playerController : MonoBehaviour, IDamage
                 currentlyAimedDoorWithCost = doorWithCost;
                 currentlyAimedDoorWithCost.SetPlayerAimingAtDoor(true);
             }
+            else if (doorWithCostNoTimer != null && currentlyAimedDoorWithCostNoTimer != doorWithCostNoTimer)
+            {
+                if (currentlyAimedDoorWithCostNoTimer != null)
+                {
+                    currentlyAimedDoorWithCostNoTimer.SetPlayerAimingAtDoor(false);
+                }
+                currentlyAimedDoorWithCostNoTimer = doorWithCostNoTimer;
+                currentlyAimedDoorWithCostNoTimer.SetPlayerAimingAtDoor(true);
+            }
         }
         else
         {
@@ -368,6 +379,11 @@ public class playerController : MonoBehaviour, IDamage
             {
                 currentlyAimedDoorWithCost.SetPlayerAimingAtDoor(false);
                 currentlyAimedDoorWithCost = null;
+            }
+            if (currentlyAimedDoorWithCostNoTimer != null)
+            {
+                currentlyAimedDoorWithCostNoTimer.SetPlayerAimingAtDoor(false);
+                currentlyAimedDoorWithCostNoTimer = null;
             }
         }
     }
