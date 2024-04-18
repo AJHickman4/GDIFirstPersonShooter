@@ -116,6 +116,10 @@ public class EquipScript : MonoBehaviour
 
     IEnumerator SwitchGunWithDelay(int index)
     {
+        if (gameManager.instance.isPaused)
+        {
+            yield break;
+        }
         yield return new WaitForSeconds(0f); 
         if (index >= 0 && index < guns.Count && index != equippedGunIndex && PlayerController.isMeleeReady)
         {
