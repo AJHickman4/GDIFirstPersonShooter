@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Refill ammo
   m_EditorClassIdentifier: 
   itemName: Fill all Ammo
-  cost: 100
+  cost: 0
   icon: {fileID: 0}
   description: 
   itemType: 8

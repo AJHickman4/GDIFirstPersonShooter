@@ -9,9 +9,6 @@ public class EquipScript : MonoBehaviour
     public Camera playerCamera;
     public playerController PlayerController;
 
-    [Header("Initial Gun")]
-    public GameObject initialGun;
-
     [Header("Range")]
     [Range(1, 5)] public float equipRange = 5f;
 
@@ -27,10 +24,7 @@ public class EquipScript : MonoBehaviour
 
     void Start()
     {
-        if (initialGun != null)
-        {
-            EquipInitialGun(initialGun);
-        }
+        
     }
 
     void Update()
@@ -85,6 +79,16 @@ public class EquipScript : MonoBehaviour
 
     void EquipObject(GameObject gun)
     {
+        if (equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
+        {
+            GameObject currentlyEquippedGun = guns[equippedGunIndex];
+            SetActiveGunComponents(currentlyEquippedGun, false);
+            Weapon currentWeaponScript = currentlyEquippedGun.GetComponent<Weapon>();
+            if (currentWeaponScript != null)
+            {
+                currentWeaponScript.SetEquipped(false);
+            }
+        }
         guns.Add(gun);
         gun.GetComponent<Rigidbody>().isKinematic = true;
         gun.transform.position = PlayerTransform.position;
@@ -94,8 +98,7 @@ public class EquipScript : MonoBehaviour
 
         equippedGunIndex = guns.Count - 1;
 
-        SetActiveGun(gun, true);
-        
+        SetActiveGunComponents(gun, true); 
 
         Weapon weaponScript = gun.GetComponent<Weapon>();
         if (weaponScript != null)
@@ -110,6 +113,7 @@ public class EquipScript : MonoBehaviour
         }
     }
 
+
     IEnumerator SwitchGunWithDelay(int index)
     {
         yield return new WaitForSeconds(0f); 
@@ -118,9 +122,9 @@ public class EquipScript : MonoBehaviour
             Weapon weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
             if (weaponScript != null && !weaponScript.isReloading && weaponScript.readyToShoot && !weaponScript.isRecoiling)
             {
-                SetActiveGun(guns[equippedGunIndex], false);  
-                equippedGunIndex = index;  
-                SetActiveGun(guns[equippedGunIndex], true);  
+                SetActiveGunComponents(guns[equippedGunIndex], false);  
+                equippedGunIndex = index;
+                SetActiveGunComponents(guns[equippedGunIndex], true);  
                 weaponScript = guns[equippedGunIndex].GetComponent<Weapon>();
                 if (weaponScript != null)
                 {
@@ -137,10 +141,67 @@ public class EquipScript : MonoBehaviour
             }
         }
     }
-
-    void EquipInitialGun(GameObject gun)
+    void SetActiveGunComponents(GameObject gun, bool active)
     {
-        EquipObject(gun);
+        MeshRenderer renderer = gun.GetComponent<MeshRenderer>();
+        Collider collider = gun.GetComponent<Collider>();
+
+        if (renderer != null)
+        {
+            renderer.enabled = active;
+        }
+        if (collider != null)
+        {
+            collider.enabled = active;
+        }
+        foreach (var otherGun in guns)
+        {
+            if (otherGun != gun)
+            {
+                MeshRenderer otherRenderer = otherGun.GetComponent<MeshRenderer>();
+                Collider otherCollider = otherGun.GetComponent<Collider>();
+                if (otherRenderer != null)
+                {
+                    otherRenderer.enabled = !active;
+                }
+                if (otherCollider != null)
+                {
+                    otherCollider.enabled = !active;
+                }
+
+                Weapon otherWeapon = otherGun.GetComponent<Weapon>();
+                if (otherWeapon != null)
+                {
+                    otherWeapon.isEquipped = false;
+                }
+            }
+        }
+    }
+
+    public void DeactivateAllGuns()
+    {
+        foreach (var gun in guns)
+        {
+            gun.SetActive(false); 
+            Weapon weapon = gun.GetComponent<Weapon>();
+            if (weapon != null)
+            {
+                weapon.isEquipped = false; 
+            }
+        }
+    }
+
+    public void ReactivateAllGuns()
+    {
+        foreach (var gun in guns)
+        {
+            gun.SetActive(true); 
+            Weapon weapon = gun.GetComponent<Weapon>();
+            if (weapon != null)
+            {
+                weapon.isEquipped = (gun == guns[equippedGunIndex]);
+            }
+        }
     }
 
     void SetActiveGun(GameObject gun, bool active)
@@ -168,6 +229,12 @@ public class EquipScript : MonoBehaviour
         if (guns.Count > 0 && equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
         {
             GameObject gunToDestroy = guns[equippedGunIndex];
+            MeshRenderer renderer = gunToDestroy.GetComponent<MeshRenderer>();
+            Collider collider = gunToDestroy.GetComponent<Collider>();
+
+            if (renderer != null) renderer.enabled = true;  
+            if (collider != null) collider.enabled = true;  
+
             guns.RemoveAt(equippedGunIndex);
             Destroy(gunToDestroy);
             equippedGunIndex = -1;

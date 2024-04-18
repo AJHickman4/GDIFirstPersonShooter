@@ -68,7 +68,7 @@ public class playerController : MonoBehaviour, IDamage
     public Camera playerCamera;
     private DoorOpenClose currentlyAimedDoor = null;
     public EquipScript equipScript;
-    private Weapon currentWeapon;
+    public Weapon currentWeapon;
 
     private float speedMultiplier = 1f;
 
@@ -361,14 +361,14 @@ public class playerController : MonoBehaviour, IDamage
         }
         isMeleeReady = false;
         currentWeapon.readyToShoot = false; 
-        equipScript.HideEquippedWeapons();
+        equipScript.DeactivateAllGuns();
         meleeWeapon.SetActive(true);
         meleeAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(0.2f);  
         ApplyMeleeDamage();
         yield return new WaitForSeconds(0.4f);
         meleeWeapon.SetActive(false);
-        equipScript.ShowEquippedWeapon();
+        equipScript.ReactivateAllGuns();
         currentWeapon.readyToShoot = true;
         isMeleeReady = true;
     }

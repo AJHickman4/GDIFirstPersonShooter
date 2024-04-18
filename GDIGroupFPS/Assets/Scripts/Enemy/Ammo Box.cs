@@ -18,14 +18,19 @@ public class AmmoBox : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Weapon weaponScript = other.gameObject.GetComponentInChildren<Weapon>();
-            if (weaponScript != null && !weaponScript.isReloading)
+
+            playerController playerController = other.gameObject.GetComponent<playerController>();
+            if (playerController != null && playerController.currentWeapon != null)
             {
-                bool magAdded = weaponScript.AddOneMagIfNeeded();
-                if (magAdded)
+                Weapon activeWeapon = playerController.currentWeapon;
+                if (!activeWeapon.isReloading)
                 {
-                    Destroy(gameObject, pickupSound.length);
-                    audioSource.PlayOneShot(pickupSound);
+                    bool magAdded = activeWeapon.AddOneMagIfNeeded();
+                    if (magAdded)
+                    {
+                        audioSource.PlayOneShot(pickupSound);
+                        Destroy(gameObject, pickupSound.length);
+                    }
                 }
             }
         }
