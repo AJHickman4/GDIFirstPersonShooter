@@ -80,13 +80,18 @@ public class MysteryBox : MonoBehaviour
     {
         isAvailable = false;
         isDispensing = true;
-        float displayDuration = .9f;
+        float displayDuration = 0.9f;
         float floatFrequency = 0.5f;
+
         for (int i = 0; i < 5; i++)
         {
             GameObject tempWeapon = weaponPrefabs[Random.Range(0, weaponPrefabs.Length)];
             Vector3 tempPosition = transform.position + Vector3.up * (spawnOffset + 1.0f) + Vector3.forward * zOffset;
             GameObject displayedWeapon = Instantiate(tempWeapon, tempPosition, Quaternion.Euler(180, 90, 0));
+
+            Collider weaponCollider = displayedWeapon.GetComponent<Collider>();
+            if (weaponCollider != null)
+                weaponCollider.enabled = false;
 
             float elapsedTime = 0;
             while (elapsedTime < displayDuration)
@@ -103,7 +108,12 @@ public class MysteryBox : MonoBehaviour
         int randomIndex = Random.Range(0, weaponPrefabs.Length);
         GameObject weaponToSpawn = weaponPrefabs[randomIndex];
         Vector3 spawnPosition = transform.position + Vector3.up * (spawnOffset + 1.0f) + Vector3.forward * zOffset;
-        Instantiate(weaponToSpawn, spawnPosition, Quaternion.Euler(180, 90, 0));
+        GameObject finalWeapon = Instantiate(weaponToSpawn, spawnPosition, Quaternion.Euler(180, 90, 0));
+
+        Collider finalCollider = finalWeapon.GetComponent<Collider>();
+        if (finalCollider != null)
+            finalCollider.enabled = true;
+
         isDispensing = false;
         yield return new WaitForSeconds(cooldown);
 

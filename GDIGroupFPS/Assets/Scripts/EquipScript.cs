@@ -58,7 +58,7 @@ public class EquipScript : MonoBehaviour
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, maxDistance))
         {
             MysteryBox mysteryBox = FindObjectOfType<MysteryBox>();
-            if (hit.collider.CompareTag("Gun") && !mysteryBox.isDispensing)
+            if (hit.collider.CompareTag("Gun"))
             {
                 GameObject gun = hit.collider.gameObject;
                 if (!guns.Contains(gun))
