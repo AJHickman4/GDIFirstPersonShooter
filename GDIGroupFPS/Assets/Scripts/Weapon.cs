@@ -336,7 +336,7 @@ public class Weapon : MonoBehaviour
                 totalAmmoReserve = potentialNewTotal;
             }
         }
-        gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+        gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
         return true; 
     }
 

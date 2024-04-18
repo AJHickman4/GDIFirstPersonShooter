@@ -68,7 +68,7 @@ public class playerController : MonoBehaviour, IDamage
     public Camera playerCamera;
     private DoorOpenClose currentlyAimedDoor = null;
     public EquipScript equipScript;
-    private Weapon currentWeapon;
+    public Weapon currentWeapon;
 
     private float speedMultiplier = 1f;
 
