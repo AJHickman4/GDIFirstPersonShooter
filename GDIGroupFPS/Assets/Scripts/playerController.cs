@@ -67,6 +67,7 @@ public class playerController : MonoBehaviour, IDamage
     public float interactionRange = 5f;
     public Camera playerCamera;
     private DoorOpenClose currentlyAimedDoor = null;
+    private DoorOpenClosewithcost currentlyAimedDoorWithCost = null;
     public EquipScript equipScript;
     public Weapon currentWeapon;
 
@@ -332,10 +333,11 @@ public class playerController : MonoBehaviour, IDamage
     {
         RaycastHit hit;
         float sphereRadius = 0.5f;
-        //Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
+        // Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, interactionRange))
         {
             DoorOpenClose door = hit.collider.GetComponent<DoorOpenClose>();
+            DoorOpenClosewithcost doorWithCost = hit.collider.GetComponent<DoorOpenClosewithcost>();
             if (door != null && currentlyAimedDoor != door)
             {
                 if (currentlyAimedDoor != null)
@@ -345,11 +347,28 @@ public class playerController : MonoBehaviour, IDamage
                 currentlyAimedDoor = door;
                 currentlyAimedDoor.SetPlayerAimingAtDoor(true);
             }
+            else if (doorWithCost != null && currentlyAimedDoorWithCost != doorWithCost)
+            {
+                if (currentlyAimedDoorWithCost != null)
+                {
+                    currentlyAimedDoorWithCost.SetPlayerAimingAtDoor(false);
+                }
+                currentlyAimedDoorWithCost = doorWithCost;
+                currentlyAimedDoorWithCost.SetPlayerAimingAtDoor(true);
+            }
         }
-        else if (currentlyAimedDoor != null)
+        else
         {
-            currentlyAimedDoor.SetPlayerAimingAtDoor(false);
-            currentlyAimedDoor = null;
+            if (currentlyAimedDoor != null)
+            {
+                currentlyAimedDoor.SetPlayerAimingAtDoor(false);
+                currentlyAimedDoor = null;
+            }
+            if (currentlyAimedDoorWithCost != null)
+            {
+                currentlyAimedDoorWithCost.SetPlayerAimingAtDoor(false);
+                currentlyAimedDoorWithCost = null;
+            }
         }
     }
 
@@ -406,6 +425,13 @@ public class playerController : MonoBehaviour, IDamage
             controller.enabled = true;
         }
     }
+
+    public void AddCoins() // used beacuse im tired of having to add coins manually
+    {
+        credits += 100000;
+        gameManager.instance.updateCreditsUI();
+    }
+
 }
 
 

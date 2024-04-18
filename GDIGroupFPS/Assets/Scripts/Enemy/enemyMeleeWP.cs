@@ -186,6 +186,8 @@ public class enemyMeleeWP : MonoBehaviour, IDamage
         aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<SphereCollider>().enabled = false;
+        gameManager.instance.playerScript.credits += creditGainOnDeath;
+        gameManager.instance.updateCreditsUI();
         yield return new WaitForSeconds(2f);
         StartCoroutine(ScaleToZeroCoroutine());
         yield return new WaitForSeconds(2f);
@@ -196,8 +198,6 @@ public class enemyMeleeWP : MonoBehaviour, IDamage
         //}
 
         Destroy(gameObject);
-        gameManager.instance.playerScript.credits += creditGainOnDeath;
-        gameManager.instance.updateCreditsUI();
         TryDropItem(dropObject, dropChancePercentage);
         TryDropItem(dropObject2, dropChancePercentage2);
         TryDropItem(dropObject3, dropChancePercentage3);

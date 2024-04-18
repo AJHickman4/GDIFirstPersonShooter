@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
@@ -30,6 +31,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] private float flashDuration = 0.5f;
 
     public GameObject damageIndicator;
+    SpriteRenderer damageIndi;
     public Image healthBar;
     public Image staminaBar;
     public GameObject boardActive;
@@ -300,5 +302,14 @@ public void updateCreditsUI()
             teleportEffect.Play();
         }
     }
+
+    //public void Damaged()
+    //{
+    //    StartCoroutine(FadeIn());
+    //    StartCoroutine(FadeOut());
+
+    //}
+
+    
 }
 

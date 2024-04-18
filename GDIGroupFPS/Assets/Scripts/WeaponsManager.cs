@@ -40,7 +40,8 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
     
     public void Start()
     {
-        CanShoot = true;       
+        CanShoot = true;
+        RefillAllWeaponsAmmo();
     }
     
     public void AddAmmoToReserve(int ammoToAdd) // adds to max ammount of ammo you can carry
