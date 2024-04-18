@@ -5,7 +5,7 @@ using UnityEngine;
 public class closedoortriggerwithcost : MonoBehaviour
 {
     public Animator anim;
-    public DoorOpenClosecost doorScript;
+    public DoorOpenClosewithcost doorScript;
 
     private void OnTriggerEnter(Collider other)
     {

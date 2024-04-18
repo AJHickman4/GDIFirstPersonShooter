@@ -51,7 +51,7 @@ public class EquipScript : MonoBehaviour
 
     void TryEquipObjectWithRaycast()
     {
-        float sphereRadius = 1f;
+        float sphereRadius = .5f;
         float maxDistance = equipRange;
         
         RaycastHit hit;
@@ -79,6 +79,11 @@ public class EquipScript : MonoBehaviour
 
     void EquipObject(GameObject gun)
     {
+        FloatEffect floatEffect = gun.GetComponent<FloatEffect>();
+        if (floatEffect != null)
+        {
+            floatEffect.StopFloating();
+        }
         if (equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
         {
             GameObject currentlyEquippedGun = guns[equippedGunIndex];

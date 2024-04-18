@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; 
 
-public class DoorOpenClosecost : MonoBehaviour
+public class DoorOpenClosewithcost : MonoBehaviour
 {
-    public Animator anim;  
+    public Animator anim;
     public bool isPlayerAimingAtDoor = false;
     public bool isOpen = false;
-    public int costToOpen = 10;  
+    public int costToOpen = 10;
+    public TextMeshProUGUI missingCreditsText; 
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        if (missingCreditsText != null)
+            missingCreditsText.gameObject.SetActive(false); 
     }
 
     void Update()
@@ -23,12 +27,20 @@ public class DoorOpenClosecost : MonoBehaviour
             {
                 anim.SetTrigger("open");
                 isOpen = true;
-                player.credits -= costToOpen; 
-                gameManager.instance.updateCreditsUI();  
+                player.credits -= costToOpen;
+                gameManager.instance.updateCreditsUI();
+                if (missingCreditsText != null)
+                    missingCreditsText.gameObject.SetActive(false); 
             }
             else if (player != null && player.credits < costToOpen)
             {
-                //Debug.Log("Not enough credits to open the door."); use to tell the player they don't have enough credits
+                int missingCredits = costToOpen - player.credits;
+                if (missingCreditsText != null)
+                {
+                    missingCreditsText.text = $"Not enough credits. You need {missingCredits} more to open this door.";
+                    missingCreditsText.gameObject.SetActive(true); 
+                    StartCoroutine(HideMissingCreditsText());
+                }
             }
         }
     }
@@ -45,5 +57,12 @@ public class DoorOpenClosecost : MonoBehaviour
             anim.SetTrigger("close");
             isOpen = false;
         }
+    }
+
+    IEnumerator HideMissingCreditsText()
+    {
+        yield return new WaitForSeconds(3f);
+        if (missingCreditsText != null)
+            missingCreditsText.gameObject.SetActive(false); 
     }
 }
