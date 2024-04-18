@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -11,7 +12,6 @@ public class SetVolume : MonoBehaviour
     [SerializeField] AudioMixer mix;
     [SerializeField] Slider slider;
     [SerializeField] float volScale = 20f;
-    // Start is called before the first frame update
 
     private void Awake()
     {
@@ -31,11 +31,5 @@ public class SetVolume : MonoBehaviour
     void Start()
     {
         slider.value = PlayerPrefs.GetFloat(mixerGroup, slider.value);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
