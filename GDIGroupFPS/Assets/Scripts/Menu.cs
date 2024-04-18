@@ -18,7 +18,8 @@ public class Menu : MonoBehaviour
     {
         aud.Play();
         menuOptions.SetActive(true);
-        menuMain.SetActive(false);
+        if (menuMain)
+            menuMain.SetActive(false);
     }
 
     public void OnQuitClick()
@@ -34,7 +35,8 @@ public class Menu : MonoBehaviour
     public void OnBackClick()
     {
         aud.Play();
-        menuMain.SetActive(true);
         menuOptions.SetActive(false);
+        if (menuMain)
+            menuMain.SetActive(true);
     }
 }
