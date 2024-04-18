@@ -16,6 +16,7 @@ public class SetVolume : MonoBehaviour
     private void Awake()
     {
         slider.onValueChanged.AddListener(OnSliderValueChange);
+        
     }
 
     private void OnSliderValueChange(float vol)

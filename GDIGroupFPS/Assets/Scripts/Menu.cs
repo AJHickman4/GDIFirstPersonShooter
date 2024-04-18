@@ -32,6 +32,12 @@ public class Menu : MonoBehaviour
 #endif
     }
 
+    public void OnCreditsClick()
+    {
+        aud.Play();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+    }
+
     public void OnBackClick()
     {
         aud.Play();
