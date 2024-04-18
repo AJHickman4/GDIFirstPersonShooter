@@ -132,6 +132,13 @@ public class Weapon : MonoBehaviour
 
     private void FireWeapon()
     {
+        
+        if (gameManager.instance.isPaused)
+        {
+            return; 
+        }
+
+
         if (isReloading || !canShoot) return;
           
         ShootBullet();
@@ -163,9 +170,13 @@ public class Weapon : MonoBehaviour
 
     IEnumerator FireBurst()
     {
+        if (gameManager.instance.isPaused)
+        {
+            yield break; 
+        }
         if (!canShoot || isReloading) yield break;
         readyToShoot = false;
-        if (!isRecoiling) // Check to prevent restarting the recoil
+        if (!isRecoiling) 
         {
             StartCoroutine(RecoilCoroutine(false));
         }
@@ -185,6 +196,10 @@ public class Weapon : MonoBehaviour
 
     IEnumerator FireShotgun()
     {
+        if (gameManager.instance.isPaused)
+        {
+            yield break; 
+        }
         if (!canShoot || isReloading) yield break;
         readyToShoot = false;
         if (!isRecoiling)
@@ -231,9 +246,13 @@ public class Weapon : MonoBehaviour
     void ShootBullet(bool omitSound = false)
     {
 
-        
-        
-        
+        if (gameManager.instance.isPaused)
+        {
+            return; // Do not proceed with shooting if the game is paused
+        }
+
+
+
         if (!omitSound)
         {
             muzzleFlash.Play();
