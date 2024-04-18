@@ -39,7 +39,7 @@ public class Weapon : MonoBehaviour
     public int maxTotalAmmoReserve; // orginal max ammo reserve
 
     [Header("Damage")]
-    [Range(1, 30)] public int bulletDamage = 10;
+    [Range(1, 100)] public int bulletDamage = 10;
 
     [Header("Equipment Status")]
     public bool isEquipped = false;
