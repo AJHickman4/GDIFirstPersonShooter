@@ -236,7 +236,6 @@ public class playerController : MonoBehaviour, IDamage
         HP = Mathf.Clamp(HPOrig, 0, HP);
         updatePlayerUI();
 
-
         if (HP <= 0)
         {
             Die();
@@ -267,6 +266,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         gameManager.instance.healthBar.fillAmount = (float)HP / HPOrig;
         gameManager.instance.staminaBar.fillAmount = (float)currentStamina / maxStamina;
+        gameManager.instance.damageBar.fillAmount = Mathf.Lerp(gameManager.instance.damageBar.fillAmount, gameManager.instance.healthBar.fillAmount, 0.01f);
     }
 
     public void SetInvincibility(bool invincible)
