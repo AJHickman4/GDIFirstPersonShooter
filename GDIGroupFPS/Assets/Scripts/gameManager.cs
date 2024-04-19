@@ -249,7 +249,21 @@ public void updateCreditsUI()
             StartCoroutine(ResetTimerCoroutine());
         }
     }
+    public void CancelAndResetTimer()
+    {
+        if (timerIsActive)
+        {
+            StopCoroutine("ResetTimerCoroutine");
+        }
+        timerIsActive = false;
+        currentTime = resetTimer;
 
+        if (timerText != null)
+        {
+            UpdateTimerUI(currentTime); 
+        }
+    }
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == player) 

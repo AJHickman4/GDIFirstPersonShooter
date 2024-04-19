@@ -8,10 +8,10 @@ public class PowerUpManager : MonoBehaviour
     public static PowerUpManager Instance;
     public GameObject iconUnlimitedAmmo;
     public GameObject iconDoubleDamage;
-    private float originalSprintSpeed;
     public playerController player;
     public ParticleSystem ultimateModeParticles;
     private Color originalParticleColor;
+    public FlyingDrone droneController;
 
     public bool HasUnlimitedAmmo { get; private set; }
     public bool HasDoubleDamage { get; private set; }
@@ -36,11 +36,6 @@ public class PowerUpManager : MonoBehaviour
         if (player == null)
         {
             player = FindObjectOfType<playerController>(); 
-        }
-
-        if (player != null)
-        {
-            originalSprintSpeed = player.sprintSpeed; 
         }
         else
         {
@@ -71,33 +66,24 @@ public class PowerUpManager : MonoBehaviour
     private IEnumerator UltimateModeEffects()
     {
         float startTime = Time.realtimeSinceStartup;
-        ActivateBulletTime(true);
+        if (droneController != null)
+        {
+            //droneController.ToggleActivation(); Idk yet
+        }
         Color redWithOriginalAlpha = new Color(1, 0, 0, 0.25f);
         ChangeParticleSystemColor(redWithOriginalAlpha);
-        IncreasePlayerSpeed(true);
         while (Time.realtimeSinceStartup - startTime < ultimateModeDuration)
         {
             yield return null; 
         }
-        IncreasePlayerSpeed(false);
-        ActivateBulletTime(false);
+        if (droneController != null)
+        {
+            //droneController.ToggleDeactivation(); Idk yet
+        }
         ChangeParticleSystemColor(originalParticleColor);
         ResetAllPowerUps();
     }
-    private void IncreasePlayerSpeed(bool isActive)
-    {
-        if (player != null)
-        {
-            if (isActive)
-            {
-                player.sprintSpeed = 10; 
-            }
-            else
-            {
-                player.sprintSpeed = originalSprintSpeed; 
-            }
-        }
-    }
+   
     public void ActivateUnlimitedAmmo(float duration)
     {
         HasUnlimitedAmmo = true;
@@ -105,19 +91,7 @@ public class PowerUpManager : MonoBehaviour
         StartCoroutine(DeactivateUnlimitedAmmoAfterDuration(duration));
 
     }
-    private void ActivateBulletTime(bool isActive)
-    {
-        if (isActive)
-        {
-            Time.timeScale = 0.2f; 
-            player.AdjustSpeedMultiplier(1 / Time.timeScale); 
-        }
-        else
-        {
-            Time.timeScale = 1f; 
-            player.AdjustSpeedMultiplier(1); 
-        }
-    }
+   
     private IEnumerator DeactivateUnlimitedAmmoAfterDuration(float duration)
     {
         float startTime = Time.realtimeSinceStartup;

@@ -248,10 +248,10 @@ public class playerController : MonoBehaviour, IDamage
             int creditsToDeduct = Mathf.Min(100, credits); 
             credits -= creditsToDeduct; 
             gameManager.instance.updateCreditsUI();
+            gameManager.instance.CancelAndResetTimer();
             TeleportToSpawn();
             updatePlayerUI();
             HP = HPOrig;
-            // need to reset the the timer to prevent the player from being teleported again
             return;
     }
     public IEnumerator ShowDamageIndicator()
