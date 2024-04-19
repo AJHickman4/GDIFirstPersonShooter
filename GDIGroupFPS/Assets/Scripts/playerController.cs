@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Compenents -----")]
     public CharacterController controller;
     [SerializeField] Animator anim;
+    [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
     [Range(1, 20)] public float speed;
@@ -43,6 +44,16 @@ public class playerController : MonoBehaviour, IDamage
     private bool isSliding = false;
     [SerializeField] private float slideYScale = 0.5f;
 
+    [Header("----- Audio -----")]
+    [SerializeField] AudioClip[] audJump;
+    [Range(0, 1)][SerializeField] float audJumpVol;
+    [SerializeField] AudioClip[] audHurt;
+    [Range(0, 1)][SerializeField] float audHurtVol;
+    [SerializeField] AudioClip[] audSteps;
+    [Range(0, 1)][SerializeField] float audStepsVol;
+    [SerializeField] AudioClip[] audLose;
+    [Range(0, 1)][SerializeField] float audLoseVol;
+
     [Header("----- Melee Attack Parameters -----")]
     public GameObject meleeWeapon; 
     public Animator meleeAnimator;
@@ -53,7 +64,6 @@ public class playerController : MonoBehaviour, IDamage
 
 
     [Header("----- Other -----")]
-
     private float originalHeight; //standard startingg height of our character controller
     private float crouchHeight = 1f; //adjustment to the height when crouching
     int jumpCount;
@@ -73,6 +83,9 @@ public class playerController : MonoBehaviour, IDamage
     public Weapon currentWeapon;
 
     private float speedMultiplier = 1f;
+
+    private bool playingSteps;
+    private bool isSprinting;
 
     // Start is called before the first frame update
     void Start()
@@ -169,6 +182,7 @@ public class playerController : MonoBehaviour, IDamage
         }
         else if (Input.GetKey(KeyCode.LeftShift) && currentStamina > 0)
         {
+            isSprinting = true;
             currentSpeed = sprintSpeed;
             currentStamina -= staminaDrain * Time.deltaTime;
 
@@ -176,6 +190,7 @@ public class playerController : MonoBehaviour, IDamage
             {
                 currentSpeed = 0;
                 canSprint = false; //not allowed to sprint when stamina is depleated. 
+                isSprinting = false;
             }
 
         }
@@ -194,10 +209,16 @@ public class playerController : MonoBehaviour, IDamage
         {
             jumpCount++; //increment / keep track of jump count.
             playerVel.y = jumpSpeed; //adds positiive number.
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
         }
 ;
         playerVel.y += gravity * Time.deltaTime;   //adds mechanics to gravity. makes negative number 
         controller.Move(playerVel * Time.deltaTime);
+
+        if(controller.isGrounded && moveDir.normalized.magnitude > 0.3f && !playingSteps)
+        {
+            StartCoroutine(playSteps());
+        }
 
         if (!Input.GetKey(KeyCode.LeftShift))
         {
@@ -233,13 +254,14 @@ public class playerController : MonoBehaviour, IDamage
         isTakingDamage = true;
         StartCoroutine(ShowDamageIndicator());
         HP -= amount;
+        aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
         HP = Mathf.Clamp(HPOrig, 0, HP);
         updatePlayerUI();
 
         if (HP <= 0)
         {
+            aud.PlayOneShot(audLose[Random.Range(0, audLose.Length)], audLoseVol);
             Die();
-            
         }
 
     }
@@ -262,6 +284,20 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.damageIndicator.SetActive(false);
         isTakingDamage = false;
     }
+
+    IEnumerator playSteps()
+    {
+        playingSteps = true;
+
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+        if (!isSliding && !isSprinting)
+            yield return new WaitForSeconds(0.5f);
+        else
+            yield return new WaitForSeconds(0.3f);
+
+        playingSteps = false;
+    }
+
     public void updatePlayerUI()
     {
         gameManager.instance.healthBar.fillAmount = (float)HP / HPOrig;
