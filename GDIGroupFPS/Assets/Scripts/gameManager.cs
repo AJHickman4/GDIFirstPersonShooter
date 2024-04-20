@@ -46,7 +46,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
-    
+
     public ShopManager shopManager; //ref to new shop manager. needed for pause menu
 
     public Weapon currentWeapon;
@@ -71,72 +71,84 @@ public class gameManager : MonoBehaviour
         currentTime = resetTimer;
         if (timerText != null)
         {
-            timerText.gameObject.SetActive(true); 
-            UpdateTimerUI(currentTime); 
+            timerText.gameObject.SetActive(true);
+            UpdateTimerUI(currentTime);
         }
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
         menuActive = startingDialog;
-        menuActive.SetActive(isPaused); 
+        menuActive.SetActive(isPaused);
     }
 
     // Update is called once per frame
     void Update()
-{
-    if (currentWeapon != null)
     {
-        gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
-    }
-    if (menuActive == startingDialog && Input.anyKey)
-    {
-        stateUnPaused();
-    }
-    if (Input.GetButtonDown("Cancel") && menuActive == null)
-    {
-        statePaused();
-        menuActive = menuPause;
-        menuActive.SetActive(isPaused);
-    }
-    if (timerIsActive)
-    {
-        if (currentTime > 0)
+        if (currentWeapon != null)
         {
-            currentTime -= Time.deltaTime;
-            UpdateTimerUI(currentTime);
-            if (currentTime <= 4f && currentTime > 3f) 
-            {
-                if (!isResetting) 
-                {
-                    PlayTeleportEffect();
-                    isResetting = true; 
-                }
-            }
+            gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
         }
-        else
+        if (menuActive == startingDialog && Input.anyKey)
         {
-            if (isResetting) 
-            {
-                StartCoroutine(TeleportPlayerToSpawn());
-                currentTime = 0;
-                UpdateTimerUI(currentTime);
-                timerIsActive = false;
-                isResetting = false; 
-            }
+
+
+            stateUnPaused();
+
+
         }
-    }
-    if (Input.GetKeyDown(KeyCode.P))
+        if (inputManager.instance.MenuOpenCloseInput)
         {
-            if(isPaused)
+            if(menuActive == null)
             {
-                stateUnPaused(); //resume the game 
+                statePaused();
+                menuActive = menuPause;
+                menuActive.SetActive(isPaused);
             }
             else
             {
-                statePaused(); //pauses game if not paused
-                shopManager.gameObject.SetActive(true); //activate shop
+                stateUnPaused();
             }
         }
-}
+        
+        if (timerIsActive)
+        {
+            if (currentTime > 0)
+            {
+                currentTime -= Time.deltaTime;
+                UpdateTimerUI(currentTime);
+                if (currentTime <= 4f && currentTime > 3f)
+                {
+                    if (!isResetting)
+                    {
+                        PlayTeleportEffect();
+                        isResetting = true;
+                    }
+                }
+            }
+            else
+            {
+                if (isResetting)
+                {
+                    StartCoroutine(TeleportPlayerToSpawn());
+                    currentTime = 0;
+                    UpdateTimerUI(currentTime);
+                    timerIsActive = false;
+                    isResetting = false;
+                }
+            }
+        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //    {
+        //        if(isPaused)
+        //        {
+        //            stateUnPaused(); //resume the game 
+        //        }
+        //        else
+        //        {
+        //            statePaused(); //pauses game if not paused
+        //            shopManager.gameObject.SetActive(true); //activate shop
+        //        }
+        //    }
+    }
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
 
@@ -147,7 +159,7 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-       
+
 
 
 
@@ -160,8 +172,9 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
         menuActive = null;
-      
+
     }
+
     public void youHaveWon()
     {
         statePaused(); // on trigger enter in player script, if player touches tagged win collider then gameManager.instance.youHaveWon
@@ -193,7 +206,7 @@ public class gameManager : MonoBehaviour
     }
 
 
-public void updateCreditsUI()
+    public void updateCreditsUI()
     {
         CreditsText.text = playerScript.credits.ToString("F0");
     }
@@ -211,23 +224,23 @@ public void updateCreditsUI()
 
     IEnumerator TeleportPlayerToSpawn()
     {
-        
+
         {
             isResetting = true;
-            playerScript.controller.enabled = false;           
+            playerScript.controller.enabled = false;
             yield return new WaitForSeconds(0.5f);
             player.transform.position = startingSpawn.transform.position;
             playerScript.controller.enabled = true;
             playerScript.HP = playerScript.HPOrig;
             playerScript.updatePlayerUI();
-            
+
             currentTime = resetTimer;
             UpdateTimerUI(currentTime);
             timerIsActive = false;
             teleportEffect.Stop();
-            yield return new WaitForSeconds(2f); 
+            yield return new WaitForSeconds(2f);
             teleportEffect.Clear();
-            
+
             if (timerText != null)
             {
                 timerText.gameObject.SetActive(true);
@@ -244,7 +257,7 @@ public void updateCreditsUI()
             timerIsActive = true;
             if (timerText != null)
             {
-                timerText.gameObject.SetActive(true); 
+                timerText.gameObject.SetActive(true);
             }
             StartCoroutine(ResetTimerCoroutine());
         }
@@ -260,13 +273,13 @@ public void updateCreditsUI()
 
         if (timerText != null)
         {
-            UpdateTimerUI(currentTime); 
+            UpdateTimerUI(currentTime);
         }
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == player) 
+        if (other.gameObject == player)
         {
             StartResetTimer();
         }
@@ -325,6 +338,6 @@ public void updateCreditsUI()
 
     //}
 
-    
+
 }
 
