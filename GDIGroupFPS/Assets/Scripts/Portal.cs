@@ -37,5 +37,6 @@ public class Portal : MonoBehaviour
     private void DeactivatePortal()
     {
         portal.SetActive(false);
+        entryCount = 0;
     }
 }

@@ -246,7 +246,7 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
 
-        if (isInvincible || gameManager.instance.isResetting)
+        if (isInvincible)
         {
             return;
         }
@@ -271,6 +271,10 @@ public class playerController : MonoBehaviour, IDamage
             credits -= creditsToDeduct; 
             gameManager.instance.updateCreditsUI();
             gameManager.instance.CancelAndResetTimer();
+            gameManager.instance.StopAllCoroutines();
+            gameManager.instance.isResetting = false;
+            gameManager.instance.teleportEffect.Clear();
+            gameManager.instance.teleportEffect.Stop();
             TeleportToSpawn();
             updatePlayerUI();
             HP = HPOrig;

@@ -234,8 +234,8 @@ public class gameManager : MonoBehaviour
 
     IEnumerator TeleportPlayerToSpawn()
     {
-
-        {
+        
+        { 
             isResetting = true;
             playerScript.controller.enabled = false;
             yield return new WaitForSeconds(0.5f);
@@ -277,6 +277,7 @@ public class gameManager : MonoBehaviour
         if (timerIsActive)
         {
             StopCoroutine("ResetTimerCoroutine");
+            StopCoroutine("TeleportPlayerToSpawn");
         }
         timerIsActive = false;
         currentTime = resetTimer;
