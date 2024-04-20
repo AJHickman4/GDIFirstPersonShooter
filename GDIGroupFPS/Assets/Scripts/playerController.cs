@@ -266,7 +266,8 @@ public class playerController : MonoBehaviour, IDamage
 
     }
     public void Die()
-    {             
+    {
+            StartCoroutine(delay());
             int creditsToDeduct = Mathf.Min(100, credits); 
             credits -= creditsToDeduct; 
             gameManager.instance.updateCreditsUI();
@@ -288,7 +289,10 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.damageIndicator.SetActive(false);
         isTakingDamage = false;
     }
-
+    public IEnumerator delay ()
+    {
+        yield return new WaitForSeconds(0.5f);
+    }
     IEnumerator playSteps()
     {
         playingSteps = true;
