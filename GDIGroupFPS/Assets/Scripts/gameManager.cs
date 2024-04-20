@@ -52,6 +52,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
+    public Camera cam;
 
     public ShopManager shopManager; //ref to new shop manager. needed for pause menu
 
@@ -70,8 +71,10 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+        cam = playerScript.playerCamera;
         timeScaleOrig = Time.timeScale;
         startingSpawn = GameObject.FindWithTag("Starting Spawnpoint");
         currentTime = resetTimer;

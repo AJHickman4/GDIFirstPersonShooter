@@ -118,15 +118,22 @@ MonoBehaviour:
   currentAmmo: 0
   totalAmmoReserve: 150
   maxAmmoReserveLimit: 400
+  maxCurrentAmmo: 0
+  maxTotalAmmoReserve: 0
   bulletDamage: 10
   isEquipped: 0
   recoilAmount: 30
   recoilTime: 0.1
   recoveryTime: 0.2
+  isRecoiling: 0
   muzzleFlash: {fileID: 2333426166248846106}
+  PlayerController: {fileID: 0}
   gunShot: {fileID: 9221089518133350576}
   reload: {fileID: 5069100049076665813}
   unlimitedAmmo: 0
+  canShoot: 1
+  currentWeapon: {fileID: 0}
+  globalWeaponsStatsManager: {fileID: 0}
   mode: 2
 --- !u!82 &9221089518133350576
 AudioSource:
@@ -281,7 +288,7 @@ AudioSource:
   m_GameObject: {fileID: 1281843589861384077}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3647987408662710099, guid: 891441e87798c0946a9bfe5e804bd6d5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 22c1eff1d01b8214dbc70a0c9c41813d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.486

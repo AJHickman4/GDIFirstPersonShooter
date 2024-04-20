@@ -4925,7 +4925,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a700eed1624494ba697b646c0b6a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceFieldEffect: {fileID: 0}
 --- !u!82 &-699014582322824115
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4935,7 +4934,7 @@ AudioSource:
   m_GameObject: {fileID: 3045271454566021025}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 472786239868401626, guid: 891441e87798c0946a9bfe5e804bd6d5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6c02f0158f2644e8c8c9e6b0753d091d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

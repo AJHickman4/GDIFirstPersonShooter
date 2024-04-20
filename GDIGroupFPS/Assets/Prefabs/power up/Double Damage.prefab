@@ -9794,8 +9794,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostDuration: 15
-  damageMultiplier: 2
-  pickupSound: {fileID: 8300000, guid: c4e65512d03ba492194bf60f5815bf9f, type: 3}
 --- !u!65 &7251101785722725326
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9826,7 +9824,7 @@ AudioSource:
   m_GameObject: {fileID: 1870012495010853752}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 472786239868401626, guid: 891441e87798c0946a9bfe5e804bd6d5, type: 2}
   m_audioClip: {fileID: 8300000, guid: c4e65512d03ba492194bf60f5815bf9f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

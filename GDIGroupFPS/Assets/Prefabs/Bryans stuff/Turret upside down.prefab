@@ -622,16 +622,16 @@ MonoBehaviour:
   raycastOrigin: {fileID: 4268500619328407017}
   range: 40
   shootingInterval: 0.1
-  rotationSpeed: 5
+  baseRotationSpeed: 5
   visionConeAngle: 180
   health: 100
   model: {fileID: 268848726451560921}
   flashDuration: 0.5
   fireSound: {fileID: 4532942089908878843}
   die: {fileID: 4221610202238475857}
-  searchSpeed: 10
   searchAngle: 90
-  lostTargetDelay: 3
+  searchSpeed: 10
+  lostSightDelay: 1
 --- !u!54 &3467950457601662734
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -689,7 +689,7 @@ AudioSource:
   m_GameObject: {fileID: 8230722110075401217}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8990132349572068564, guid: 891441e87798c0946a9bfe5e804bd6d5, type: 2}
   m_audioClip: {fileID: 8300000, guid: a718adb1b1a9d014cb9565f2fcab73a8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.226
@@ -785,7 +785,7 @@ AudioSource:
   m_GameObject: {fileID: 8230722110075401217}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8990132349572068564, guid: 891441e87798c0946a9bfe5e804bd6d5, type: 2}
   m_audioClip: {fileID: 8300000, guid: fd706038486fee041947a774223dc22e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
