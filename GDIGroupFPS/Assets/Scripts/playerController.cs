@@ -38,6 +38,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("----- Sliding -----")]
     [SerializeField] private float maxSlideTime = 2f;
     [SerializeField] private float slideSpeed = 10f;
+    [SerializeField] private float slideStaminaCost = 20f;
     [SerializeField] private KeyCode slideKey = KeyCode.LeftAlt;
     [SerializeField] private KeyCode slideMouseButton = KeyCode.Mouse3;
     private float slideTimer;
@@ -349,16 +350,21 @@ public class playerController : MonoBehaviour, IDamage
 
     private void StartSlide()
     {
-        isSliding = true;
-        slideTimer = maxSlideTime;
-        controller.height = slideYScale;
+        if (currentStamina >= slideStaminaCost)
+        {
+            isSliding = true;
+            slideTimer = maxSlideTime;
+            controller.height = slideYScale; 
+            currentStamina -= slideStaminaCost;
+        }
+        
     }
 
     private void SlideMovement()
     {
         if (slideTimer > 0)
         {
-            Vector3 slideDirection = moveDir.normalized * slideSpeed;
+            Vector3 slideDirection = transform.forward * slideSpeed; 
             controller.Move(slideDirection * Time.deltaTime);
             slideTimer -= Time.deltaTime;
         }
@@ -371,7 +377,7 @@ public class playerController : MonoBehaviour, IDamage
     private void StopSlide()
     {
         isSliding = false;
-        controller.height = originalHeight;
+        controller.height = originalHeight; 
     }
 
     void CheckForDoorAiming()
@@ -488,7 +494,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void AddCoins() // used beacuse im tired of having to add coins manually
     {
-        credits += 100000;
+        credits += 1000;
         gameManager.instance.updateCreditsUI();
     }
 
