@@ -57,7 +57,7 @@ public class gameManager : MonoBehaviour
     public ShopManager shopManager; //ref to new shop manager. needed for pause menu
 
     public Weapon currentWeapon;
-
+    
     public GameObject startingSpawn;
     public bool isPaused;
     float timeScaleOrig;
