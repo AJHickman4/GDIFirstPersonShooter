@@ -13,15 +13,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "MenuNavigation",
-                    "type": "Button",
-                    "id": "86b3178a-ff5d-4e12-94a1-a5cb134a2be8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -44,17 +35,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "MenuOpenClose",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e4f5692c-7abc-432f-a6b0-a19ccf269759",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MenuNavigation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

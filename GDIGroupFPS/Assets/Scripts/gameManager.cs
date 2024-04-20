@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.EventSystems;
 
 public class gameManager : MonoBehaviour
 {
@@ -29,6 +30,11 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text timerText;
     [SerializeField] private float flashThreshold = 10f;
     [SerializeField] private float flashDuration = 0.5f;
+
+    [Header("-----First Selected Button------")]
+    [SerializeField] private GameObject _mainMenuFirst;
+    [Header("-------End-------")]
+
 
     public GameObject damageIndicator;
     SpriteRenderer damageIndi;
@@ -103,6 +109,7 @@ public class gameManager : MonoBehaviour
                 statePaused();
                 menuActive = menuPause;
                 menuActive.SetActive(isPaused);
+                
             }
             else
             {
@@ -162,7 +169,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
 
 
-
+        EventSystem.current.SetSelectedGameObject(_mainMenuFirst);
 
     }
     public void stateUnPaused()
@@ -173,7 +180,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
         menuActive = null;
-
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void youHaveWon()
