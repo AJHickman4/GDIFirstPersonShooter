@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class proxSpawner : MonoBehaviour
@@ -8,23 +7,22 @@ public class proxSpawner : MonoBehaviour
     [SerializeField] int numToSpawn;
     [SerializeField] int spawnTimer;
     [SerializeField] Transform[] spawnPos;
+    [SerializeField] bool resetOnEnter = true;  
 
     int spawnCount;
     bool isSpawning;
     bool startSpawning;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (startSpawning && !isSpawning && spawnCount < numToSpawn)
         {
-            StartCoroutine(spawn());
+            StartCoroutine(Spawn());
         }
     }
 
@@ -32,16 +30,21 @@ public class proxSpawner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (resetOnEnter)
+            {
+                spawnCount = 0;  
+                isSpawning = false;  
+            }
             startSpawning = true;
         }
     }
 
-    IEnumerator spawn()
+    IEnumerator Spawn()
     {
         isSpawning = true;
         int arrayPos = Random.Range(0, spawnPos.Length);
-        int enemySpawned = Random.Range(0, objectsToSpawn.Length);
-        Instantiate(objectsToSpawn[enemySpawned], spawnPos[arrayPos].transform.position, spawnPos[arrayPos].transform.rotation);
+        int objectIndex = Random.Range(0, objectsToSpawn.Length);
+        Instantiate(objectsToSpawn[objectIndex], spawnPos[arrayPos].position, spawnPos[arrayPos].rotation);
         spawnCount++;
         yield return new WaitForSeconds(spawnTimer);
         isSpawning = false;

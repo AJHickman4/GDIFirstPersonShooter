@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    public Transform targetTransform; 
-    public bool isActive = true; 
-    
+    public Transform targetTransform;
+    public bool isActive = true;
+    public GameObject portal;
+    private int entryCount = 0;  
+    public int maxEntries = 3;   
+
     private void OnTriggerEnter(Collider other)
     {
         if (isActive && other.GetComponent<playerController>() != null)
@@ -16,12 +19,23 @@ public class Portal : MonoBehaviour
                 other.transform.position = targetTransform.position;
                 gameManager.instance.StartResetTimer();
                 controller.enabled = true;
+                entryCount++;
+                if (entryCount >= maxEntries)
+                {
+                    DeactivatePortal();
+                }
             }
         }
     }
-        public void ActivatePortal()
-        {
-            isActive = true; // use this method to activate the portal for shop
-        }
+
+    public void ActivatePortal()
+    {
+        isActive = true;
+        entryCount = 0;  
     }
 
+    private void DeactivatePortal()
+    {
+        portal.SetActive(false);
+    }
+}
