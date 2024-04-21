@@ -13,7 +13,6 @@ public class DamagePopup : MonoBehaviour
     private Color startColor = Color.red; 
     private Color endColor = Color.yellow; 
     private float colorTransitionTime = 0.5f; 
-    private float riseSpeed = 0.1f; 
     private float initialScale = 1.0f; 
     private float endScale = 0.5f; 
 

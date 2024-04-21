@@ -17,7 +17,7 @@ public class MysteryBox : MonoBehaviour
     public AudioClip interactSound;
     public AudioSource audioSource;
     public bool isDispensing = false;
-    public ParticleSystem particleSystem;
+    public ParticleSystem open;
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class MysteryBox : MonoBehaviour
             gameManager.instance.updateCreditsUI();
             StartCoroutine(DispenseWeapon());
             audioSource.PlayOneShot(interactSound);
-            particleSystem.Play();
+            open.Play();
         }
         else
         {
@@ -115,7 +115,7 @@ public class MysteryBox : MonoBehaviour
         Collider finalCollider = finalWeapon.GetComponent<Collider>();
         if (finalCollider != null)
             finalCollider.enabled = true;
-        particleSystem.Stop();
+        open.Stop();
 
         isDispensing = false;
         yield return new WaitForSeconds(cooldown);

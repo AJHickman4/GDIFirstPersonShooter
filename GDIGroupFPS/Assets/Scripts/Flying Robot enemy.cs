@@ -129,7 +129,6 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
 
     void MeleeAttack()
     {
-        Debug.Log("Performing melee attack");
         StartCoroutine(delay(.5f));
         playerTransform.GetComponent<playerController>().takeDamage((int)meleeDamage); 
         audioSource.PlayOneShot(meleesound);

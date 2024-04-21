@@ -14,7 +14,7 @@ public class cameraController : MonoBehaviour
     [SerializeField] float FOVTransition = 10f; //need this transition time for the lerp function below. //required 3 fields
     private bool isCameraLocked = false;
 
-
+    public playerController player;
 
     float rotX; //how we get the rotation on the x axis. 
 
@@ -68,5 +68,18 @@ public class cameraController : MonoBehaviour
         Cursor.visible = shouldLock;
     }
 
-
+    public void ResetFOV()
+    {
+        StopCoroutine("SmoothResetFOV");
+        StartCoroutine(SmoothResetFOV());
+    }
+    private IEnumerator SmoothResetFOV()
+    {
+        while (Mathf.Abs(mainCamera.fieldOfView - normalFOV) > 0.1f)
+        {
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, normalFOV, FOVTransition * Time.deltaTime);
+            yield return null;  
+        }
+        mainCamera.fieldOfView = normalFOV;
+    }
 }

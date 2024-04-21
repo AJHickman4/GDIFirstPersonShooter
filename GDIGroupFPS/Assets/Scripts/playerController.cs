@@ -1,3 +1,4 @@
+using Pixelplacement.TweenSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,8 @@ public class playerController : MonoBehaviour, IDamage
     public CharacterController controller;
     [SerializeField] Animator anim;
     [SerializeField] AudioSource aud;
-
+    [SerializeField] private cameraController myCameraController;
+    
     [Header("----- Player Stats -----")]
     [Range(1, 20)] public float speed;
     [Range(1, 25)] public float sprintSpeed;
@@ -58,11 +60,11 @@ public class playerController : MonoBehaviour, IDamage
     [Range(0, 1)][SerializeField] float audDeadVol;
 
     [Header("----- Melee Attack Parameters -----")]
-    public GameObject meleeWeapon; 
+    public GameObject meleeWeapon;
     public Animator meleeAnimator;
     public float meleeRange = 2.0f;
-    public float meleeDamage = 25.0f; 
-    public float meleeCooldown = 1.0f; 
+    public float meleeDamage = 25.0f;
+    public float meleeCooldown = 1.0f;
     public bool isMeleeReady = true;
 
 
@@ -72,7 +74,7 @@ public class playerController : MonoBehaviour, IDamage
     int jumpCount;
     Vector3 moveDir;
     Vector3 playerVel;
-    bool isShooting;
+
     public bool isInvincible = false;
     public GameObject forceFieldEffect;
     public bool isTakingDamage;
@@ -84,7 +86,7 @@ public class playerController : MonoBehaviour, IDamage
     private Openclosedoorwithcostnotimer currentlyAimedDoorWithCostNoTimer = null;
     public EquipScript equipScript;
     public Weapon currentWeapon;
-
+    public bool canMove = true; // remove if you get animations to work
     private float speedMultiplier = 1f;
 
     private bool playingSteps;
@@ -132,17 +134,6 @@ public class playerController : MonoBehaviour, IDamage
         {
             StandUp();
         }
-        if (currentStamina < maxStamina)
-        {
-            currentStamina += staminaRechargeRate * Time.deltaTime;
-            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-
-            if (currentStamina >= maxStamina) //can sprint only once stamina has fully recharged
-            {
-                canSprint = true;
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.T)) // Press T key to apply test damage
         {
             takeDamage(50); // Apply 10 damage for testing
@@ -160,79 +151,85 @@ public class playerController : MonoBehaviour, IDamage
         {
             SlideMovement();
         }
-        
-        if (Input.GetKeyDown(KeyCode.V) && isMeleeReady) 
+
+        if (Input.GetKeyDown(KeyCode.V) && isMeleeReady)
         {
-            StartCoroutine(PerformMeleeAttack()); 
+            StartCoroutine(PerformMeleeAttack());
         }
     }
 
     void movement()
     {
-        if (controller.isGrounded) //resets jump counter when it is grounded or lands. So it can jump again. 
+        if (!canMove) return; // Skip movement if movement is disabled.
+
+        // Check if the player is grounded.
+        if (controller.isGrounded)
         {
             jumpCount = 0;
-            playerVel = Vector3.zero;//resets vector to 0, stops gravity build up. 
+            playerVel = Vector3.zero; // Reset the player's vertical velocity to stop gravity accumulation.
         }
 
-
-
         float currentSpeed = speed;
-        //run speed setter
-        if (controller.height < originalHeight) // when crouching, you are slower, AND turn into a short king
+        // Handle crouching speed reduction.
+        if (controller.height < originalHeight)
         {
             currentSpeed = crouchSpeed;
         }
-        else if (Input.GetKey(KeyCode.LeftShift) && currentStamina > 0)
+        else if (Input.GetKey(KeyCode.LeftShift) && canSprint && currentStamina > 0)
         {
+            // Sprint only if Left Shift is held, stamina is positive, and canSprint is true.
             isSprinting = true;
             currentSpeed = sprintSpeed;
             currentStamina -= staminaDrain * Time.deltaTime;
-
-            if (currentStamina < 0)
-            {
-                currentSpeed = 0;
-                canSprint = false; //not allowed to sprint when stamina is depleated. 
-                isSprinting = false;
-            }
-
         }
 
+        // Handle stamina depletion and recovery.
+        if (currentStamina <= 0)
+        {
+            currentStamina = 0;
+            canSprint = false; // Disable sprinting when stamina is depleted.
+            isSprinting = false;
+        }
 
-        //1st person camera controls //depends on camera angle. 
-        moveDir = Input.GetAxis("Horizontal") * transform.right
-                + Input.GetAxis("Vertical") * transform.forward;
+        // Recharge stamina when not sprinting and Left Shift is not held down.
+        if (!Input.GetKey(KeyCode.LeftShift) || !isSprinting)
+        {
+            currentStamina += staminaRechargeRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+            
+            if (myCameraController != null)
+            {
+                myCameraController.ResetFOV();  
+            } 
+            if (currentStamina >= 20)
+            {
+                canSprint = true;
+            }
+        }
 
-        //topdown camera controls //depends on camera positon/angle.
-        //moveDir = new Vector3(Input.GetAxis("Horizantal"), 0, Input.GetAxis("Vertical"));
-
+        // Move the player based on input and current speed.
+        Vector3 moveDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
         controller.Move(moveDir * currentSpeed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && jumpCount < jump) //if jump is less than jump count limit
+        // Handle jumping.
+        if (Input.GetButtonDown("Jump") && jumpCount < jump)
         {
-            jumpCount++; //increment / keep track of jump count.
-            playerVel.y = jumpSpeed; //adds positiive number.
+            jumpCount++;
+            playerVel.y = jumpSpeed;
             aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
         }
-;
-        playerVel.y += gravity * Time.deltaTime;   //adds mechanics to gravity. makes negative number 
+
+        // Apply gravity.
+        playerVel.y += gravity * Time.deltaTime;
         controller.Move(playerVel * Time.deltaTime);
 
-        if(controller.isGrounded && moveDir.normalized.magnitude > 0.3f && !playingSteps)
+        // Play footsteps if moving on the ground.
+        if (controller.isGrounded && moveDir.normalized.magnitude > 0.3f && !playingSteps)
         {
             StartCoroutine(playSteps());
         }
 
-        if (!Input.GetKey(KeyCode.LeftShift))
-        {
-            currentStamina += staminaRechargeRate * Time.deltaTime;
-            currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-
-        }
-
         updatePlayerUI();
-
-
     }
 
 
@@ -270,22 +267,28 @@ public class playerController : MonoBehaviour, IDamage
     }
     public void Die()
     {
-            //StartCoroutine(PlayerDeathAnim());
-            StartCoroutine(delay());
-            int creditsToDeduct = Mathf.Min(100, credits); 
-            credits -= creditsToDeduct; 
-            gameManager.instance.updateCreditsUI();
-            gameManager.instance.CancelAndResetTimer();
-            gameManager.instance.StopAllCoroutines();
-            gameManager.instance.isResetting = false;
-            gameManager.instance.teleportEffect.Clear();
-            gameManager.instance.teleportEffect.Stop();
-            TeleportToSpawn();
-
-            updatePlayerUI();
-            HP = HPOrig;
-            return;
+        //StartCoroutine(PlayerDeathAnim());
+        StartCoroutine(RotateTowardsGround());
+        StartCoroutine(DeathDelay());
     }
+    IEnumerator RotateTowardsGround() //remove if you get animations to work
+    {
+        canMove = false;  
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = startRotation * Quaternion.Euler(0, 0, 90); 
+
+        float duration = 1.0f; 
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null; 
+        }
+        transform.rotation = endRotation; 
+    }
+
     public IEnumerator ShowDamageIndicator()
     {
 
@@ -294,9 +297,21 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.damageIndicator.SetActive(false);
         isTakingDamage = false;
     }
-    public IEnumerator delay ()
+    public IEnumerator DeathDelay() // put back in die if you get animations to work
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
+        int creditsToDeduct = Mathf.Min(100, credits);
+        credits -= creditsToDeduct;
+        gameManager.instance.updateCreditsUI();
+        gameManager.instance.CancelAndResetTimer();
+        gameManager.instance.StopAllCoroutines();
+        gameManager.instance.isResetting = false;
+        gameManager.instance.teleportEffect.Clear();
+        gameManager.instance.teleportEffect.Stop();
+        TeleportToSpawn();
+
+        updatePlayerUI();
+        HP = HPOrig;
     }
     IEnumerator playSteps()
     {
@@ -354,6 +369,7 @@ public class playerController : MonoBehaviour, IDamage
 
     private void StartSlide()
     {
+        if (!canMove) return; // remove if you get animations to work
         if (currentStamina >= slideStaminaCost)
         {
             isSliding = true;
@@ -444,6 +460,7 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator PerformMeleeAttack()
     {
+        if (!canMove) yield break; // remove if you get animations to work
         if (!isMeleeReady || currentWeapon == null || currentWeapon.isReloading || currentWeapon.isRecoiling)
         {
             yield break;  
@@ -491,16 +508,35 @@ public class playerController : MonoBehaviour, IDamage
         if (controller.enabled)
         {
             controller.enabled = false;
-            transform.position = gameManager.instance.startingSpawn.transform.position; 
+            transform.position = gameManager.instance.startingSpawn.transform.position;
+            StartCoroutine(ResetRotationAfterDelay(0f)); //remove if you get animations to work
             controller.enabled = true;
         }
         else
         {
-            transform.position = gameManager.instance.startingSpawn.transform.position; 
+            transform.position = gameManager.instance.startingSpawn.transform.position;
+            StartCoroutine(ResetRotationAfterDelay(0f)); //remove if you get animations to work
             controller.enabled = true;
         }
     }
+    IEnumerator ResetRotationAfterDelay(float delay) //remove if you get animations to work
+    {
+        yield return new WaitForSeconds(delay);
 
+        Quaternion startRotation = transform.rotation;
+        Quaternion endRotation = Quaternion.identity; 
+        float duration = 1.0f; 
+        float timeElapsed = 0;
+        while (timeElapsed < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null; 
+        }
+        canMove = true;
+        transform.rotation = endRotation; 
+
+    }
     public void AddCoins() // used beacuse im tired of having to add coins manually
     {
         credits += 1000;
