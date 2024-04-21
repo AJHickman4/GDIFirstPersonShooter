@@ -1,6 +1,6 @@
-using System.Collections;
-using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine;
+using System.Collections;
 
 public class FlyingRobotEnemy : MonoBehaviour, IDamage
 {
@@ -14,17 +14,16 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
 
     public GameObject projectilePrefab;
     public Transform shootingPoint;
-    public float fireRate = 2.0f;  
-    private float nextFireTime = 0f;  
+    public float fireRate = 2.0f;
+    private float nextFireTime = 0f;
 
-    public float meleeDamage = 30;  
-    public float meleeCooldown = 1.5f;  
+    public float meleeDamage = 30;
+    public float meleeCooldown = 1.5f;
     private float nextMeleeTime = 0f;
     public AudioSource audioSource;
     public AudioClip shootingSound;
     public AudioClip meleesound;
     public AudioClip die;
-
 
     void Start()
     {
@@ -39,11 +38,11 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
         if (isDead) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        FacePlayer(); 
+        FacePlayer();
 
         if (distanceToPlayer <= meleeRange)
         {
-            SetAnimationState(false, false, false, true); 
+            SetAnimationState(false, false, false, true);
             if (Time.time >= nextMeleeTime)
             {
                 MeleeAttack();
@@ -52,16 +51,16 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
         }
         else if (distanceToPlayer <= detectionRange)
         {
-            SetAnimationState(false, true, false, false); 
-            if (Time.time >= nextFireTime)
+            SetAnimationState(false, true, false, false);
+            if (Time.time >= nextFireTime && HasLineOfSightToPlayer())
             {
                 Shoot();
-                nextFireTime = Time.time + fireRate;  
+                nextFireTime = Time.time + fireRate;
             }
         }
         else
         {
-            SetAnimationState(true, false, false, false); 
+            SetAnimationState(true, false, false, false);
             ContinueRoaming();
         }
     }
@@ -78,9 +77,9 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
     void Die()
     {
         isDead = true;
-        SetAnimationState(false, false, true, false);  
-        agent.enabled = false;  
-        Destroy(gameObject, 3f);  
+        SetAnimationState(false, false, true, false);
+        agent.enabled = false;
+        Destroy(gameObject, 3f);
         audioSource.PlayOneShot(die);
     }
 
@@ -101,7 +100,6 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
 
     void StartRoaming()
     {
-
         Vector3 randomDirection = Random.insideUnitSphere * detectionRange;
         randomDirection += transform.position;
         NavMeshHit hit;
@@ -120,7 +118,7 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
 
     void Shoot()
     {
-        if (projectilePrefab && shootingPoint)
+        if (projectilePrefab && shootingPoint && HasLineOfSightToPlayer())
         {
             Instantiate(projectilePrefab, shootingPoint.position, Quaternion.LookRotation(playerTransform.position - shootingPoint.position));
             audioSource.PlayOneShot(shootingSound);
@@ -130,13 +128,27 @@ public class FlyingRobotEnemy : MonoBehaviour, IDamage
     void MeleeAttack()
     {
         StartCoroutine(delay(.5f));
-        playerTransform.GetComponent<playerController>().takeDamage((int)meleeDamage); 
+        playerTransform.GetComponent<playerController>().takeDamage((int)meleeDamage);
         audioSource.PlayOneShot(meleesound);
     }
 
-   IEnumerator delay (float delay)
+    IEnumerator delay(float delay)
     {
         yield return new WaitForSeconds(delay);
     }
 
+    bool HasLineOfSightToPlayer()
+    {
+        RaycastHit hit;
+        Vector3 directionToPlayer = playerTransform.position - shootingPoint.position;
+
+        if (Physics.Raycast(shootingPoint.position, directionToPlayer, out hit, detectionRange))
+        {
+            if (hit.transform == playerTransform)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
