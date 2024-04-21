@@ -262,17 +262,15 @@ public class playerController : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             aud.PlayOneShot(audLose[Random.Range(0, audLose.Length)], audLoseVol);
-            
             Die();
         }
 
     }
     public void Die()
     {
-            PlayerDeathAnim();
             StartCoroutine(delay());
             int creditsToDeduct = Mathf.Min(100, credits); 
-            credits -= creditsToDeduct;
+            credits -= creditsToDeduct; 
             gameManager.instance.updateCreditsUI();
             gameManager.instance.CancelAndResetTimer();
             gameManager.instance.StopAllCoroutines();
@@ -504,13 +502,7 @@ public class playerController : MonoBehaviour, IDamage
         credits += 1000;
         gameManager.instance.updateCreditsUI();
     }
-    private void PlayerDeathAnim()
-    {
-        //GetComponent<playerController>().enabled = false;
-        anim.SetTrigger("Death");
-        GetComponentInChildren<Animator>().enabled = true;
 
-    }
 }
 
 
