@@ -57,11 +57,9 @@ public class EquipScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, maxDistance))
         {
-            // Check if the hit object has the Gun tag
             if (hit.collider.CompareTag("Gun"))
             {
                 GameObject gun = hit.collider.gameObject;
-                // Get the WeaponInfo component
                 WeaponInfo weaponInfo = gun.GetComponent<WeaponInfo>();
                 if (weaponInfo != null && weaponInfo.floatingText != null)
                 {
