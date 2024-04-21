@@ -172,6 +172,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             StartCoroutine(FadeIn());
         }
+
+        if (HP == HPOrig)
+        {
+            StartCoroutine(FadeIn());
+        }
     }
 
     void movement()
@@ -606,30 +611,30 @@ public class playerController : MonoBehaviour, IDamage
     private IEnumerator FadeIn()
     {
         float alphaVal = gameManager.instance.lowHP.color.a;
-        Color tmp = gameManager.instance.lowHP.color;
+        Color current = gameManager.instance.lowHP.color;
 
         while (gameManager.instance.lowHP.color.a > 0)
         {
             alphaVal -= 0.01f;
-            tmp.a = alphaVal;
-            gameManager.instance.lowHP.color = tmp;
+            current.a = alphaVal;
+            gameManager.instance.lowHP.color = current;
 
-            yield return new WaitForSeconds(0.05f); // update interval
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
     private IEnumerator FadeOut()
     {
         float alphaVal = gameManager.instance.lowHP.color.a;
-        Color tmp = gameManager.instance.lowHP.color;
+        Color current = gameManager.instance.lowHP.color;
 
         while (gameManager.instance.lowHP.color.a < 1)
         {
             alphaVal += 0.01f;
-            tmp.a = alphaVal;
-            gameManager.instance.lowHP.color = tmp;
+            current.a = alphaVal;
+            gameManager.instance.lowHP.color = current;
 
-            yield return new WaitForSeconds(0.05f); // update interval
+            yield return new WaitForSeconds(0.05f);
         }
     }
 }
