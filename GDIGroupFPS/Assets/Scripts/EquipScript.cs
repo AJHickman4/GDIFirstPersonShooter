@@ -53,20 +53,28 @@ public class EquipScript : MonoBehaviour
     {
         float sphereRadius = .2f;
         float maxDistance = equipRange;
-        
+
         RaycastHit hit;
         if (Physics.SphereCast(playerCamera.transform.position, sphereRadius, playerCamera.transform.forward, out hit, maxDistance))
         {
-            MysteryBox mysteryBox = FindObjectOfType<MysteryBox>();
+            // Check if the hit object has the Gun tag
             if (hit.collider.CompareTag("Gun"))
             {
                 GameObject gun = hit.collider.gameObject;
+                // Get the WeaponInfo component
+                WeaponInfo weaponInfo = gun.GetComponent<WeaponInfo>();
+                if (weaponInfo != null && weaponInfo.floatingText != null)
+                {
+                    // Disable the floating text of the weapon
+                    weaponInfo.floatingText.SetActive(false);
+                }
+
+                // Check if the gun is already in the guns list
                 if (!guns.Contains(gun))
                 {
                     if (guns.Count < 2)
                     {
                         EquipObject(gun);
-                        
                     }
                     else
                     {
@@ -77,6 +85,7 @@ public class EquipScript : MonoBehaviour
             }
         }
     }
+
 
     void EquipObject(GameObject gun)
     {
