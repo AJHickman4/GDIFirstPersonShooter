@@ -490,6 +490,11 @@ public class playerController : MonoBehaviour, IDamage
             transform.position = gameManager.instance.startingSpawn.transform.position; 
             controller.enabled = true;
         }
+        else
+        {
+            transform.position = gameManager.instance.startingSpawn.transform.position; 
+            controller.enabled = true;
+        }
     }
 
     public void AddCoins() // used beacuse im tired of having to add coins manually
