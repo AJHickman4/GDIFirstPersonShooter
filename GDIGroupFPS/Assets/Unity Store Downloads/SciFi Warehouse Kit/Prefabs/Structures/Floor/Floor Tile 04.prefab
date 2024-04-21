@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7550983952691428223}
   - component: {fileID: 4320907586893449094}
   - component: {fileID: 82733094844891520}
+  - component: {fileID: 9012051044663765783}
   m_Layer: 0
   m_Name: Floor Tile 04
   m_TagString: Untagged
@@ -105,3 +106,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.000002, y: 0.25, z: 6.000001}
   m_Center: {x: 3, y: -0.125, z: 2.9999995}
+--- !u!205 &9012051044663765783
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578913877748167514}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.10287031
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
