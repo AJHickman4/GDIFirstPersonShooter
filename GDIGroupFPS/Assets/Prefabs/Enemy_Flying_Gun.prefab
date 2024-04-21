@@ -41,15 +41,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 797bd52edc99076428600e58b5a34710, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -94.92
+      value: -21.14
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 797bd52edc99076428600e58b5a34710, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.371
+      value: 1.31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 797bd52edc99076428600e58b5a34710, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -276.87
+      value: -314.8558
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 797bd52edc99076428600e58b5a34710, type: 3}
       propertyPath: m_LocalRotation.w
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  detectionRange: 10
+  detectionRange: 15
   meleeRange: 2
   playerTransform: {fileID: 0}
   agent: {fileID: 1947973764689636332}
@@ -344,8 +344,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.9370185, z: 0.9198303}
-  m_Center: {x: 0, y: 0.5540715, z: 0.04008484}
+  m_Size: {x: 1, y: 0.9370185, z: 1.2105713}
+  m_Center: {x: 0, y: 0.5540715, z: 0.10418701}
 --- !u!195 &1947973764689636332
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -355,7 +355,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 9155390428879227782}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
