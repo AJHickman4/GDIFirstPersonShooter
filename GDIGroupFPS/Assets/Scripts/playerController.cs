@@ -270,7 +270,7 @@ public class playerController : MonoBehaviour, IDamage
     }
     public void Die()
     {
-            StartCoroutine(PlayerDeathAnim());
+            //StartCoroutine(PlayerDeathAnim());
             StartCoroutine(delay());
             int creditsToDeduct = Mathf.Min(100, credits); 
             credits -= creditsToDeduct; 
@@ -507,17 +507,17 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.updateCreditsUI();
     }
 
-    private IEnumerator PlayerDeathAnim()
-    {
-        GetComponent<CharacterController>().enabled = false;
-        anim.SetTrigger("Death");
-        aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
-        GetComponentInChildren<Animator>().enabled = true;
-        yield return new WaitForSeconds(1f);
-        TeleportToSpawn();
+    //private IEnumerator PlayerDeathAnim()
+    //{
+    //    GetComponent<CharacterController>().enabled = false;
+    //    anim.SetTrigger("Death");
+    //    aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
+    //    GetComponentInChildren<Animator>().enabled = true;
+    //    yield return new WaitForSeconds(1f);
+    //    TeleportToSpawn();
      
-        GetComponent<CharacterController>().enabled = true;
-    }
+    //    GetComponent<CharacterController>().enabled = true;
+    //}
 }
 
 
