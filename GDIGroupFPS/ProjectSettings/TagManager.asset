@@ -20,6 +20,7 @@ TagManager:
   - Waypoint
   - LadderBottom
   - door
+  - Button
   layers:
   - Default
   - TransparentFX

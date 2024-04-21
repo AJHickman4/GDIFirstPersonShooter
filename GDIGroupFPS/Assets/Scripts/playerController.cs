@@ -121,6 +121,8 @@ public class playerController : MonoBehaviour, IDamage
         float actualSpeed = speed * speedMultiplier;
         movement();
         CheckForDoorAiming();
+        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.green);
+        CheckForButtonPress(); //For all interactables int he future.(But also this button) :)
         currentWeapon = equipScript.GetCurrentWeapon();
 
         //begin the crouch 
@@ -537,6 +539,37 @@ public class playerController : MonoBehaviour, IDamage
         transform.rotation = endRotation; 
 
     }
+
+    void CheckForButtonPress()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactionRange))
+            {
+                if (hit.collider.CompareTag("Button")) 
+                {
+                    TriggerButtonAction(hit.collider.gameObject);
+                }
+            }
+        }
+    }
+
+    void TriggerButtonAction(GameObject button)
+    {
+        Animator anim = button.GetComponent<Animator>();
+        if (anim != null)
+        {
+            Debug.Log("Attempting to trigger FloorRise on Animator: " + anim.gameObject.name);
+            anim.SetTrigger("FloorRise");
+        }
+        else
+        {
+            Debug.Log("No Animator found on the button GameObject.");
+        }
+    }
+
+
     public void AddCoins() // used beacuse im tired of having to add coins manually
     {
         credits += 1000;
