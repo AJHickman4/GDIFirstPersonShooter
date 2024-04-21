@@ -280,7 +280,8 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.isResetting = false;
             gameManager.instance.teleportEffect.Clear();
             gameManager.instance.teleportEffect.Stop();
-            
+            TeleportToSpawn();
+
             updatePlayerUI();
             HP = HPOrig;
             return;
