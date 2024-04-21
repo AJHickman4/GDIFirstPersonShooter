@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Increased maxStamina
   m_EditorClassIdentifier: 
   itemName: Increased Stamina
-  cost: 20
+  cost: 100
   icon: {fileID: 0}
-  description: Want to run longer?
+  description: Want to run longer? Why?
   itemType: 5
-  effectValue: 5
+  effectValue: 10
