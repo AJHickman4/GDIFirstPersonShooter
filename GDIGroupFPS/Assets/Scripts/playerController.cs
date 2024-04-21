@@ -54,6 +54,8 @@ public class playerController : MonoBehaviour, IDamage
     [Range(0, 1)][SerializeField] float audStepsVol;
     [SerializeField] AudioClip[] audLose;
     [Range(0, 1)][SerializeField] float audLoseVol;
+    [SerializeField] AudioClip[] audDead;
+    [Range(0, 1)][SerializeField] float audDeadVol;
 
     [Header("----- Melee Attack Parameters -----")]
     public GameObject meleeWeapon; 
@@ -268,6 +270,7 @@ public class playerController : MonoBehaviour, IDamage
     }
     public void Die()
     {
+            StartCoroutine(PlayerDeathAnim());
             StartCoroutine(delay());
             int creditsToDeduct = Mathf.Min(100, credits); 
             credits -= creditsToDeduct; 
@@ -277,7 +280,7 @@ public class playerController : MonoBehaviour, IDamage
             gameManager.instance.isResetting = false;
             gameManager.instance.teleportEffect.Clear();
             gameManager.instance.teleportEffect.Stop();
-            TeleportToSpawn();
+            
             updatePlayerUI();
             HP = HPOrig;
             return;
@@ -503,6 +506,17 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.updateCreditsUI();
     }
 
+    private IEnumerator PlayerDeathAnim()
+    {
+        GetComponent<CharacterController>().enabled = false;
+        anim.SetTrigger("Death");
+        aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
+        GetComponentInChildren<Animator>().enabled = true;
+        yield return new WaitForSeconds(1f);
+        TeleportToSpawn();
+     
+        GetComponent<CharacterController>().enabled = true;
+    }
 }
 
 
