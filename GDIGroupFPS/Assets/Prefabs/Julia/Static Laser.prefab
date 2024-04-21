@@ -52,7 +52,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   laserDistance: 15
-  damage: 10
+  damage: 2
   startPos: {fileID: 3815498819534910768}
   endPos: {fileID: 1681900596532534529}
 --- !u!120 &5074029278311470316

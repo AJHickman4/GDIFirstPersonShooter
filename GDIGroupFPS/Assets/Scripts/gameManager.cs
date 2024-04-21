@@ -37,7 +37,8 @@ public class gameManager : MonoBehaviour
 
 
     public GameObject damageIndicator;
-    SpriteRenderer damageIndi;
+    public Image lowHP;
+
     public Image healthBar;
     public Image damageBar;
     public Image staminaBar;
@@ -342,12 +343,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    //public void Damaged()
-    //{
-    //    StartCoroutine(FadeIn());
-    //    StartCoroutine(FadeOut());
-
-    //}
+    
 
 
 }

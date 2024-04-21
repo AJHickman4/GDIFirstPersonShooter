@@ -63,17 +63,12 @@ public class ShopManager : MonoBehaviour
 
     public void CheckPurchaseableItem()
     {
+
         for (int i = 0; i < shopItem.Length; i++)
         {
-            if (gameManager.instance.playerScript.credits >= shopItem[i].cost)//if the player doesnt have enough money.
-            {
-                myPurchaseBtns[i].interactable = true;
-            }
-            else
-            {
-                myPurchaseBtns[i].interactable = false;
-            }
+            myPurchaseBtns[i].interactable = gameManager.instance.playerScript.credits >= shopItem[i].cost;
         }
+
     }
 
     public void PurchaseItem(int btnNo)

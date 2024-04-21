@@ -1,3 +1,4 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using Pixelplacement.TweenSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -92,6 +93,9 @@ public class playerController : MonoBehaviour, IDamage
     private bool playingSteps;
     private bool isSprinting;
 
+    private float wantAlpha;
+    private float startAlpha;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -157,6 +161,21 @@ public class playerController : MonoBehaviour, IDamage
         if (Input.GetKeyDown(KeyCode.V) && isMeleeReady)
         {
             StartCoroutine(PerformMeleeAttack());
+        }
+
+
+        if (HP <= HPOrig * 0.5)
+        {
+            StartCoroutine(FadeOut());
+        }
+        else
+        {
+            StartCoroutine(FadeIn());
+        }
+
+        if (HP == HPOrig)
+        {
+            StartCoroutine(FadeIn());
         }
     }
 
@@ -584,9 +603,40 @@ public class playerController : MonoBehaviour, IDamage
     //    GetComponentInChildren<Animator>().enabled = true;
     //    yield return new WaitForSeconds(1f);
     //    TeleportToSpawn();
-     
+
     //    GetComponent<CharacterController>().enabled = true;
     //}
+
+
+    private IEnumerator FadeIn()
+    {
+        float alphaVal = gameManager.instance.lowHP.color.a;
+        Color current = gameManager.instance.lowHP.color;
+
+        while (gameManager.instance.lowHP.color.a > 0)
+        {
+            alphaVal -= 0.01f;
+            current.a = alphaVal;
+            gameManager.instance.lowHP.color = current;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float alphaVal = gameManager.instance.lowHP.color.a;
+        Color current = gameManager.instance.lowHP.color;
+
+        while (gameManager.instance.lowHP.color.a < 1)
+        {
+            alphaVal += 0.01f;
+            current.a = alphaVal;
+            gameManager.instance.lowHP.color = current;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 }
 
 
