@@ -24,35 +24,28 @@ public class key : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (gameManager.instance.playerScript.keys.Count != 0)
+            alreadyHasKey = false;
+            for (int i = 0; i < gameManager.instance.playerScript.keys.Count; i++)
             {
-                for (int i = 0; i < gameManager.instance.playerScript.keys.Count; i++)
+                if (gameManager.instance.playerScript.keys[i] == keyValue)
                 {
-                    if (gameManager.instance.playerScript.keys[i] == keyValue)
-                    {
-                        alreadyHasKey = true;
-                        Debug.Log("player already has key");
-                    }
-                    else
-                    {
-                        alreadyHasKey = false;
-                        Debug.Log("key not in list");
-                    }
-                    Debug.Log(gameManager.instance.playerScript.keys[i]);
-                    Debug.Log("keyValue=" + keyValue);
+                    alreadyHasKey = true;
+                    break;  
                 }
             }
-            else
+            if (gameManager.instance.playerScript.keys.Count == 0)
             {
-                alreadyHasKey = false;
-                Debug.Log("player has no keys");
+                //Debug.Log("No keys in list");
             }
-
             if (!alreadyHasKey)
             {
                 gameManager.instance.playerScript.keys.Add(keyValue);
                 gameManager.instance.updateKeyUI();
-                gameObject.SetActive(false);
+                gameObject.SetActive(false);  
+            }
+            if (alreadyHasKey)
+            {
+                Destroy(gameObject);
             }
         }
     }

@@ -65,7 +65,6 @@ public class EnemyDetectionCamera : MonoBehaviour, IDamage
                 if (hit.collider.CompareTag("Player"))
                 {
                     playerDetected = true;
-                    Debug.Log("Player detected: " + hit.collider.name);
                     // add logic here to handle player detection here
                     
                     if (spawnOnDetection)
