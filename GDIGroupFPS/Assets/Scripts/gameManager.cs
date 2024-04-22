@@ -38,6 +38,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject damageIndicator;
     public Image lowHP;
+    public Image dmgIndi;
 
     public Image healthBar;
     public Image damageBar;
@@ -229,8 +230,17 @@ public class gameManager : MonoBehaviour
 
     IEnumerator ResetTimerCoroutine()
     {
-        yield return new WaitForSeconds(resetTimer);
-        StartCoroutine(TeleportPlayerToSpawn());
+        float elapsed = 0; 
+        while (elapsed < resetTimer)
+        {
+            yield return new WaitForSeconds(1);  
+            elapsed += 1;  
+            if (elapsed >= resetTimer)
+            {
+                StartCoroutine(TeleportPlayerToSpawn());  
+                yield break;  
+            }
+        }
     }
 
     IEnumerator TeleportPlayerToSpawn()

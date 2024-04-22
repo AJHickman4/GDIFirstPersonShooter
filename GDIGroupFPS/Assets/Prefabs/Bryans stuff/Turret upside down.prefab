@@ -625,7 +625,7 @@ MonoBehaviour:
   baseRotationSpeed: 5
   visionConeAngle: 180
   health: 100
-  model: {fileID: 268848726451560921}
+  model: {fileID: 0}
   flashDuration: 0.5
   fireSound: {fileID: 4532942089908878843}
   die: {fileID: 4221610202238475857}
