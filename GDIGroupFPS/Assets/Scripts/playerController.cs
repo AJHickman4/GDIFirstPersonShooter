@@ -55,8 +55,7 @@ public class playerController : MonoBehaviour, IDamage
     [Range(0, 1)][SerializeField] float audStepsVol;
     [SerializeField] AudioClip[] audLose;
     [Range(0, 1)][SerializeField] float audLoseVol;
-    [SerializeField] AudioClip[] audDead;
-    [Range(0, 1)][SerializeField] float audDeadVol;
+    
 
     [Header("----- Melee Attack Parameters -----")]
     public GameObject meleeWeapon;
