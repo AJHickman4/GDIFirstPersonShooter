@@ -1111,7 +1111,7 @@ MonoBehaviour:
   roamPauseTime: 2
   meleeDmg: 5
   slashRate: 1
-  creditGainOnDeath: 5
+  creditGainOnDeath: 20
   dropObject: {fileID: 3953671451310025340, guid: f31f4556ad160de42ab5ec86c0281ba8, type: 3}
   dropChancePercentage: 11
   dropObject2: {fileID: 1870012495010853752, guid: fad1fa5ec9606794a8f8a7478034cd19, type: 3}

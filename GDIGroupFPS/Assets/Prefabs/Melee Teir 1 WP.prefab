@@ -1145,7 +1145,7 @@ MonoBehaviour:
   slashRate: 1
   waypointArray: []
   currWaypoint: 0
-  creditGainOnDeath: 5
+  creditGainOnDeath: 20
   dropObject: {fileID: 3045271454566021025, guid: 0a0c37031fdf0a84a9ac81c6ba451f2b, type: 3}
   dropChancePercentage: 3
   dropObject2: {fileID: 3953671451310025340, guid: f31f4556ad160de42ab5ec86c0281ba8, type: 3}
