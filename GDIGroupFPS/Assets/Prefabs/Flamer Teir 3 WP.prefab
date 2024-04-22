@@ -5364,7 +5364,7 @@ MonoBehaviour:
   AttackRadius: {fileID: 2570935240809453230}
   waypointArray: []
   currWaypoint: 0
-  creditGainOnDeath: 5
+  creditGainOnDeath: 30
   dropObject: {fileID: 0}
   dropChancePercentage: 25
   dropObject2: {fileID: 0}

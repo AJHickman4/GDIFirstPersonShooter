@@ -434,9 +434,9 @@ MonoBehaviour:
   roamDist: 30
   roamPauseTime: 1
   bullet: {fileID: 591904482473540451}
-  shootRate: 10
+  shootRate: 25
   AttackRadius: {fileID: 591904482473540451}
-  creditGainOnDeath: 5
+  creditGainOnDeath: 30
   dropObject: {fileID: 0}
   dropChancePercentage: 25
   dropObject2: {fileID: 0}
