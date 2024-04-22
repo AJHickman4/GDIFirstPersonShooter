@@ -341,6 +341,8 @@ public class gameManager : MonoBehaviour
     {
         resetTimer += additionalTime;
         currentTime += additionalTime;
+        teleportEffect.Clear();
+        teleportEffect.Stop();
         UpdateTimerUI(currentTime);
     }
 

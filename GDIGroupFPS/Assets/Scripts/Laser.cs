@@ -35,7 +35,7 @@ public class Laser : MonoBehaviour
         {
             endPos.position = hit.point - startPos.position;
 
-            Debug.Log(hit.collider.name);
+
 
             lineRenderer.SetPosition(0, transform.position); //1 pos
             lineRenderer.SetPosition(1, hit.point); //2 pos
