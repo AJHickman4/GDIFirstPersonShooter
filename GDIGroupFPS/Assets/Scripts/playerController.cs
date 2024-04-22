@@ -166,16 +166,16 @@ public class playerController : MonoBehaviour, IDamage
 
         if (HP <= HPOrig * 0.5)
         {
-            StartCoroutine(FadeOut());
+            StartCoroutine(FadeIn());
         }
         else
         {
-            StartCoroutine(FadeIn());
+            StartCoroutine(FadeOut());
         }
 
         if (HP == HPOrig)
         {
-            StartCoroutine(FadeIn());
+            StartCoroutine(FadeOut());
         }
     }
 
@@ -314,6 +314,7 @@ public class playerController : MonoBehaviour, IDamage
     {
 
         gameManager.instance.damageIndicator.SetActive(true);
+
         yield return new WaitForSeconds(0.1f);
         gameManager.instance.damageIndicator.SetActive(false);
         isTakingDamage = false;
@@ -608,7 +609,7 @@ public class playerController : MonoBehaviour, IDamage
     //}
 
 
-    private IEnumerator FadeIn()
+    private IEnumerator FadeOut()
     {
         float alphaVal = gameManager.instance.lowHP.color.a;
         Color current = gameManager.instance.lowHP.color;
@@ -623,7 +624,7 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    private IEnumerator FadeOut()
+    private IEnumerator FadeIn()
     {
         float alphaVal = gameManager.instance.lowHP.color.a;
         Color current = gameManager.instance.lowHP.color;
@@ -637,6 +638,8 @@ public class playerController : MonoBehaviour, IDamage
             yield return new WaitForSeconds(0.05f);
         }
     }
+
+    
 }
 
 
