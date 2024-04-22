@@ -1,5 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using Pixelplacement.TweenSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
