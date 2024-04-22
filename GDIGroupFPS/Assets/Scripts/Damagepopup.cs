@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SocialPlatforms;
 
 public class DamagePopup : MonoBehaviour
 {
@@ -13,13 +14,14 @@ public class DamagePopup : MonoBehaviour
     private Color startColor = Color.red; 
     private Color endColor = Color.yellow; 
     private float colorTransitionTime = 0.5f; 
-    private float initialScale = 1.0f; 
-    private float endScale = 0.5f; 
+    public  float initialScale = 1.0f; 
+    public  float endScale = 0.5f; 
 
     private Vector3 originalPosition;
-    private float maxRiseHeight = 0.3f; 
-    private float maxHorizontalMovement = 0.3f; 
-    private float riseAmount = 0.1f;
+    public float maxRiseHeight = 0.3f; 
+    public float maxHorizontalMovement = 0.3f; 
+    public float riseAmount = 0.1f;
+    public Vector3 localPositionOffset = new Vector3(0, 2.5f, 0);
 
     private static Dictionary<Transform, DamagePopup> popups = new Dictionary<Transform, DamagePopup>();
 
@@ -85,7 +87,7 @@ public class DamagePopup : MonoBehaviour
         enemyTransform = enemy;
 
         transform.SetParent(enemy);
-        transform.localPosition = new Vector3(0, 2.5f, 0);
+        transform.localPosition = localPositionOffset;
         originalPosition = transform.localPosition;
     }
 

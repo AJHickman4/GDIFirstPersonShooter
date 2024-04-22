@@ -63,6 +63,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     Vector3 startingPos;
     bool destinationChosen;
     public float scaleDuration = 1f;
+    bool isDying = false;
 
     public waveSpawner whereISpawned;
 
@@ -72,6 +73,16 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
         stoppingDistOrg = agent.stoppingDistance;
         agent.stoppingDistance = 0;
         startingPos = transform.position;
+        int uniquePriority = PriorityManager.GetUniquePriority();
+
+        if (uniquePriority != -1)
+        {
+            agent.avoidancePriority = uniquePriority; 
+        }
+        else
+        {
+            //Debug
+        }
     }
 
     void Update()
@@ -181,10 +192,13 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
 
     IEnumerator onDeath()
     {
+        if (isDying) yield break; 
+        isDying = true;
         agent.isStopped = true;
         StopCoroutine(Roam());
         playerInRange = false;
         anim.SetTrigger("Death");
+        PriorityManager.ReleasePriority(agent.avoidancePriority);
         aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<SphereCollider>().enabled = false;
