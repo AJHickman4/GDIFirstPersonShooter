@@ -17,4 +17,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   description: 
   itemType: 8
-  effectValue: 0
+  effectValue: 75
