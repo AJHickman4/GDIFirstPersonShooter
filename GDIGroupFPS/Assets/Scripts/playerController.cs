@@ -319,7 +319,7 @@ public class playerController : MonoBehaviour, IDamage
     public IEnumerator DeathDelay() // put back in die if you get animations to work
     {
         yield return new WaitForSeconds(1.5f);
-        int creditsToDeduct = Mathf.Min(100, credits);
+        int creditsToDeduct = credits / 2;
         credits -= creditsToDeduct;
         gameManager.instance.updateCreditsUI();
         gameManager.instance.CancelAndResetTimer();

@@ -181,6 +181,37 @@ Transform:
   - {fileID: 5073930931977295042}
   m_Father: {fileID: 2699250885162043972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1475538045703679289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5328294154519527538}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5328294154519527538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475538045703679289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.83, z: 0.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3123483708463323916}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1560254157143364593
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,6 +941,7 @@ Transform:
   - {fileID: 4546234350930363605}
   - {fileID: 5454038042723560187}
   - {fileID: 5331419376733656220}
+  - {fileID: 5328294154519527538}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3010802452801113301
@@ -939,6 +971,11 @@ MonoBehaviour:
   roamPauseTime: 2
   bullet: {fileID: 3804443700838176787, guid: 9e5c92442035991438e19573e2fea9a4, type: 3}
   shootRate: 1
+  grenadePrefab: {fileID: 8513824885549641395, guid: 2aeccd882bece6444b6bf09462d953e9, type: 3}
+  grenadeSpawnPoint: {fileID: 5328294154519527538}
+  grenadeThrowRate: 5
+  grenadeThrowForce: 15
+  grenadeChance: 20
   creditGainOnDeath: 20
   dropObject: {fileID: 4805377207207939563, guid: 170ce21b5cf133340b5b1870a5c27bd3, type: 3}
   dropChancePercentage: 3

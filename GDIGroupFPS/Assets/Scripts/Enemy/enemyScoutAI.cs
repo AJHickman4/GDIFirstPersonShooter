@@ -26,11 +26,19 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
 
+    [Header("---- Grenade Assets ----")]
+    [SerializeField] GameObject grenadePrefab;
+    [SerializeField] Transform grenadeSpawnPoint;
+    [SerializeField] float grenadeThrowRate = 5.0f;
+    [SerializeField] float grenadeThrowForce = 15.0f;
+    private float lastGrenadeTime = -Mathf.Infinity;
+    [Range(0, 100)][SerializeField] int grenadeChance = 20;  
+
     //[Header("---- Waypoints ----")]
     //[SerializeField] GameObject[] waypointArray;
     //[SerializeField] int currWaypoint = 0;
     ////[SerializeField] float waypointSpeed = 1.0f;
-    
+
     [Header("---- Credits Settings ----")]
     [SerializeField] private int creditGainOnDeath = 5;
 
@@ -87,7 +95,10 @@ public class enemyScoutAI : MonoBehaviour, IDamage
         float animSpeed = agent.velocity.normalized.magnitude;
 
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTrans));
-
+        if (playerInRange && canSeePlayer())
+        {
+            TryThrowGrenade();
+        }
         if (playerInRange && !canSeePlayer())
         {
             StartCoroutine(Roam()); //If the player is in range but cannot be seen, AI should roam
@@ -150,13 +161,30 @@ public class enemyScoutAI : MonoBehaviour, IDamage
         agent.stoppingDistance = 0;
         return false;
     }
-
-    //Try IK to move pelvis only
+    void TryThrowGrenade()
+    {
+        if (Time.time > lastGrenadeTime + grenadeThrowRate && Random.Range(0, 100) < grenadeChance)
+        {
+            lastGrenadeTime = Time.time;
+            StartCoroutine(ThrowGrenade());
+        }
+    }
+    IEnumerator ThrowGrenade()
+    {
+        GameObject grenade = Instantiate(grenadePrefab, grenadeSpawnPoint.position, Quaternion.identity);
+        Rigidbody grenadeRb = grenade.GetComponent<Rigidbody>();
+        Vector3 targetPoint = gameManager.instance.player.transform.position;
+        Vector3 throwDirection = targetPoint - grenadeSpawnPoint.position;
+        float heightFactor = 1.0f; 
+        throwDirection.y += heightFactor * (throwDirection.magnitude / 10.0f); 
+        grenadeRb.AddForce(throwDirection.normalized * grenadeThrowForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(grenadeThrowRate);
+    }
+   
     void faceTarget()
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(playerDirection.x, 0, playerDirection.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
-
     }
 
     IEnumerator shoot()

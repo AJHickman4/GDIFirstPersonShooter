@@ -1102,6 +1102,8 @@ MonoBehaviour:
   headPos: {fileID: 7642665843221829775}
   meleeCol: {fileID: 6668690194545748059}
   aud: {fileID: 3967974963776084748}
+  stunProbability: 100
+  stunDuration: 15
   HP: 50
   speed: 20
   viewCone: 90
