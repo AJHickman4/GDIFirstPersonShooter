@@ -1,26 +1,26 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class proxSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject[] objectsToSpawn;
-    [SerializeField] int numToSpawn;
-    [SerializeField] int spawnTimer;
-    [SerializeField] Transform[] spawnPos;
-    [SerializeField] bool resetOnEnter = true;  
+    public  GameObject[] objectsToSpawn;
+    public int numToSpawn;
+    public int spawnTimer;
+    public Transform[] spawnPos;
+    public bool resetOnEnter = true;
+    public int maxActiveObjects = 10;
 
-    int spawnCount;
-    bool isSpawning;
-    bool startSpawning;
-
-    void Start()
-    {
-       
-    }
+    private List<GameObject> activeObjects = new List<GameObject>();
+    private int spawnCount;
+    private bool isSpawning;
+    private bool startSpawning;
 
     void Update()
     {
-        if (startSpawning && !isSpawning && spawnCount < numToSpawn)
+        activeObjects.RemoveAll(item => item == null);
+
+        if (startSpawning && !isSpawning && spawnCount < numToSpawn && activeObjects.Count < maxActiveObjects)
         {
             StartCoroutine(Spawn());
         }
@@ -32,8 +32,8 @@ public class proxSpawner : MonoBehaviour
         {
             if (resetOnEnter)
             {
-                spawnCount = 0;  
-                isSpawning = false;  
+                spawnCount = 0;
+                isSpawning = false;
             }
             startSpawning = true;
         }
@@ -44,7 +44,10 @@ public class proxSpawner : MonoBehaviour
         isSpawning = true;
         int arrayPos = Random.Range(0, spawnPos.Length);
         int objectIndex = Random.Range(0, objectsToSpawn.Length);
-        Instantiate(objectsToSpawn[objectIndex], spawnPos[arrayPos].position, spawnPos[arrayPos].rotation);
+
+        GameObject spawnedObject = Instantiate(objectsToSpawn[objectIndex], spawnPos[arrayPos].position, spawnPos[arrayPos].rotation);
+        activeObjects.Add(spawnedObject);
+
         spawnCount++;
         yield return new WaitForSeconds(spawnTimer);
         isSpawning = false;
