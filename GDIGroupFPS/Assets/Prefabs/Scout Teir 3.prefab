@@ -674,7 +674,7 @@ MonoBehaviour:
   roamPauseTime: 2
   bullet: {fileID: 3804443700838176787, guid: 9e5c92442035991438e19573e2fea9a4, type: 3}
   shootRate: 1
-  creditGainOnDeath: 30
+  creditGainOnDeath: 25
   dropObject: {fileID: 4805377207207939563, guid: 170ce21b5cf133340b5b1870a5c27bd3, type: 3}
   dropChancePercentage: 5
   dropObject2: {fileID: 3045271454566021025, guid: 0a0c37031fdf0a84a9ac81c6ba451f2b, type: 3}
