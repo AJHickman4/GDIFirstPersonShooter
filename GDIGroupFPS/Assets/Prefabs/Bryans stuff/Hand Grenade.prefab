@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.121136
+      value: -41.57473
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000014902253
+      value: 0.703
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -272.09457
+      value: -273.4132
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -81,6 +81,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5587037044660236385}
   m_SourcePrefab: {fileID: 100100000, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
+--- !u!23 &7849315943777654927 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
+  m_PrefabInstance: {fileID: 8855844271872021474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8513824885549641395 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
@@ -134,6 +139,9 @@ MonoBehaviour:
   explosionEffect: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
   explosionSound: {fileID: 8300000, guid: 9744898d600af7f44b6dbdf43e4e3892, type: 3}
   audioSource: {fileID: 5587037044660236385}
+  defaultMaterial: {fileID: -749338713933554755, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
+  flashRedMaterial: {fileID: 2100000, guid: 6bec17e8786814d46bd6abb823d79a21, type: 2}
+  rend: {fileID: 7849315943777654927}
 --- !u!135 &8349632791461282191
 SphereCollider:
   m_ObjectHideFlags: 0

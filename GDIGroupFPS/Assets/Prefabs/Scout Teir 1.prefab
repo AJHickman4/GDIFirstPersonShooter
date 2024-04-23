@@ -782,7 +782,7 @@ MonoBehaviour:
   grenadeSpawnPoint: {fileID: 7008058302458309403}
   grenadeThrowRate: 5
   grenadeThrowForce: 15
-  grenadeChance: 20
+  grenadeChance: 3
   creditGainOnDeath: 15
   dropObject: {fileID: 1870012495010853752, guid: fad1fa5ec9606794a8f8a7478034cd19, type: 3}
   dropChancePercentage: 2
