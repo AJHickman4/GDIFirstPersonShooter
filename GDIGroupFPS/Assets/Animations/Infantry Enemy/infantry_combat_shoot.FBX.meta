@@ -201,10 +201,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000000000000000000000100000001000000010000000100000000000000000000000000000000000000
       curves: []
       events:
-      - time: 0.09608209
+      - time: 0.14232469
         functionName: createBullet
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 7560485639221787466, guid: 3a07788c563cf254fb846f381e4551fd, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

@@ -92,6 +92,8 @@ public class playerController : MonoBehaviour, IDamage
 
     private float wantAlpha;
     private float startAlpha;
+    private Vector3 lastPosition;
+    public Vector3 velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +105,7 @@ public class playerController : MonoBehaviour, IDamage
         playerVel = Vector3.zero;
         currentStamina = maxStamina;
         spawnPlayer();
+        lastPosition = transform.position;
     }
 
     public void spawnPlayer()
@@ -120,6 +123,8 @@ public class playerController : MonoBehaviour, IDamage
     {
         /*Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);*/ //draws the raycast in the Scene. 
         float actualSpeed = speed * speedMultiplier;
+        velocity = (transform.position - lastPosition) / Time.deltaTime;
+        lastPosition = transform.position;
         movement();
         CheckForDoorAiming();
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.green);
@@ -288,6 +293,7 @@ public class playerController : MonoBehaviour, IDamage
         //StartCoroutine(PlayerDeathAnim());
         StartCoroutine(RotateTowardsGround());
         StartCoroutine(DeathDelay());
+        GlobalWeaponsStatsManager.Instance.CanShoot = false;
     }
     IEnumerator RotateTowardsGround() //remove if you get animations to work
     {
@@ -327,6 +333,8 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.isResetting = false;
         gameManager.instance.teleportEffect.Clear();
         gameManager.instance.teleportEffect.Stop();
+        gameManager.instance.teleportEffect.gameObject.SetActive(false);
+
         TeleportToSpawn();
 
         updatePlayerUI();
@@ -403,7 +411,10 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (slideTimer > 0)
         {
-            Vector3 slideDirection = transform.forward * slideSpeed; 
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            Vector3 inputDirection = new Vector3(horizontal, 0, vertical).normalized;
+            Vector3 slideDirection = (transform.forward * inputDirection.z + transform.right * inputDirection.x) * slideSpeed;
             controller.Move(slideDirection * Time.deltaTime);
             slideTimer -= Time.deltaTime;
         }
@@ -523,7 +534,7 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     private void TeleportToSpawn()
-    {
+    {           
         if (controller.enabled)
         {
             controller.enabled = false;
@@ -553,6 +564,7 @@ public class playerController : MonoBehaviour, IDamage
             yield return null; 
         }
         canMove = true;
+        GlobalWeaponsStatsManager.Instance.CanShoot = true;
         transform.rotation = endRotation; 
 
     }

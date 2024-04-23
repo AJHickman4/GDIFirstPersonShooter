@@ -59,6 +59,7 @@ public class Weapon : MonoBehaviour
     public bool unlimitedAmmo = false;
     public bool canShoot = true;
     public Weapon currentWeapon;
+    public Animator anim;
 
     [SerializeField] private GlobalWeaponsStatsManager globalWeaponsStatsManager;
 

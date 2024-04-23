@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4566109623520933888}
+  - component: {fileID: 279546313487361317}
   - component: {fileID: 3061630783977192724}
   - component: {fileID: 6911197598738417500}
   - component: {fileID: 1706441792450794744}
-  - component: {fileID: 8583760512399323629}
   - component: {fileID: 8548461171680782556}
   - component: {fileID: 5796279150688526231}
   m_Layer: 0
@@ -37,6 +37,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279546313487361317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7560485639221787466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08873bbe59547d44595e685d3568044f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 8548461171680782556}
+  damage: 25
+  speed: 60
+  destroyTime: 0.5
 --- !u!33 &3061630783977192724
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108,22 +124,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8583760512399323629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7560485639221787466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86b1fcc997cd7a34187926437e500964, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 8548461171680782556}
-  damage: 5
-  speed: 50
-  destroyTime: 2
 --- !u!54 &8548461171680782556
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!96 &5796279150688526231
 TrailRenderer:
   serializedVersion: 3
@@ -172,7 +172,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 311505f234fc8744cbfc1d48e5118f92, type: 2}
+  - {fileID: 2100000, guid: fa4240743a82ede4584ea18a351c31ea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,7 +193,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.12
+  m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -203,7 +203,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.2787519
+        value: 0.88618904
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -224,7 +224,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.5680493, b: 0, a: 1}
+      key0: {r: 0.745283, g: 0.14294294, b: 0.045701336, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -249,7 +249,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0

@@ -68,6 +68,7 @@ public class gameManager : MonoBehaviour
     private bool isFlashing = false;
     bool temp;
     public ParticleSystem teleportEffect;
+    private Coroutine flashCoroutine;
 
     // Start is called before the first frame update
     void Awake()
@@ -214,7 +215,35 @@ public class gameManager : MonoBehaviour
 
     public void UpdateAmmoUI(int currentAmmo, int totalAmmoReserve)
     {
-        bulletCountText.text = $"{totalAmmoReserve} / {currentAmmo}";
+        bulletCountText.text = $"{currentAmmo} / {totalAmmoReserve}";
+
+        if (currentAmmo == 0)
+        {
+            if (flashCoroutine == null)
+            {
+                flashCoroutine = StartCoroutine(FlashRed());
+            }
+        }
+        else
+        {
+            if (flashCoroutine != null)
+            {
+                StopCoroutine(flashCoroutine);
+                flashCoroutine = null;
+                // Reset the text color to default
+                bulletCountText.color = Color.white;
+            }
+        }
+    }
+    IEnumerator FlashRed()
+    {
+        while (true)
+        {
+            bulletCountText.color = Color.red;
+            yield return new WaitForSeconds(0.5f);
+            bulletCountText.color = Color.white;
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
 
