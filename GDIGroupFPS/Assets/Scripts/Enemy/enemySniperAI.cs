@@ -201,27 +201,24 @@ public class enemySniperAI : MonoBehaviour, IDamage
     }
     bool canSeePlayer()
     {
-        playerDirection = player.position - headPos.position;
+        playerDirection = (player.position + Vector3.up * 1.5f) - (headPos.position + Vector3.up * 1.5f); // Adjust for head height
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection.normalized, out hit, attackRange))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
             {
-                if (hit.collider.gameObject == player.gameObject)
-                {
-                    return true;  
-                }
+                return hit.collider.gameObject == player.gameObject;
             }
         }
-        return false; 
+        return false;
     }
     void faceTarget()
     {
         if (player != null)
         {
             Vector3 direction = (player.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * faceTargetSpeed);
         }
     }
