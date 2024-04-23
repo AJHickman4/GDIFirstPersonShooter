@@ -56,7 +56,7 @@ public class PriorityManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Attempted to release a priority that wasn't assigned: " + priority);
+            return;
         }
     }
 
