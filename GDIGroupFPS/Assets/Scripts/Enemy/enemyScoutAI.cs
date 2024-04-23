@@ -171,6 +171,8 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     }
     IEnumerator ThrowGrenade()
     {
+        anim.SetTrigger("Grenade"); 
+        yield return new WaitForSeconds(1.26f); 
         GameObject grenade = Instantiate(grenadePrefab, grenadeSpawnPoint.position, Quaternion.identity);
         Rigidbody grenadeRb = grenade.GetComponent<Rigidbody>();
         Vector3 targetPoint = gameManager.instance.player.transform.position;
