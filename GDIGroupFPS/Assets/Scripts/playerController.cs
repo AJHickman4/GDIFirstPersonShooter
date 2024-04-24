@@ -180,11 +180,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             StartCoroutine(FadeIn());
         }
-        else
+        else if (HP >= HPOrig * 0.5)
         {
             StartCoroutine(FadeOut());
         }
-
+        
         if (HP == HPOrig)
         {
             StartCoroutine(FadeOut());
@@ -661,11 +661,12 @@ public class playerController : MonoBehaviour, IDamage
 
         while (gameManager.instance.lowHP.color.a > 0)
         {
-            alphaVal -= 0.01f;
+            alphaVal -= 0.09f;
             current.a = alphaVal;
             gameManager.instance.lowHP.color = current;
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(2f);
+            gameManager.instance.lowHP.enabled = false;
         }
     }
 
@@ -676,11 +677,12 @@ public class playerController : MonoBehaviour, IDamage
 
         while (gameManager.instance.lowHP.color.a < 1)
         {
-            alphaVal += 0.01f;
+            gameManager.instance.lowHP.enabled = true;
+            alphaVal += 0.09f;
             current.a = alphaVal;
             gameManager.instance.lowHP.color = current;
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.08f);
         }
     }
 

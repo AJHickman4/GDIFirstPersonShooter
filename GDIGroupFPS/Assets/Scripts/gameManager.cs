@@ -38,7 +38,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject damageIndicator;
     public Image lowHP;
-    public Image dmgIndi;
+    //public Image dmgIndi;
 
     public Image healthBar;
     public Image damageBar;
