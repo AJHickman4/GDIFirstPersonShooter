@@ -77,6 +77,7 @@ public class enemySniperAI : MonoBehaviour, IDamage
 
     void Start()
     {
+        agent.updateRotation = false;
         startPosition = transform.position;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent.speed = fleeSpeed;
@@ -94,36 +95,42 @@ public class enemySniperAI : MonoBehaviour, IDamage
 
     void Update()
     {
-        if (player == null) return;
+        Debug.DrawLine(transform.position, transform.position + (player.position - transform.position).normalized * 10, Color.green);
+        if (player == null) return;  
         playerController playerMovement = player.GetComponent<playerController>();
         Vector3 playerVelocity = playerMovement.velocity;
-        float bulletTravelTime = Vector3.Distance(transform.position, player.position) / bulletSpeed;  // Define bulletSpeed based on your game's needs
-        Vector3 futurePosition = player.position + playerVelocity * bulletTravelTime;
+        float bulletTravelTime = Vector3.Distance(transform.position, player.position) / bulletSpeed;  
+        Vector3 futurePosition = player.position + playerVelocity * bulletTravelTime; 
 
         float animSpeed = agent.velocity.normalized.magnitude;
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTrans));
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position); 
         if (distanceToPlayer <= fleeDistance)
         {
             Flee();
         }
-        else if (distanceToPlayer <= attackRange && shootTimer <= 0)
+        else if (distanceToPlayer <= attackRange && shootTimer <= 0) 
         {
-            if (!isCharging)
+            if (playerInRange && canSeePlayer())
             {
-                StartCharge();
+                faceTarget(); 
             }
-            else if (canSeePlayer())
+            if (!isCharging)  
+            {
+                StartCharge(); 
+            }
+            else if (canSeePlayer())  
             {
                 ContinueCharge();
             }
         }
-        else
+        else  
         {
             isCharging = false;
             isFleeing = false;
         }
 
+        // Decrease shoot timer
         if (shootTimer > 0)
             shootTimer -= Time.deltaTime;
     }
@@ -155,17 +162,20 @@ public class enemySniperAI : MonoBehaviour, IDamage
         if (chargeTimer <= 0)
         {
             StartCoroutine(Shoot());
+            agent.enabled = false;
         }
     }
 
     IEnumerator Shoot()
     {
-        faceTarget();
+        if (isDying) yield break;
+        faceTarget(); 
         isCharging = false;
         shootTimer = shootRate;
         anim.SetTrigger("Shoot");
         aud.PlayOneShot(shootSound);
         yield return new WaitForSeconds(shootRate);
+        agent.enabled = true; 
     }
     public void createBullet()
     {
@@ -175,19 +185,26 @@ public class enemySniperAI : MonoBehaviour, IDamage
 
     private void FleeFromPlayer()
     {
-        Vector3 fleeDirection = (transform.position - player.position).normalized;
-        Vector3 fleePosition = transform.position + fleeDirection * fleeDistance; 
-
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(fleePosition, out hit, fleeDistance, NavMesh.AllAreas))
+        if (agent != null && agent.isActiveAndEnabled)
         {
-            agent.SetDestination(hit.position);
+            Vector3 fleeDirection = (transform.position - player.position).normalized;
+            Vector3 fleePosition = transform.position + fleeDirection * fleeDistance;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(fleePosition, out hit, fleeDistance, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+        }
+        else
+        {
+            return;
         }
     }
 
     private void Flee()
     {
-        if (isFleeing) return;
+        if (isFleeing || agent == null || !agent.isActiveAndEnabled) return;
 
         isFleeing = true;
         Vector3 fleeDirection = (transform.position - player.position).normalized;
@@ -198,29 +215,29 @@ public class enemySniperAI : MonoBehaviour, IDamage
         {
             agent.SetDestination(hit.position);
         }
+        else
+        {
+            return;
+        }
     }
     bool canSeePlayer()
     {
-        playerDirection = (player.position + Vector3.up * 1.5f) - (headPos.position + Vector3.up * 1.5f); // Adjust for head height
-        angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
+        Vector3 directionToPlayer = player.position - headPos.position;
         RaycastHit hit;
-        if (Physics.Raycast(headPos.position, playerDirection.normalized, out hit, attackRange))
+        if (Physics.Raycast(headPos.position, directionToPlayer.normalized, out hit, attackRange))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewCone)
-            {
-                return hit.collider.gameObject == player.gameObject;
-            }
+            return hit.collider.gameObject == player.gameObject && Vector3.Angle(directionToPlayer, transform.forward) <= viewCone;
         }
         return false;
     }
     void faceTarget()
     {
-        if (player != null)
-        {
-            Vector3 direction = (player.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * faceTargetSpeed);
-        }
+        Vector3 targetHeightOffset = new Vector3(0, player.GetComponent<Collider>().bounds.extents.y, 0); 
+        Vector3 playerCenter = player.position + targetHeightOffset;
+        Vector3 directionToPlayerCenter = (playerCenter - headPos.position).normalized;
+        Quaternion targetRotation = isCharging ? Quaternion.LookRotation(directionToPlayerCenter) :
+                                                 Quaternion.Euler(0, Quaternion.LookRotation(directionToPlayerCenter).eulerAngles.y, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * faceTargetSpeed);
     }
     public void takeDamage(int amount)
     {
@@ -240,8 +257,8 @@ public class enemySniperAI : MonoBehaviour, IDamage
     IEnumerator onDeath()
     {
         if (isDying) yield break;
+        StopCoroutine(Shoot());
         isDying = true;
-        agent.isStopped = true;
         StopCoroutine(Roam());
         playerInRange = false;
         anim.SetTrigger("Death");
