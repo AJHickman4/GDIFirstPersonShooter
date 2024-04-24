@@ -63,7 +63,7 @@ public class gameManager : MonoBehaviour
     
     public GameObject startingSpawn;
     public bool isPaused;
-    float timeScaleOrig;
+    public float timeScaleOrig;
     int enemyCount;
     public bool timerIsActive = false;
     private bool isFlashing = false;

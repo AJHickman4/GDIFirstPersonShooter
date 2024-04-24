@@ -29,6 +29,13 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.playerScript.spawnPlayer();
     }
 
+    public void returnToMainMenu()
+    {
+        aud.Play();
+        Time.timeScale = gameManager.instance.timeScaleOrig;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
     public void quit()
     {
         aud.Play();
