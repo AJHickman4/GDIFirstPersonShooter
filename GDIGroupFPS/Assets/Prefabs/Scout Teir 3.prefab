@@ -708,7 +708,7 @@ MonoBehaviour:
   shootRate: 1
   grenadePrefab: {fileID: 8513824885549641395, guid: 2aeccd882bece6444b6bf09462d953e9, type: 3}
   grenadeSpawnPoint: {fileID: 489661224147705531}
-  grenadeThrowRate: 5
+  grenadeThrowRate: 25
   grenadeThrowForce: 15
   grenadeChance: 4
   creditGainOnDeath: 25
