@@ -518,7 +518,7 @@ MonoBehaviour:
   _coneSides: 30
   _proportionalRadius: 1
   _coneRadius: 0.31
-  _coneHeight: 15
+  _coneHeight: 25
 --- !u!1 &7106248017453416482
 GameObject:
   m_ObjectHideFlags: 0
