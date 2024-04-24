@@ -340,14 +340,13 @@ public class playerController : MonoBehaviour, IDamage
         int creditsToDeduct = credits / 2;
         credits -= creditsToDeduct;
         gameManager.instance.updateCreditsUI();
-        gameManager.instance.DisplayCreditsLostOnDeath(creditsToDeduct);
         gameManager.instance.CancelAndResetTimer();
         gameManager.instance.StopAllCoroutines();
         gameManager.instance.isResetting = false;
         gameManager.instance.teleportEffect.Clear();
         gameManager.instance.teleportEffect.Stop();
         gameManager.instance.teleportEffect.gameObject.SetActive(false);
-
+        gameManager.instance.DisplayCreditsLostOnDeath(creditsToDeduct);
         TeleportToSpawn();
         isInvincible = false;
         updatePlayerUI();

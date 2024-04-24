@@ -57,7 +57,6 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     public Camera cam;
-
     public ShopManager shopManager; //ref to new shop manager. needed for pause menu
 
     public Weapon currentWeapon;
@@ -259,13 +258,13 @@ public class gameManager : MonoBehaviour
         {
             lostCreditsText.text = "Credits lost: " + creditsLost;
             lostCreditsText.gameObject.SetActive(true);
-            StartCoroutine(HideLostCreditsTextAfterDelay(5)); 
+            StartCoroutine(HideLostCreditsTextAfterDelay()); 
         }
     }
 
-    IEnumerator HideLostCreditsTextAfterDelay(float delay)
+    IEnumerator HideLostCreditsTextAfterDelay()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(2f);
         lostCreditsText.gameObject.SetActive(false);
     }
     
