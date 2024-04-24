@@ -89,6 +89,8 @@ public class playerController : MonoBehaviour, IDamage
 
     private bool playingSteps;
     private bool isSprinting;
+    private float lastHurtTime = 0;
+    public float hurtSoundCooldown = 0.5f;  
 
     private float wantAlpha;
     private float startAlpha;
@@ -268,25 +270,26 @@ public class playerController : MonoBehaviour, IDamage
 
     public void takeDamage(int amount)
     {
+        if (isInvincible || !isAlive) return;
 
-        if (isInvincible)
-        {
-            return;
-        }
-        if (!isAlive) return;
         isTakingDamage = true;
         StartCoroutine(ShowDamageIndicator());
         HP -= amount;
-        aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
-        HP = Mathf.Clamp(HPOrig, 0, HP);
+        HP = Mathf.Clamp(HP, 0, HPOrig);
         updatePlayerUI();
+
+        float currentTime = Time.time;
+        if (currentTime - lastHurtTime > hurtSoundCooldown)
+        {
+            aud.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
+            lastHurtTime = currentTime;
+        }
 
         if (HP <= 0)
         {
             aud.PlayOneShot(audLose[Random.Range(0, audLose.Length)], audLoseVol);
             Die();
         }
-
     }
     public void Die()
     {
@@ -294,6 +297,7 @@ public class playerController : MonoBehaviour, IDamage
         StartCoroutine(RotateTowardsGround());
         StartCoroutine(DeathDelay());
         GlobalWeaponsStatsManager.Instance.CanShoot = false;
+        isInvincible = true;
     }
     IEnumerator RotateTowardsGround() //remove if you get animations to work
     {
@@ -336,7 +340,7 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.teleportEffect.gameObject.SetActive(false);
 
         TeleportToSpawn();
-
+        isInvincible = false;
         updatePlayerUI();
         HP = HPOrig;
     }

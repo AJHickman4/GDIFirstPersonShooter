@@ -621,7 +621,7 @@ MonoBehaviour:
   partToRotate: {fileID: 4303924321718528852}
   raycastOrigin: {fileID: 4268500619328407017}
   range: 40
-  shootingInterval: 0.1
+  shootingInterval: 0.3
   baseRotationSpeed: 5
   visionConeAngle: 180
   health: 100
