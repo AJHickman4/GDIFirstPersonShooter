@@ -38,7 +38,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject damageIndicator;
     public Image lowHP;
-    public Image dmgIndi;
+    //public Image dmgIndi;
 
     public Image healthBar;
     public Image damageBar;
@@ -276,7 +276,7 @@ public class gameManager : MonoBehaviour
     {
         
         { 
-            isResetting = true;
+
             playerScript.controller.enabled = false;
             yield return new WaitForSeconds(0.5f);
             player.transform.position = startingSpawn.transform.position;

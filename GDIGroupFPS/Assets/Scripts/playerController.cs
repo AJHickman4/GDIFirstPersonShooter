@@ -55,7 +55,15 @@ public class playerController : MonoBehaviour, IDamage
     [Range(0, 1)][SerializeField] float audStepsVol;
     [SerializeField] AudioClip[] audLose;
     [Range(0, 1)][SerializeField] float audLoseVol;
-    
+
+    [Header("----- Dash Parameters -----")]
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.3f;
+    private bool isDashing = false;
+    public Vector3 dashDirection;
+    public float dashCooldown = 2f; 
+    private float lastDashTime = -10f;
+    public float verticalThreshold = 0.5f;
 
     [Header("----- Melee Attack Parameters -----")]
     public GameObject meleeWeapon;
@@ -172,11 +180,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             StartCoroutine(FadeIn());
         }
-        else
+        else if (HP >= HPOrig * 0.5)
         {
             StartCoroutine(FadeOut());
         }
-
+        
         if (HP == HPOrig)
         {
             StartCoroutine(FadeOut());
@@ -494,25 +502,49 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator PerformMeleeAttack()
     {
-        if (!canMove) yield break; // remove if you get animations to work
-        if (!isMeleeReady || currentWeapon == null || currentWeapon.isReloading || currentWeapon.isRecoiling)
+        if (!canMove) yield break;  
+        if (!isMeleeReady || (currentWeapon != null && (currentWeapon.isReloading || currentWeapon.isRecoiling)))
         {
             yield break;  
-        }
-        isMeleeReady = false;
-        currentWeapon.readyToShoot = false; 
+        }        
+        isMeleeReady = false;  
         equipScript.DeactivateAllGuns();
         meleeWeapon.SetActive(true);
         meleeAnimator.SetTrigger("Attack");
+        if (Time.time >= lastDashTime + dashCooldown)
+            StartCoroutine(PerformDash());
         yield return new WaitForSeconds(0.2f);  
         ApplyMeleeDamage();
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.4f);  
         meleeWeapon.SetActive(false);
         equipScript.ReactivateAllGuns();
-        currentWeapon.readyToShoot = true;
-        isMeleeReady = true;
+        isMeleeReady = true;  
     }
-    
+    IEnumerator PerformDash()
+    {
+        if (Time.time < lastDashTime + dashCooldown) 
+            yield break;
+        isDashing = true;
+        lastDashTime = Time.time; 
+        Vector3 horizontalInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        horizontalInput = transform.TransformDirection(horizontalInput.normalized);
+        Vector3 forward = playerCamera.transform.forward;
+        forward.y = 0;  
+        forward.Normalize();
+        float vertical = playerCamera.transform.forward.y;
+        vertical = (vertical > verticalThreshold) ? vertical : 0;  
+        dashDirection = horizontalInput + new Vector3(0, vertical, 0);
+        dashDirection = dashDirection.normalized * dashSpeed;
+        float dashEndTime = Time.time + dashDuration;
+        while (Time.time < dashEndTime)
+        {
+            controller.Move(dashDirection * Time.deltaTime);
+            yield return null;
+        }
+
+        isDashing = false;
+    }
+
     private void ApplyMeleeDamage()
     {
         Vector3 attackPosition = transform.position + transform.forward * 1.0f;
@@ -629,11 +661,12 @@ public class playerController : MonoBehaviour, IDamage
 
         while (gameManager.instance.lowHP.color.a > 0)
         {
-            alphaVal -= 0.01f;
+            alphaVal -= 0.09f;
             current.a = alphaVal;
             gameManager.instance.lowHP.color = current;
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(2f);
+            gameManager.instance.lowHP.enabled = false;
         }
     }
 
@@ -644,11 +677,12 @@ public class playerController : MonoBehaviour, IDamage
 
         while (gameManager.instance.lowHP.color.a < 1)
         {
-            alphaVal += 0.01f;
+            gameManager.instance.lowHP.enabled = true;
+            alphaVal += 0.09f;
             current.a = alphaVal;
             gameManager.instance.lowHP.color = current;
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.08f);
         }
     }
 
