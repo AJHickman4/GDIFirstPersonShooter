@@ -340,6 +340,7 @@ public class playerController : MonoBehaviour, IDamage
         int creditsToDeduct = credits / 2;
         credits -= creditsToDeduct;
         gameManager.instance.updateCreditsUI();
+        gameManager.instance.DisplayCreditsLostOnDeath(creditsToDeduct);
         gameManager.instance.CancelAndResetTimer();
         gameManager.instance.StopAllCoroutines();
         gameManager.instance.isResetting = false;

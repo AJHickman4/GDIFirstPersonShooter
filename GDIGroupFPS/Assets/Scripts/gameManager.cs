@@ -23,6 +23,7 @@ public class gameManager : MonoBehaviour
     public GameObject menuCheckpoint;
     [SerializeField] TMP_Text CreditsText;
     [SerializeField] TMP_Text bulletCountText;
+    [SerializeField] TMP_Text lostCreditsText;
     [SerializeField] GameObject startingDialog;
     [SerializeField] GameObject iconDoubleDamage;
     [SerializeField] GameObject iconShield;
@@ -30,6 +31,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TMP_Text timerText;
     [SerializeField] private float flashThreshold = 10f;
     [SerializeField] private float flashDuration = 0.5f;
+
 
     [Header("-----First Selected Button------")]
     [SerializeField] private GameObject _mainMenuFirst;
@@ -246,12 +248,27 @@ public class gameManager : MonoBehaviour
         }
     }
 
-
     public void updateCreditsUI()
     {
         CreditsText.text = playerScript.credits.ToString("F0");
     }
 
+    public void DisplayCreditsLostOnDeath(int creditsLost)
+    {
+        if (lostCreditsText != null)
+        {
+            lostCreditsText.text = "Credits lost: " + creditsLost;
+            lostCreditsText.gameObject.SetActive(true);
+            StartCoroutine(HideLostCreditsTextAfterDelay(5)); 
+        }
+    }
+
+    IEnumerator HideLostCreditsTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        lostCreditsText.gameObject.SetActive(false);
+    }
+    
     public void updateKeysNeededUI(int keysPlayerNeeds)
     {
         keysNeededText.text = keysPlayerNeeds.ToString("F0");
