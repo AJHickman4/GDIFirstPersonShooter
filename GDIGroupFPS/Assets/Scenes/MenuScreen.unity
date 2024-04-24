@@ -492,6 +492,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264799573}
   m_CullTransparentMesh: 1
+--- !u!114 &446893046 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7822296542875272115, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+  m_PrefabInstance: {fileID: 8804241070677388717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &470441376 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6216631541791791092, guid: f1877d6514f9a464284b841866c255b8, type: 3}
@@ -2197,6 +2208,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 138349220875577362, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_text
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -2221,6 +2236,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 1080
       objectReference: {fileID: 0}
+    - target: {fileID: 954598651407672083, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_text
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 1463202458932693051, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2228,6 +2247,18 @@ PrefabInstance:
     - target: {fileID: 1463202458932693051, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233542524623413792, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233542524623413792, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3233542524623413792, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3300151267302915111, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2341,6 +2372,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4292996470940702092, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_text
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 4781329595373602699, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2352,6 +2387,12 @@ PrefabInstance:
     - target: {fileID: 4781329595373602699, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976211556054149648, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_text
+      value: 'SFX Volume
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 5025485592966724249, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2376,6 +2417,22 @@ PrefabInstance:
     - target: {fileID: 6216631541791791092, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6398356516333814003, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_text
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721792211839127612, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 446893046}
+    - target: {fileID: 6956702960742450712, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7822296542875272115, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_text
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 8044500567477879114, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2424,7 +2481,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2102999443}
   - {fileID: 1577377974}
-  - {fileID: 8804241070677388717}
   - {fileID: 1564995679}
+  - {fileID: 8804241070677388717}
   - {fileID: 202795016}
   - {fileID: 579241889}

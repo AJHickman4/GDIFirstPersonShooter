@@ -10889,6 +10889,7 @@ MonoBehaviour:
   audDeathVol: 0.5
   damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
   scaleDuration: 1
+  isDying: 0
 --- !u!114 &4250003829711374536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11078,7 +11079,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
