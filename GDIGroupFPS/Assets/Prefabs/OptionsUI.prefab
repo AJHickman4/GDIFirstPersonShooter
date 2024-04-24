@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 143, y: -173.5}
+  m_AnchoredPosition: {x: 143, y: -54.750004}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5698095429145862961
@@ -195,9 +195,9 @@ RectTransform:
   m_Children:
   - {fileID: 2276572475278650606}
   - {fileID: 2766422649501260524}
-  - {fileID: 511873488905743890}
   - {fileID: 3425163397572619800}
   - {fileID: 5252809809875551845}
+  - {fileID: 511873488905743890}
   m_Father: {fileID: 3912080214595948379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 8385311060846561325}
   - component: {fileID: 6747697649898137417}
   m_Layer: 5
-  m_Name: TextPlayer
+  m_Name: TextMob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,7 +352,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -779, y: -54.75}
+  m_AnchoredPosition: {x: -779, y: 64}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8385311060846561325
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player Volume
+  m_text: Mob Volume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fcd8657ad25cb674b88e89a6976580f5, type: 2}
   m_sharedMaterial: {fileID: -2454430267778253609, guid: fcd8657ad25cb674b88e89a6976580f5, type: 2}
@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 4340898977815124839}
   - component: {fileID: 6997048931851746427}
   m_Layer: 5
-  m_Name: Player Slider
+  m_Name: Mob Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1072,7 +1072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 143, y: -54.75}
+  m_AnchoredPosition: {x: 143, y: 64}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4340898977815124839
@@ -1553,9 +1553,9 @@ RectTransform:
   - {fileID: 8973514774214919620}
   - {fileID: 4076264073314285964}
   - {fileID: 1571856111806367388}
-  - {fileID: 2298986863436934283}
   - {fileID: 1317560249812194611}
   - {fileID: 6627333674210450056}
+  - {fileID: 2298986863436934283}
   m_Father: {fileID: 3912080214595948379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1866,7 +1866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2298986863436934283
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2344,7 +2344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &511873488905743890
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2773,7 +2773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -779, y: -173.5}
+  m_AnchoredPosition: {x: -779, y: -54.75}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7449034133418696026
@@ -3773,8 +3773,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6343352688932095521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.69997, y: 0}
+  m_AnchorMax: {x: 0.69997, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4029,7 +4029,7 @@ RectTransform:
   m_Father: {fileID: 7082873174679332350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.69997, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4257,7 +4257,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'UI Volume
+  m_text: 'SFX Volume
 
 '
   m_isRightToLeft: 0
