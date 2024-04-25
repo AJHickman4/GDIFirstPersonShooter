@@ -5,7 +5,7 @@ using UnityEngine;
 public class cameraController : MonoBehaviour
 {
 
-    [SerializeField] int sensitivity;
+    public float sensitivity;
     [SerializeField] int lockVertMin, LockVertMax; //usually 90 and -90 for scoape
     [SerializeField] bool invertY;
     [SerializeField] Camera mainCamera; //references main camera
@@ -37,8 +37,8 @@ public class cameraController : MonoBehaviour
         if (!isCameraLocked)  
         {
             // Get input
-            float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity;
-            float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity * 10f;
+            float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensitivity * 10f;
 
             // Invert look 
             if (invertY)
