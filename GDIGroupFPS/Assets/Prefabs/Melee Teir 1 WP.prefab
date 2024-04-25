@@ -1167,6 +1167,7 @@ MonoBehaviour:
   audDeathVol: 0.5
   damagePopupPrefab: {fileID: 5598368652011989955, guid: eb7a75cdde2886a46be8d65433045ad7, type: 3}
   scaleDuration: 1
+  isDying: 0
 --- !u!95 &285983734930120591
 Animator:
   serializedVersion: 5
@@ -1219,7 +1220,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8968734907223489253}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 1
   m_Speed: 6
   m_Acceleration: 8

@@ -1251,9 +1251,12 @@ MonoBehaviour:
   speed: 2
   viewCone: 90
   faceTargetSpeed: 10
+  fleeDistance: 0
+  fleeSpeed: 0
   animSpeedTrans: 20
   roamDist: 10
   roamPauseTime: 2
+  shouldFleeWhenDamaged: 1
   bullet: {fileID: 3804443700838176787, guid: 9e5c92442035991438e19573e2fea9a4, type: 3}
   shootRate: 1
   waypointArray:
@@ -1311,7 +1314,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836539347272475052}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 1
   m_Speed: 5
   m_Acceleration: 8

@@ -19,12 +19,9 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] int speed;
     [SerializeField] int viewCone;
     [SerializeField] int faceTargetSpeed;
-    [SerializeField] private float fleeDistance;
-    [SerializeField] private float fleeSpeed;
     [SerializeField] float animSpeedTrans;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
-    [SerializeField] private bool shouldFleeWhenDamaged = true;
 
     [Header("---- Bullet Assets ----")]
     [SerializeField] GameObject bullet;
@@ -70,9 +67,7 @@ public class enemyAI : MonoBehaviour, IDamage
     bool destinationChosen;
     public float scaleDuration = 1f;
     private bool isDying = false;
-    private bool isFleeing;
-    private Transform player;
-    private Vector3 startPosition;
+    
 
 
     void Start()
@@ -97,11 +92,7 @@ public class enemyAI : MonoBehaviour, IDamage
 
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTrans));
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (distanceToPlayer <= fleeDistance)
-        {
-            Flee();
-        }
+        
 
         if (playerInRange && !canSeePlayer())
         {
@@ -187,43 +178,7 @@ public class enemyAI : MonoBehaviour, IDamage
         isShooting = false;
     }
 
-    private void FleeFromPlayer()
-    {
-        if (agent != null && agent.isActiveAndEnabled)
-        {
-            Vector3 fleeDirection = (transform.position - player.position).normalized;
-            Vector3 fleePosition = transform.position + fleeDirection * fleeDistance;
-
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(fleePosition, out hit, fleeDistance, NavMesh.AllAreas))
-            {
-                agent.SetDestination(hit.position);
-            }
-        }
-        else
-        {
-            return;
-        }
-    }
-
-    private void Flee()
-    {
-        if (isFleeing || agent == null || !agent.isActiveAndEnabled) return;
-
-        isFleeing = true;
-        Vector3 fleeDirection = (transform.position - player.position).normalized;
-        Vector3 fleePosition = startPosition + fleeDirection * fleeDistance;
-
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(fleePosition, out hit, fleeDistance, NavMesh.AllAreas))
-        {
-            agent.SetDestination(hit.position);
-        }
-        else
-        {
-            return;
-        }
-    }
+    
 
     public void createBullet()
     {
