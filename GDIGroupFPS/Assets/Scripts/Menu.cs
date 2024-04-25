@@ -2,13 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-
     [SerializeField] AudioSource aud;
     [SerializeField] GameObject menuOptions;
     [SerializeField] GameObject menuMain;
+    [SerializeField] GameObject menuExitButton;
+
+    private void Awake()
+    {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            if (menuExitButton)
+            {
+                menuExitButton.SetActive(false);
+            }
+        }
+    }
     public void OnPlayClick()
     {
         aud.Play();
