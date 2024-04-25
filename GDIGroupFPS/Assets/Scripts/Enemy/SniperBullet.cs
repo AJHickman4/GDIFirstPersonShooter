@@ -31,7 +31,6 @@ public class SniperBullet : MonoBehaviour
         if (damageable != null && other.CompareTag("Player"))
         {
             damageable.takeDamage(damage); 
-            Debug.Log("Player hit by sniper bullet");
         }
         Destroy(gameObject);
     }

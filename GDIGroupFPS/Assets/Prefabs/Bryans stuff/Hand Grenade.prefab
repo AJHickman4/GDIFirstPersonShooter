@@ -5169,6 +5169,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: -749338713933554755, guid: 5157c901e94e8244e92bf6fd339e76e9, type: 3}
   flashRedMaterial: {fileID: 2100000, guid: 6bec17e8786814d46bd6abb823d79a21, type: 2}
   indicatorPrefab: {fileID: 5578128401939955529, guid: 7cc229bfc762f2144af75d8171eea3b0, type: 3}
+  meshRenderer: {fileID: 7849315943777654927}
   rend: {fileID: 7849315943777654927}
 --- !u!135 &8349632791461282191
 SphereCollider:

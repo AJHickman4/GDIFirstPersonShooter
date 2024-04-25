@@ -170,7 +170,7 @@ public class playerController : MonoBehaviour, IDamage
             SlideMovement();
         }
 
-        if (Input.GetKeyDown(KeyCode.V) && isMeleeReady)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && isMeleeReady)
         {
             StartCoroutine(PerformMeleeAttack());
         }
@@ -345,7 +345,6 @@ public class playerController : MonoBehaviour, IDamage
         gameManager.instance.isResetting = false;
         gameManager.instance.teleportEffect.Clear();
         gameManager.instance.teleportEffect.Stop();
-        gameManager.instance.teleportEffect.gameObject.SetActive(false);
         gameManager.instance.DisplayCreditsLostOnDeath(creditsToDeduct);
         TeleportToSpawn();
         isInvincible = false;

@@ -14,6 +14,7 @@ public class Grenade : MonoBehaviour
     [SerializeField] private Material flashRedMaterial;
     private GameObject indicatorInstance;
     [SerializeField] private GameObject indicatorPrefab;
+    [SerializeField] private MeshRenderer meshRenderer;
 
 
     public Renderer rend;
@@ -82,6 +83,7 @@ public class Grenade : MonoBehaviour
                 }
             }
         }
+        meshRenderer.enabled = false;
         float destroyDelay = Mathf.Max(0.5f + explosionSound.length, 0f);
         Destroy(gameObject, destroyDelay);
         float explosionEffectDuration = 3.0f; 

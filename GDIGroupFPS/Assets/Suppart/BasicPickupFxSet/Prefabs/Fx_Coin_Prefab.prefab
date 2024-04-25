@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3206087586422605496}
   - component: {fileID: 3206087586422605497}
   - component: {fileID: 3082749634870387288}
-  - component: {fileID: 1909093977865575280}
   m_Layer: 0
   m_Name: Fx_Coin_Prefab
   m_TagString: Untagged
@@ -4912,19 +4911,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5754407
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1909093977865575280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3206087586422605446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91005de8396e7e2449dda50e4e0dbfa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerScript: {fileID: 0}
 --- !u!1 &4107253830026810004
 GameObject:
   m_ObjectHideFlags: 0

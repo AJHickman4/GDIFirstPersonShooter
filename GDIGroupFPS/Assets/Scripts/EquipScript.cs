@@ -29,7 +29,7 @@ public class EquipScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("f"))
+        if (Input.GetKeyDown("e"))
         {
             TryEquipObjectWithRaycast();
         }
