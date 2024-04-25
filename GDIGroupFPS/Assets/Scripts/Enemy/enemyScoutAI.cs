@@ -18,6 +18,8 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     [SerializeField] int speed;
     [SerializeField] int viewCone;
     [SerializeField] int faceTargetSpeed;
+    [SerializeField] private float fleeDistance;
+    [SerializeField] private float fleeSpeed;
     [SerializeField] float animSpeedTrans;
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
@@ -62,6 +64,8 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     [SerializeField] AudioClip[] audDeath;
     [Range(0, 1)][SerializeField] float audDeathVol;
 
+    [SerializeField] private bool shouldFleeWhenDamaged = true;
+
     bool isShooting;
     bool playerInRange;
     float angleToPlayer;
@@ -72,6 +76,9 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     public Transform damagePopupPrefab;
     public float scaleDuration = 1f;
     private bool isDying = false;
+    private bool isFleeing;
+    private Transform player;
+    private Vector3 startPosition;
 
 
     void Start()
@@ -93,6 +100,12 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     void Update()
     {
         float animSpeed = agent.velocity.normalized.magnitude;
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (distanceToPlayer <= fleeDistance)
+        {
+            Flee();
+        }
 
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTrans));
         if (playerInRange && canSeePlayer())
@@ -161,6 +174,45 @@ public class enemyScoutAI : MonoBehaviour, IDamage
         agent.stoppingDistance = 0;
         return false;
     }
+
+    private void FleeFromPlayer()
+    {
+        if (agent != null && agent.isActiveAndEnabled)
+        {
+            Vector3 fleeDirection = (transform.position - player.position).normalized;
+            Vector3 fleePosition = transform.position + fleeDirection * fleeDistance;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(fleePosition, out hit, fleeDistance, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private void Flee()
+    {
+        if (isFleeing || agent == null || !agent.isActiveAndEnabled) return;
+
+        isFleeing = true;
+        Vector3 fleeDirection = (transform.position - player.position).normalized;
+        Vector3 fleePosition = startPosition + fleeDirection * fleeDistance;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(fleePosition, out hit, fleeDistance, NavMesh.AllAreas))
+        {
+            agent.SetDestination(hit.position);
+        }
+        else
+        {
+            return;
+        }
+    }
+
     void TryThrowGrenade()
     {
         if (Time.time > lastGrenadeTime + grenadeThrowRate && Random.Range(0, 100) < grenadeChance)
@@ -209,6 +261,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
         aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
         DamagePopup.Create(damagePopupPrefab, transform, amount);
         agent.SetDestination(gameManager.instance.player.transform.position);
+        if (shouldFleeWhenDamaged) FleeFromPlayer();
         StartCoroutine(flashRed());
 
         if (HP <= 0)

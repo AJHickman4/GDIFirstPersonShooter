@@ -31,6 +31,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     //[SerializeField] GameObject[] waypointArray;
     //[SerializeField] int currWaypoint = 0;
     //[SerializeField] float waypointSpeed = 1.0f;
+
     [Header("---- Credits Settings ----")]
     [SerializeField] private int creditGainOnDeath = 5;
 
@@ -89,6 +90,8 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
         float animSpeed = agent.velocity.normalized.magnitude;
 
         anim.SetFloat("Speed", Mathf.Lerp(anim.GetFloat("Speed"), animSpeed, Time.deltaTime * animSpeedTrans));
+
+
 
         if (playerInRange && !canSeePlayer())
         {
@@ -200,6 +203,7 @@ public class enemyFlamerAI : MonoBehaviour, IDamage
     IEnumerator onDeath()
     {
         if (isDying) yield break;
+        isShooting = false;
         isDying = true;
         agent.isStopped = true;
         StopCoroutine(Roam());
