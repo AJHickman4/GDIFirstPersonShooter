@@ -64,8 +64,8 @@ MonoBehaviour:
   audExplosionVol: 1
   dropObject: {fileID: 5665514921677992063, guid: 77aba071ec2665a4288a063423740d8c, type: 3}
   dropChancePercentage: 25
-  dropObject2: {fileID: 5591589068016434294, guid: 6d5ccace65e9fbc47a7c12d8c4961a18, type: 3}
-  dropChancePercentage2: 5
+  dropObject2: {fileID: 2848890779713228290, guid: 9a8468fe6f514a945b6c5dee3d8d7a68, type: 3}
+  dropChancePercentage2: 14
   dropObject3: {fileID: 4883991968509214950, guid: d3611dc82deb88c4c9bb77cc4a987645, type: 3}
   dropChancePercentage3: 1
 --- !u!23 &5565746001252764917

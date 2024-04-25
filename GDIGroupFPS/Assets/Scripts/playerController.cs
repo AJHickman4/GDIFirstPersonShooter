@@ -640,6 +640,12 @@ public class playerController : MonoBehaviour, IDamage
         credits += 1000;
         gameManager.instance.updateCreditsUI();
     }
+    public void CoinDrop() 
+    {
+        int randomCoins = UnityEngine.Random.Range(10, 50);
+        credits += randomCoins;
+        gameManager.instance.updateCreditsUI();
+    }
 
     //private IEnumerator PlayerDeathAnim()
     //{
