@@ -162,6 +162,7 @@ Transform:
   - {fileID: 3686508305160512937}
   - {fileID: 4093354906019063196}
   - {fileID: 2392605615289374455}
+  - {fileID: 6194648018299285368}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7273493675974205072
@@ -591,7 +592,82 @@ MonoBehaviour:
   - {fileID: 3953671451310025340, guid: f31f4556ad160de42ab5ec86c0281ba8, type: 3}
   - {fileID: 3045271454566021025, guid: 0a0c37031fdf0a84a9ac81c6ba451f2b, type: 3}
   - {fileID: 4805377207207939563, guid: 170ce21b5cf133340b5b1870a5c27bd3, type: 3}
+  - {fileID: 5390739477895898126, guid: 478acc2cfd2119a4faa37f08679e78b8, type: 3}
   spawnPoint: {fileID: 2392605615289374455}
+--- !u!1001 &8627766204113055825
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8098704328869306811}
+    m_Modifications:
+    - target: {fileID: 1021839240035314086, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_Name
+      value: FloatingTextPanelPad
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345040382123950644, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: offset.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.7550051
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1240001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2017672
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918562461641371325, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434933161529446128, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: m_text
+      value: Vending Machine 100 Credits
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+--- !u!4 &6194648018299285368 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+  m_PrefabInstance: {fileID: 8627766204113055825}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9037565621091315607
 PrefabInstance:
   m_ObjectHideFlags: 0
