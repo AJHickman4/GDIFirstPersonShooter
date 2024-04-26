@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
 using System.Collections;
-using UnityEditor.Timeline;
+
 
 public class Sweepo : MonoBehaviour
 {
