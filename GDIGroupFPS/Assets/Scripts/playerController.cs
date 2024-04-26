@@ -615,6 +615,11 @@ public class playerController : MonoBehaviour, IDamage
                 {
                     TriggerButtonAction(hit.collider.gameObject);
                 }
+                VendingMachine vendingMachine = hit.collider.GetComponent<VendingMachine>();
+                if (vendingMachine != null)
+                {
+                    vendingMachine.DispensePowerUp(); // Trigger the vending machine
+                }
             }
         }
     }
