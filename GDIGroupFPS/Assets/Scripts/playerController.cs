@@ -618,7 +618,12 @@ public class playerController : MonoBehaviour, IDamage
                 VendingMachine vendingMachine = hit.collider.GetComponent<VendingMachine>();
                 if (vendingMachine != null)
                 {
-                    vendingMachine.DispensePowerUp(); // Trigger the vending machine
+                   if (credits >= 50)
+                    {
+                        credits -= 50;
+                        gameManager.instance.updateCreditsUI();
+                        vendingMachine.DispensePowerUp();
+                    }
                 }
             }
         }
