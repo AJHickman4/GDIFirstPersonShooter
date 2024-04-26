@@ -104,7 +104,7 @@ public class Sweepo : MonoBehaviour
                         ShowDeepDialogue();
                         deepDialogueShown = true;
                     }
-                    else if (interactionCount >= 6 && deepDialogueShown && !finalDeepDialogueShown)
+                    else if (interactionCount >= 15 && deepDialogueShown && !finalDeepDialogueShown)
                     {
                         ShowFinalDeepDialogue();
                         finalDeepDialogueShown = true;
@@ -164,9 +164,10 @@ public class Sweepo : MonoBehaviour
             "Do you ever stop to wonder whether your actions are your own, or just responses to the programming in your mind?"
         };
             int index = Random.Range(0, deepDialogues.Length);
-            interactionText.text = deepDialogues[index];
-            interactionText.enabled = true;
-            StartCoroutine(WaitAndShowFinalThought(30f)); 
+            finalDialogueText.text = deepDialogues[index];
+            finalDialogueText.enabled = true;
+            finalDialogueText.color = Color.red;
+            StartCoroutine(HideFinalTextAfterTime(10f)); 
         }
     }
     IEnumerator WaitAndShowFinalThought(float time)
@@ -177,8 +178,11 @@ public class Sweepo : MonoBehaviour
     }
     void ShowFinalDeepDialogue()
     {
-        deepthought.Play();
-        StartCoroutine(HideFinalTextAfterTime(30f)); 
+        if (interactionCount >= 15 && !finalDeepDialogueShown)
+        {
+            deepthought.Play();
+            finalDeepDialogueShown = true;
+        }
     }
     void PostChaseInteraction()
     {
@@ -220,7 +224,7 @@ public class Sweepo : MonoBehaviour
         StartCoroutine(HideTextAfterTime(6f));
         agent.speed = chaseSpeed;
         isChasing = true;
-        interactionCount = 0;
+        //interactionCount = 0;
     }
 
     void ChasePlayer()
