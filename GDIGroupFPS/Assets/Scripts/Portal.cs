@@ -6,7 +6,7 @@ public class Portal : MonoBehaviour
     public bool isActive = true;
     public GameObject portal;
     private int entryCount = 0;  
-    public int maxEntries = 3;   
+    public int maxEntries = 20;   
 
     private void OnTriggerEnter(Collider other)
     {

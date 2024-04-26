@@ -49,7 +49,6 @@ public class Sweepo : MonoBehaviour
         interactionText.enabled = false;
         finalDialogueText.enabled = false;
         roamTimer = roamInterval;
-        SpawnMissiles();
     }
 
     void Update()
@@ -316,6 +315,7 @@ public class Sweepo : MonoBehaviour
         else if (!isRoombaIsland)
         {
             finalDialogueText.text = "We need to find three rockets to create a rift in time and space to reach Roomba Island. Let's search around!";
+            SpawnMissiles();
         }
         finalDialogueText.enabled = true;
         StartCoroutine(HideFinalTextAfterTime(10f));
