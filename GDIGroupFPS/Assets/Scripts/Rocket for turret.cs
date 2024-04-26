@@ -38,6 +38,7 @@ public class Rocketforturret : MonoBehaviour, IDamage
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, rotateSpeed * Time.deltaTime);
         rb.velocity = transform.forward * speed;
+        Destroy(gameObject, 10f);
     }
     public void ApplyAoEDamage(Vector3 explosionPoint, float radius)
     {

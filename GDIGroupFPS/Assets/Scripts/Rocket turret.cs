@@ -14,7 +14,7 @@ public class RocketTurret : MonoBehaviour, IDamage
     void Start()
     {
         if (target == null)
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            target = GameObject.FindGameObjectWithTag("Goggles").transform;
     }
 
     void Update()

@@ -23,7 +23,11 @@ public class playerController : MonoBehaviour, IDamage
     [Range(1, 300)] public int HP;
     public int HPOrig;
     private bool isAlive = true;
-
+    
+    [Header("----- Noclip -----")]
+    public bool isNoclipActive = false;
+    public KeyCode noclipToggleKey = KeyCode.N;
+    
     [Header("----- Stamina -----")]
     [SerializeField] public float maxStamina;
     [SerializeField] public float currentStamina;
@@ -131,7 +135,8 @@ public class playerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        /*Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.red);*/ //draws the raycast in the Scene. 
+
+        HandleNoclipToggle();
         float actualSpeed = speed * speedMultiplier;
         velocity = (transform.position - lastPosition) / Time.deltaTime;
         lastPosition = transform.position;
@@ -140,7 +145,10 @@ public class playerController : MonoBehaviour, IDamage
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.green);
         CheckForButtonPress(); //For all interactables int he future.(But also this button) :)
         currentWeapon = equipScript.GetCurrentWeapon();
-
+        if (isNoclipActive)
+        {
+            NoclipMovement();
+        }
         //begin the crouch 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -700,8 +708,26 @@ public class playerController : MonoBehaviour, IDamage
             yield return new WaitForSeconds(0.08f);
         }
     }
+    private void HandleNoclipToggle()
+    {
+        if (Input.GetKeyDown(noclipToggleKey))
+        {
+            isNoclipActive = !isNoclipActive;
+            controller.enabled = !isNoclipActive;
+            if (isNoclipActive)
+            {
+                aud.Play();
+            }
+        }
+    }
+    private void NoclipMovement()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical + transform.up * Input.GetAxis("Jump");
+        transform.Translate(move * speed * Time.deltaTime, Space.World);
+    }
 
-    
 }
 
 
