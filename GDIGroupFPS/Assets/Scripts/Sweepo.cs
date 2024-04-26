@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using TMPro;
 using System.Collections;
 using UnityEditor.XR;
+using Unity.VisualScripting;
 
 public class Sweepo : MonoBehaviour
 {
@@ -179,6 +180,7 @@ public class Sweepo : MonoBehaviour
             interactionText.text = "That's it, I'm ignoring you.";
         }
         interactionText.enabled = true;
+        interactionText.color = Color.red;
         StartCoroutine(HideTextAfterTime(6f));
     }
 
@@ -228,6 +230,7 @@ public class Sweepo : MonoBehaviour
 
         interactionText.text = postChaseMessages[postInteractionIndex];
         interactionText.enabled = true;
+        interactionText.color = Color.red;
         StartCoroutine(HideTextAfterTime(6f));
 
         if (postInteractionIndex == postChaseMessages.Length - 1)
@@ -248,6 +251,7 @@ public class Sweepo : MonoBehaviour
             interactionText.text = "Still here? Didn't you learn your lesson?";
         }
         interactionText.enabled = true;
+        interactionText.color = Color.red;
         StartCoroutine(HideTextAfterTime(6f));
         agent.speed = chaseSpeed;
         isChasing = true;
