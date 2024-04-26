@@ -17,6 +17,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuOptions;
     [SerializeField] GameObject menuKey1;
     [SerializeField] GameObject menuKey2;
     [SerializeField] GameObject menuKey3;
@@ -60,7 +61,7 @@ public class gameManager : MonoBehaviour
     public ShopManager shopManager; //ref to new shop manager. needed for pause menu
 
     public Weapon currentWeapon;
-    
+
     public GameObject startingSpawn;
     public bool isPaused;
     public float timeScaleOrig;
@@ -89,6 +90,8 @@ public class gameManager : MonoBehaviour
         }
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
+        if (menuOptions)
+            menuOptions.SetActive(true);
         menuActive = startingDialog;
         menuActive.SetActive(isPaused);
     }
@@ -102,27 +105,24 @@ public class gameManager : MonoBehaviour
         }
         if (menuActive == startingDialog && Input.anyKey)
         {
-
-
             stateUnPaused();
-
-
+            if (menuOptions)
+                menuOptions.SetActive(false);
         }
         if (inputManager.instance.MenuOpenCloseInput)
         {
-            if(menuActive == null)
+            if (menuActive == null)
             {
                 statePaused();
                 menuActive = menuPause;
                 menuActive.SetActive(isPaused);
-                
             }
             else
             {
                 stateUnPaused();
             }
         }
-        
+
         if (timerIsActive)
         {
             if (currentTime > 0)
@@ -185,6 +185,8 @@ public class gameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPaused);
+        if (menuOptions)
+            menuOptions.SetActive(false);
         menuActive = null;
         EventSystem.current.SetSelectedGameObject(null);
     }
@@ -258,7 +260,7 @@ public class gameManager : MonoBehaviour
         {
             lostCreditsText.text = "Credits lost: " + creditsLost;
             lostCreditsText.gameObject.SetActive(true);
-            StartCoroutine(HideLostCreditsTextAfterDelay()); 
+            StartCoroutine(HideLostCreditsTextAfterDelay());
         }
     }
 
@@ -267,7 +269,7 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         lostCreditsText.gameObject.SetActive(false);
     }
-    
+
     public void updateKeysNeededUI(int keysPlayerNeeds)
     {
         keysNeededText.text = keysPlayerNeeds.ToString("F0");
@@ -275,23 +277,23 @@ public class gameManager : MonoBehaviour
 
     IEnumerator ResetTimerCoroutine()
     {
-        float elapsed = 0; 
+        float elapsed = 0;
         while (elapsed < resetTimer)
         {
-            yield return new WaitForSeconds(1);  
-            elapsed += 1;  
+            yield return new WaitForSeconds(1);
+            elapsed += 1;
             if (elapsed >= resetTimer)
             {
-                StartCoroutine(TeleportPlayerToSpawn());  
-                yield break;  
+                StartCoroutine(TeleportPlayerToSpawn());
+                yield break;
             }
         }
     }
 
     IEnumerator TeleportPlayerToSpawn()
     {
-        
-        { 
+
+        {
 
             playerScript.controller.enabled = false;
             yield return new WaitForSeconds(0.5f);
@@ -401,7 +403,7 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    
+
 
 
 }
