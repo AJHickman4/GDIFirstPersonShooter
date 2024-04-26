@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
     [SerializeField] AudioSource aud;
     [SerializeField] GameObject menuOptions;
     [SerializeField] GameObject menuMain;
+    [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuExitButton;
 
     private void Awake()
@@ -32,6 +33,8 @@ public class Menu : MonoBehaviour
         menuOptions.SetActive(true);
         if (menuMain)
             menuMain.SetActive(false);
+        else if (menuPause)
+            menuPause.SetActive(false);
     }
 
     public void OnQuitClick()
@@ -56,5 +59,7 @@ public class Menu : MonoBehaviour
         menuOptions.SetActive(false);
         if (menuMain)
             menuMain.SetActive(true);
+        else if (menuPause)
+            menuPause.SetActive(true);
     }
 }
