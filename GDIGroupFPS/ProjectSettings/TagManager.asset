@@ -21,7 +21,6 @@ TagManager:
   - LadderBottom
   - door
   - Button
-  - Goggles
   layers:
   - Default
   - TransparentFX

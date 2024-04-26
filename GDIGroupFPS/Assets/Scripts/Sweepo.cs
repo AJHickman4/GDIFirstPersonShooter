@@ -230,7 +230,7 @@ public class Sweepo : MonoBehaviour
         interactionText.enabled = true;
         StartCoroutine(HideTextAfterTime(6f));
 
-        if (postInteractionIndex == postChaseMessages.Length - 1) 
+        if (postInteractionIndex == postChaseMessages.Length - 1)
         {
             StartChasing();
         }
