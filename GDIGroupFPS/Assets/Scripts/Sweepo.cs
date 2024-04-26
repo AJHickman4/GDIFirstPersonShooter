@@ -39,6 +39,8 @@ public class Sweepo : MonoBehaviour
     public bool questComplete = false;
     public bool thankYou = false;
     public bool dlc = false;
+    public GameObject[] turretsspawn;
+    public bool secretmessage1 = false;
 
     void Start()
     {
@@ -67,6 +69,10 @@ public class Sweepo : MonoBehaviour
             {
                 Roam();
                 roamTimer = roamInterval;
+            }
+            if (Input.GetKeyDown(KeyCode.Q) && !secretmessage1)
+            {
+                secretmessage();
             }
         }
     }
@@ -312,7 +318,7 @@ public class Sweepo : MonoBehaviour
     {
         if (missilesCollected >= totalMissilesNeeded && !roombaIslandMentioned)
         {
-            roombaIslandMentioned = true; 
+            roombaIslandMentioned = true;
             finalDialogueText.text = "We've collected all three rockets needed to blow a hole in time and space. Now, we're ready to reach Roomba Island. Prepare for our daring journey!";
             CompleteItemReturn();
         }
@@ -353,11 +359,74 @@ public class Sweepo : MonoBehaviour
         StartCoroutine(HideFinalTextAfterTime(10f));
         Lastmessage();
     }
-    void Lastmessage ()
+    void Lastmessage()
     {
         dlc = true;
         finalDialogueText.text = "the 'Sweepo's Ultimate Adventure' DLC is currently out of stock. Please check back later!";
         finalDialogueText.enabled = true;
         StartCoroutine(HideFinalTextAfterTime(10f));
+    }
+    private void secretmessage()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && !secretmessage1)
+        {
+            secretmessage1 = true;
+            finalDialogueText.text = "You found the secret message! Congratulations!, Enjoy a buffed version of the game! Hope you can survive =]";
+            finalDialogueText.enabled = true;
+            StartCoroutine(delay());
+            if (turretsspawn.Length >= 1)
+            {
+                turretsspawn[0].SetActive(true);
+                StartCoroutine(DeactivateTurretAfterDelay(10f));
+            }
+            else
+            {
+                return;
+            }
+            StartCoroutine(HideFinalTextAfterTime(10f));
+            
+        }
+    }
+    private IEnumerator DeactivateTurretAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (turretsspawn.Length >= 1)
+        {
+            turretsspawn[0].SetActive(false);
+        }
+        StartCoroutine(refund(15f));
+        StartCoroutine(HideTextAfterTime(6f));
+    }
+    
+    IEnumerator refund(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        finalDialogueText.text = "Turret has been deactivated! Are you alive? Here's some credits to help.";
+        finalDialogueText.enabled = true;
+        StartCoroutine(HideFinalTextAfterTime(6f));
+        gameManager.instance.playerScript.credits += 1000;
+        gameManager.instance.updateCreditsUI();
+    }
+    
+    public void Reset()
+    {
+        interactionCount = 0;
+        canInteract = true;
+        isChasing = false;
+        hasChasedOnce = false;
+        deepDialogueShown = false;
+        finalDeepDialogueShown = false;
+        roombaIslandMentioned = false;
+        isRoombaIsland = false;
+        questComplete = false;
+        thankYou = false;
+        dlc = false;
+        secretmessage1 = false;
+        missilesCollected = 0;
+        interactionText.enabled = false;
+        finalDialogueText.enabled = false;
+        roombaIsland.SetActive(false);
+        agent.speed = normalRoamSpeed;
+        agent.SetDestination(RandomNavSphere(transform.position, roamRadius, -1));
     }
 }
