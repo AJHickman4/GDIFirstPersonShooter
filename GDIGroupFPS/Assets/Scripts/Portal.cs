@@ -6,14 +6,16 @@ public class Portal : MonoBehaviour
     public bool isActive = true;
     public GameObject portal;
     private int entryCount = 0;  
-    public int maxEntries = 20;   
+    public int maxEntries = 20;  
+    public bool clearguns = true;
+    public EquipScript equipScript;
 
     private void OnTriggerEnter(Collider other)
     {
         if (isActive && other.GetComponent<playerController>() != null)
         {
             CharacterController controller = other.GetComponent<CharacterController>();
-            if (controller != null)
+            if (controller != null && !clearguns)
             {
                 controller.enabled = false;
                 other.transform.position = targetTransform.position;
@@ -24,6 +26,13 @@ public class Portal : MonoBehaviour
                 {
                     DeactivatePortal();
                 }
+            }
+            else if (controller != null && clearguns)
+            {
+                controller.enabled = false;
+                other.transform.position = targetTransform.position;
+                controller.enabled = true;
+                ClearGuns(other);
             }
         }
     }
@@ -39,4 +48,22 @@ public class Portal : MonoBehaviour
         portal.SetActive(false);
         entryCount = 0;
     }
+    public void ClearGuns(Collider other)
+    {
+        if (clearguns)
+        {
+            EquipScript equipScript = other.GetComponent<EquipScript>();
+            equipScript.DestroyCurrentGun();
+            equipScript.guns.Clear();
+            gameManager.instance.playerScript.credits = 0;
+            gameManager.instance.updateCreditsUI();
+            gameManager.instance.playerScript.speed = 4;
+            gameManager.instance.playerScript.HP = gameManager.instance.playerScript.HPOrig;
+        }
+        else if (!clearguns)
+        {
+            return;
+        }
+    }
 }
+

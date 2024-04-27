@@ -19,7 +19,7 @@ public class EquipScript : MonoBehaviour
     [Header("Drop")]
     public KeyCode dropKey = KeyCode.F;
 
-    private List<GameObject> guns = new List<GameObject>();
+    public List<GameObject> guns = new List<GameObject>();
     private int equippedGunIndex = -1;
 
     void Start()
@@ -241,7 +241,7 @@ public class EquipScript : MonoBehaviour
         }
     }
 
-    void DestroyCurrentGun()
+    public void DestroyCurrentGun()
     {
         if (guns.Count > 0 && equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
         {

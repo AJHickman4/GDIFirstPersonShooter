@@ -108,6 +108,7 @@ public class playerController : MonoBehaviour, IDamage
     private float startAlpha;
     private Vector3 lastPosition;
     public Vector3 velocity;
+    public Vector3 firsttimespawn;
 
     // Start is called before the first frame update
     void Start()
@@ -118,10 +119,19 @@ public class playerController : MonoBehaviour, IDamage
         HPOrig = HP;
         playerVel = Vector3.zero;
         currentStamina = maxStamina;
-        spawnPlayer();
+        onetimespawn();
         lastPosition = transform.position;
     }
 
+    public void onetimespawn()
+    {
+        isAlive = true;
+        HP = HPOrig;
+        updatePlayerUI();
+        controller.enabled = false;
+        transform.position = firsttimespawn;       
+        controller.enabled = true;
+    }
     public void spawnPlayer()
     {
         isAlive = true;

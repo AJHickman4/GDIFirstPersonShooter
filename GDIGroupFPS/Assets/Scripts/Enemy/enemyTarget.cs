@@ -7,7 +7,7 @@ public class enemyTarget : MonoBehaviour, IDamage
 {
     [Header("---- Assets ----")]
     [SerializeField] Renderer model;
-    [SerializeField] NavMeshAgent agent;
+    //[SerializeField] NavMeshAgent agent;
     [SerializeField] Animator anim;
     //[SerializeField] Transform shootPos;
     //[SerializeField] Transform headPos;
@@ -16,11 +16,11 @@ public class enemyTarget : MonoBehaviour, IDamage
     [Header("---- Stats ----")]
     [SerializeField] int HP;
     [SerializeField] int speed;
-    [SerializeField] int viewCone;
-    [SerializeField] int faceTargetSpeed;
-    [SerializeField] float animSpeedTrans;
-    [SerializeField] int roamDist;
-    [SerializeField] int roamPauseTime;
+    //[SerializeField] int viewCone;
+    //[SerializeField] int faceTargetSpeed;
+    //[SerializeField] float animSpeedTrans;
+    //[SerializeField] int roamDist;
+    //[SerializeField] int roamPauseTime;
 
     //[Header("---- Bullet Assets ----")]
     //[SerializeField] GameObject bullet;
@@ -67,7 +67,7 @@ public class enemyTarget : MonoBehaviour, IDamage
     //bool playerInRange;
     //float angleToPlayer;
     //Vector3 playerDirection;
-    float stoppingDistOrg;
+    //float stoppingDistOrg;
     Vector3 startingPos;
     //bool destinationChosen;
     public Transform damagePopupPrefab;
@@ -77,23 +77,23 @@ public class enemyTarget : MonoBehaviour, IDamage
 
     void Start()
     {
-        stoppingDistOrg = agent.stoppingDistance;
-        agent.stoppingDistance = 0;
+        //stoppingDistOrg = agent.stoppingDistance;
+        //agent.stoppingDistance = 0;
         startingPos = transform.position;
-        int uniquePriority = PriorityManager.GetUniquePriority();
-        if (uniquePriority != -1)
-        {
-            agent.avoidancePriority = uniquePriority;
-        }
-        else
-        {
-            //Debug
-        }
+        //int uniquePriority = PriorityManager.GetUniquePriority();
+        //if (uniquePriority != -1)
+        //{
+        //    agent.avoidancePriority = uniquePriority;
+        //}
+        //else
+        //{
+        //    //Debug
+        //}
     }
 
     void Update()
     {
-        float animSpeed = agent.velocity.normalized.magnitude;
+        //float animSpeed = agent.velocity.normalized.magnitude;
 
 
 
@@ -214,7 +214,7 @@ public class enemyTarget : MonoBehaviour, IDamage
         anim.SetTrigger("Damage");
         aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
         DamagePopup.Create(damagePopupPrefab, transform, amount);
-        agent.SetDestination(gameManager.instance.player.transform.position);
+        //agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashRed());
 
         if (HP <= 0)
@@ -234,11 +234,11 @@ public class enemyTarget : MonoBehaviour, IDamage
     {
         if (isDying) yield break;
         isDying = true;
-        agent.isStopped = true;
+        //agent.isStopped = true;
         //StopCoroutine(Roam());
         //playerInRange = false;
         anim.SetTrigger("Death");
-        PriorityManager.ReleasePriority(agent.avoidancePriority);
+        //PriorityManager.ReleasePriority(agent.avoidancePriority);
         aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<SphereCollider>().enabled = false;
