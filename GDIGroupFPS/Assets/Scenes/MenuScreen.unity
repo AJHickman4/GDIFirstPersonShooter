@@ -413,8 +413,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 1327810666}
-    m_SelectOnDown: {fileID: 1940361230}
+    m_SelectOnUp: {fileID: 781783574}
+    m_SelectOnDown: {fileID: 1327810666}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -839,7 +839,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 1940361230}
-    m_SelectOnDown: {fileID: 1327810666}
+    m_SelectOnDown: {fileID: 264799575}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1609,8 +1609,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 781783574}
-    m_SelectOnDown: {fileID: 264799575}
+    m_SelectOnUp: {fileID: 264799575}
+    m_SelectOnDown: {fileID: 1940361230}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -1702,6 +1702,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 581538338275284610, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1463202458932693051, guid: f1877d6514f9a464284b841866c255b8, type: 3}
@@ -1953,6 +1977,7 @@ MonoBehaviour:
   aud: {fileID: 131015956}
   menuOptions: {fileID: 690273311}
   menuMain: {fileID: 1077411483}
+  menuPause: {fileID: 0}
   menuExitButton: {fileID: 1327810664}
 --- !u!1 &1577377972
 GameObject:
@@ -2177,7 +2202,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 264799575}
+    m_SelectOnUp: {fileID: 1327810666}
     m_SelectOnDown: {fileID: 781783574}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}

@@ -4317,24 +4317,24 @@ RectTransform:
   - {fileID: 5282079166330907074}
   - {fileID: 2701967266915278550}
   - {fileID: 7101631113075332304}
-  - {fileID: 5709423781318927680}
-  - {fileID: 1001815593485641911}
+  - {fileID: 458165746013096665}
   - {fileID: 1472060073427485841}
   - {fileID: 8735423554049308259}
+  - {fileID: 5709423781318927680}
+  - {fileID: 1001815593485641911}
   - {fileID: 7182638130673184982}
   - {fileID: 8599568373822120744}
-  - {fileID: 1515719454884319193}
   - {fileID: 4678979211372901976}
   - {fileID: 2929642387248361075}
   - {fileID: 9171375670305066217}
   - {fileID: 3929804691307422215}
   - {fileID: 2123116897101442778}
   - {fileID: 7869206387991727992}
-  - {fileID: 458165746013096665}
   - {fileID: 3992125823954041258}
   - {fileID: 7306994821671136393}
   - {fileID: 1563726481923105135}
   - {fileID: 8554714094084019627}
+  - {fileID: 1515719454884319193}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6498,6 +6498,7 @@ MonoBehaviour:
   menuPause: {fileID: 2397262486895266372}
   menuWin: {fileID: 6223149281399239867}
   menuLose: {fileID: 3036177494524465527}
+  menuOptions: {fileID: 0}
   menuKey1: {fileID: 8561813972620136322}
   menuKey2: {fileID: 5463708037342936818}
   menuKey3: {fileID: 4495736983731288852}
@@ -6548,6 +6549,8 @@ MonoBehaviour:
   aud: {fileID: 2658317286443232062}
   menuOptions: {fileID: 0}
   menuMain: {fileID: 0}
+  menuPause: {fileID: 0}
+  menuExitButton: {fileID: 0}
 --- !u!114 &6202357771736308776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6561,6 +6564,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aud: {fileID: 2658317286443232062}
+  menuPauseQuit: {fileID: 0}
+  menuWinQuit: {fileID: 0}
 --- !u!1 &5815056815099775150
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,20 @@ public class buttonFunctions : MonoBehaviour
 {
 
     [SerializeField] AudioSource aud;
+    [SerializeField] GameObject menuPauseQuit;
+    [SerializeField] GameObject menuWinQuit;
+
+    private void Awake()
+    {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            if (menuWinQuit && menuPauseQuit)
+            {
+                menuWinQuit.SetActive(false);
+                menuPauseQuit.SetActive(false);
+            }
+        }
+    }
 
     public void resume()
     {
