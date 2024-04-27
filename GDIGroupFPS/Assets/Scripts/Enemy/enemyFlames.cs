@@ -10,12 +10,7 @@ public class enemyFlames : MonoBehaviour
     [SerializeField] float damage;
 
 
-    //void start()
-    //{
-    //    rb.velocity = transform.forward * speed;
-    //    destroy(gameobject, destroytime);
-
-    //}
+    
 
     private void OnTriggerStay(Collider other)
     {
@@ -31,6 +26,6 @@ public class enemyFlames : MonoBehaviour
             dmg.takeDamage((int)damage);
         }
 
-        //Destroy(gameObject);
+        
     }
 }

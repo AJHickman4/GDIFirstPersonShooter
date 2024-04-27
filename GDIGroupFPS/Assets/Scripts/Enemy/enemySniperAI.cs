@@ -95,7 +95,7 @@ public class enemySniperAI : MonoBehaviour, IDamage
 
     void Update()
     {
-        Debug.DrawLine(transform.position, transform.position + (player.position - transform.position).normalized * 10, Color.green);
+        //Debug.DrawLine(transform.position, transform.position + (player.position - transform.position).normalized * 10, Color.green);
         if (player == null) return;  
         playerController playerMovement = player.GetComponent<playerController>();
         Vector3 playerVelocity = playerMovement.velocity;

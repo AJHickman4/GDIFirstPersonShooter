@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using TMPro;
 using System.Collections;
-using UnityEditor.XR;
 using Unity.VisualScripting;
 
 public class Sweepo : MonoBehaviour, IDamage

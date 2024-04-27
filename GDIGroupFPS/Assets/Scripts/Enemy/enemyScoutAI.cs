@@ -34,10 +34,6 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     private float lastGrenadeTime = -Mathf.Infinity;
     [Range(0, 100)][SerializeField] int grenadeChance = 20;  
 
-    //[Header("---- Waypoints ----")]
-    //[SerializeField] GameObject[] waypointArray;
-    //[SerializeField] int currWaypoint = 0;
-    ////[SerializeField] float waypointSpeed = 1.0f;
 
     [Header("---- Credits Settings ----")]
     [SerializeField] private int creditGainOnDeath = 5;
@@ -90,7 +86,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
         }
         else
         {
-            //Debug
+            
         }
     }
 
@@ -107,11 +103,11 @@ public class enemyScoutAI : MonoBehaviour, IDamage
         }
         if (playerInRange && !canSeePlayer())
         {
-            StartCoroutine(Roam()); //If the player is in range but cannot be seen, AI should roam
+            StartCoroutine(Roam());
         }
         else if (!playerInRange)
         {
-            StartCoroutine(Roam()); //AI should roam if player isn't in range
+            StartCoroutine(Roam());
         }
     }
 
@@ -138,8 +134,6 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     {
         playerDirection = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
-        
-        Debug.DrawRay(headPos.position, playerDirection, Color.yellow);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
@@ -251,10 +245,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
         StartCoroutine(ScaleToZeroCoroutine());
         yield return new WaitForSeconds(2f);
 
-        //if (whereISpawned)
-        //{
-        //    whereISpawned.updateEnemyNumber();
-        //}
+        
 
         Destroy(gameObject);
         TryDropItem(dropObject, dropChancePercentage);
@@ -300,7 +291,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
             yield return null;
         }
 
-        // Ensure final scale is exactly zero
+        
         transform.localScale = targetScale;
     }
 }

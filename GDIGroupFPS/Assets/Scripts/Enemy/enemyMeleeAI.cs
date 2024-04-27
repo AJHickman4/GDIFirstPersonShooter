@@ -25,11 +25,6 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     [Range(0, 15)][SerializeField] int meleeDmg;
     [SerializeField] float slashRate;
 
-    //[Header("---- Waypoints ----")]
-    //[SerializeField] GameObject[] waypointArray;
-    //[SerializeField] int currWaypoint = 0;
-    ////[SerializeField] float waypointSpeed = 1.0f;
-
     [Header("---- Credits Settings ----")]
     [SerializeField] private int creditGainOnDeath = 5;
 
@@ -81,7 +76,7 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
         }
         else
         {
-            //Debug
+            
         }
     }
 
@@ -124,8 +119,6 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
     {
         playerDirection = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
-        
-        Debug.DrawRay(headPos.position, playerDirection, Color.yellow);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))

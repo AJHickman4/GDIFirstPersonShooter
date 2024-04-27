@@ -78,7 +78,7 @@ public class enemyRocketeerWP : MonoBehaviour, IDamage
         }
         else
         {
-            //Debug
+            
         }
     }
 
@@ -126,7 +126,6 @@ public class enemyRocketeerWP : MonoBehaviour, IDamage
         playerDirection = gameManager.instance.player.transform.position - headPos.position;
         angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
         
-        Debug.DrawRay(headPos.position, playerDirection, Color.yellow);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))

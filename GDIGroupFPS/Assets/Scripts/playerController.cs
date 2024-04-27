@@ -152,7 +152,7 @@ public class playerController : MonoBehaviour, IDamage
         lastPosition = transform.position;
         movement();
         CheckForDoorAiming();
-        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.green);
+        
         CheckForButtonPress(); //For all interactables int he future.(But also this button) :)
         currentWeapon = equipScript.GetCurrentWeapon();
         if (isNoclipActive)
