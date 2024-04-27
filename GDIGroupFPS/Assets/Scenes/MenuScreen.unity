@@ -1704,6 +1704,30 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1463202458932693051, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1953,6 +1977,7 @@ MonoBehaviour:
   aud: {fileID: 131015956}
   menuOptions: {fileID: 690273311}
   menuMain: {fileID: 1077411483}
+  menuPause: {fileID: 0}
   menuExitButton: {fileID: 1327810664}
 --- !u!1 &1577377972
 GameObject:
