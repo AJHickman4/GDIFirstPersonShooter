@@ -214,6 +214,19 @@ public class playerController : MonoBehaviour, IDamage
         {
             StartCoroutine(FadeOut());
         }
+
+        if (velocity.sqrMagnitude < 0.1f) 
+        {
+
+            EnableParticleAttraction();
+            EnableParticleAttraction2();
+        }
+        else
+        {
+            DisableParticleAttraction();
+            DisableParticleAttraction2();
+        }
+
     }
 
     void movement()
@@ -796,6 +809,47 @@ public class playerController : MonoBehaviour, IDamage
                 updatePlayerUI();
             }
             yield return new WaitForSeconds(regenInterval);
+        }
+    }
+    public ParticleAttractor particleAttractor;
+    public ParticleAttractor particleAttractor2;
+
+    void EnableParticleAttraction()
+    {
+        if (particleAttractor != null)
+        {
+            particleAttractor.enabled = true;
+            var emissionModule = particleAttractor.particleSystem.emission;
+            emissionModule.enabled = true;
+        }
+    }
+    void EnableParticleAttraction2()
+    {
+        if (particleAttractor2 != null)
+        {
+            particleAttractor2.enabled = true;
+            var emissionModule = particleAttractor2.particleSystem.emission;
+            emissionModule.enabled = true;
+        }
+    }
+
+    void DisableParticleAttraction()
+    {
+        if (particleAttractor != null)
+        {
+            particleAttractor.enabled = false;
+            var emissionModule = particleAttractor.particleSystem.emission;
+            emissionModule.enabled = false;
+            
+        }
+    } void DisableParticleAttraction2()
+    {
+        if (particleAttractor2 != null)
+        {
+            particleAttractor2.enabled = false;
+            var emissionModule = particleAttractor2.particleSystem.emission;
+            emissionModule.enabled = false;
+            
         }
     }
 }
