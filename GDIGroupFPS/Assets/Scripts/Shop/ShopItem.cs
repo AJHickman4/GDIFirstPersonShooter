@@ -14,7 +14,7 @@ public class ShopItem : ScriptableObject
     public Sprite icon;
     public string description;
     public ItemType itemType;  
-    public float effectValue;   
+    public float effectValue;
 
     public enum ItemType
     {
@@ -30,5 +30,6 @@ public class ShopItem : ScriptableObject
         teleport,
         AmmoReturn,
         HealthRegen,
+        staminaRegen,
     }
 }

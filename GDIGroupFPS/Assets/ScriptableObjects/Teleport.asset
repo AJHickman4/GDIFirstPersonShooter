@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef997de7d9ab4dc42879ebdd94fc1ed1, type: 3}
   m_Name: Teleport
   m_EditorClassIdentifier: 
-  itemName: Teleport
+  itemName: Quantum Escape Module
   cost: 300
   icon: {fileID: 0}
   description: Press Q to instantly escape danger. One time use.

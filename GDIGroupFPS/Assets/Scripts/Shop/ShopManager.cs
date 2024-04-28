@@ -99,6 +99,7 @@ public class ShopManager : MonoBehaviour
                 break;
             case ItemType.SpeedUpgrade:
                 player.speed += item.effectValue;
+                player.sprintSpeed += item.effectValue;
                 break;
             case ItemType.HealthUpgrade:
                 player.HPOrig += (int)item.effectValue;
@@ -111,9 +112,6 @@ public class ShopManager : MonoBehaviour
             case ItemType.PortalActivation:
                 ActivatePortal();
                 break;
-            case ItemType.sprintUpgrade:
-                player.sprintSpeed += item.effectValue;
-                break;
             case ItemType.RefillaAmmo:
                 GlobalWeaponsStatsManager.Instance.RefillAllWeaponsAmmo();
                 break;
@@ -125,6 +123,9 @@ public class ShopManager : MonoBehaviour
                 break;
             case ItemType.HealthRegen:
                 player.PurchaseRegenerationBooster(); 
+                break;
+            case ItemType.staminaRegen:
+                player.PurchaseStaminaRegenerationBooster();
                 break;
         }
     }

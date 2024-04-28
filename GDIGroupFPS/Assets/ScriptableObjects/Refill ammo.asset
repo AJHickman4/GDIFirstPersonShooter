@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef997de7d9ab4dc42879ebdd94fc1ed1, type: 3}
   m_Name: Refill ammo
   m_EditorClassIdentifier: 
-  itemName: Fill all Ammo
+  itemName: Total Ammo Reload
   cost: 0
   icon: {fileID: 0}
-  description: 
+  description: Instantly refills all ammunition for your current arsenal. Stay loaded
+    and ready for any battle!
   itemType: 8
   effectValue: 75

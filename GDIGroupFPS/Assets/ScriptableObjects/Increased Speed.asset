@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef997de7d9ab4dc42879ebdd94fc1ed1, type: 3}
   m_Name: Increased Speed
   m_EditorClassIdentifier: 
-  itemName: Increased Speed
+  itemName: Velocity Boost
   cost: 125
   icon: {fileID: 0}
-  description: Increase how fast you can run per second. Great for getting further
-    in the run. "Gotta go fast!"
+  description: Permanently increases your movement speed by 1, enhancing your agility
+    on the battlefield.
   itemType: 4
   effectValue: 0.5

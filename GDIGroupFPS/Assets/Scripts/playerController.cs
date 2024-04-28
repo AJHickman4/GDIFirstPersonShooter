@@ -36,6 +36,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] private float staminaDrain = 10f; // Stamina per second used
     [SerializeField] private float staminaRechargeRate = 5f; // regen per second
     [SerializeField] bool canSprint = true;
+    public float staminaRegenRate = 0f;
+    private Coroutine staminaRegenCoroutine;
+
 
 
     [Header("----- Inventory -----")]
@@ -124,6 +127,7 @@ public class playerController : MonoBehaviour, IDamage
         onetimespawn();
         lastPosition = transform.position;
         StartRegeneration();
+        StartStaminaRegeneration();
     }
 
     public void onetimespawn()
@@ -741,30 +745,57 @@ public class playerController : MonoBehaviour, IDamage
         transform.Translate(move * speed * Time.deltaTime, Space.World);
     }
 
-    public void StartRegeneration()
+    public void StartRegeneration() // health regen
     {
         if (regenCoroutine != null) StopCoroutine(regenCoroutine);
         regenCoroutine = StartCoroutine(Regen());
     }
-    IEnumerator Regen()
+    IEnumerator Regen() // health regen
     {
         float regenInterval = 1.0f;
         while (true)
         {
             if (HP < HPOrig)
             {
-                int addHealth = Mathf.CeilToInt(HPOrig * regenRate / 100f); 
+                int addHealth = Mathf.CeilToInt(HPOrig * regenRate / 100f);
                 HP += addHealth;
                 HP = Mathf.Min(HP, HPOrig);
                 updatePlayerUI();
             }
-            yield return new WaitForSeconds(regenInterval); 
+            yield return new WaitForSeconds(regenInterval);
         }
     }
-    public void PurchaseRegenerationBooster()
+    public void PurchaseRegenerationBooster() 
     {
-        regenRate += 1f;  
-        StartRegeneration();  
+        float increaseAmount = 1f / (regenRate + 1); 
+        regenRate += increaseAmount; 
+        StartRegeneration();
+    }
+    public void PurchaseStaminaRegenerationBooster()
+    {
+        float increaseAmount = 1f / (staminaRegenRate + 1); 
+        staminaRegenRate += increaseAmount;
+        StartStaminaRegeneration();
+    }
+    public void StartStaminaRegeneration() 
+    {
+        if (staminaRegenCoroutine != null) StopCoroutine(staminaRegenCoroutine);
+        staminaRegenCoroutine = StartCoroutine(StaminaRegen());
+    }
+    IEnumerator StaminaRegen()
+    {
+        float regenInterval = 0.5f; 
+        while (true)
+        {
+            if (currentStamina < maxStamina)
+            {
+                float addStamina = (maxStamina * staminaRegenRate / 100f) * regenInterval; 
+                currentStamina += addStamina;
+                currentStamina = Mathf.Min(currentStamina, maxStamina);
+                updatePlayerUI();
+            }
+            yield return new WaitForSeconds(regenInterval);
+        }
     }
 }
 

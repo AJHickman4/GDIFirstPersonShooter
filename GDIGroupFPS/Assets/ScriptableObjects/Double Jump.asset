@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef997de7d9ab4dc42879ebdd94fc1ed1, type: 3}
   m_Name: Double Jump
   m_EditorClassIdentifier: 
-  itemName: Double Jump
+  itemName: Twin Leap Module
   cost: 750
   icon: {fileID: 0}
-  description: It's a bird, it's a plane!
+  description: Unlock the ability to perform a double jump. A one-time purchase that
+    lets you defy gravity and reach new heights in combat.
   itemType: 3
   effectValue: 1
