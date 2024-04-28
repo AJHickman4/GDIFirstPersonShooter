@@ -121,7 +121,7 @@ public class gameManager : MonoBehaviour
 
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            if (inputManager.instance.MenuOpenCloseWebInput)
+            if (Input.GetButtonDown("P"));
             {
                 if (menuActive == null)
                 {
