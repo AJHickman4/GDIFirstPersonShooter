@@ -8,7 +8,7 @@ public class Laser : MonoBehaviour
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] LayerMask ignoreMask; //for ignoring objects
     [SerializeField] float laserDistance;
-    [SerializeField] int damage = 2;
+    [Range(0, 100)][SerializeField] int damage;
 
     [SerializeField] Transform startPos;
     [SerializeField] Transform endPos;
@@ -16,6 +16,8 @@ public class Laser : MonoBehaviour
     private RaycastHit hit;
     private Ray ray;
     private int dmgDealt = 0;
+    float timeSinceLastHit = 0.0f;
+    float rateOfFire = 3f;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,8 +34,9 @@ public class Laser : MonoBehaviour
 
         Debug.DrawRay(transform.position, transform.forward * laserDistance, Color.red);
 
-        if(Physics.Raycast(ray, out hit, laserDistance, ~ignoreMask))
+        if (Physics.Raycast(ray, out hit, laserDistance, ~ignoreMask))
         {
+            timeSinceLastHit += Time.deltaTime;
             endPos.position = hit.point - startPos.position;
 
             lineRenderer.SetPosition(0, transform.position); //1 pos
@@ -41,8 +44,9 @@ public class Laser : MonoBehaviour
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
-            if(dmg != null && !hit.collider.CompareTag("Enemy"))
+            if (dmg != null && !hit.collider.CompareTag("Enemy") && timeSinceLastHit >= rateOfFire)
             {
+                timeSinceLastHit -= rateOfFire;
                 dmg.takeDamage(damage);
                 dmgDealt += damage;
             }
