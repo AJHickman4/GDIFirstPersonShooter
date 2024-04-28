@@ -28,6 +28,7 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
             }
         }
     }
+
     void Awake()
     {
         if (Instance != null)
@@ -92,6 +93,16 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
         foreach (Weapon weapon in allWeapons)
         {
             weapon.ammoReturnChance += increasePercent;
+        }
+    }
+    public void readytoshoot()
+    {
+        Weapon[] allWeapons = FindObjectsOfType<Weapon>();
+        {
+            foreach (Weapon weapon in allWeapons)
+            {
+                weapon.readyToShoot = true;
+            }
         }
     }
 }

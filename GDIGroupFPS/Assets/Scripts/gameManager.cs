@@ -314,6 +314,7 @@ public class gameManager : MonoBehaviour
             playerScript.controller.enabled = false;
             yield return new WaitForSeconds(0.5f);
             player.transform.position = startingSpawn.transform.position;
+            player.transform.rotation = Quaternion.Euler(0, 180, 0);
             playerScript.controller.enabled = true;
             playerScript.HP = playerScript.HPOrig;
             playerScript.updatePlayerUI();

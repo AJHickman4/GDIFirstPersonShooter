@@ -542,6 +542,7 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.4f);
         meleeWeapon.SetActive(false);
         equipScript.ReactivateAllGuns();
+        GlobalWeaponsStatsManager.Instance.readytoshoot();
         isMeleeReady = true;
     }
     IEnumerator PerformDash()
