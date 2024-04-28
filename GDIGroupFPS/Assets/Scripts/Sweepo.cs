@@ -4,7 +4,7 @@ using TMPro;
 using System.Collections;
 using Unity.VisualScripting;
 
-public class Sweepo : MonoBehaviour, IDamage
+public class Sweepo : MonoBehaviour
 {
     public Transform target;
     public float speed = 5f;
@@ -275,14 +275,14 @@ public class Sweepo : MonoBehaviour, IDamage
             target.GetComponent<IDamage>().takeDamage(damagePerSecond);
         }
     }
-    public void takeDamage(int damage)
-    {
-        target.GetComponent<IDamage>().takeDamage(damage);
-        gameManager.instance.playerScript.HP -= damage;
-        finalDialogueText.enabled = true;
-        finalDialogueText.text = "Insignificant mortal, your feeble attempts only amuse me! Your efforts are futile against my might!";
-        StartCoroutine(HideFinalTextAfterTime(6f));
-    }
+    //public void takeDamage(int damage)
+    //{
+    //    target.GetComponent<IDamage>().takeDamage(damage);
+    //    gameManager.instance.playerScript.HP -= damage;
+    //    finalDialogueText.enabled = true;
+    //    finalDialogueText.text = "Insignificant mortal, your feeble attempts only amuse me! Your efforts are futile against my might!";
+    //    StartCoroutine(HideFinalTextAfterTime(6f));
+    //}
     IEnumerator HideFinalTextAfterTime(float time)
     {
         yield return new WaitForSeconds(time);

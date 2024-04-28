@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class PowerUpManager : MonoBehaviour
 {
@@ -9,8 +10,6 @@ public class PowerUpManager : MonoBehaviour
     public GameObject iconUnlimitedAmmo;
     public GameObject iconDoubleDamage;
     public playerController player;
-    public ParticleSystem ultimateModeParticles;
-    private Color originalParticleColor;
     public FlyingDrone droneController;
 
     public bool HasUnlimitedAmmo { get; private set; }
@@ -21,7 +20,7 @@ public class PowerUpManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
         if (Instance == null)
         {
             Instance = this;
@@ -35,55 +34,14 @@ public class PowerUpManager : MonoBehaviour
     {
         if (player == null)
         {
-            player = FindObjectOfType<playerController>(); 
+            player = FindObjectOfType<playerController>();
         }
         else
         {
             //Debug
         }
-        if (ultimateModeParticles != null)
-        {
-            var main = ultimateModeParticles.main;
-            originalParticleColor = main.startColor.color; 
-        }
-        else
-        {
-            Debug.LogError("Ultimate mode particle system not set.");
-        }
     }
-    void Update()
-    {
-        if (HasUnlimitedAmmo && HasDoubleDamage && HasForceField)
-        {
-            ActivateUltimateMode();
-        }
-    }
-    private void ActivateUltimateMode()
-    {
-        Debug.Log("Ultimate Mode Activated!");
-        StartCoroutine(UltimateModeEffects());
-    }
-    private IEnumerator UltimateModeEffects()
-    {
-        float startTime = Time.realtimeSinceStartup;
-        if (droneController != null)
-        {
-            //droneController.ToggleActivation(); Idk yet
-        }
-        Color redWithOriginalAlpha = new Color(1, 0, 0, 0.25f);
-        ChangeParticleSystemColor(redWithOriginalAlpha);
-        while (Time.realtimeSinceStartup - startTime < ultimateModeDuration)
-        {
-            yield return null; 
-        }
-        if (droneController != null)
-        {
-            //droneController.ToggleDeactivation(); Idk yet
-        }
-        ChangeParticleSystemColor(originalParticleColor);
-        ResetAllPowerUps();
-    }
-   
+
     public void ActivateUnlimitedAmmo(float duration)
     {
         HasUnlimitedAmmo = true;
@@ -91,14 +49,12 @@ public class PowerUpManager : MonoBehaviour
         StartCoroutine(DeactivateUnlimitedAmmoAfterDuration(duration));
 
     }
-   
+
     private IEnumerator DeactivateUnlimitedAmmoAfterDuration(float duration)
     {
-        float startTime = Time.realtimeSinceStartup;
-        while (Time.realtimeSinceStartup - startTime < duration)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(duration * 0.8f); 
+        StartCoroutine(FlashIconColor(iconUnlimitedAmmo, duration * 0.2f));
+        yield return new WaitForSeconds(duration * 0.2f); 
         HideUnlimitedAmmoIcon();
         HasUnlimitedAmmo = false;
     }
@@ -110,38 +66,18 @@ public class PowerUpManager : MonoBehaviour
     }
     private IEnumerator DeactivateDoubleDamageAfterDuration(float duration)
     {
-        float startTime = Time.realtimeSinceStartup;
-        while (Time.realtimeSinceStartup - startTime < duration)
-        {
-            yield return null;
-        }
-        HasDoubleDamage = false;
+        yield return new WaitForSeconds(duration * 0.8f); 
+        StartCoroutine(FlashIconColor(iconDoubleDamage, duration * 0.2f));
+        yield return new WaitForSeconds(duration * 0.2f); 
         HideDoubleDamageIcon();
-    }
-    private void ResetAllPowerUps()
-    {
-        HasUnlimitedAmmo = false;
         HasDoubleDamage = false;
-        HasForceField = false;
     }
+
     public void SetForceFieldActive(bool isActive)
     {
         HasForceField = isActive;
     }
-    void ChangeParticleSystemColor(Color newColor)
-    {
-        if (ultimateModeParticles != null)
-        {
-            var main = ultimateModeParticles.main;
-            Color currentColor = main.startColor.color;
-            newColor.a = currentColor.a;
-            main.startColor = newColor;
-        }
-        else
-        {
-            //Debug
-        }
-    }
+
     void ShowUnlimitedAmmoIcon()
     {
         if (iconUnlimitedAmmo != null) iconUnlimitedAmmo.SetActive(true);
@@ -160,5 +96,24 @@ public class PowerUpManager : MonoBehaviour
     void HideDoubleDamageIcon()
     {
         if (iconDoubleDamage != null) iconDoubleDamage.SetActive(false);
+    }
+    IEnumerator FlashIconColor(GameObject icon, float duration)
+    {
+        if (icon == null)
+            yield break;
+        var imageComponent = icon.GetComponent<UnityEngine.UI.Image>();
+        if (imageComponent == null)
+        {
+            yield break;
+        }
+        float endTime = Time.time + duration;
+        bool isRed = false;
+        while (Time.time < endTime)
+        {
+            imageComponent.color = isRed ? Color.white : Color.red;
+            isRed = !isRed;
+            yield return new WaitForSeconds(0.2f);
+        }
+        imageComponent.color = Color.white;
     }
 }
