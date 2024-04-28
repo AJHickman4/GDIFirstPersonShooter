@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyDetectionCamera : MonoBehaviour, IDamage
@@ -22,7 +23,7 @@ public class EnemyDetectionCamera : MonoBehaviour, IDamage
 
     [Header("Spawning Parameters")]
     public GameObject[] objectsToSpawn;
-    public Transform spawnPoint;
+    public List<Transform> spawnPoints;
     public bool spawnOnDetection = true;
 
     private bool isPlayerDetected = false;
@@ -84,7 +85,8 @@ public class EnemyDetectionCamera : MonoBehaviour, IDamage
     {
         if (objectsToSpawn.Length == 0) return;
         int index = Random.Range(0, objectsToSpawn.Length);
-        Instantiate(objectsToSpawn[index], spawnPoint.position, Quaternion.identity);
+        int spawnIndex = Random.Range(0, spawnPoints.Count);
+        Instantiate(objectsToSpawn[index], spawnPoints[spawnIndex].position, Quaternion.identity);
         //spawnOnDetection = false;
     }
     
