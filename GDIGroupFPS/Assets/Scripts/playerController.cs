@@ -777,7 +777,7 @@ public class playerController : MonoBehaviour, IDamage
     }
     IEnumerator Regen() // health regen
     {
-        float regenInterval = 1.0f;
+        float regenInterval = 0.5f;
         while (true)
         {
             if (HP < HPOrig)
