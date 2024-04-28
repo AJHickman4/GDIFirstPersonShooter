@@ -86,4 +86,12 @@ public class GlobalWeaponsStatsManager : MonoBehaviour
             weapon.RefillAllAmmo();
         }
     }
+    public void IncreaseAmmoReturnChanceForAllWeapons(float increasePercent)
+    {
+        Weapon[] allWeapons = FindObjectsOfType<Weapon>(); 
+        foreach (Weapon weapon in allWeapons)
+        {
+            weapon.ammoReturnChance += increasePercent;
+        }
+    }
 }

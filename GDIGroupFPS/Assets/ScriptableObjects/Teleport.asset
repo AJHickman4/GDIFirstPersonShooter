@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Teleport
   m_EditorClassIdentifier: 
   itemName: Teleport
-  cost: 1000
+  cost: 300
   icon: {fileID: 0}
-  description: Press Q to instantly escape danger. Limited uses.
+  description: Press Q to instantly escape danger. One time use.
   itemType: 9
   effectValue: 1

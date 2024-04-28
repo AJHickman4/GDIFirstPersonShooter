@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour
     public Transform bulletSpawn;
     [Range(1, 70)] public float bulletVelocity = 30;
     [Range(1, 5)] public float bulletPrefabLife = 3f;
+    public float ammoReturnChance = 0f; // chance to return ammo after shooting bought from shop
 
     [Header("Camera")]
     public Camera playerCamera;
@@ -138,7 +139,11 @@ public class Weapon : MonoBehaviour
         {
             return; 
         }
-
+        if (!unlimitedAmmo && UnityEngine.Random.value < ammoReturnChance / 100.0f) 
+        {
+            currentAmmo++; 
+            gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+        }
 
         if (isReloading || !canShoot) return;
           
@@ -175,6 +180,11 @@ public class Weapon : MonoBehaviour
         {
             yield break; 
         }
+        if (!unlimitedAmmo && UnityEngine.Random.value < ammoReturnChance / 100.0f) 
+        {
+            currentAmmo++; 
+            gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
+        }
         if (!canShoot || isReloading) yield break;
         readyToShoot = false;
         if (!isRecoiling) 
@@ -200,6 +210,11 @@ public class Weapon : MonoBehaviour
         if (gameManager.instance.isPaused)
         {
             yield break; 
+        }
+        if (!unlimitedAmmo && UnityEngine.Random.value < ammoReturnChance / 100.0f) 
+        {
+            currentAmmo++; 
+            gameManager.instance.UpdateAmmoUI(this.currentAmmo, this.totalAmmoReserve);
         }
         if (!canShoot || isReloading) yield break;
         readyToShoot = false;

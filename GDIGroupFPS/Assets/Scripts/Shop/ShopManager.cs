@@ -120,6 +120,12 @@ public class ShopManager : MonoBehaviour
             case ItemType.teleport:
                 gameManager.instance.AddEmergencyTeleport((int)item.effectValue);
                 break;
+            case ItemType.AmmoReturn:
+                weaponsStatsManager.IncreaseAmmoReturnChanceForAllWeapons((int)item.effectValue);
+                break;
+            case ItemType.HealthRegen:
+                player.PurchaseRegenerationBooster(); 
+                break;
         }
     }
 

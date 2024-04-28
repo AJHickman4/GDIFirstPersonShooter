@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] Animator anim;
     [SerializeField] AudioSource aud;
     [SerializeField] private cameraController myCameraController;
-    
+
     [Header("----- Player Stats -----")]
     [Range(1, 20)] public float speed;
     [Range(1, 25)] public float sprintSpeed;
@@ -23,11 +23,13 @@ public class playerController : MonoBehaviour, IDamage
     [Range(1, 300)] public int HP;
     public int HPOrig;
     private bool isAlive = true;
-    
+    public float regenRate = 0f;
+    private Coroutine regenCoroutine;
+
     [Header("----- Noclip -----")]
     public bool isNoclipActive = false;
     public KeyCode noclipToggleKey = KeyCode.N;
-    
+
     [Header("----- Stamina -----")]
     [SerializeField] public float maxStamina;
     [SerializeField] public float currentStamina;
@@ -65,7 +67,7 @@ public class playerController : MonoBehaviour, IDamage
     public float dashDuration = 0.3f;
     private bool isDashing = false;
     public Vector3 dashDirection;
-    public float dashCooldown = 2f; 
+    public float dashCooldown = 2f;
     private float lastDashTime = -10f;
     public float verticalThreshold = 0.5f;
 
@@ -102,7 +104,7 @@ public class playerController : MonoBehaviour, IDamage
     private bool playingSteps;
     private bool isSprinting;
     private float lastHurtTime = 0;
-    public float hurtSoundCooldown = 0.5f;  
+    public float hurtSoundCooldown = 0.5f;
 
     private float wantAlpha;
     private float startAlpha;
@@ -121,6 +123,7 @@ public class playerController : MonoBehaviour, IDamage
         currentStamina = maxStamina;
         onetimespawn();
         lastPosition = transform.position;
+        StartRegeneration();
     }
 
     public void onetimespawn()
@@ -129,7 +132,7 @@ public class playerController : MonoBehaviour, IDamage
         HP = HPOrig;
         updatePlayerUI();
         controller.enabled = false;
-        transform.position = firsttimespawn;       
+        transform.position = firsttimespawn;
         controller.enabled = true;
     }
     public void spawnPlayer()
@@ -152,7 +155,7 @@ public class playerController : MonoBehaviour, IDamage
         lastPosition = transform.position;
         movement();
         CheckForDoorAiming();
-        
+
         CheckForButtonPress(); //For all interactables int he future.(But also this button) :)
         currentWeapon = equipScript.GetCurrentWeapon();
         if (isNoclipActive)
@@ -202,7 +205,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             StartCoroutine(FadeOut());
         }
-        
+
         if (HP == HPOrig)
         {
             StartCoroutine(FadeOut());
@@ -247,11 +250,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             currentStamina += staminaRechargeRate * Time.deltaTime;
             currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-            
+
             if (myCameraController != null)
             {
-                myCameraController.ResetFOV();  
-            } 
+                myCameraController.ResetFOV();
+            }
             if (currentStamina >= 20)
             {
                 canSprint = true;
@@ -329,18 +332,18 @@ public class playerController : MonoBehaviour, IDamage
     {
         canMove = false;
         Quaternion startRotation = transform.rotation;
-        Quaternion endRotation = Quaternion.Euler(0, 180, 90); 
+        Quaternion endRotation = Quaternion.Euler(0, 180, 90);
 
-        float duration = 1.0f; 
+        float duration = 1.0f;
         float timeElapsed = 0;
 
         while (timeElapsed < duration)
         {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / duration);
             timeElapsed += Time.deltaTime;
-            yield return null; 
+            yield return null;
         }
-        transform.rotation = endRotation; 
+        transform.rotation = endRotation;
     }
 
     public IEnumerator ShowDamageIndicator()
@@ -430,10 +433,10 @@ public class playerController : MonoBehaviour, IDamage
         {
             isSliding = true;
             slideTimer = maxSlideTime;
-            controller.height = slideYScale; 
+            controller.height = slideYScale;
             currentStamina -= slideStaminaCost;
         }
-        
+
     }
 
     private void SlideMovement()
@@ -456,7 +459,7 @@ public class playerController : MonoBehaviour, IDamage
     private void StopSlide()
     {
         isSliding = false;
-        controller.height = originalHeight; 
+        controller.height = originalHeight;
     }
 
     void CheckForDoorAiming()
@@ -519,37 +522,37 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator PerformMeleeAttack()
     {
-        if (!canMove) yield break;  
+        if (!canMove) yield break;
         if (!isMeleeReady || (currentWeapon != null && (currentWeapon.isReloading || currentWeapon.isRecoiling)))
         {
-            yield break;  
-        }        
-        isMeleeReady = false;  
+            yield break;
+        }
+        isMeleeReady = false;
         equipScript.DeactivateAllGuns();
         meleeWeapon.SetActive(true);
         meleeAnimator.SetTrigger("Attack");
         if (Time.time >= lastDashTime + dashCooldown)
             StartCoroutine(PerformDash());
-        yield return new WaitForSeconds(0.2f);  
+        yield return new WaitForSeconds(0.2f);
         ApplyMeleeDamage();
-        yield return new WaitForSeconds(0.4f);  
+        yield return new WaitForSeconds(0.4f);
         meleeWeapon.SetActive(false);
         equipScript.ReactivateAllGuns();
-        isMeleeReady = true;  
+        isMeleeReady = true;
     }
     IEnumerator PerformDash()
     {
-        if (Time.time < lastDashTime + dashCooldown) 
+        if (Time.time < lastDashTime + dashCooldown)
             yield break;
         isDashing = true;
-        lastDashTime = Time.time; 
+        lastDashTime = Time.time;
         Vector3 horizontalInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         horizontalInput = transform.TransformDirection(horizontalInput.normalized);
         Vector3 forward = playerCamera.transform.forward;
-        forward.y = 0;  
+        forward.y = 0;
         forward.Normalize();
         float vertical = playerCamera.transform.forward.y;
-        vertical = (vertical > verticalThreshold) ? vertical : 0;  
+        vertical = (vertical > verticalThreshold) ? vertical : 0;
         dashDirection = horizontalInput + new Vector3(0, vertical, 0);
         dashDirection = dashDirection.normalized * dashSpeed;
         float dashEndTime = Time.time + dashDuration;
@@ -571,12 +574,12 @@ public class playerController : MonoBehaviour, IDamage
         {
             if (hitCollider.CompareTag("Player"))
             {
-                continue; 
+                continue;
             }
             IDamage target = hitCollider.GetComponent<IDamage>();
             if (target != null)
             {
-                target.takeDamage((int)meleeDamage); 
+                target.takeDamage((int)meleeDamage);
             }
         }
     }
@@ -587,7 +590,7 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     private void TeleportToSpawn()
-    {           
+    {
         if (controller.enabled)
         {
             controller.enabled = false;
@@ -608,17 +611,17 @@ public class playerController : MonoBehaviour, IDamage
 
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation = Quaternion.Euler(0, 180, 0);
-        float duration = 1.0f; 
+        float duration = 1.0f;
         float timeElapsed = 0;
         while (timeElapsed < duration)
         {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / duration);
             timeElapsed += Time.deltaTime;
-            yield return null; 
+            yield return null;
         }
         canMove = true;
         GlobalWeaponsStatsManager.Instance.CanShoot = true;
-        transform.rotation = endRotation; 
+        transform.rotation = endRotation;
 
     }
 
@@ -629,14 +632,14 @@ public class playerController : MonoBehaviour, IDamage
             RaycastHit hit;
             if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactionRange))
             {
-                if (hit.collider.CompareTag("Button")) 
+                if (hit.collider.CompareTag("Button"))
                 {
                     TriggerButtonAction(hit.collider.gameObject);
                 }
                 VendingMachine vendingMachine = hit.collider.GetComponent<VendingMachine>();
                 if (vendingMachine != null)
                 {
-                   if (credits >= 50)
+                    if (credits >= 50)
                     {
                         credits -= 50;
                         gameManager.instance.updateCreditsUI();
@@ -667,7 +670,7 @@ public class playerController : MonoBehaviour, IDamage
         credits += 1000;
         gameManager.instance.updateCreditsUI();
     }
-    public void CoinDrop() 
+    public void CoinDrop()
     {
         int randomCoins = UnityEngine.Random.Range(10, 50);
         credits += randomCoins;
@@ -738,8 +741,32 @@ public class playerController : MonoBehaviour, IDamage
         transform.Translate(move * speed * Time.deltaTime, Space.World);
     }
 
+    public void StartRegeneration()
+    {
+        if (regenCoroutine != null) StopCoroutine(regenCoroutine);
+        regenCoroutine = StartCoroutine(Regen());
+    }
+    IEnumerator Regen()
+    {
+        float regenInterval = 1.0f;
+        while (true)
+        {
+            if (HP < HPOrig)
+            {
+                int addHealth = Mathf.CeilToInt(HPOrig * regenRate / 100f); 
+                HP += addHealth;
+                HP = Mathf.Min(HP, HPOrig);
+                updatePlayerUI();
+            }
+            yield return new WaitForSeconds(regenInterval); 
+        }
+    }
+    public void PurchaseRegenerationBooster()
+    {
+        regenRate += 1f;  
+        StartRegeneration();  
+    }
 }
-
 
 
 

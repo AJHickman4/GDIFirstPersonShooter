@@ -28,5 +28,7 @@ public class ShopItem : ScriptableObject
         sprintUpgrade,
         RefillaAmmo,
         teleport,
+        AmmoReturn,
+        HealthRegen,
     }
 }
