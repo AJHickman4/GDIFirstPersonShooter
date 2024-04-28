@@ -10,10 +10,7 @@ public class OpenShop : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (PlayerIsNearby()) 
-            {
-                shopManager.OpenShop();
-            }
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -22,17 +19,19 @@ public class OpenShop : MonoBehaviour
         }
     }
 
-    private bool PlayerIsNearby()
+    private void OnTriggerExit(Collider other)
     {
-       
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f); 
-        foreach (var hitCollider in hitColliders)
+        if (other.CompareTag("Player"))
         {
-            if (hitCollider.CompareTag("Player"))
-            {
-                return true;
-            }
+            shopManager.CloseShop();
         }
-        return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            shopManager.OpenShop();
+        }
     }
 }

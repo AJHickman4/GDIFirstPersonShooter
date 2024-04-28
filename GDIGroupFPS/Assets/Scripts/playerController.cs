@@ -172,12 +172,6 @@ public class playerController : MonoBehaviour, IDamage
         {
             NoclipMovement();
         }
-        if (Input.GetKeyDown(KeyCode.E) && !shopManager.isShopOpen)
-        {
-            ShopManager.OpenShop();
-        }
-
-       
         //begin the crouch 
         if (Input.GetKeyDown(KeyCode.C))
         {
