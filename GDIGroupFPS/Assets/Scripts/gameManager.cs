@@ -30,6 +30,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject iconShield;
     [SerializeField] GameObject iconUnlimtedAmmo;
     [SerializeField] TMP_Text timerText;
+    [SerializeField] TMP_Text teleportCountText;
     [SerializeField] private float flashThreshold = 10f;
     [SerializeField] private float flashDuration = 0.5f;
 
@@ -71,6 +72,7 @@ public class gameManager : MonoBehaviour
     bool temp;
     public ParticleSystem teleportEffect;
     private Coroutine flashCoroutine;
+    public int emergencyTeleport = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -172,18 +174,10 @@ public class gameManager : MonoBehaviour
                 }
             }
         }
-        //if (Input.GetKeyDown(KeyCode.P))
-        //    {
-        //        if(isPaused)
-        //        {
-        //            stateUnPaused(); //resume the game 
-        //        }
-        //        else
-        //        {
-        //            statePaused(); //pauses game if not paused
-        //            shopManager.gameObject.SetActive(true); //activate shop
-        //        }
-        //    }
+        if (Input.GetKeyDown(KeyCode.Q))  // Checks if the 'T' key is pressed this frame
+        {
+            Emergencyteleport();  // Call the teleport method
+        }
     }
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
@@ -425,8 +419,30 @@ public class gameManager : MonoBehaviour
         }
     }
 
+    public void Emergencyteleport()
+    {
+        if (emergencyTeleport > 0)
+        {
+            emergencyTeleport--;
+            updateTeleport(emergencyTeleport);
+            StartCoroutine(TeleportPlayerToSpawn());
+        }
+        else if (emergencyTeleport == 0)
+        {
+            Debug.Log("No emergency teleports left");
+            return;
+        }
+    }
 
+    public void AddEmergencyTeleport(int value)
+    {
+        emergencyTeleport += value;
+        updateTeleport(emergencyTeleport);
+    }
 
-
+    public void updateTeleport(int count)
+    {
+        teleportCountText.text = count.ToString();
+    }
 }
 

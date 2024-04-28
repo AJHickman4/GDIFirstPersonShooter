@@ -69,10 +69,10 @@ public class Sweepo : MonoBehaviour, IDamage
                 Roam();
                 roamTimer = roamInterval;
             }
-            if (Input.GetKeyDown(KeyCode.Q) && !secretmessage1)
-            {
-                secretmessage();
-            }
+            //if (Input.GetKeyDown(KeyCode.Q) && !secretmessage1)
+            //{
+            //    secretmessage();
+            //}
         }
     }
 
@@ -372,47 +372,47 @@ public class Sweepo : MonoBehaviour, IDamage
         finalDialogueText.enabled = true;
         StartCoroutine(HideFinalTextAfterTime(10f));
     }
-    private void secretmessage()
-    {
-        if (Input.GetKeyDown(KeyCode.Q) && !secretmessage1)
-        {
-            secretmessage1 = true;
-            finalDialogueText.text = "You found the secret message! Congratulations!, Enjoy a buffed version of the game! Hope you can survive =]";
-            finalDialogueText.enabled = true;
-            StartCoroutine(delay());
-            if (turretsspawn.Length >= 1)
-            {
-                turretsspawn[0].SetActive(true);
-                StartCoroutine(DeactivateTurretAfterDelay(10f));
-            }
-            else
-            {
-                return;
-            }
-            StartCoroutine(HideFinalTextAfterTime(10f));
+    //private void secretmessage()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Q) && !secretmessage1)
+    //    {
+    //        secretmessage1 = true;
+    //        finalDialogueText.text = "You found the secret message! Congratulations!, Enjoy a buffed version of the game! Hope you can survive =]";
+    //        finalDialogueText.enabled = true;
+    //        StartCoroutine(delay());
+    //        if (turretsspawn.Length >= 1)
+    //        {
+    //            turretsspawn[0].SetActive(true);
+    //            StartCoroutine(DeactivateTurretAfterDelay(10f));
+    //        }
+    //        else
+    //        {
+    //            return;
+    //        }
+    //        StartCoroutine(HideFinalTextAfterTime(10f));
             
-        }
-    }
-    private IEnumerator DeactivateTurretAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (turretsspawn.Length >= 1)
-        {
-            turretsspawn[0].SetActive(false);
-        }
-        StartCoroutine(refund(15f));
-        StartCoroutine(HideTextAfterTime(6f));
-    }
+    //    }
+    //}
+    //private IEnumerator DeactivateTurretAfterDelay(float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    if (turretsspawn.Length >= 1)
+    //    {
+    //        turretsspawn[0].SetActive(false);
+    //    }
+    //    StartCoroutine(refund(15f));
+    //    StartCoroutine(HideTextAfterTime(6f));
+    //}
     
-    IEnumerator refund(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        finalDialogueText.text = "Turret has been deactivated! Are you alive? Here's some credits to help.";
-        finalDialogueText.enabled = true;
-        StartCoroutine(HideFinalTextAfterTime(6f));
-        gameManager.instance.playerScript.credits += 1000;
-        gameManager.instance.updateCreditsUI();
-    }
+    //IEnumerator refund(float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    finalDialogueText.text = "Turret has been deactivated! Are you alive? Here's some credits to help.";
+    //    finalDialogueText.enabled = true;
+    //    StartCoroutine(HideFinalTextAfterTime(6f));
+    //    gameManager.instance.playerScript.credits += 1000;
+    //    gameManager.instance.updateCreditsUI();
+    //}
     
     public void Reset()
     {

@@ -117,6 +117,9 @@ public class ShopManager : MonoBehaviour
             case ItemType.RefillaAmmo:
                 GlobalWeaponsStatsManager.Instance.RefillAllWeaponsAmmo();
                 break;
+            case ItemType.teleport:
+                gameManager.instance.AddEmergencyTeleport((int)item.effectValue);
+                break;
         }
     }
 

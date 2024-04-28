@@ -185,10 +185,10 @@ public class enemyMeleeAI : MonoBehaviour, IDamage
 
     IEnumerator onDeath()
     {
+        StopCoroutine(Roam());
         if (isDying) yield break; 
         isDying = true;
         agent.isStopped = true;
-        StopCoroutine(Roam());
         playerInRange = false;
         anim.SetTrigger("Death");
         PriorityManager.ReleasePriority(agent.avoidancePriority);
