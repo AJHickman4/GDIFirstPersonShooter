@@ -13,6 +13,11 @@ public class inputManager : MonoBehaviour
 
     private InputAction _menuOpenCloseAction;
 
+    public bool MenuOpenCloseWebInput { get; private set; }
+
+
+    private InputAction _menuOpenCloseWebAction;
+
     private void Awake()
     {
         if (instance == null)
@@ -20,13 +25,28 @@ public class inputManager : MonoBehaviour
             instance = this;
         }
 
-
         _playerInput = GetComponent<PlayerInput>();
-        _menuOpenCloseAction = _playerInput.actions["MenuOpenClose"];
+
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            _menuOpenCloseWebAction = _playerInput.actions["MenuOpenCloseWeb"];
+        }
+        else
+        {
+            _menuOpenCloseAction = _playerInput.actions["MenuOpenClose"];
+        }
     }
 
     private void Update()
     {
-        MenuOpenCloseInput = _menuOpenCloseAction.WasPerformedThisFrame();
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            MenuOpenCloseWebInput = _menuOpenCloseWebAction.WasPerformedThisFrame();
+        }
+        else
+        {
+            MenuOpenCloseInput = _menuOpenCloseAction.WasPerformedThisFrame();
+        }
+
     }
 }

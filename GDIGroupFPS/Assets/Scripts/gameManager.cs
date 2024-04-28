@@ -103,27 +103,49 @@ public class gameManager : MonoBehaviour
         {
             gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
         }
+
+
         if (menuActive == startingDialog && Input.anyKey)
         {
             stateUnPaused();
             if (menuOptions)
                 menuOptions.SetActive(false);
         }
-        if (inputManager.instance.MenuOpenCloseInput)
+
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            if (menuActive == null)
+            if (inputManager.instance.MenuOpenCloseWebInput)
             {
-                statePaused();
-                menuActive = menuPause;
-                menuActive.SetActive(isPaused);
+                if (menuActive == null)
+                {
+                    statePaused();
+                    menuActive = menuPause;
+                    menuActive.SetActive(isPaused);
+                }
+                else
+                {
+                    stateUnPaused();
+                }
             }
-            else
+        }
+        else
+        {
+            if (inputManager.instance.MenuOpenCloseInput)
             {
-                stateUnPaused();
+                if (menuActive == null)
+                {
+                    statePaused();
+                    menuActive = menuPause;
+                    menuActive.SetActive(isPaused);
+                }
+                else
+                {
+                    stateUnPaused();
+                }
             }
         }
 
-        if (timerIsActive)
+            if (timerIsActive)
         {
             if (currentTime > 0)
             {
