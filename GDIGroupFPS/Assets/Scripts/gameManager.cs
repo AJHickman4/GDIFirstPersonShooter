@@ -73,10 +73,15 @@ public class gameManager : MonoBehaviour
     public ParticleSystem teleportEffect;
     private Coroutine flashCoroutine;
     public int emergencyTeleport = 0;
-
+    private Coroutine teleportCoroutine = null;
+    private bool isTeleporting = false;
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            return;
+        }
         instance = this;
 
         player = GameObject.FindWithTag("Player");
@@ -298,19 +303,33 @@ public class gameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             elapsed += 1;
-            if (elapsed >= resetTimer)
+            if (elapsed >= resetTimer && !isTeleporting)
             {
-                StartCoroutine(TeleportPlayerToSpawn());
+                TeleportPlayerToSpawnManger();
                 yield break;
             }
         }
+    }
+    IEnumerator TeleportPlayerToSpawnManger()
+    {
+        if (teleportCoroutine != null)
+        {
+            yield break;
+        }
+
+        isTeleporting = true;
+        teleportCoroutine = StartCoroutine(TeleportPlayerToSpawn());
     }
 
     IEnumerator TeleportPlayerToSpawn()
     {
 
-        {
-
+        
+            if (isTeleporting)
+            {
+                yield break; 
+            }
+            isTeleporting = true;
             playerScript.controller.enabled = false;
             yield return new WaitForSeconds(0.5f);
             player.transform.position = startingSpawn.transform.position;
@@ -331,8 +350,8 @@ public class gameManager : MonoBehaviour
                 timerText.gameObject.SetActive(true);
             }
             isResetting = false;
-        }
-        yield return null;
+            teleportCoroutine = null;
+            isTeleporting = false;
     }
     public void StartResetTimer()
     {
@@ -349,17 +368,22 @@ public class gameManager : MonoBehaviour
     }
     public void CancelAndResetTimer()
     {
+        if (teleportCoroutine != null)
+        {
+            StopCoroutine(teleportCoroutine);
+            teleportCoroutine = null;
+            isTeleporting = false;
+        }
+
         if (timerIsActive)
         {
             StopCoroutine("ResetTimerCoroutine");
-            StopCoroutine("TeleportPlayerToSpawn");
-        }
-        timerIsActive = false;
-        currentTime = resetTimer;
-
-        if (timerText != null)
-        {
-            UpdateTimerUI(currentTime);
+            timerIsActive = false;
+            currentTime = resetTimer;
+            if (timerText != null)
+            {
+                UpdateTimerUI(currentTime);
+            }
         }
     }
 
@@ -426,11 +450,18 @@ public class gameManager : MonoBehaviour
         {
             emergencyTeleport--;
             updateTeleport(emergencyTeleport);
-            StartCoroutine(TeleportPlayerToSpawn());
+            CancelAndResetTimer();
+            if (!isTeleporting)
+            {
+                teleportCoroutine = StartCoroutine(TeleportPlayerToSpawn());
+            }
+            else
+            {
+                return;
+            }
         }
-        else if (emergencyTeleport == 0)
+        else
         {
-            Debug.Log("No emergency teleports left");
             return;
         }
     }

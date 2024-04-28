@@ -12,13 +12,28 @@ public class Menu : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuExitButton;
 
+    [SerializeField] GameObject sensitivityText;
+    [SerializeField] GameObject sensitivitySlider;
+
     private void Awake()
     {
+        if (menuOptions.activeSelf == false)
+            menuOptions.SetActive(true);
+
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             if (menuExitButton)
             {
                 menuExitButton.SetActive(false);
+            }
+        }
+
+        if (menuMain)
+        {
+            if (sensitivityText && sensitivitySlider)
+            {
+                sensitivitySlider.SetActive(false);
+                sensitivityText.SetActive(false);
             }
         }
     }
