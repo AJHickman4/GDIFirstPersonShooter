@@ -1104,7 +1104,7 @@ MonoBehaviour:
   aud: {fileID: 3967974963776084748}
   HP: 50
   speed: 20
-  viewCone: 90
+  viewCone: 190
   faceTargetSpeed: 50
   animSpeedTrans: 1
   roamDist: 10

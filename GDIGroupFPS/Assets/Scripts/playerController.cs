@@ -327,9 +327,9 @@ public class playerController : MonoBehaviour, IDamage
     }
     IEnumerator RotateTowardsGround() //remove if you get animations to work
     {
-        canMove = false;  
+        canMove = false;
         Quaternion startRotation = transform.rotation;
-        Quaternion endRotation = startRotation * Quaternion.Euler(0, 0, 90); 
+        Quaternion endRotation = Quaternion.Euler(0, 180, 90); 
 
         float duration = 1.0f; 
         float timeElapsed = 0;
@@ -607,7 +607,7 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(delay);
 
         Quaternion startRotation = transform.rotation;
-        Quaternion endRotation = Quaternion.identity; 
+        Quaternion endRotation = Quaternion.Euler(0, 180, 0);
         float duration = 1.0f; 
         float timeElapsed = 0;
         while (timeElapsed < duration)
