@@ -194,11 +194,11 @@ public class playerController : MonoBehaviour, IDamage
         }
 
 
-        if (HP <= HPOrig * 0.5)
+        if (HP <= HPOrig * 0.15)
         {
             StartCoroutine(FadeIn());
         }
-        else if (HP >= HPOrig * 0.5)
+        else if (HP >= HPOrig * 0.15)
         {
             StartCoroutine(FadeOut());
         }
