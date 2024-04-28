@@ -121,7 +121,7 @@ public class gameManager : MonoBehaviour
 
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            if (inputManager.instance.MenuOpenCloseWebInput)
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 if (menuActive == null)
                 {
@@ -152,7 +152,7 @@ public class gameManager : MonoBehaviour
             }
         }
 
-            if (timerIsActive)
+        if (timerIsActive)
         {
             if (currentTime > 0)
             {
@@ -324,34 +324,34 @@ public class gameManager : MonoBehaviour
     IEnumerator TeleportPlayerToSpawn()
     {
 
-        
-            if (isTeleporting)
-            {
-                yield break; 
-            }
-            isTeleporting = true;
-            playerScript.controller.enabled = false;
-            yield return new WaitForSeconds(0.5f);
-            player.transform.position = startingSpawn.transform.position;
-            player.transform.rotation = Quaternion.Euler(0, 180, 0);
-            playerScript.controller.enabled = true;
-            playerScript.HP = playerScript.HPOrig;
-            playerScript.updatePlayerUI();
 
-            currentTime = resetTimer;
-            UpdateTimerUI(currentTime);
-            timerIsActive = false;
-            teleportEffect.Stop();
-            yield return new WaitForSeconds(2f);
-            teleportEffect.Clear();
+        if (isTeleporting)
+        {
+            yield break;
+        }
+        isTeleporting = true;
+        playerScript.controller.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        player.transform.position = startingSpawn.transform.position;
+        player.transform.rotation = Quaternion.Euler(0, 180, 0);
+        playerScript.controller.enabled = true;
+        playerScript.HP = playerScript.HPOrig;
+        playerScript.updatePlayerUI();
 
-            if (timerText != null)
-            {
-                timerText.gameObject.SetActive(true);
-            }
-            isResetting = false;
-            teleportCoroutine = null;
-            isTeleporting = false;
+        currentTime = resetTimer;
+        UpdateTimerUI(currentTime);
+        timerIsActive = false;
+        teleportEffect.Stop();
+        yield return new WaitForSeconds(2f);
+        teleportEffect.Clear();
+
+        if (timerText != null)
+        {
+            timerText.gameObject.SetActive(true);
+        }
+        isResetting = false;
+        teleportCoroutine = null;
+        isTeleporting = false;
     }
     public void StartResetTimer()
     {
