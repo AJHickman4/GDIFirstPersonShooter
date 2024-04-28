@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
 {
+    public ShopManager ShopManager;
+    public ShopManager shopManager;
+    public gameManager gameManager;
+
+
     [Header("----- Compenents -----")]
     public CharacterController controller;
     [SerializeField] Animator anim;
@@ -162,16 +167,22 @@ public class playerController : MonoBehaviour, IDamage
 
         CheckForButtonPress(); //For all interactables int he future.(But also this button) :)
         currentWeapon = equipScript.GetCurrentWeapon();
+
         if (isNoclipActive)
         {
             NoclipMovement();
         }
+        if (Input.GetKeyDown(KeyCode.E) && !shopManager.isShopOpen)
+        {
+            ShopManager.OpenShop();
+        }
+
+       
         //begin the crouch 
         if (Input.GetKeyDown(KeyCode.C))
         {
             Crouch();
         }
-
         //end crouch
         if (Input.GetKeyUp(KeyCode.C))
         {
@@ -217,7 +228,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (velocity.sqrMagnitude < 0.1f) 
         {
-
+            Debug.Log("Player has stopped, enabling particle attraction.");
             EnableParticleAttraction();
             EnableParticleAttraction2();
         }
