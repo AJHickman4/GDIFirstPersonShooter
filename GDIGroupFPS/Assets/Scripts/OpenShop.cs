@@ -1,26 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class OpenShop : MonoBehaviour
 {
+    public ShopManager shopManager; // Reference to the ShopManager script
 
-    public ShopManager ShopManager; // Reference to the ShopManager script
-
-    private void OnTriggerEnter(Collider other)
+    void Update()
     {
-        if (other.CompareTag("Player"))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            ShopManager.OpenShop();
+            if (PlayerIsNearby()) 
+            {
+                shopManager.OpenShop();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            shopManager.CloseShop();
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private bool PlayerIsNearby()
     {
-        if (other.CompareTag("Player"))
+       
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f); 
+        foreach (var hitCollider in hitColliders)
         {
-            ShopManager.CloseShop();
+            if (hitCollider.CompareTag("Player"))
+            {
+                return true;
+            }
         }
+        return false;
     }
 }

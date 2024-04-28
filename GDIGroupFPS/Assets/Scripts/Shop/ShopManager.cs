@@ -17,6 +17,7 @@ public class ShopManager : MonoBehaviour
     public GlobalWeaponsStatsManager weaponsStatsManager;
     public cameraController cameraController;
     public GameObject portal;
+    public bool isShopOpen = false;
 
     //  public List<ShopItem> itemsForSale = new List<ShopItem>();
     public playerController player;
@@ -140,14 +141,20 @@ public class ShopManager : MonoBehaviour
         UpdateCreditsDisplay();
         
     }
+
+   
+   
     public void UpdateCreditsDisplay()
     {
         creditsUI.text = "Credits: " + gameManager.instance.playerScript.credits.ToString();
         CheckPurchaseableItem();
     }
 
+    
+
     public void OpenShop()
     {
+        isShopOpen = true;
         shopUI.SetActive(true);
         UpdateCreditsDisplay();
         GlobalWeaponsStatsManager.Instance.SetShootingDisabled(true);
@@ -158,11 +165,13 @@ public class ShopManager : MonoBehaviour
 
     public void CloseShop()
     {
+        isShopOpen = false;
         shopUI.SetActive(false);
         GlobalWeaponsStatsManager.Instance.SetShootingEnabled(true);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cameraController.enabled = true;
+
     }
 
     public void loadPanels()
@@ -178,5 +187,19 @@ public class ShopManager : MonoBehaviour
     private void ActivatePortal()
     {
             portal.SetActive(true);  
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            CloseShop();
+        }
     }
 }
