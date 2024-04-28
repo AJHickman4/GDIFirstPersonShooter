@@ -229,6 +229,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
 
     IEnumerator onDeath()
     {
+        StopCoroutine(Roam());
         if (isDying) yield break;
         isDying = true;
         agent.isStopped = true;
