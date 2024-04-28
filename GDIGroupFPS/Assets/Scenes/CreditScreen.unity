@@ -255,16 +255,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ali Abunada
-
-    Bryan Bechtel
-
-    Julia Hasanova
+  m_text: 'Alec Hickman
 
     Collin Hedges
 
-    Alec
-    Hickman
+    Julia Hasanova
+
+    Bryan Bechtel
+
+    Ali
+    Abunada
 
 
     Francesco Ungaro
@@ -280,7 +280,12 @@ MonoBehaviour:
     user u_r7cny11q7r-41888232
 
 
-    Unity Asset Store'
+    Provided by Unity Asset Store
+
+    Rust Key
+    by Aleksn09
+
+    Synty Studios'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b5d946d3db94a946b99282f7705c695, type: 2}
   m_sharedMaterial: {fileID: 9062159964085622541, guid: 0b5d946d3db94a946b99282f7705c695, type: 2}
@@ -393,7 +398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -952}
+  m_AnchoredPosition: {x: 11, y: -948}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &607390582
@@ -1047,7 +1052,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -852}
+  m_AnchoredPosition: {x: 0, y: -904}
   m_SizeDelta: {x: 550, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1885683189
