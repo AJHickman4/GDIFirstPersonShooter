@@ -188,6 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfac81a70e4defd488bb6a193a3c524d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShopManager: {fileID: 0}
+  shopManager: {fileID: 0}
+  gameManager: {fileID: 0}
   controller: {fileID: 6227967636068271389}
   anim: {fileID: 0}
   aud: {fileID: 6353965354694126101}
