@@ -14,6 +14,7 @@ public class Menu : MonoBehaviour
 
     [SerializeField] GameObject sensitivityText;
     [SerializeField] GameObject sensitivitySlider;
+    [SerializeField] GameObject sensitivityValue;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class Menu : MonoBehaviour
             {
                 sensitivitySlider.SetActive(false);
                 sensitivityText.SetActive(false);
+                sensitivityValue.SetActive(false);
             }
         }
     }

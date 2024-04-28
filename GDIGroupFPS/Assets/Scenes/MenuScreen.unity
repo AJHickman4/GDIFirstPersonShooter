@@ -1746,6 +1746,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2711348463058493734, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3148968928791166774, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1878,6 +1882,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4119694973359902354, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5025485592966724249, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1964,6 +1972,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8760297086530242827, guid: f1877d6514f9a464284b841866c255b8, type: 3}
   m_PrefabInstance: {fileID: 1340937483}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1429137369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2711348463058493734, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+  m_PrefabInstance: {fileID: 1340937483}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1564995678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,6 +2030,7 @@ MonoBehaviour:
   menuExitButton: {fileID: 1327810664}
   sensitivityText: {fileID: 1418262902}
   sensitivitySlider: {fileID: 957797165}
+  sensitivityValue: {fileID: 1429137369}
 --- !u!1 &1577377972
 GameObject:
   m_ObjectHideFlags: 0
