@@ -229,11 +229,19 @@ public class gameManager : MonoBehaviour
         for (int i = 0; i < playerScript.keys.Count; i++)
         {
             if (playerScript.keys[i] == 1)
+            {
                 menuKey1.SetActive(true);
+                playerScript.turnRedkeyoff();
+            }
             if (playerScript.keys[i] == 2)
+            {
                 menuKey2.SetActive(true);
+            }
             if (playerScript.keys[i] == 3)
+            {
                 menuKey3.SetActive(true);
+                playerScript.turnGreenkeyoff();
+            }
         }
     }
 

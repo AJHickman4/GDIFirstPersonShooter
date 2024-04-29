@@ -867,6 +867,14 @@ public class playerController : MonoBehaviour, IDamage
     {
         greenkey.SetActive(true);
     }
+    public void turnRedkeyoff()
+    {
+        redkey.SetActive(false);
+    }
+    public void turnGreenkeyoff()
+    {
+        greenkey.SetActive(false);
+    }
 }
 
 
