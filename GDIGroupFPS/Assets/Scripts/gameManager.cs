@@ -112,7 +112,6 @@ public class gameManager : MonoBehaviour
             gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
         }
 
-
         if (menuActive == startingDialog && Input.anyKey)
         {
             stateUnPaused();
