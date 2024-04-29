@@ -33,7 +33,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("----- Noclip -----")]
     public bool isNoclipActive = false;
-    public KeyCode noclipToggleKey = KeyCode.N;
+    //public KeyCode noclipToggleKey = KeyCode.N;
 
     [Header("----- Stamina -----")]
     [SerializeField] public float maxStamina;
@@ -161,7 +161,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
 
-        HandleNoclipToggle();
+        //HandleNoclipToggle();
         float actualSpeed = speed * speedMultiplier;
         velocity = (transform.position - lastPosition) / Time.deltaTime;
         lastPosition = transform.position;
@@ -171,10 +171,10 @@ public class playerController : MonoBehaviour, IDamage
         CheckForButtonPress(); //For all interactables int he future.(But also this button) :)
         currentWeapon = equipScript.GetCurrentWeapon();
 
-        if (isNoclipActive)
-        {
-            NoclipMovement();
-        }
+        //if (isNoclipActive)
+        //{
+        //    NoclipMovement();
+        //}
         //begin the crouch 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -185,10 +185,10 @@ public class playerController : MonoBehaviour, IDamage
         {
             StandUp();
         }
-        if (Input.GetKeyDown(KeyCode.T)) // Press T key to apply test damage
-        {
-            takeDamage(50); // Apply 10 damage for testing
-        }
+        //if (Input.GetKeyDown(KeyCode.T)) // Press T key to apply test damage
+        //{
+        //    takeDamage(50); // Apply 10 damage for testing
+        //}
         if ((Input.GetKeyDown(slideKey) || Input.GetKeyDown(slideMouseButton)) && !isSliding && controller.isGrounded)
         {
             StartSlide();
@@ -746,25 +746,25 @@ public class playerController : MonoBehaviour, IDamage
             yield return new WaitForSeconds(0.08f);
         }
     }
-    private void HandleNoclipToggle()
-    {
-        if (Input.GetKeyDown(noclipToggleKey))
-        {
-            isNoclipActive = !isNoclipActive;
-            controller.enabled = !isNoclipActive;
-            if (isNoclipActive)
-            {
-                aud.Play();
-            }
-        }
-    }
-    private void NoclipMovement()
-    {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical + transform.up * Input.GetAxis("Jump");
-        transform.Translate(move * speed * Time.deltaTime, Space.World);
-    }
+    //private void HandleNoclipToggle()
+    //{
+    //    if (Input.GetKeyDown(noclipToggleKey))
+    //    {
+    //        isNoclipActive = !isNoclipActive;
+    //        controller.enabled = !isNoclipActive;
+    //        if (isNoclipActive)
+    //        {
+    //            aud.Play();
+    //        }
+    //    }
+    //}
+    //private void NoclipMovement()
+    //{
+    //    float moveHorizontal = Input.GetAxis("Horizontal");
+    //    float moveVertical = Input.GetAxis("Vertical");
+    //    Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical + transform.up * Input.GetAxis("Jump");
+    //    transform.Translate(move * speed * Time.deltaTime, Space.World);
+    //}
 
     public void StartRegeneration() // health regen
     {
