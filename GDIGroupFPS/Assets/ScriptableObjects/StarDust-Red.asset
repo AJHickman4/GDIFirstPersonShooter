@@ -17,5 +17,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f24f36a4c65e8774e9ce36c656ce9a5e, type: 3}
   description: Magnetic Stardust made from key fragments that will lead you back
     to its body.
-  itemType: 0
+  itemType: 13
   effectValue: 0
+  disappearsOnPurchase: 1

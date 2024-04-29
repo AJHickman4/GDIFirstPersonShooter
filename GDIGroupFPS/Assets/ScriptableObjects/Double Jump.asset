@@ -19,3 +19,4 @@ MonoBehaviour:
     lets you defy gravity and reach new heights in combat.
   itemType: 3
   effectValue: 1
+  disappearsOnPurchase: 1

@@ -15,6 +15,7 @@ public class ShopItem : ScriptableObject
     public string description;
     public ItemType itemType;  
     public float effectValue;
+    public bool disappearsOnPurchase;
 
     public enum ItemType
     {
@@ -31,5 +32,7 @@ public class ShopItem : ScriptableObject
         AmmoReturn,
         HealthRegen,
         staminaRegen,
+        stardustRedKey,
+        stardustGreenKey,
     }
 }

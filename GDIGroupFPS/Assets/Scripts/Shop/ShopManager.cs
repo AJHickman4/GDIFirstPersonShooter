@@ -80,6 +80,10 @@ public class ShopManager : MonoBehaviour
             ApplyItemEffect(shopItem[btnNo]);
             UpdateCreditsDisplay();
             gameManager.instance.updateCreditsUI();
+            if (shopItem[btnNo].disappearsOnPurchase)
+            {
+                shopPanels[btnNo].SetActive(false);
+            }
         }
     }
 
@@ -127,6 +131,14 @@ public class ShopManager : MonoBehaviour
                 break;
             case ItemType.staminaRegen:
                 player.PurchaseStaminaRegenerationBooster();
+                break;
+            case ItemType.stardustRedKey:
+                gameManager.instance.playerScript.turnRedkeyon();
+                
+                break;
+            case ItemType.stardustGreenKey:
+                gameManager.instance.playerScript.turnGreenkeyon();
+                
                 break;
         }
     }
@@ -181,6 +193,14 @@ public class ShopManager : MonoBehaviour
             ShopPanels[i].titleTxt.text = shopItem[i].itemName;
             ShopPanels[i].description.text = shopItem[i].description;
             ShopPanels[i].costTxt.text = shopItem[i].cost.ToString() + " Credits: ";
+            if (shopItem[i].disappearsOnPurchase && !shopPanels[i].activeSelf)
+            {
+                shopPanels[i].SetActive(false);
+            }
+            else
+            {
+                shopPanels[i].SetActive(true);
+            }
         }
     }
     

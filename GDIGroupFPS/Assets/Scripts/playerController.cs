@@ -120,6 +120,9 @@ public class playerController : MonoBehaviour, IDamage
     public Vector3 velocity;
     public Vector3 firsttimespawn;
 
+    public GameObject redkey;
+    public GameObject greenkey;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -222,7 +225,6 @@ public class playerController : MonoBehaviour, IDamage
 
         if (velocity.sqrMagnitude < 0.1f) 
         {
-            Debug.Log("Player has stopped, enabling particle attraction.");
             EnableParticleAttraction();
             EnableParticleAttraction2();
         }
@@ -856,6 +858,14 @@ public class playerController : MonoBehaviour, IDamage
             emissionModule.enabled = false;
             
         }
+    }
+    public void turnRedkeyon()
+    {
+        redkey.SetActive(true);
+    }
+    public void turnGreenkeyon()
+    {
+        greenkey.SetActive(true);
     }
 }
 
