@@ -979,8 +979,9 @@ MonoBehaviour:
   dropChancePercentage3: 25
   audRun: []
   audRunVol: 0
-  audShooting: []
-  audShootingVol: 0
+  audShooting:
+  - {fileID: 8300000, guid: 2263c0595337f2e41bf7d88c3ef957bd, type: 3}
+  audShootingVol: 0.5
   audDamaged:
   - {fileID: 8300000, guid: 54e1dd4136aa67a4aad24a7648d1f34a, type: 3}
   - {fileID: 8300000, guid: 247b62b048749334fae013e3c1693800, type: 3}
