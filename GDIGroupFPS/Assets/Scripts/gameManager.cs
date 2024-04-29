@@ -126,7 +126,7 @@ public class gameManager : MonoBehaviour
         }
 
 
-        if (inputManager.instance.MenuOpenCloseInput || Input.GetKeyDown("P"))
+        if (inputManager.instance.MenuOpenCloseInput || Input.GetKeyDown(KeyCode.P))
         {
             if (menuActive == null)
             {
