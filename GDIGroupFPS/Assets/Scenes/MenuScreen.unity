@@ -1190,11 +1190,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925170231}
   m_CullTransparentMesh: 1
---- !u!1 &957797165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3148968928791166774, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+--- !u!114 &957797167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
   m_PrefabInstance: {fileID: 1340937483}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1058286839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,11 +1714,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 581538338275284610, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.349935
       objectReference: {fileID: 0}
     - target: {fileID: 581538338275284610, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 851150290725050549, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1910,6 +1916,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Camera Sensitivity
       objectReference: {fileID: 0}
+    - target: {fileID: 6037405664214782649, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: slider
+      value: 
+      objectReference: {fileID: 957797167}
+    - target: {fileID: 6037405664214782649, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037405664214782649, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: sensitivity
+      value: MouseSensitivity
+      objectReference: {fileID: 0}
     - target: {fileID: 6216631541791791092, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_Name
       value: OptionsUI
@@ -1933,6 +1951,30 @@ PrefabInstance:
     - target: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_Value
       value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Colors.m_ColorMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 0.22352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.73278826
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0.73278826
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092512962200387866, guid: f1877d6514f9a464284b841866c255b8, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.78039217
       objectReference: {fileID: 0}
     - target: {fileID: 8497666273801364880, guid: f1877d6514f9a464284b841866c255b8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2029,7 +2071,7 @@ MonoBehaviour:
   menuPause: {fileID: 0}
   menuExitButton: {fileID: 1327810664}
   sensitivityText: {fileID: 1418262902}
-  sensitivitySlider: {fileID: 957797165}
+  sensitivitySlider: {fileID: 957797167}
   sensitivityValue: {fileID: 1429137369}
 --- !u!1 &1577377972
 GameObject:
