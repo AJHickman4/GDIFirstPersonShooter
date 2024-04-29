@@ -151,7 +151,7 @@ MonoBehaviour:
   objectsToSpawn:
   - {fileID: 7498055934488193072, guid: 52a527f0b5b28ee428ee4d055c650469, type: 3}
   - {fileID: 4385913352586844907, guid: 6301d6b116ef6a1409cd122bab0c4550, type: 3}
-  spawnPoint: {fileID: 7656873469810989129}
+  spawnPoints: []
   spawnOnDetection: 1
 --- !u!54 &2450152495232051952
 Rigidbody:
@@ -210,7 +210,7 @@ AudioSource:
   m_GameObject: {fileID: 5110836682115332371}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 951789049324786518, guid: 891441e87798c0946a9bfe5e804bd6d5, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
