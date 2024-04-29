@@ -112,6 +112,11 @@ public class gameManager : MonoBehaviour
             gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
         }
 
+        if (isPaused)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
 
         if (menuActive == startingDialog && Input.anyKey)
         {
@@ -121,13 +126,14 @@ public class gameManager : MonoBehaviour
         }
 
 
-        if (inputManager.instance.MenuOpenCloseInput || Input.GetKeyDown(KeyCode.P))
+        if (inputManager.instance.MenuOpenCloseInput || Input.GetKeyDown("P"))
         {
             if (menuActive == null)
             {
                 statePaused();
                 menuActive = menuPause;
                 menuActive.SetActive(isPaused);
+
             }
             else
             {
@@ -168,6 +174,7 @@ public class gameManager : MonoBehaviour
         {
             Emergencyteleport();  // Call the teleport method
         }
+        
     }
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
