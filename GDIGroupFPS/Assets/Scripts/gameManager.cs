@@ -177,7 +177,7 @@ public class gameManager : MonoBehaviour
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
         
 
         EventSystem.current.SetSelectedGameObject(_mainMenuFirst);
