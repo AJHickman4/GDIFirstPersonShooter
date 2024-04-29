@@ -119,38 +119,22 @@ public class gameManager : MonoBehaviour
                 menuOptions.SetActive(false);
         }
 
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
+
+        if (inputManager.instance.MenuOpenCloseInput || Input.GetKeyDown(KeyCode.P))
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (menuActive == null)
             {
-                if (menuActive == null)
-                {
-                    statePaused();
-                    menuActive = menuPause;
-                    menuActive.SetActive(isPaused);
-                }
-                else
-                {
-                    stateUnPaused();
-                }
+                statePaused();
+                menuActive = menuPause;
+                menuActive.SetActive(isPaused);
+            }
+            else
+            {
+                stateUnPaused();
             }
         }
-        else
-        {
-            if (inputManager.instance.MenuOpenCloseInput)
-            {
-                if (menuActive == null)
-                {
-                    statePaused();
-                    menuActive = menuPause;
-                    menuActive.SetActive(isPaused);
-                }
-                else
-                {
-                    stateUnPaused();
-                }
-            }
-        }
+
+
 
         if (timerIsActive)
         {
