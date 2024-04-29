@@ -13,7 +13,7 @@ public class Menu : MonoBehaviour
     [SerializeField] GameObject menuExitButton;
 
     [SerializeField] GameObject sensitivityText;
-    [SerializeField] GameObject sensitivitySlider;
+    [SerializeField] Slider sensitivitySlider;
     [SerializeField] GameObject sensitivityValue;
 
     private void Awake()
@@ -29,15 +29,13 @@ public class Menu : MonoBehaviour
             }
         }
 
-        if (menuMain)
-        {
-            if (sensitivityText && sensitivitySlider)
-            {
-                sensitivitySlider.SetActive(false);
-                sensitivityText.SetActive(false);
-                sensitivityValue.SetActive(false);
-            }
-        }
+        //if (menuMain)
+        //{
+        //    if (sensitivityText && sensitivitySlider)
+        //    {
+        //        //sensitivitySlider.enabled = false;
+        //    }
+        //}
     }
     public void OnPlayClick()
     {

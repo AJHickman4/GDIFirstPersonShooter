@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class SetSensitivity : MonoBehaviour
     [SerializeField] string sensitivity = "MouseSensitivity";
     [SerializeField] cameraController controller;
     [SerializeField] Slider slider;
-    [SerializeField] float numScale = 20f;
+    [SerializeField] float numScale = 80f;
 
     private void Awake()
     {
@@ -24,6 +25,8 @@ public class SetSensitivity : MonoBehaviour
             controller.sensitivity = slider.value * numScale;
         else
             slider.interactable = false;
+        if (controller)
+        controller.sensitivity = slider.value * numScale;
     }
 
     private void OnDisable()
