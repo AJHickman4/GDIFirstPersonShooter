@@ -134,6 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8098704328869306811}
+  - component: {fileID: 6678969343142710258}
   m_Layer: 0
   m_Name: Vending Machine
   m_TagString: Untagged
@@ -166,6 +167,22 @@ Transform:
   - {fileID: 241068330270189596}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &6678969343142710258
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4864772525716282234}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 6, y: 1.5, z: 2.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7273493675974205072
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +748,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2345040382123950644, guid: feff17e683fbd77489507439cd0c679b, type: 3}
       propertyPath: offset.y
-      value: 4
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345040382123950644, guid: feff17e683fbd77489507439cd0c679b, type: 3}
+      propertyPath: offset.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2471407658398719785, guid: feff17e683fbd77489507439cd0c679b, type: 3}
       propertyPath: m_LocalPosition.x
