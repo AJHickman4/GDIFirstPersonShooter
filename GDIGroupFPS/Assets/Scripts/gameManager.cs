@@ -95,6 +95,7 @@ public class gameManager : MonoBehaviour
             timerText.gameObject.SetActive(true);
             UpdateTimerUI(currentTime);
         }
+        
         // This code pauses the game and starts the beginning dialogue screen
         statePaused();
         if (menuOptions)
@@ -177,8 +178,8 @@ public class gameManager : MonoBehaviour
         isPaused = !isPaused;
         Time.timeScale = 0;
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-
+        Cursor.lockState = CursorLockMode.None;
+        
 
         EventSystem.current.SetSelectedGameObject(_mainMenuFirst);
 
