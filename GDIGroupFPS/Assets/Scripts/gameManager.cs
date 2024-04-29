@@ -316,12 +316,6 @@ public class gameManager : MonoBehaviour
 
     IEnumerator TeleportPlayerToSpawn()
     {
-
-
-        if (isTeleporting)
-        {
-            yield break;
-        }
         isTeleporting = true;
         playerScript.controller.enabled = false;
         yield return new WaitForSeconds(0.5f);
