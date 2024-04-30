@@ -88,6 +88,7 @@ public class EquipScript : MonoBehaviour
     void EquipObject(GameObject gun)
     {
         FloatEffect floatEffect = gun.GetComponent<FloatEffect>();
+        gameManager.instance.ammoTextShow();
         if (floatEffect != null)
         {
             floatEffect.StopFloating();
@@ -245,6 +246,7 @@ public class EquipScript : MonoBehaviour
     {
         if (guns.Count > 0 && equippedGunIndex >= 0 && equippedGunIndex < guns.Count)
         {
+            gameManager.instance.ammoTextHide();
             GameObject gunToDestroy = guns[equippedGunIndex];
             MeshRenderer renderer = gunToDestroy.GetComponent<MeshRenderer>();
             Collider collider = gunToDestroy.GetComponent<Collider>();

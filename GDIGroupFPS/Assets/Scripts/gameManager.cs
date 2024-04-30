@@ -102,6 +102,7 @@ public class gameManager : MonoBehaviour
             menuOptions.SetActive(true);
         menuActive = startingDialog;
         menuActive.SetActive(isPaused);
+        ammoTextHide();
     }
 
     // Update is called once per frame
@@ -179,7 +180,14 @@ public class gameManager : MonoBehaviour
     public void ShowShieldIcon() => iconShield.SetActive(true);
     public void HideShieldIcon() => iconShield.SetActive(false);
 
-
+    public void ammoTextShow()
+    {
+        bulletCountText.gameObject.SetActive(true);
+    }
+    public void ammoTextHide()
+    {
+        bulletCountText.gameObject.SetActive(false);
+    }
     public void statePaused()
     {
         isPaused = !isPaused;
