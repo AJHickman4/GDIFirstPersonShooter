@@ -142,7 +142,10 @@ public class Weapon : MonoBehaviour
         if (!unlimitedAmmo && UnityEngine.Random.value < ammoReturnChance / 100.0f) 
         {
             currentAmmo++;
-            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            if (isEquipped)
+            {
+                gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            }
         }
 
         if (isReloading || !canShoot) return;
@@ -156,7 +159,10 @@ public class Weapon : MonoBehaviour
         
 
         timeSinceLastShot = 0f;
-        gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        if (isEquipped)
+        {
+            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        }
 
         if (mode == ShootingMode.Auto && !isRecoiling)
         {
@@ -183,7 +189,10 @@ public class Weapon : MonoBehaviour
         if (!unlimitedAmmo && UnityEngine.Random.value < ammoReturnChance / 100.0f) 
         {
             currentAmmo++;
-            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            if (isEquipped)
+            {
+                gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            }
         }
         if (!canShoot || isReloading) yield break;
         readyToShoot = false;
@@ -202,7 +211,10 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(shootingDelay / bulletsPerBurst);
         }
         StartCoroutine(ResetShot(shootingDelay));
-        gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        if (isEquipped)
+        {
+            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        }
     }
 
     IEnumerator FireShotgun()
@@ -214,7 +226,10 @@ public class Weapon : MonoBehaviour
         if (!unlimitedAmmo && UnityEngine.Random.value < ammoReturnChance / 100.0f) 
         {
             currentAmmo++;
-            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            if (isEquipped)
+            {
+                gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            }
         }
         if (!canShoot || isReloading) yield break;
         readyToShoot = false;
@@ -237,7 +252,10 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(shootingDelay / pellets);
         }
         StartCoroutine(ResetShot(shootingDelay));
-        gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        if (isEquipped)
+        {
+            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        }
     }
 
     IEnumerator Reload()
@@ -253,7 +271,10 @@ public class Weapon : MonoBehaviour
             currentAmmo += ammoToLoad;
             totalAmmoReserve -= ammoToLoad;
 
-            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            if (isEquipped)
+            {
+                gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+            }
 
             isReloading = false;
         }
@@ -371,7 +392,10 @@ public class Weapon : MonoBehaviour
                 totalAmmoReserve = potentialNewTotal;
             }
         }
-        gameManager.instance.UpdateAmmoUI(currentWeapon.currentAmmo, currentWeapon.totalAmmoReserve);
+        if (isEquipped)
+        {
+            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        }
         return true; 
     }
 
@@ -416,9 +440,13 @@ public class Weapon : MonoBehaviour
     }
     public void RefillAllAmmo()
     {
-        currentAmmo = maxCurrentAmmo; 
-        totalAmmoReserve += maxTotalAmmoReserve;
-        gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        currentAmmo = maxCurrentAmmo;
+        int ammoToAdd = Math.Min(maxTotalAmmoReserve, maxAmmoReserveLimit - totalAmmoReserve);
+        totalAmmoReserve += ammoToAdd;
+        if (isEquipped)
+        {
+            gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
+        }
     }
 }
 
