@@ -27,7 +27,7 @@ public class DoorOpenClose : MonoBehaviour
         isPlayerAimingAtDoor = isAiming;
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
