@@ -13,6 +13,7 @@ public class SetSensitivity : MonoBehaviour
     [SerializeField] cameraController controller;
     [SerializeField] Slider slider;
     [SerializeField] float numScale = 80f;
+    [SerializeField] bool limited;
 
     private void Awake()
     {
@@ -21,10 +22,10 @@ public class SetSensitivity : MonoBehaviour
 
     private void OnSliderValueChange(float val)
     {
-        if (controller)
-            controller.sensitivity = slider.value * numScale;
-        else
-            slider.interactable = false;
+        //if (controller)
+        //    controller.sensitivity = slider.value * numScale;
+        //else
+        //    slider.interactable = false;
         if (controller)
         controller.sensitivity = slider.value * numScale;
     }
@@ -37,5 +38,10 @@ public class SetSensitivity : MonoBehaviour
     void Start()
     {
         slider.value = PlayerPrefs.GetFloat(sensitivity, slider.value);
+        if (limited)
+        {
+            slider.minValue = .01f;
+            slider.maxValue = 1f;
+        }
     }
 }
