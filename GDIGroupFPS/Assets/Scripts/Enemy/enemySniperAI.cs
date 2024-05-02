@@ -311,7 +311,7 @@ public class enemySniperAI : MonoBehaviour, IDamage
             if (!destinationChosen || agent.remainingDistance < 0.05f)
             {
                 destinationChosen = true;
-
+                aud.PlayOneShot(audRun[Random.Range(0, audRun.Length)], audRunVol);
                 agent.stoppingDistance = 0;
                 yield return new WaitForSeconds(roamPauseTime);
                 Vector3 randomDirection = Random.insideUnitSphere * roamDist;

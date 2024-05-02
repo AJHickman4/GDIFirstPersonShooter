@@ -105,7 +105,7 @@ public class enemyRocketeerAI : MonoBehaviour, IDamage
             destinationChosen = true;
             agent.stoppingDistance = 0;
             yield return new WaitForSeconds(roamPauseTime);
-
+            aud.PlayOneShot(audRun[Random.Range(0, audRun.Length)], audRunVol);
             Vector3 randomPos = Random.insideUnitSphere * roamDist;
             randomPos += startingPos;
 
