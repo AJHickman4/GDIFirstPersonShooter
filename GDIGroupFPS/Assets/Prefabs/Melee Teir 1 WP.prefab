@@ -914,9 +914,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2
-  m_Height: 1.24
+  m_Height: 1.62
   m_Direction: 1
-  m_Center: {x: -0.03553236, y: -0.24, z: 0.0033134008}
+  m_Center: {x: -0.03553236, y: -0.64, z: 0.0033134008}
 --- !u!1 &7056545048151634143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,8 +1152,17 @@ MonoBehaviour:
   dropChancePercentage2: 6
   dropObject3: {fileID: 1870012495010853752, guid: fad1fa5ec9606794a8f8a7478034cd19, type: 3}
   dropChancePercentage3: 5
-  audRun: []
-  audRunVol: 0
+  audRun:
+  - {fileID: 8300000, guid: da23fdb0f3041374592ec9f1f20eb66f, type: 3}
+  - {fileID: 8300000, guid: 8ec1b1680d52fcb409f07242aadf7156, type: 3}
+  - {fileID: 8300000, guid: c047254d8cc6b974aa6233e0a507a437, type: 3}
+  - {fileID: 8300000, guid: 0fc37071de525c1478ffa9ce13cddc09, type: 3}
+  - {fileID: 8300000, guid: ccdae507556b59344be41d39119252ad, type: 3}
+  - {fileID: 8300000, guid: 1fb5dcd8fb16c9e479bd5c611532398a, type: 3}
+  - {fileID: 8300000, guid: 798c88b3ed7d72b4689b592f50602f7b, type: 3}
+  - {fileID: 8300000, guid: 0f33c547b1c764c4c990369d02125b2c, type: 3}
+  - {fileID: 8300000, guid: 8ad9c0975550e2642b8a76f31f02107f, type: 3}
+  audRunVol: 0.5
   audSlashHit:
   - {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
   - {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}

@@ -115,6 +115,7 @@ public class enemyScoutAI : MonoBehaviour, IDamage
     {
         if (agent.remainingDistance < 0.05f && !destinationChosen)
         {
+            aud.PlayOneShot(audRun[Random.Range(0, audRun.Length)], audRunVol);
             destinationChosen = true;
             agent.stoppingDistance = 0;
             yield return new WaitForSeconds(roamPauseTime);

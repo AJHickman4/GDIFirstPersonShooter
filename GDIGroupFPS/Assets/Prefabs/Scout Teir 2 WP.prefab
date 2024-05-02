@@ -112,8 +112,17 @@ MonoBehaviour:
   dropObject3: {fileID: 4805377207207939563, guid: 170ce21b5cf133340b5b1870a5c27bd3, type: 3}
   dropChancePercentage3: 6
   creditGainOnDeath: 10
-  audRun: []
-  audRunVol: 0
+  audRun:
+  - {fileID: 8300000, guid: da23fdb0f3041374592ec9f1f20eb66f, type: 3}
+  - {fileID: 8300000, guid: 8ec1b1680d52fcb409f07242aadf7156, type: 3}
+  - {fileID: 8300000, guid: c047254d8cc6b974aa6233e0a507a437, type: 3}
+  - {fileID: 8300000, guid: 0fc37071de525c1478ffa9ce13cddc09, type: 3}
+  - {fileID: 8300000, guid: ccdae507556b59344be41d39119252ad, type: 3}
+  - {fileID: 8300000, guid: 1fb5dcd8fb16c9e479bd5c611532398a, type: 3}
+  - {fileID: 8300000, guid: 798c88b3ed7d72b4689b592f50602f7b, type: 3}
+  - {fileID: 8300000, guid: 0f33c547b1c764c4c990369d02125b2c, type: 3}
+  - {fileID: 8300000, guid: 8ad9c0975550e2642b8a76f31f02107f, type: 3}
+  audRunVol: 0.5
   audShooting:
   - {fileID: 8300000, guid: d69eb890685b8e84d8baef28044a4562, type: 3}
   audShootingVol: 0.2
