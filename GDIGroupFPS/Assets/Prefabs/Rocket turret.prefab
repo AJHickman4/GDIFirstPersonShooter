@@ -138,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282543725727413268}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.001942018, y: 0.0017555187, z: -0.00000441734, w: 0.9999966}
+  m_LocalRotation: {x: 0.0019460279, y: 0.0017540928, z: -0.000003413525, w: 0.9999966}
   m_LocalPosition: {x: 53.992374, y: 10.43868, z: -327.75342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -255,7 +255,6 @@ MonoBehaviour:
   rocketPrefab: {fileID: 2140399316798333618, guid: 31f7021dfd58f664fadbe9e23740e72f, type: 3}
   rocketSpawnPoints:
   - {fileID: 7783689271025236143}
-  - {fileID: 615068626216326934}
   range: 25
   fireRate: 0.3
   health: 100
