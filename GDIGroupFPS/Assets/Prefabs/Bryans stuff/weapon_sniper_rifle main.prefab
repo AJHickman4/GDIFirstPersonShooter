@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &2420090361618194336
 Transform:
@@ -4905,7 +4905,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!224 &1044625631102831676
 RectTransform:
@@ -5059,7 +5059,7 @@ GameObject:
   m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &2096195451252449448
 Transform:
@@ -5199,13 +5199,14 @@ MonoBehaviour:
   bulletSpawn: {fileID: 0}
   bulletVelocity: 30
   bulletPrefabLife: 3
+  ammoReturnChance: 0
   playerCamera: {fileID: 0}
   pellets: 5
-  Maxammo: 5
+  Maxammo: 15
   currentAmmo: 0
   totalAmmoReserve: 30
   maxAmmoReserveLimit: 60
-  maxCurrentAmmo: 5
+  maxCurrentAmmo: 15
   maxTotalAmmoReserve: 30
   bulletDamage: 50
   isEquipped: 0
@@ -5220,6 +5221,7 @@ MonoBehaviour:
   unlimitedAmmo: 0
   canShoot: 1
   currentWeapon: {fileID: 0}
+  anim: {fileID: 0}
   globalWeaponsStatsManager: {fileID: 0}
   mode: 0
 --- !u!82 &520294700681536824
@@ -5231,7 +5233,7 @@ AudioSource:
   m_GameObject: {fileID: 6977648103289997396}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3647987408662710099, guid: 891441e87798c0946a9bfe5e804bd6d5, type: 2}
   m_audioClip: {fileID: 8300000, guid: 1b766da7cc2d648aa84e36cb5fe8abcb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.475

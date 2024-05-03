@@ -22,7 +22,7 @@ GameObject:
   m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &5778005842513174122
 Transform:
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShooting: 0
   readyToShoot: 1
-  shootingDelay: 0.1
+  shootingDelay: 0.2
   reloadTime: 1.3
   isReloading: 0
   bulletsPerBurst: 1
@@ -114,6 +114,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 0}
   bulletVelocity: 30
   bulletPrefabLife: 3
+  ammoReturnChance: 0
   playerCamera: {fileID: 0}
   pellets: 5
   Maxammo: 30
@@ -122,7 +123,7 @@ MonoBehaviour:
   maxAmmoReserveLimit: 400
   maxCurrentAmmo: 30
   maxTotalAmmoReserve: 150
-  bulletDamage: 10
+  bulletDamage: 14
   isEquipped: 0
   recoilAmount: 30
   recoilTime: 0.1
@@ -135,6 +136,7 @@ MonoBehaviour:
   unlimitedAmmo: 0
   canShoot: 1
   currentWeapon: {fileID: 0}
+  anim: {fileID: 0}
   globalWeaponsStatsManager: {fileID: 0}
   mode: 2
 --- !u!82 &9221089518133350576
@@ -406,7 +408,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &848939813412426106
 Transform:
@@ -5295,7 +5297,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!224 &5411783041157644470
 RectTransform:
