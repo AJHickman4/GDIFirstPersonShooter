@@ -22,6 +22,7 @@ TagManager:
   - door
   - Button
   - Goggles
+  - Shelf
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Ground
   - weapons
   - Gun
-  - 
+  - Shelf
   - 
   - 
   - 

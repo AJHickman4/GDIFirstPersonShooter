@@ -122,6 +122,8 @@ public class playerController : MonoBehaviour, IDamage
 
     public GameObject redkey;
     public GameObject greenkey;
+    public LayerMask Shelf;
+    public GameObject shelve;
 
     // Start is called before the first frame update
     void Start()
@@ -234,7 +236,17 @@ public class playerController : MonoBehaviour, IDamage
             DisableParticleAttraction2();
         }
 
+
+        var ray = new Ray(transform.position, transform.up);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Shelf))
+        {
+            hit.collider.CompareTag("Shelf");
+            Crouch();
+        }
     }
+
+
 
     void movement()
     {
