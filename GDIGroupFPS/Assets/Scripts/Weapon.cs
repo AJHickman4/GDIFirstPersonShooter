@@ -61,10 +61,12 @@ public class Weapon : MonoBehaviour
     public bool canShoot = true;
     public Weapon currentWeapon;
     public Animator anim;
+    public Vector3 originalPosition;
+    public Vector3 loweredPosition;
 
     [SerializeField] private GlobalWeaponsStatsManager globalWeaponsStatsManager;
 
-
+    public Transform gunTransform;
     public enum ShootingMode
     {
         Single,
@@ -75,6 +77,8 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         ApplyGlobalAmmoReserve();
+
+        loweredPosition = new Vector3(originalPosition.x, originalPosition.y +0.15f, originalPosition.z); // Adjust as needed
     }
     
     public ShootingMode mode;
@@ -258,29 +262,60 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    IEnumerator Reload()
+    public IEnumerator Reload()
     {
         if (isReloading) yield break;
+        isReloading = true;
+        canShoot = false;
         int ammoNeeded = Maxammo - currentAmmo;
         if (totalAmmoReserve > 0 && ammoNeeded > 0)
         {
             isReloading = true;
             reload.Play();
+            StartCoroutine(LowerGun());
             yield return new WaitForSeconds(reloadTime);
+            StartCoroutine(RaiseGun());
             int ammoToLoad = Math.Min(ammoNeeded, totalAmmoReserve);
             currentAmmo += ammoToLoad;
             totalAmmoReserve -= ammoToLoad;
-
             if (isEquipped)
             {
                 gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
             }
-
+            readyToShoot = true;
+            canShoot = true;
             isReloading = false;
         }
     }
 
-    void ShootBullet(bool omitSound = false)
+    private IEnumerator LowerGun()
+    {
+        
+        float duration = 0.2f; 
+        float elapsed = 0;
+        while (elapsed < duration)
+        {
+            gunTransform.localPosition = Vector3.Lerp(originalPosition, loweredPosition, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        gunTransform.localPosition = loweredPosition;
+    }
+
+    private IEnumerator RaiseGun()
+    {
+        float duration = 0.2f; 
+        float elapsed = 0;
+        while (elapsed < duration)
+        {
+            gunTransform.localPosition = Vector3.Lerp(loweredPosition, originalPosition, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        gunTransform.localPosition = originalPosition;
+    }
+
+void ShootBullet(bool omitSound = false)
     {
 
         if (gameManager.instance.isPaused)
@@ -341,24 +376,36 @@ public class Weapon : MonoBehaviour
 
         if (continuous)
         {
-            while (Input.GetButton("Shoot") && currentAmmo > 0 && PlayerController.isMeleeReady)
+            while (Input.GetButton("Shoot") && currentAmmo > 0 && PlayerController.isMeleeReady && !isReloading)
             {
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, recoilRotation, recoilTime * Time.deltaTime);
                 yield return null;
+                if (isReloading)
+                {
+                    transform.localRotation = startRotation;
+                    isRecoiling = false;
+                    yield break;
+                }
             }
         }
         else
         {
             float immediateRecoilTime = 0;
-            while (immediateRecoilTime < recoilTime && PlayerController.isMeleeReady)
+            while (immediateRecoilTime < recoilTime && PlayerController.isMeleeReady && !isReloading)
             {
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, recoilRotation, immediateRecoilTime / recoilTime);
                 immediateRecoilTime += Time.deltaTime;
                 yield return null;
+                if (isReloading)
+                {
+                    transform.localRotation = startRotation;
+                    isRecoiling = false;
+                    yield break;
+                }
             }
         }
 
-        if (PlayerController.isMeleeReady)
+        if (PlayerController.isMeleeReady && !isReloading)
         {
             float timeElapsed = 0;
             Quaternion currentRotation = transform.localRotation;
@@ -368,12 +415,17 @@ public class Weapon : MonoBehaviour
                 float fraction = timeElapsed / recoveryTime;
                 transform.localRotation = Quaternion.Slerp(currentRotation, startRotation, fraction);
                 yield return null;
+                if (isReloading)
+                {
+                    transform.localRotation = startRotation;
+                    isRecoiling = false;
+                    yield break;
+                }
             }
         }
         transform.localRotation = startRotation;
         isRecoiling = false;
     }
-    
     public bool AddOneMagIfNeeded()
     {
         if (currentAmmo < Maxammo)
