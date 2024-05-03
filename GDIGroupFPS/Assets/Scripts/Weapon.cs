@@ -264,28 +264,28 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator Reload()
     {
-        if (isReloading) yield break;
+        if (isReloading || totalAmmoReserve <= 0 || currentAmmo == Maxammo)
+            yield break;
         isReloading = true;
-        canShoot = false;
+        canShoot = false; 
         int ammoNeeded = Maxammo - currentAmmo;
-        if (totalAmmoReserve > 0 && ammoNeeded > 0)
+        if (ammoNeeded > 0 && totalAmmoReserve > 0)
         {
-            isReloading = true;
-            reload.Play();
-            StartCoroutine(LowerGun());
+            reload.Play(); 
+            StartCoroutine(LowerGun()); 
             yield return new WaitForSeconds(reloadTime);
-            StartCoroutine(RaiseGun());
+            StartCoroutine(RaiseGun()); 
             int ammoToLoad = Math.Min(ammoNeeded, totalAmmoReserve);
-            currentAmmo += ammoToLoad;
+            currentAmmo += ammoToLoad; 
             totalAmmoReserve -= ammoToLoad;
             if (isEquipped)
             {
                 gameManager.instance.UpdateAmmoUI(currentAmmo, totalAmmoReserve);
             }
-            readyToShoot = true;
-            canShoot = true;
-            isReloading = false;
         }
+        readyToShoot = true;
+        canShoot = true;
+        isReloading = false;
     }
 
     private IEnumerator LowerGun()
