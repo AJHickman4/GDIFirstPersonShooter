@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamage
@@ -122,8 +123,11 @@ public class playerController : MonoBehaviour, IDamage
 
     public GameObject redkey;
     public GameObject greenkey;
-    public LayerMask Shelf;
-    public GameObject shelve;
+
+    public LayerMask layerMask;
+    public float radius;
+    public float maxDist;
+    RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()
@@ -181,11 +185,13 @@ public class playerController : MonoBehaviour, IDamage
         if (Input.GetKeyDown(KeyCode.C))
         {
             Crouch();
+            StartCoroutine(CheckShelf());
         }
         //end crouch
         if (Input.GetKeyUp(KeyCode.C))
         {
             StandUp();
+            StartCoroutine(CheckShelf());
         }
         //if (Input.GetKeyDown(KeyCode.T)) // Press T key to apply test damage
         //{
@@ -236,14 +242,13 @@ public class playerController : MonoBehaviour, IDamage
             DisableParticleAttraction2();
         }
 
+        //if (Physics.SphereCast(transform.position, radius, transform.up, out hit, maxDist, layerMask))
+        //{
+        //    Crouch();
+        //}
 
-        var ray = new Ray(transform.position, transform.up);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Shelf))
-        {
-            hit.collider.CompareTag("Shelf");
-            Crouch();
-        }
+        
+
     }
 
 
@@ -326,11 +331,22 @@ public class playerController : MonoBehaviour, IDamage
     void Crouch()
     {
         controller.height = crouchHeight;
+        
     }
 
     void StandUp()
     {
         controller.height = originalHeight;
+        
+    }
+
+    IEnumerator CheckShelf()
+    {
+        if (Physics.SphereCast(transform.position, radius, transform.up, out hit, maxDist, layerMask))
+        {
+            controller.height = crouchHeight;
+        }
+        yield return null;
     }
 
     public void takeDamage(int amount)
@@ -887,6 +903,10 @@ public class playerController : MonoBehaviour, IDamage
     {
         greenkey.SetActive(false);
     }
+
+   
+
+
 }
 
 
